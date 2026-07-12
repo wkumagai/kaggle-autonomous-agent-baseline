@@ -1,0 +1,35 @@
+/Users/kumacmini/kaggle-autonomous-agent-baseline/.venv/lib/python3.13/site-packages/google/adk/features/_feature_decorator.py:72: UserWarning: [EXPERIMENTAL] feature FeatureName.AGENT_CONFIG is enabled.
+  check_feature_enabled()
+/Users/kumacmini/kaggle-autonomous-agent-baseline/experiments/local_eval/run_local_eval_mbp.py:326: UserWarning: [EXPERIMENTAL] EventsCompactionConfig: This feature is experimental and may change or be removed in future versions without notice. It may introduce breaking changes at any time.
+  events_compaction_config = EventsCompactionConfig(
+Agent error: Unterminated string starting at: line 1 column 31 (char 30)
+Local mode: routing all 29 model aliases to 'qwen35b-a3b-q6' at http://192.168.11.42:9000/v1
+Starting local agent evaluation for kaggle_in_kaggle_train_03 with metric roc_auc...
+╭────────────────────────────── Kaggle-in-Kaggle ──────────────────────────────╮
+│   kaggle_in_kaggle_train_03  ·  roc_auc (↑)  ·  0m 55s  ·  0 tok (ctx: 0 | 0 │
+│ in / 0 out | 0 calls)                                                        │
+│                                                                              │
+│          Tools                          0 / 1000  (1000 left)                │
+│    Submissions                          0 / 30  (30 left)                    │
+│           Cost                          $0.00 / $2.00  ($2.00 left)          │
+│           Time                          0.9m / 55m  (54.1m left)             │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Trace files saved:
+  /Users/kumacmini/kaggle-autonomous-agent-baseline/experiments/local_eval/output_03_rehearsal/trace_kaggle_in_kaggle_train_03.json
+  /Users/kumacmini/kaggle-autonomous-agent-baseline/experiments/local_eval/output_03_rehearsal/trace_kaggle_in_kaggle_train_03.md
+────────────────────────────── EVALUATION RESULTS ──────────────────────────────
+  Problem:          kaggle_in_kaggle_train_03
+  Metric:           roc_auc_score
+  Status:           ✗ agent error
+  Tool calls used:  0
+  Submissions used: 0
+  Wall time:        55.5s
+  Total tokens:     0
+    Input tokens:   0
+    Output tokens:  0
+  LLM calls:        0
+  Total cost:       $0.0000
+  Token budget:     $0.0000 / $2.00 ($2.0000 remaining)
+
+  No submissions were made.
+────────────────────────────────────────────────────────────────────────────────

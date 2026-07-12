@@ -1,0 +1,123 @@
+/Users/kumacmini/kaggle-autonomous-agent-baseline/.venv/lib/python3.13/site-packages/google/adk/features/_feature_decorator.py:72: UserWarning: [EXPERIMENTAL] feature FeatureName.AGENT_CONFIG is enabled.
+  check_feature_enabled()
+/Users/kumacmini/kaggle-autonomous-agent-baseline/experiments/local_eval/run_local_eval_mbp.py:326: UserWarning: [EXPERIMENTAL] EventsCompactionConfig: This feature is experimental and may change or be removed in future versions without notice. It may introduce breaking changes at any time.
+  events_compaction_config = EventsCompactionConfig(
+No pricing found for model 'Qwen3.6-35B-A3B-Q6_K.gguf' — cost will not be tracked
+Local mode: routing all 29 model aliases to 'qwen35b-a3b-q6' at http://192.168.11.42:9000/v1
+Starting local agent evaluation for kaggle_in_kaggle_train_03 with metric roc_auc...
+  [ 306.7s] 📝 write_file (go.py, 205 lines)
+  [ 306.8s]   → write_file: {"status": "ok", "filepath": "go.py", "size": 7282}
+  [ 307.4s] 🔧 run_command python go.py safety
+  [ 309.8s]   → RESULT safety val_auc=0.76548 n_train=3501 n_test=10000 n_cats=6
+  [ 310.3s] 📊 submit_predictions (sub_safety.csv)
+  [ 310.4s]   → sub_1: score=0.780969 (best=0.780969, 29 remaining)
+  [ 311.2s] 💬 Safety submission done: sub_1 with public score 0.780969. Now 
+proceeding to XGBoost.
+  [ 311.2s] 🔧 run_command python go.py xgb
+  [ 314.1s]   → RESULT xgb oof_auc=0.80822 secs=2 folds=5 seeds=3
+  [ 314.7s] 📊 submit_predictions (sub_xgb.csv)
+  [ 314.8s]   → sub_2: score=0.80149 (best=0.80149, 28 remaining)
+  [ 315.7s] 💬 XGBoost done: sub_2 with public score 0.80149, OOF AUC 0.80822. 
+Now CatBoost.
+  [ 315.7s] 🔧 run_command python go.py cat
+  [ 331.5s]   → RESULT cat oof_auc=0.81371 secs=15 folds=5 seeds=3
+  [ 524.5s] 📊 submit_predictions (sub_cat.csv)
+  [ 524.5s]   → sub_3: score=0.807963 (best=0.807963, 27 remaining)
+  [ 525.3s] 💬 CatBoost done: sub_3 with public score 0.807963, OOF AUC 0.81371.
+Now checking time before LightGBM.
+  [ 525.3s] 📋 get_status
+  [ 525.3s]   → 8 tool calls, 3 submissions, time=8.76m / 46.24m left, 
+best=0.807963, tokens=71,877 (69,046 in [62,325 cached] / 2,831 out), cost=$0.00
+  [ 526.1s] 💬 46 minutes remaining — more than 20, so continuing to LightGBM.
+  [ 526.1s] 🔧 run_command python go.py lgb
+  [ 537.5s]   → RESULT lgb oof_auc=0.81006 secs=11 folds=5 seeds=3
+  [ 538.1s] 📊 submit_predictions (sub_lgb.csv)
+  [ 538.1s]   → sub_4: score=0.802465 (best=0.807963, 26 remaining)
+  [ 539.1s] 💬 LightGBM done: sub_4 with public score 0.802465, OOF AUC 0.81006.
+Now running the blend stage.
+  [ 539.1s] 🔧 run_command python go.py blend
+  [ 539.9s]   → CAND sub_blend_top2.csv oof_auc=0.81468
+  [ 540.9s] 💬 Blend done. Top 2 blend has OOF AUC 0.81468, all blend has 
+0.81391. Now submitting both blend files.
+  [ 540.9s] 📊 submit_predictions (sub_blend_all.csv)
+  [ 540.9s]   → sub_5: score=0.806153 (best=0.807963, 25 remaining)
+  [ 541.5s] 📊 submit_predictions (sub_blend_top2.csv)
+  [ 541.5s]   → sub_6: score=0.807223 (best=0.807963, 24 remaining)
+  [ 543.0s] 💬 All 6 submissions done. Now selecting the final two:
+
+- **A (highest public score)**: sub_3 with 0.807963
+- **B (highest OOF AUC)**: sub_blend_top2.cs...
+  [ 543.0s] ✅ select_submission ['sub_3', 'sub_6']
+  [ 543.0s]   → selected: [{'id': 'sub_3', 'public_score': 0.807963}, {'id': 
+'sub_6', 'public_score': 0.807223}]
+  [ 544.5s] ✅ Agent finished: Session complete. I trained a cross-validated 
+ensemble of gradient-boosted models (XGBoost, CatBoost, LightGBM) with 5-fold 
+stratified CV and 3 seeds per family, plus a safety model. The best OOF AUC ...
+╭─────────────────────────────── Latest Detail ────────────────────────────────╮
+│   ✅ Agent Finished                                                          │
+│                                                                              │
+│   Message:                                                                   │
+│     Session complete. I trained a cross-validated ensemble of                │
+│ gradient-boosted models (XGBoost, CatBoost, LightGBM) with 5-fold stratified │
+│ CV and 3 seeds per family, plus a safety model. The best OOF AUC was 0.81468 │
+│ (blend of top 2 models: CatBoost + LightGBM), and the best public            │
+│ leaderboard score was 0.807963 (CatBoost alone, sub_3). I selected sub_3     │
+│ (highest public score) and sub_6 (highest OOF AUC via blend_top2) for final  │
+│ test-set scoring.                                                            │
+╰──────────────────────────────────────────────────────────────────────────────╯
+╭────────────────────────────── Kaggle-in-Kaggle ──────────────────────────────╮
+│   kaggle_in_kaggle_train_03  ·  roc_auc (↑)  ·  9m 04s  ·  145,550 tok (ctx: │
+│ 11,166 | 142,210 in [134,236 cached] / 3,340 out | 15 calls)  ·  Best:       │
+│ 0.8080                                                                       │
+│                                                                              │
+│          Tools                          14 / 1000  (986 left)                │
+│    Submissions ━━━━                     6 / 30  (24 left)                    │
+│           Cost                          $0.00 / $2.00  ($2.00 left)          │
+│           Time ━━━╸                     9.1m / 55m  (45.9m left)             │
+│                                                                              │
+│   Scores:  0.7810    0.8015   [0.8080]✓   0.8025    0.8062    0.8072✓        │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Trace files saved:
+  /Users/kumacmini/kaggle-autonomous-agent-baseline/experiments/local_eval/output_03_rehearsal_v2/trace_kaggle_in_kaggle_train_03.json
+  /Users/kumacmini/kaggle-autonomous-agent-baseline/experiments/local_eval/output_03_rehearsal_v2/trace_kaggle_in_kaggle_train_03.md
+────────────────────────────── EVALUATION RESULTS ──────────────────────────────
+  Problem:          kaggle_in_kaggle_train_03
+  Metric:           roc_auc_score
+  Status:           ✓ completed
+  Tool calls used:  14
+  Submissions used: 6
+  Wall time:        544.5s
+  Total tokens:     145,550
+    Input tokens:   142,210
+    Cached tokens:  134,236
+    Output tokens:  3,340
+  LLM calls:        15
+  Total cost:       $0.0000
+  Token budget:     $0.0000 / $2.00 ($2.0000 remaining)
+  Tool breakdown:
+    get_status: 1
+    run_command: 5
+    select_submission: 1
+    submit_predictions: 6
+    write_file: 1
+
+  Public Leaderboard (shown to agent):
+    sub_1: 0.780969
+    sub_2: 0.801490
+    sub_3: 0.807963 ← selected
+    sub_4: 0.802465
+    sub_5: 0.806153
+    sub_6: 0.807223 ← selected
+  Best public score:  0.807963
+
+  Private Leaderboard (hidden from agent):
+    sub_1: 0.802133
+    sub_2: 0.816584
+    sub_3: 0.821238 ← selected
+    sub_4: 0.818119
+    sub_5: 0.820931
+    sub_6: 0.821822 ← selected
+  Best private score: 0.821822
+
+  ★ FINAL SCORE  (private):  0.821822
+────────────────────────────────────────────────────────────────────────────────

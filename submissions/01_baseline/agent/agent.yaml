@@ -1,0 +1,11 @@
+name: baseline_agent
+model: gemini-3.1-flash-lite
+instruction: !include prompts/system.md
+tools:
+  - write_file
+  - run_command
+  - submit_predictions
+  - get_status
+generate_content_config:
+  temperature: 0.2
+  max_output_tokens: 8192

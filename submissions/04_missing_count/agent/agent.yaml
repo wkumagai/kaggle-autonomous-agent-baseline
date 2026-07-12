@@ -1,0 +1,14 @@
+name: cv_ensemble_v2_agent
+model: gemini-2.5-flash
+instruction: !include prompts/system.md
+tools:
+  - write_file
+  - run_command
+  - submit_predictions
+  - select_submission
+  - get_status
+generate_content_config:
+  temperature: 0.1
+  max_output_tokens: 16384
+  thinking_config:
+    thinking_budget: 1024

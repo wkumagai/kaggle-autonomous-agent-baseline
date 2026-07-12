@@ -3,3 +3,54 @@ static gates: {"illegal_brace_runs": [], "placeholders_used": ["max_budget_usd",
 validate_submission: PASS
 datasets: train_01,train_02,train_03,train_04,train_05,train_06,train_07,train_08,train_09,train_10,train_11,train_12,train_13,train_14,train_15,train_16 | workers=2
 [   23s] done train_01: final_private=0.711057912339377 delta=0.0063 max_stage=9.1s
+[   65s] done train_03: final_private=0.8215401377813024 delta=0.0173 max_stage=21.6s
+[   87s] done train_02: final_private=0.9717098694316436 delta=0.0153 max_stage=38.0s
+[   89s] done train_04: final_private=0.8361113711371138 delta=0.0056 max_stage=9.1s
+[  108s] done train_06: final_private=0.8149066571541831 delta=0.0012 max_stage=6.9s
+[  108s] done train_05: final_private=0.6762634321404162 delta=0.0302 max_stage=8.8s
+[  128s] done train_08: final_private=0.8499307932162141 delta=0.0134 max_stage=6.5s
+[  142s] done train_07: final_private=0.8345370369925829 delta=0.008 max_stage=12.0s
+[  149s] done train_09: final_private=0.6532651343878825 delta=0.0292 max_stage=8.1s
+[  174s] done train_10: final_private=0.8604282592265615 delta=0.0133 max_stage=12.2s
+[  203s] done train_12: final_private=0.7725811778078151 delta=0.0031 max_stage=11.0s
+[  206s] done train_11: final_private=0.8247647032831072 delta=0.0111 max_stage=22.8s
+[  216s] done train_13: final_private=0.6510115640462562 delta=0.0335 max_stage=3.9s
+[  230s] done train_14: final_private=0.8123017785603691 delta=0.0079 max_stage=8.6s
+[  240s] done train_15: final_private=0.8577430346993854 delta=0.0218 max_stage=7.7s
+[  267s] done train_16: final_private=0.906090316320888 delta=0.0132 max_stage=17.3s
+
+dataset   n_train  baseline  final_pv pick_A      pick_B          delta  maxstg   oracle   nevsel blendall
+train_01    14957    0.7048    0.7111 blend_top2  blend_all     +0.0063     9.1   0.7111   0.7111   0.7106
+train_02    14929    0.9564    0.9717 blend_all   xgb           +0.0153    38.0   0.9717   0.9717   0.9717
+train_03     3501    0.8042    0.8215 cat         blend_top2    +0.0173    21.6   0.8215   0.8215   0.8206
+train_04     8775    0.8305    0.8361 blend_all   cat           +0.0056     9.1   0.8361   0.8361   0.8361
+train_05     1060    0.6461    0.6763 blend_top2  blend_all     +0.0302     8.8   0.6765   0.6765   0.6711
+train_06    10803    0.8137    0.8149 blend_all   cat           +0.0012     6.9   0.8149   0.8149   0.8149
+train_07    10417    0.8265    0.8345 blend_all   blend_top2    +0.0080    12.0   0.8345   0.8345   0.8345
+train_08     8173    0.8365    0.8499 cat         blend_top2    +0.0134     6.5   0.8499   0.8499   0.8483
+train_09     1109    0.6241    0.6533 blend_top2  cat           +0.0292     8.1   0.6533   0.6533   0.6520
+train_10    11800    0.8471    0.8604 blend_all   lgb           +0.0133    12.2   0.8604   0.8604   0.8604
+train_11    28879    0.8137    0.8248 blend_all   lgb           +0.0111    22.8   0.8254   0.8248   0.8245
+train_12    49432    0.7695    0.7726 xgb         blend_all     +0.0031    11.0   0.7726   0.7723   0.7726
+train_13      500    0.6175    0.6510 cat         blend_top2    +0.0335     3.9   0.6510   0.6510   0.6488
+train_14    11108    0.8044    0.8123 blend_all   blend_top2    +0.0079     8.6   0.8123   0.8123   0.8123
+train_15      500    0.8359    0.8577 blend_all   blend_top2    +0.0218     7.7   0.8577   0.8577   0.8577
+train_16     1809    0.8929    0.9061 cat         blend_top2    +0.0132    17.3   0.9061   0.9061   0.8972
+
+means over 16 datasets:
+  baseline_hgb      0.7890
+  final_private     0.8034  (hedge selection)
+  oracle            0.8034
+  never_selected    0.8034  (harness top-2-public fallback)
+  blend_all_always  0.8021
+  mean delta        +0.0144 | worst delta +0.0012 | max stage 38.0s
+
+PASS GATES:
+  (a) mean delta >= +0.010 : PASS (+0.0144)
+  (b) worst delta >= -0.005: PASS (+0.0012)
+  (c) max stage <= 100s    : PASS (38.0s)
+  (d) static gates         : PASS
+  (e) validate_submission  : PASS
+  no dataset at 60-min wall-time risk (total*3 <= 40min for all)
+
+OVERALL: ALL GATES PASS — ok to submit

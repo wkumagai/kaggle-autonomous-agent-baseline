@@ -17,11 +17,13 @@
 >
 > `02_early_stopping` は提出せず保留（03 の方が期待効果が大きく、1日1件の枠を優先的に使うため）。作成物は残すが、当面の次回提出対象からは外す。
 >
-> **📋 03の次のキュー:** `03_cv_ensemble` の実LBスコアが確定したら、`submissions/04_missing_count/`（欠損値カウント特徴量を1列追加した1点変更。オフライン実測でクリーンに確認済み・`validate_submission.py`合格済み）を次の実提出候補として検討すること。詳細は下の「オフライン改善ラウンド」参照。
+> **📋 03の次のキュー（ラウンド7で更新）:** `03_cv_ensemble` の実LBスコアが確定したら、**次の実提出候補は `submissions/05_te_ngated/`（n-gated target encoding = 03 ＋「n<1500 の小規模データセットだけに OOF ターゲットエンコーディング列を足す」1点変更。作成済み・`validate_submission.py`合格済み・下記ラウンド7参照）を最優先**とする。理由: オフライン実測で 03 を**パレート優越**する（n≥1500 の12データは 03 とバイト同一＝弱点 train_06 含めゼロリスク、小n の train_13 +0.0095 / train_05 +0.0053 / train_15 +0.0018 を悪化なしで底上げ、平均 +0.0143→+0.0154）。従来キューの `submissions/04_missing_count/`（平均+0.0144）と `freq-encode-cats` はその次の候補に後退。**注意: これらはまだ実LBで較正していないオフライン代理指標なので、03のLBスコアが出てから最終判断すること。**
 >
 > **🔎 探索済み・保留（ラウンド5, 2026-07-12）:** 新しい角度「頻度エンコーディング(freq-encode-cats)」を検証済み。03ベースに対しては弱点train_06を+0.0004→+0.0013へ底上げし全16データで悪化なしのクリーンな改善だが、キュー済みの04_missing_count(train_06 +0.0012)と実質同点かつより複雑なため**不採用**。ただしfreq(値の頻度)とmissing-count(行の欠損数)は直交する情報源なので、**04採用後の土台に対する次の1変更**として再検討する価値あり（＝「新しい角度」として再びゼロから探すのではなく、この案を優先的に検討してよい）。候補=`experiments/bench_03/candidates/freq-encode-cats/`。
 >
 > **🔎 探索済み・保留（ラウンド6, 2026-07-12 16:xx UTC）:** 新しい角度「OOFターゲットエンコーディング(target-encode-oof)」を検証済み。**不採用。** 平均delta +0.0154（03=+0.0143）で数値上は上回るが、その利得はすべて小n(500〜1060)カテゴリ3件(train_13/15/05)に集中する一方、**狙った弱点train_06はむしろ+0.0013→+0.0006と悪化**し、train_01/03/08でも小回帰。採用基準（平均を明確に上回る／弱点を悪化なく改善）をクリーンに満たさない。**知見: TEはn依存で、小n(≲1000)カテゴリで明確に効き(train_13 +0.0095)、中〜大の全カテゴリ(train_06)では僅かに害。** 次の優先角度案＝「n閾値未満のときだけ`__te`列を足すn-gated target encoding」（小nの利得を取り train_06の回帰を避ける）。候補=`experiments/bench_03/candidates/target-encode-oof/`、詳細は下の「ラウンド6」メモ。
+>
+> **✅ 採用候補（ラウンド7, 2026-07-12 ~17-18 UTC）:** ラウンド6で「次の優先角度」に挙げた **n-gated target encoding** を検証し、**採用候補として `submissions/05_te_ngated/` を作成・validate合格**。TEブロック全体を `if len(X) < 1500 and len(cats) > 0:` で囲い、小規模データセットだけに `__te` 列を足す1点変更。クリーンな同条件（workers=2）比較で **03 をパレート優越**: n≥1500 の12データは 03 とバイト同一（弱点 train_06 は +0.0004 のまま＝ラウンド6の非gated版が起こした train_06 回帰を完全に回避）、小n では train_13 +0.0309→+0.0404 / train_05 +0.0337→+0.0390 / train_15 +0.0213→+0.0231 を悪化なしで底上げ、train_09 は不変。平均 +0.0143→+0.0154、悪化データセットゼロ。これがこれまでで最もクリーンな候補（利得は大きく再現性のある小nゲイン由来・下振れ数学的にゼロ）。**本日(2026-07-12 UTC)は 01_baseline で提出枠を使い切っているため未提出。次UTC日はまず 03 を提出（較正）→その後 05_te_ngated を最優先で提出。**
 >
 > **✅ 保留候補の決着（2026-07-12 ラウンド4）:** ラウンド3で「再検証待ち」だった②depth削減(round2_cat_frac_depth_reduction)・③順序列二重エンコード(04b_ordinal_dualencode)は、クリーンな基準で再検証し**両方とも不採用**に決着した（③=no-op、②=弱点train_06に効くが単純なキュー済み04_missing_countに劣る）。「再検証待ち」の候補はもう無い。次回のオフライン round は新しい角度を1つ選ぶこと。
 >
@@ -34,6 +36,7 @@
 | 2026-07-12 | 54591282 | **01_baseline**: `HistGradientBoostingClassifier` を1回だけ学習・提出する最小構成。列のdtype（object=カテゴリ/順序、数値=そのまま）から自動でカテゴリ列を判定するため、データセットごとに列名や種類が変わっても手直し不要。ツールも write_file / run_command / submit_predictions / get_status の4つだけ。 | 0.787 | (ベースライン) |
 | 2026-07-13 予定 | （未提出・保留） | **02_early_stopping**: 分類器の生成だけを `early_stopping=True, max_iter=300` に変更（他は 01 と同一）。作成・検証は完了済みだが、03の方が期待効果が大きいため次回提出は03を優先し、02は保留。 | — | — |
 | 2026-07-13 予定 | （未提出・提出予定） | **03_cv_ensemble**: 交差検証＋XGBoost/LightGBM/CatBoostのアンサンブル＋段階的提出（詳細下記）。オフライン実測で平均AUC+0.0143、MBPローカルLLMでのE2Eリハーサル合格。ユーザー承認済み、次のUTC提出枠で提出予定。 | 採点前 | — |
+| 03提出後 予定 | （未提出・採用候補） | **05_te_ngated**: 03 ＋「n<1500 の小規模データセットだけに OOFターゲットエンコーディング列を足す」1点変更。オフライン実測で 03 をパレート優越（平均+0.0143→+0.0154、n≥1500の12データは03とバイト同一で弱点train_06も不変、小nのtrain_13/05/15を悪化なしで底上げ）。`validate_submission` 合格。03のLB較正後に最優先で提出予定（ラウンド7）。 | オフライン+0.0011 | — |
 
 ## 各回の詳細メモ
 
@@ -121,3 +124,16 @@
 - **本物の知見（次の角度のヒント）:** OOFターゲットエンコーディングは**小n(≲1000)のカテゴリデータで明確に効き（train_13で+0.0095）、逆に中〜大nの全カテゴリ(train_06)では僅かに害**という、n依存の効き方をする。将来の1変更案として「n が閾値未満のときだけ `__te` 列を足す（n-gated target encoding）」を試せば、小nの利得を取りつつ train_06 の回帰を避けられる可能性がある。ゼロから新角度を探すより、この n-gated 版を優先候補として検討してよい。
 - **キュー（不変）:** 次アクション＝①次のUTC日（2026-07-13）に `03_cv_ensemble` を提出（申し送りブロックの手順どおり）→ ②実LBスコアが出たらオフライン代理指標との整合を確認 → ③問題なければ `04_missing_count` を提出。target-encode-oof は「n-gated版で再検討する将来候補」として保留（再検証待ちではない）。
 - 構成: 候補 [experiments/bench_03/candidates/target-encode-oof/](experiments/bench_03/candidates/target-encode-oof/)、サマリ [SUMMARY.txt](experiments/bench_03/candidates/target-encode-oof/SUMMARY.txt)・全ログ [bench_run.log](experiments/bench_03/candidates/target-encode-oof/bench_run.log)
+
+### 2026-07-12（~17-18 UTC）: オフライン改善ラウンド7（n-gated target encoding＝✅採用候補・05_te_ngated作成）
+- **状況:** 実提出枠は本日分（2026-07-12 UTC）を 01_baseline（02:07 UTC）で使い切っており新規提出不可（`kaggle competitions submissions` で確認、当日UTC提出は 01 の1件のみ・COMPLETE 0.787）。現在 2026-07-12 17時台 UTC＝01提出と同じUTC日なので追加提出不可。03_cv_ensemble は次UTC日（2026-07-13）まで提出待ち。よってこの回はオフライン評価のみ。作業ディレクトリ `~/kaggle-autonomous-agent-baseline-auto`、ベンチマーク前に `ps aux | grep benchmark.py` で他プロセス無しを確認、`.venv/bin/python ... --workers 2` で実行。
+- **選んだ角度＝ラウンド6が示した「n-gated target encoding」:** ラウンド6でOOFターゲットエンコーディング（TE）が「小n(≲1000)で明確に効き、中〜大nの全カテゴリ(train_06)では僅かに害」というn依存の効き方をすると判明した。今回はその知見どおり、TEブロック全体を `if len(X) < 1500 and len(cats) > 0:` で囲い、**訓練データが小さい(n<1500)ときだけ `__te` 列を足す**1点変更にした。n≥1500 のデータセットはTEブロックを一切通らず、03 と完全に同じコードパスを走る＝弱点 train_06 への回帰リスクを構造的にゼロにする設計。
+- **絶対厳守ルールの遵守:** 候補作成は `coder` サブエージェントに委譲。書き込みは `experiments/bench_03/candidates/target-encode-oof-ngated/system.md` のみ、ベースは `git show HEAD:submissions/03_cv_ensemble/agent/prompts/system.md`、`submissions/`・`benchmark.py` は読まない/触らない、を明示。`diff <(git show HEAD:...) 候補` で**ゲート付きTEブロックの純挿入1ハンク（75a76,108、`if len(X) < 1500 and len(cats) > 0:` 付き）のみ**を確認（自己diffクリーン）。サブエージェントがベンチマーク完了前に「実行中」で返したため、オーケストレータ側で他プロセス無しを再確認のうえ再実行し `OVERALL:` 行まで待って結果取得（"実行中"を最終結果にしない教訓の遵守）。
+- **クリーンな同条件比較（03ベースラインと候補を両方 workers=2 で実測、CPU競合なし）:**
+  - **改善（小n・ゲート対象のみ）:** train_13(n=500) +0.0309→**+0.0404**（+0.0095）、train_05(n=1060) +0.0337→**+0.0390**（+0.0053）、train_15(n=500) +0.0213→**+0.0231**（+0.0018）。train_09(n=1109) は +0.0289 で不変。
+  - **n≥1500 の12データセットは 03 とバイト同一（delta完全一致）:** train_01/02/03/04/06/07/08/10/11/12/14/16 すべて 03 と同じ数値。**弱点 train_06 は +0.0004 のまま**＝ラウンド6の非gated版が起こした train_06 回帰（+0.0004→非gatedで悪化）を完全に回避。
+  - 平均delta: 03 **+0.0143** → n-gated **+0.0154**（+0.0011）、最悪delta +0.0004（train_06、03と同値）、最大ステージ43.1秒・全ゲートPASS・`validate_submission` PASS。
+- **判断: ✅採用候補。** n-gated TE は 03 を**パレート優越**する（全16データで 03 以上、うち3データで厳密に上、悪化ゼロ）。平均の +0.0011 は**大きく再現性のある小nゲイン由来**（ラウンド6でTEが小nで効くことは確認済み）で、下振れは数学的にゼロ（n≥1500はコードパス不変）。非gated TE（train_06に触れる）や 04_missing_count（+0.0144・拡散的）より明確にクリーン。**シンプルさも維持**（03の構造をそのまま・小nだけに列追加の1変更）。
+- **成果物:** 提出可能な新ディレクトリ `submissions/05_te_ngated/agent/` を作成（既存の提出物は一切変更せず）。`agent.yaml` は 03 のコピーで `name: cv_ensemble_te_ngated_agent` のみ変更、`system.md` は候補と同一。`validate_submission.py` 合格（ADKコンパイルOK・tools=5）。
+- **キュー更新:** 次UTC日（2026-07-13）はまず **03_cv_ensemble を提出（実LB較正）** → その後 **05_te_ngated を最優先で提出**（従来の 04_missing_count・freq-encode-cats はその次に後退）。ただしオフライン代理指標は未較正なので、03のLBスコアが出てから最終判断する。
+- 構成: 候補 [experiments/bench_03/candidates/target-encode-oof-ngated/](experiments/bench_03/candidates/target-encode-oof-ngated/)、サマリ [SUMMARY.txt](experiments/bench_03/candidates/target-encode-oof-ngated/SUMMARY.txt)、提出物 [submissions/05_te_ngated/](submissions/05_te_ngated/)

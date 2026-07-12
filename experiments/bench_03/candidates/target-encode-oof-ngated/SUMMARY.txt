@@ -1,0 +1,53 @@
+ROUND 7 (2026-07-12 ~17-18 UTC): n-gated OOF target encoding — ADOPTION CANDIDATE
+
+Idea: The ungated target-encoding candidate (candidates/target-encode-oof/) raised the
+mean but its gains concentrated in small-n datasets while adding regression risk on the
+weak all-categorical dataset train_06 (n=10803). Fix: apply the __te columns ONLY when the
+training set is small — gate the whole TE block behind `if len(X) < 1500 and len(cats) > 0:`.
+Every dataset with n>=1500 then runs the exact 03_cv_ensemble code path (zero change).
+
+Only intended change vs 03 base (git show HEAD:submissions/03_cv_ensemble/.../system.md):
+the gated TE block. Self-diff verified clean (75a76,108). validate_submission: PASS.
+
+CLEAN apples-to-apples comparison (both runs workers=2, same machine, no CPU contention):
+
+  dataset   n_train   03 delta   n-gated delta   change     gated?
+  train_13     500     +0.0309     +0.0404       +0.0095    YES (n<1500)
+  train_05    1060     +0.0337     +0.0390       +0.0053    YES
+  train_15     500     +0.0213     +0.0231       +0.0018    YES
+  train_09    1109     +0.0289     +0.0289       +0.0000    YES
+  train_01   14957     +0.0055     +0.0055        0.0000    no (identical)
+  train_02   14929     +0.0152     +0.0152        0.0000    no
+  train_03    3501     +0.0176     +0.0176        0.0000    no
+  train_04    8775     +0.0057     +0.0057        0.0000    no
+  train_06   10803     +0.0004     +0.0004        0.0000    no  <-- weak point UNCHANGED
+  train_07   10417     +0.0077     +0.0077        0.0000    no
+  train_08    8173     +0.0133     +0.0133        0.0000    no
+  train_10   11800     +0.0140     +0.0140        0.0000    no
+  train_11   28879     +0.0122     +0.0122        0.0000    no
+  train_12   49432     +0.0031     +0.0031        0.0000    no
+  train_14   11108     +0.0081     +0.0081        0.0000    no
+  train_16    1809     +0.0119     +0.0119        0.0000    no
+
+means over 16 datasets:
+  03_cv_ensemble    mean delta +0.0143 | worst +0.0004 (train_06) | max stage 39.8s
+  n-gated TE        mean delta +0.0154 | worst +0.0004 (train_06) | max stage 43.1s
+
+PASS GATES (n-gated TE):
+  (a) mean delta >= +0.010 : PASS (+0.0154)
+  (b) worst delta >= -0.005: PASS (+0.0004)
+  (c) max stage <= 100s    : PASS (43.1s)
+  (d) static gates         : PASS
+  (e) validate_submission  : PASS
+
+VERDICT: ADOPTION CANDIDATE. n-gated TE Pareto-dominates 03:
+  - 12 datasets with n>=1500 are BYTE-IDENTICAL to 03 (code path unchanged => zero risk),
+    including the weak train_06 which stays at +0.0004 (no TE regression, unlike ungated TE).
+  - 3 of 4 small-n datasets improve (train_13 +0.0095, train_05 +0.0053, train_15 +0.0018),
+    none regress. These are large, reproducible small-n TE gains (confirmed round 6).
+  - Mean +0.0011 over 03, driven entirely by real small-n gains with mathematically zero
+    downside. Cleaner than ungated TE (+0.0154 but touched train_06) and 04_missing_count
+    (+0.0144, diffuse). Single-change / keeps 03's structure everywhere else.
+
+Shipped to submissions/05_te_ngated/agent/ (new dir; 03 untouched). Queued as the preferred
+post-03 candidate, ahead of 04_missing_count, to submit AFTER 03's real LB score is known.

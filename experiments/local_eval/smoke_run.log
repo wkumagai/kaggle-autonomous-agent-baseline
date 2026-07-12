@@ -1,0 +1,113 @@
+/Users/kumacmini/kaggle-autonomous-agent-baseline/.venv/lib/python3.13/site-packages/google/adk/features/_feature_decorator.py:72: UserWarning: [EXPERIMENTAL] feature FeatureName.AGENT_CONFIG is enabled.
+  check_feature_enabled()
+/Users/kumacmini/kaggle-autonomous-agent-baseline/experiments/local_eval/run_local_eval_mbp.py:326: UserWarning: [EXPERIMENTAL] EventsCompactionConfig: This feature is experimental and may change or be removed in future versions without notice. It may introduce breaking changes at any time.
+  events_compaction_config = EventsCompactionConfig(
+No pricing found for model 'Qwen3.6-35B-A3B-Q6_K.gguf' — cost will not be tracked
+Local mode: routing all 29 model aliases to 'qwen35b-a3b-q6' at http://192.168.11.42:9000/v1
+Starting local agent evaluation for kaggle_in_kaggle_train_03 with metric roc_auc...
+  [   3.8s] 💬 I'll start by examining the data structure, then write and run a 
+simple baseline script.
+  [   3.8s] 🔧 run_command head -3 train.csv && echo "---" && head -3 test.csv 
+&& echo "---" && head -3 sam
+  [   3.9s]   → 
+row_id,feature_0,feature_1,feature_2,feature_3,feature_4,feature_5,feature_6,fea
+ture_7,feature_8,feature_9,feature_10,fe
+  [   6.6s] 💬 Good — I can see the structure. Now I'll write the baseline 
+script and run it.
+  [   6.6s] 📝 write_file (train.py, 22 lines)
+  [   6.6s]   → write_file: {"status": "ok", "filepath": "train.py", "size": 
+634}
+  [   7.2s] 🔧 run_command python train.py
+  [   8.3s]   → error (exit ?): 
+  [  12.6s] 💬 The issue is that `categorical_features=cat_mask` expects a numpy
+array, but pandas Series with object dtype isn't being handled correctly. I need
+to ...
+  [  12.6s] 📝 write_file (train.py, 33 lines)
+  [  12.7s]   → write_file: {"status": "ok", "filepath": "train.py", "size": 
+1067}
+  [  13.2s] 🔧 run_command python train.py
+  [  14.1s]   → error (exit ?): 
+  [  17.0s] 💬 The issue is that `cat.codes` still leaves `-1` for NaN values, 
+and the dtype might still be object. Let me debug and fix this properly.
+  [  17.0s] 🔧 run_command (13 lines) python3 -c "
+  [  17.2s]   → Cat cols: []
+  [  21.2s] 💬 The categorical columns have dtype `str` (not `object`). That's 
+why `dtype == object` doesn't catch them. Let me fix the script to handle both 
+`object...
+  [  21.2s] 📝 write_file (train.py, 32 lines)
+  [  21.3s]   → write_file: {"status": "ok", "filepath": "train.py", "size": 
+1085}
+  [  21.7s] 🔧 run_command python train.py
+  [  27.2s]   → Saved 10000 predictions
+  [  27.7s] 💬 Script ran successfully. Now let me submit and confirm.
+  [  27.7s] 📊 submit_predictions (submission.csv)
+  [  27.8s]   → sub_1: score=0.785126 (best=0.785126, 29 remaining)
+  [  28.1s] 📋 get_status
+  [  28.1s]   → 10 tool calls, 1 submissions, time=0.47m / 24.53m left, 
+best=0.785126, tokens=51,659 (50,204 in [44,558 cached] / 1,455 out), cost=$0.00
+  [  29.4s] ✅ Agent finished: **Baseline submission complete.**
+
+- **Score:** 0.7851 roc_auc_score
+- **Submission:** 1 of 30 used
+- **Budget:** $2.00 remaining, 24.5 minutes remaining
+
+The baseline used `HistGradientBoostingClassi...
+╭─────────────────────────────── Latest Detail ────────────────────────────────╮
+│   ✅ Agent Finished                                                          │
+│                                                                              │
+│   Message:                                                                   │
+│     **Baseline submission complete.**                                        │
+│                                                                              │
+│     - **Score:** 0.7851 roc_auc_score                                        │
+│     - **Submission:** 1 of 30 used                                           │
+│     - **Budget:** $2.00 remaining, 24.5 minutes remaining                    │
+│                                                                              │
+│     The baseline used `HistGradientBoostingClassifier` with proper handling  │
+│ of `str`-typed categorical columns (encoding them as integer category        │
+│ codes). The model natively handles missing values, so no imputation was      │
+│ needed.                                                                      │
+╰──────────────────────────────────────────────────────────────────────────────╯
+╭────────────────────────────── Kaggle-in-Kaggle ──────────────────────────────╮
+│   kaggle_in_kaggle_train_03  ·  roc_auc (↑)  ·  0m 29s  ·  59,102 tok (ctx:  │
+│ 7,346 | 57,550 in [51,649 cached] / 1,552 out | 11 calls)  ·  Best: 0.7851   │
+│                                                                              │
+│          Tools                          10 / 1000  (990 left)                │
+│    Submissions ╸                        1 / 30  (29 left)                    │
+│           Cost                          $0.00 / $2.00  ($2.00 left)          │
+│           Time                          0.5m / 25m  (24.5m left)             │
+│                                                                              │
+│   Scores: [0.7851]*                                                          │
+╰──────────────────────────────────────────────────────────────────────────────╯
+Trace files saved:
+  /Users/kumacmini/kaggle-autonomous-agent-baseline/experiments/local_eval/output_smoke/trace_kaggle_in_kaggle_train_03.json
+  /Users/kumacmini/kaggle-autonomous-agent-baseline/experiments/local_eval/output_smoke/trace_kaggle_in_kaggle_train_03.md
+────────────────────────────── EVALUATION RESULTS ──────────────────────────────
+  Problem:          kaggle_in_kaggle_train_03
+  Metric:           roc_auc_score
+  Status:           ✓ completed
+  Tool calls used:  10
+  Submissions used: 1
+  Wall time:        29.4s
+  Total tokens:     59,102
+    Input tokens:   57,550
+    Cached tokens:  51,649
+    Output tokens:  1,552
+  LLM calls:        11
+  Total cost:       $0.0000
+  Token budget:     $0.0000 / $2.00 ($2.0000 remaining)
+  Tool breakdown:
+    get_status: 1
+    run_command: 5
+    submit_predictions: 1
+    write_file: 3
+
+  Public Leaderboard (shown to agent):
+    sub_1: 0.785126 ← auto-selected
+  Best public score:  0.785126
+
+  Private Leaderboard (hidden from agent):
+    sub_1: 0.794790 ← auto-selected
+  Best private score: 0.794790
+
+  ★ FINAL SCORE  (private):  0.794790
+────────────────────────────────────────────────────────────────────────────────

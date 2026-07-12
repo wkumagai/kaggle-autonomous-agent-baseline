@@ -1,0 +1,35 @@
+dataset   n_train  baseline  final_pv pick_A      pick_B          delta  maxstg   oracle   nevsel blendall
+train_01    14957    0.7048    0.7107 blend_top2  blend_all     +0.0059    10.9   0.7107   0.7107   0.7101
+train_02    14929    0.9564    0.9717 blend_all   xgb           +0.0153    35.6   0.9717   0.9717   0.9717
+train_03     3501    0.8042    0.8214 cat         blend_top2    +0.0172    22.9   0.8214   0.8214   0.8205
+train_04     8775    0.8305    0.8362 blend_top2  blend_all     +0.0057     7.6   0.8362   0.8362   0.8362
+train_05     1060    0.6461    0.6851 cat         blend_top2    +0.0390     7.4   0.6851   0.6851   0.6779
+train_06    10803    0.8137    0.8143 blend_top2  blend_all     +0.0006     7.1   0.8145   0.8143   0.8143
+train_07    10417    0.8265    0.8351 blend_all   blend_top2    +0.0086    14.4   0.8351   0.8351   0.8351
+train_08     8173    0.8365    0.8497 cat         blend_top2    +0.0132     8.3   0.8497   0.8497   0.8476
+train_09     1109    0.6241    0.6530 blend_top2  blend_all     +0.0289     8.5   0.6530   0.6530   0.6518
+train_10    11800    0.8471    0.8611 blend_all   lgb           +0.0140    12.4   0.8611   0.8611   0.8611
+train_11    28879    0.8137    0.8259 blend_all   blend_top2    +0.0122    23.9   0.8264   0.8259   0.8250
+train_12    49432    0.7695    0.7726 blend_top2  blend_all     +0.0031    11.4   0.7726   0.7722   0.7726
+train_13      500    0.6175    0.6579 cat         blend_top2    +0.0404     5.1   0.6579   0.6579   0.6551
+train_14    11108    0.8044    0.8124 blend_all   blend_top2    +0.0080    12.4   0.8124   0.8124   0.8124
+train_15      500    0.8359    0.8590 blend_all   cat           +0.0231     7.5   0.8590   0.8590   0.8590
+train_16     1809    0.8929    0.9048 cat         blend_top2    +0.0119    13.8   0.9048   0.9048   0.8975
+
+means over 16 datasets:
+  baseline_hgb      0.7890
+  final_private     0.8044  (hedge selection)
+  oracle            0.8045
+  never_selected    0.8044  (harness top-2-public fallback)
+  blend_all_always  0.8030
+  mean delta        +0.0154 | worst delta +0.0006 | max stage 35.6s
+
+PASS GATES:
+  (a) mean delta >= +0.010 : PASS (+0.0154)
+  (b) worst delta >= -0.005: PASS (+0.0006)
+  (c) max stage <= 100s    : PASS (35.6s)
+  (d) static gates         : PASS
+  (e) validate_submission  : PASS
+  no dataset at 60-min wall-time risk (total*3 <= 40min for all)
+
+OVERALL: ALL GATES PASS — ok to submit

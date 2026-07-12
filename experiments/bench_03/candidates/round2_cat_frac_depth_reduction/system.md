@@ -140,26 +140,20 @@ def stage_safety():
     print("RESULT safety val_auc=%.5f n_train=%d n_test=%d n_cats=%d" % (auc, len(X), len(Xt), len(cats)))
 
 
-REG_L2 = 2.0
-
-
 def fit_fam(fam, seed, iters, Xa, ya, Xb, yb, cats, cat_frac):
     deep = cat_frac < 0.7
     if fam == "lgb":
         import lightgbm as lgbm
-        leaves = 31 if deep else 15
-        m = lgbm.LGBMClassifier(n_estimators=iters, learning_rate=0.05, num_leaves=leaves, subsample=0.9, subsample_freq=1, colsample_bytree=0.9, reg_lambda=REG_L2, random_state=seed, verbose=-1)
+        m = lgbm.LGBMClassifier(n_estimators=iters, learning_rate=0.05, num_leaves=31 if deep else 15, subsample=0.9, subsample_freq=1, colsample_bytree=0.9, random_state=seed, verbose=-1)
         m.fit(Xa, ya, eval_set=[(Xb, yb)], eval_metric="auc", callbacks=[lgbm.early_stopping(50, verbose=False)])
         return m
     if fam == "xgb":
         import xgboost as xgbm
-        depth = 6 if deep else 4
-        m = xgbm.XGBClassifier(n_estimators=iters, learning_rate=0.05, max_depth=depth, subsample=0.9, colsample_bytree=0.9, reg_lambda=REG_L2, tree_method="hist", enable_categorical=True, eval_metric="auc", early_stopping_rounds=50, random_state=seed, verbosity=0, n_jobs=4)
+        m = xgbm.XGBClassifier(n_estimators=iters, learning_rate=0.05, max_depth=6 if deep else 4, subsample=0.9, colsample_bytree=0.9, tree_method="hist", enable_categorical=True, eval_metric="auc", early_stopping_rounds=50, random_state=seed, verbosity=0, n_jobs=4)
         m.fit(Xa, ya, eval_set=[(Xb, yb)], verbose=False)
         return m
     from catboost import CatBoostClassifier
-    depth = 6 if deep else 4
-    m = CatBoostClassifier(iterations=iters, learning_rate=0.05, depth=depth, l2_leaf_reg=REG_L2, eval_metric="AUC", cat_features=cats, early_stopping_rounds=50, random_seed=seed, verbose=0, allow_writing_files=False, thread_count=4)
+    m = CatBoostClassifier(iterations=iters, learning_rate=0.05, depth=6 if deep else 4, eval_metric="AUC", cat_features=cats, early_stopping_rounds=50, random_seed=seed, verbose=0, allow_writing_files=False, thread_count=4)
     m.fit(Xa, ya, eval_set=(Xb, yb))
     return m
 

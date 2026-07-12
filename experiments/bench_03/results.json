@@ -15,21 +15,21 @@
   "braces_in_script": 0,
   "script_unchanged_after_injection": true,
   "ast_parse_ok": true,
-  "instruction_chars": 13684,
+  "instruction_chars": 13621,
   "pass": true
  },
  "validate_submission": {
   "pass": true,
-  "output": "\n=== Pre-flight Validation: submissions/03_cv_ensemble/agent ===\n\n[Check 1] Found agent.yaml at /Users/kumacmini/kaggle-autonomous-agent-baseline/submissions/03_cv_ensemble/agent/agent.yaml\n[Check 2] YAML syntax and !include prompt files are valid.\n[Check 3] Required top-level keys present for LlmAgent (Name: cv_ensemble_agent).\n[Check 4] All requested models are fully valid and permitted in models.yaml.\n[Check 5] Performing dry-run compilation of ADK agent...\n[Success] Agent 'cv_ensemble_agent' compiled successfully with 5 tools.\n\n>>> VALIDATION SUCCESSFUL: Submission is ready for Kaggle upload! <<<\n\n"
+  "output": "\n=== Pre-flight Validation: submissions/03_cv_ensemble/agent ===\n\n[Check 1] Found agent.yaml at /Users/kumacmini/kaggle-autonomous-agent-baseline-auto/submissions/03_cv_ensemble/agent/agent.yaml\n[Check 2] YAML syntax and !include prompt files are valid.\n[Check 3] Required top-level keys present for LlmAgent (Name: cv_ensemble_agent).\n[Check 4] All requested models are fully valid and permitted in models.yaml.\n[Check 5] Performing dry-run compilation of ADK agent...\n[Success] Agent 'cv_ensemble_agent' compiled successfully with 5 tools.\n\n>>> VALIDATION SUCCESSFUL: Submission is ready for Kaggle upload! <<<\n\n"
  },
- "go_python": "/Users/kumacmini/kaggle-autonomous-agent-baseline/experiments/bench_03/gbm_venv/bin/python",
+ "go_python": "/Users/kumacmini/kaggle-autonomous-agent-baseline-auto/experiments/bench_03/gbm_venv/bin/python",
  "go_env_pandas": "3.0.3",
  "datasets": {
   "train_01": {
    "dataset": "train_01",
    "stages": {
     "safety": {
-     "secs": 6.7,
+     "secs": 4.2,
      "ok": true,
      "returncode": 0,
      "stdout_head": "RESULT safety val_auc=0.69678 n_train=14957 n_test=10000 n_cats=4\n",
@@ -42,46 +42,46 @@
      }
     },
     "xgb": {
-     "secs": 4.4,
+     "secs": 3.0,
      "ok": true,
      "returncode": 0,
-     "stdout_head": "RESULT xgb oof_auc=0.71098 secs=3 folds=5 seeds=1\n",
+     "stdout_head": "RESULT xgb oof_auc=0.71098 secs=2 folds=5 seeds=1\n",
      "result": {
       "stage": "xgb",
       "oof_auc": 0.71098,
-      "secs": 3.0,
+      "secs": 2.0,
       "folds": 5.0,
       "seeds": 1.0
      }
     },
     "cat": {
-     "secs": 30.6,
+     "secs": 11.8,
      "ok": true,
      "returncode": 0,
-     "stdout_head": "RESULT cat oof_auc=0.71241 secs=29 folds=5 seeds=1\n",
+     "stdout_head": "RESULT cat oof_auc=0.71241 secs=10 folds=5 seeds=1\n",
      "result": {
       "stage": "cat",
       "oof_auc": 0.71241,
-      "secs": 29.0,
-      "folds": 5.0,
-      "seeds": 1.0
-     }
-    },
-    "lgb": {
-     "secs": 11.4,
-     "ok": true,
-     "returncode": 0,
-     "stdout_head": "RESULT lgb oof_auc=0.71174 secs=10 folds=5 seeds=1\n",
-     "result": {
-      "stage": "lgb",
-      "oof_auc": 0.71174,
       "secs": 10.0,
       "folds": 5.0,
       "seeds": 1.0
      }
     },
+    "lgb": {
+     "secs": 6.4,
+     "ok": true,
+     "returncode": 0,
+     "stdout_head": "RESULT lgb oof_auc=0.71174 secs=5 folds=5 seeds=1\n",
+     "result": {
+      "stage": "lgb",
+      "oof_auc": 0.71174,
+      "secs": 5.0,
+      "folds": 5.0,
+      "seeds": 1.0
+     }
+    },
     "blend": {
-     "secs": 1.5,
+     "secs": 1.3,
      "ok": true,
      "returncode": 0,
      "stdout_head": "CAND sub_blend_all.csv oof_auc=0.71385\nCAND sub_blend_top2.csv oof_auc=0.71374\nCAND sub_cat.csv oof_auc=0.71241\nCAND sub_lgb.csv oof_auc=0.71174\nCAND sub_xgb.csv oof_auc=0.71098\n",
@@ -149,7 +149,7 @@
    "dataset": "train_03",
    "stages": {
     "safety": {
-     "secs": 7.2,
+     "secs": 3.8,
      "ok": true,
      "returncode": 0,
      "stdout_head": "RESULT safety val_auc=0.76548 n_train=3501 n_test=10000 n_cats=6\n",
@@ -162,46 +162,46 @@
      }
     },
     "xgb": {
-     "secs": 14.6,
+     "secs": 5.3,
      "ok": true,
      "returncode": 0,
-     "stdout_head": "RESULT xgb oof_auc=0.80667 secs=13 folds=5 seeds=3\n",
+     "stdout_head": "RESULT xgb oof_auc=0.80667 secs=4 folds=5 seeds=3\n",
      "result": {
       "stage": "xgb",
       "oof_auc": 0.80667,
-      "secs": 13.0,
+      "secs": 4.0,
       "folds": 5.0,
       "seeds": 3.0
      }
     },
     "cat": {
-     "secs": 25.4,
+     "secs": 13.5,
      "ok": true,
      "returncode": 0,
-     "stdout_head": "RESULT cat oof_auc=0.81371 secs=24 folds=5 seeds=3\n",
+     "stdout_head": "RESULT cat oof_auc=0.81371 secs=12 folds=5 seeds=3\n",
      "result": {
       "stage": "cat",
       "oof_auc": 0.81371,
-      "secs": 24.0,
+      "secs": 12.0,
       "folds": 5.0,
       "seeds": 3.0
      }
     },
     "lgb": {
-     "secs": 67.8,
+     "secs": 24.0,
      "ok": true,
      "returncode": 0,
-     "stdout_head": "RESULT lgb oof_auc=0.81006 secs=66 folds=5 seeds=3\n",
+     "stdout_head": "RESULT lgb oof_auc=0.81006 secs=22 folds=5 seeds=3\n",
      "result": {
       "stage": "lgb",
       "oof_auc": 0.81006,
-      "secs": 66.0,
+      "secs": 22.0,
       "folds": 5.0,
       "seeds": 3.0
      }
     },
     "blend": {
-     "secs": 1.8,
+     "secs": 1.5,
      "ok": true,
      "returncode": 0,
      "stdout_head": "CAND sub_blend_top2.csv oof_auc=0.81468\nCAND sub_cat.csv oof_auc=0.81371\nCAND sub_blend_all.csv oof_auc=0.81344\nCAND sub_lgb.csv oof_auc=0.81006\nCAND sub_xgb.csv oof_auc=0.80667\n",
@@ -265,11 +265,131 @@
    },
    "baseline_hgb_auc_private": 0.8042
   },
+  "train_02": {
+   "dataset": "train_02",
+   "stages": {
+    "safety": {
+     "secs": 4.5,
+     "ok": true,
+     "returncode": 0,
+     "stdout_head": "RESULT safety val_auc=0.96116 n_train=14929 n_test=10000 n_cats=1\n",
+     "result": {
+      "stage": "safety",
+      "val_auc": 0.96116,
+      "n_train": 14929.0,
+      "n_test": 10000.0,
+      "n_cats": 1.0
+     }
+    },
+    "xgb": {
+     "secs": 16.0,
+     "ok": true,
+     "returncode": 0,
+     "stdout_head": "RESULT xgb oof_auc=0.96771 secs=15 folds=5 seeds=1\n",
+     "result": {
+      "stage": "xgb",
+      "oof_auc": 0.96771,
+      "secs": 15.0,
+      "folds": 5.0,
+      "seeds": 1.0
+     }
+    },
+    "cat": {
+     "secs": 32.8,
+     "ok": true,
+     "returncode": 0,
+     "stdout_head": "RESULT cat oof_auc=0.96713 secs=31 folds=5 seeds=1\n",
+     "result": {
+      "stage": "cat",
+      "oof_auc": 0.96713,
+      "secs": 31.0,
+      "folds": 5.0,
+      "seeds": 1.0
+     }
+    },
+    "lgb": {
+     "secs": 41.4,
+     "ok": true,
+     "returncode": 0,
+     "stdout_head": "RESULT lgb oof_auc=0.96796 secs=40 folds=5 seeds=1\n",
+     "result": {
+      "stage": "lgb",
+      "oof_auc": 0.96796,
+      "secs": 40.0,
+      "folds": 5.0,
+      "seeds": 1.0
+     }
+    },
+    "blend": {
+     "secs": 1.5,
+     "ok": true,
+     "returncode": 0,
+     "stdout_head": "CAND sub_blend_all.csv oof_auc=0.97033\nCAND sub_blend_top2.csv oof_auc=0.96872\nCAND sub_lgb.csv oof_auc=0.96796\nCAND sub_xgb.csv oof_auc=0.96771\nCAND sub_cat.csv oof_auc=0.96713\n",
+     "cands": {
+      "sub_blend_all.csv": 0.97033,
+      "sub_blend_top2.csv": 0.96872,
+      "sub_lgb.csv": 0.96796,
+      "sub_xgb.csv": 0.96771,
+      "sub_cat.csv": 0.96713
+     }
+    }
+   },
+   "candidates": {
+    "safety": {
+     "file": "sub_safety.csv",
+     "oof": null,
+     "public": 0.9618527210866938,
+     "private": 0.9615689004096262
+    },
+    "xgb": {
+     "file": "sub_xgb.csv",
+     "oof": 0.96771,
+     "public": 0.9719699141868229,
+     "private": 0.9703739439324115
+    },
+    "cat": {
+     "file": "sub_cat.csv",
+     "oof": 0.96713,
+     "public": 0.9705895623835172,
+     "private": 0.9692797939068101
+    },
+    "lgb": {
+     "file": "sub_lgb.csv",
+     "oof": 0.96796,
+     "public": 0.9714190214942553,
+     "private": 0.9700422427035329
+    },
+    "blend_all": {
+     "file": "sub_blend_all.csv",
+     "oof": 0.97033,
+     "public": 0.9730279385637045,
+     "private": 0.971637224782386
+    },
+    "blend_top2": {
+     "file": "sub_blend_top2.csv",
+     "oof": 0.96872,
+     "public": 0.9719718342310606,
+     "private": 0.9704601094470046
+    }
+   },
+   "status": "ok",
+   "error": "",
+   "n_train": 14929,
+   "selection": {
+    "selected_A": "blend_all",
+    "selected_B": "blend_top2",
+    "final_private": 0.971637224782386,
+    "oracle": 0.971637224782386,
+    "never_selected": 0.971637224782386,
+    "blend_all_always": 0.971637224782386
+   },
+   "baseline_hgb_auc_private": 0.9564
+  },
   "train_04": {
    "dataset": "train_04",
    "stages": {
     "safety": {
-     "secs": 9.0,
+     "secs": 4.4,
      "ok": true,
      "returncode": 0,
      "stdout_head": "RESULT safety val_auc=0.82262 n_train=8775 n_test=10000 n_cats=0\n",
@@ -282,40 +402,40 @@
      }
     },
     "xgb": {
-     "secs": 9.6,
+     "secs": 4.4,
      "ok": true,
      "returncode": 0,
-     "stdout_head": "RESULT xgb oof_auc=0.82701 secs=8 folds=5 seeds=1\n",
+     "stdout_head": "RESULT xgb oof_auc=0.82701 secs=3 folds=5 seeds=1\n",
      "result": {
       "stage": "xgb",
       "oof_auc": 0.82701,
-      "secs": 8.0,
+      "secs": 3.0,
       "folds": 5.0,
       "seeds": 1.0
      }
     },
     "cat": {
-     "secs": 8.7,
+     "secs": 5.1,
      "ok": true,
      "returncode": 0,
-     "stdout_head": "RESULT cat oof_auc=0.82755 secs=7 folds=5 seeds=1\n",
+     "stdout_head": "RESULT cat oof_auc=0.82755 secs=4 folds=5 seeds=1\n",
      "result": {
       "stage": "cat",
       "oof_auc": 0.82755,
-      "secs": 7.0,
+      "secs": 4.0,
       "folds": 5.0,
       "seeds": 1.0
      }
     },
     "lgb": {
-     "secs": 18.8,
+     "secs": 8.8,
      "ok": true,
      "returncode": 0,
-     "stdout_head": "RESULT lgb oof_auc=0.82963 secs=17 folds=5 seeds=1\n",
+     "stdout_head": "RESULT lgb oof_auc=0.82963 secs=7 folds=5 seeds=1\n",
      "result": {
       "stage": "lgb",
       "oof_auc": 0.82963,
-      "secs": 17.0,
+      "secs": 7.0,
       "folds": 5.0,
       "seeds": 1.0
      }
@@ -385,131 +505,11 @@
    },
    "baseline_hgb_auc_private": 0.8305
   },
-  "train_02": {
-   "dataset": "train_02",
-   "stages": {
-    "safety": {
-     "secs": 7.2,
-     "ok": true,
-     "returncode": 0,
-     "stdout_head": "RESULT safety val_auc=0.96116 n_train=14929 n_test=10000 n_cats=1\n",
-     "result": {
-      "stage": "safety",
-      "val_auc": 0.96116,
-      "n_train": 14929.0,
-      "n_test": 10000.0,
-      "n_cats": 1.0
-     }
-    },
-    "xgb": {
-     "secs": 26.4,
-     "ok": true,
-     "returncode": 0,
-     "stdout_head": "RESULT xgb oof_auc=0.96771 secs=25 folds=5 seeds=1\n",
-     "result": {
-      "stage": "xgb",
-      "oof_auc": 0.96771,
-      "secs": 25.0,
-      "folds": 5.0,
-      "seeds": 1.0
-     }
-    },
-    "cat": {
-     "secs": 80.2,
-     "ok": true,
-     "returncode": 0,
-     "stdout_head": "RESULT cat oof_auc=0.96713 secs=79 folds=5 seeds=1\n",
-     "result": {
-      "stage": "cat",
-      "oof_auc": 0.96713,
-      "secs": 79.0,
-      "folds": 5.0,
-      "seeds": 1.0
-     }
-    },
-    "lgb": {
-     "secs": 104.4,
-     "ok": true,
-     "returncode": 0,
-     "stdout_head": "RESULT lgb oof_auc=0.96796 secs=103 folds=5 seeds=1\n",
-     "result": {
-      "stage": "lgb",
-      "oof_auc": 0.96796,
-      "secs": 103.0,
-      "folds": 5.0,
-      "seeds": 1.0
-     }
-    },
-    "blend": {
-     "secs": 1.4,
-     "ok": true,
-     "returncode": 0,
-     "stdout_head": "CAND sub_blend_all.csv oof_auc=0.97033\nCAND sub_blend_top2.csv oof_auc=0.96872\nCAND sub_lgb.csv oof_auc=0.96796\nCAND sub_xgb.csv oof_auc=0.96771\nCAND sub_cat.csv oof_auc=0.96713\n",
-     "cands": {
-      "sub_blend_all.csv": 0.97033,
-      "sub_blend_top2.csv": 0.96872,
-      "sub_lgb.csv": 0.96796,
-      "sub_xgb.csv": 0.96771,
-      "sub_cat.csv": 0.96713
-     }
-    }
-   },
-   "candidates": {
-    "safety": {
-     "file": "sub_safety.csv",
-     "oof": null,
-     "public": 0.9618527210866938,
-     "private": 0.9615689004096262
-    },
-    "xgb": {
-     "file": "sub_xgb.csv",
-     "oof": 0.96771,
-     "public": 0.9719699141868229,
-     "private": 0.9703739439324115
-    },
-    "cat": {
-     "file": "sub_cat.csv",
-     "oof": 0.96713,
-     "public": 0.9705895623835172,
-     "private": 0.9692797939068101
-    },
-    "lgb": {
-     "file": "sub_lgb.csv",
-     "oof": 0.96796,
-     "public": 0.9714190214942553,
-     "private": 0.9700422427035329
-    },
-    "blend_all": {
-     "file": "sub_blend_all.csv",
-     "oof": 0.97033,
-     "public": 0.9730279385637045,
-     "private": 0.971637224782386
-    },
-    "blend_top2": {
-     "file": "sub_blend_top2.csv",
-     "oof": 0.96872,
-     "public": 0.9719718342310606,
-     "private": 0.9704601094470046
-    }
-   },
-   "status": "ok",
-   "error": "",
-   "n_train": 14929,
-   "selection": {
-    "selected_A": "blend_all",
-    "selected_B": "blend_top2",
-    "final_private": 0.971637224782386,
-    "oracle": 0.971637224782386,
-    "never_selected": 0.971637224782386,
-    "blend_all_always": 0.971637224782386
-   },
-   "baseline_hgb_auc_private": 0.9564
-  },
   "train_06": {
    "dataset": "train_06",
    "stages": {
     "safety": {
-     "secs": 6.0,
+     "secs": 3.5,
      "ok": true,
      "returncode": 0,
      "stdout_head": "RESULT safety val_auc=0.80470 n_train=10803 n_test=10000 n_cats=9\n",
@@ -522,55 +522,55 @@
      }
     },
     "xgb": {
-     "secs": 2.7,
+     "secs": 1.8,
      "ok": true,
      "returncode": 0,
-     "stdout_head": "RESULT xgb oof_auc=0.80772 secs=1 folds=5 seeds=1\n",
+     "stdout_head": "RESULT xgb oof_auc=0.79467 secs=1 folds=5 seeds=1\n",
      "result": {
       "stage": "xgb",
-      "oof_auc": 0.80772,
+      "oof_auc": 0.79467,
       "secs": 1.0,
       "folds": 5.0,
       "seeds": 1.0
      }
     },
     "cat": {
-     "secs": 13.2,
+     "secs": 5.1,
      "ok": true,
      "returncode": 0,
-     "stdout_head": "RESULT cat oof_auc=0.81170 secs=12 folds=5 seeds=1\n",
+     "stdout_head": "RESULT cat oof_auc=0.81035 secs=4 folds=5 seeds=1\n",
      "result": {
       "stage": "cat",
-      "oof_auc": 0.8117,
-      "secs": 12.0,
+      "oof_auc": 0.81035,
+      "secs": 4.0,
       "folds": 5.0,
       "seeds": 1.0
      }
     },
     "lgb": {
-     "secs": 15.3,
+     "secs": 5.5,
      "ok": true,
      "returncode": 0,
-     "stdout_head": "RESULT lgb oof_auc=0.80961 secs=14 folds=5 seeds=1\n",
+     "stdout_head": "RESULT lgb oof_auc=0.81088 secs=4 folds=5 seeds=1\n",
      "result": {
       "stage": "lgb",
-      "oof_auc": 0.80961,
-      "secs": 14.0,
+      "oof_auc": 0.81088,
+      "secs": 4.0,
       "folds": 5.0,
       "seeds": 1.0
      }
     },
     "blend": {
-     "secs": 1.5,
+     "secs": 1.6,
      "ok": true,
      "returncode": 0,
-     "stdout_head": "CAND sub_cat.csv oof_auc=0.81170\nCAND sub_blend_top2.csv oof_auc=0.81153\nCAND sub_blend_all.csv oof_auc=0.81127\nCAND sub_lgb.csv oof_auc=0.80961\nCAND sub_xgb.csv oof_auc=0.80772\n",
+     "stdout_head": "CAND sub_blend_top2.csv oof_auc=0.81115\nCAND sub_lgb.csv oof_auc=0.81088\nCAND sub_cat.csv oof_auc=0.81035\nCAND sub_blend_all.csv oof_auc=0.80931\nCAND sub_xgb.csv oof_auc=0.79467\n",
      "cands": {
-      "sub_cat.csv": 0.8117,
-      "sub_blend_top2.csv": 0.81153,
-      "sub_blend_all.csv": 0.81127,
-      "sub_lgb.csv": 0.80961,
-      "sub_xgb.csv": 0.80772
+      "sub_blend_top2.csv": 0.81115,
+      "sub_lgb.csv": 0.81088,
+      "sub_cat.csv": 0.81035,
+      "sub_blend_all.csv": 0.80931,
+      "sub_xgb.csv": 0.79467
      }
     }
    },
@@ -583,33 +583,33 @@
     },
     "xgb": {
      "file": "sub_xgb.csv",
-     "oof": 0.80772,
-     "public": 0.8019530883124941,
-     "private": 0.8140546305262705
+     "oof": 0.79467,
+     "public": 0.8024918083986894,
+     "private": 0.8142211470000388
     },
     "cat": {
      "file": "sub_cat.csv",
-     "oof": 0.8117,
-     "public": 0.8010424481667917,
-     "private": 0.8139771735600967
+     "oof": 0.81035,
+     "public": 0.8010997281759565,
+     "private": 0.8136217357049887
     },
     "lgb": {
      "file": "sub_lgb.csv",
-     "oof": 0.80961,
-     "public": 0.8002553280408524,
-     "private": 0.8138313816258312
+     "oof": 0.81088,
+     "public": 0.8008542081366733,
+     "private": 0.81436461842602
     },
     "blend_all": {
      "file": "sub_blend_all.csv",
-     "oof": 0.81127,
-     "public": 0.80189468830315,
-     "private": 0.8148208783651971
+     "oof": 0.80931,
+     "public": 0.8017410082785613,
+     "private": 0.8145661025591046
     },
     "blend_top2": {
      "file": "sub_blend_top2.csv",
-     "oof": 0.81153,
-     "public": 0.8009212481473997,
-     "private": 0.8144119087845002
+     "oof": 0.81115,
+     "public": 0.8010642081702734,
+     "private": 0.8145066495365145
     }
    },
    "status": "ok",
@@ -617,11 +617,11 @@
    "n_train": 10803,
    "selection": {
     "selected_A": "xgb",
-    "selected_B": "cat",
-    "final_private": 0.8140546305262705,
-    "oracle": 0.8148208783651971,
-    "never_selected": 0.8148208783651971,
-    "blend_all_always": 0.8148208783651971
+    "selected_B": "blend_top2",
+    "final_private": 0.8145066495365145,
+    "oracle": 0.8145661025591046,
+    "never_selected": 0.8145661025591046,
+    "blend_all_always": 0.8145661025591046
    },
    "baseline_hgb_auc_private": 0.8137
   },
@@ -629,7 +629,7 @@
    "dataset": "train_05",
    "stages": {
     "safety": {
-     "secs": 4.4,
+     "secs": 3.3,
      "ok": true,
      "returncode": 0,
      "stdout_head": "RESULT safety val_auc=0.61558 n_train=1060 n_test=10000 n_cats=5\n",
@@ -642,46 +642,46 @@
      }
     },
     "xgb": {
-     "secs": 5.8,
+     "secs": 3.9,
      "ok": true,
      "returncode": 0,
-     "stdout_head": "RESULT xgb oof_auc=0.68716 secs=4 folds=5 seeds=3\n",
+     "stdout_head": "RESULT xgb oof_auc=0.68716 secs=3 folds=5 seeds=3\n",
      "result": {
       "stage": "xgb",
       "oof_auc": 0.68716,
-      "secs": 4.0,
+      "secs": 3.0,
       "folds": 5.0,
       "seeds": 3.0
      }
     },
     "cat": {
-     "secs": 8.3,
+     "secs": 4.7,
      "ok": true,
      "returncode": 0,
-     "stdout_head": "RESULT cat oof_auc=0.68940 secs=7 folds=5 seeds=3\n",
+     "stdout_head": "RESULT cat oof_auc=0.68940 secs=4 folds=5 seeds=3\n",
      "result": {
       "stage": "cat",
       "oof_auc": 0.6894,
-      "secs": 7.0,
+      "secs": 4.0,
       "folds": 5.0,
       "seeds": 3.0
      }
     },
     "lgb": {
-     "secs": 22.7,
+     "secs": 8.8,
      "ok": true,
      "returncode": 0,
-     "stdout_head": "RESULT lgb oof_auc=0.68535 secs=21 folds=5 seeds=3\n",
+     "stdout_head": "RESULT lgb oof_auc=0.68535 secs=8 folds=5 seeds=3\n",
      "result": {
       "stage": "lgb",
       "oof_auc": 0.68535,
-      "secs": 21.0,
+      "secs": 8.0,
       "folds": 5.0,
       "seeds": 3.0
      }
     },
     "blend": {
-     "secs": 1.4,
+     "secs": 1.3,
      "ok": true,
      "returncode": 0,
      "stdout_head": "CAND sub_blend_all.csv oof_auc=0.69945\nCAND sub_blend_top2.csv oof_auc=0.69779\nCAND sub_cat.csv oof_auc=0.68940\nCAND sub_xgb.csv oof_auc=0.68716\nCAND sub_lgb.csv oof_auc=0.68535\n",
@@ -749,7 +749,7 @@
    "dataset": "train_08",
    "stages": {
     "safety": {
-     "secs": 8.2,
+     "secs": 4.4,
      "ok": true,
      "returncode": 0,
      "stdout_head": "RESULT safety val_auc=0.83920 n_train=8173 n_test=10000 n_cats=12\n",
@@ -762,55 +762,55 @@
      }
     },
     "xgb": {
-     "secs": 3.8,
+     "secs": 2.4,
      "ok": true,
      "returncode": 0,
-     "stdout_head": "RESULT xgb oof_auc=0.84729 secs=2 folds=5 seeds=1\n",
+     "stdout_head": "RESULT xgb oof_auc=0.85289 secs=1 folds=5 seeds=1\n",
      "result": {
       "stage": "xgb",
-      "oof_auc": 0.84729,
-      "secs": 2.0,
+      "oof_auc": 0.85289,
+      "secs": 1.0,
       "folds": 5.0,
       "seeds": 1.0
      }
     },
     "cat": {
-     "secs": 10.2,
+     "secs": 7.3,
      "ok": true,
      "returncode": 0,
-     "stdout_head": "RESULT cat oof_auc=0.85405 secs=9 folds=5 seeds=1\n",
+     "stdout_head": "RESULT cat oof_auc=0.85475 secs=6 folds=5 seeds=1\n",
      "result": {
       "stage": "cat",
-      "oof_auc": 0.85405,
-      "secs": 9.0,
+      "oof_auc": 0.85475,
+      "secs": 6.0,
       "folds": 5.0,
       "seeds": 1.0
      }
     },
     "lgb": {
-     "secs": 15.1,
+     "secs": 4.5,
      "ok": true,
      "returncode": 0,
-     "stdout_head": "RESULT lgb oof_auc=0.85186 secs=13 folds=5 seeds=1\n",
+     "stdout_head": "RESULT lgb oof_auc=0.85316 secs=3 folds=5 seeds=1\n",
      "result": {
       "stage": "lgb",
-      "oof_auc": 0.85186,
-      "secs": 13.0,
+      "oof_auc": 0.85316,
+      "secs": 3.0,
       "folds": 5.0,
       "seeds": 1.0
      }
     },
     "blend": {
-     "secs": 1.4,
+     "secs": 1.2,
      "ok": true,
      "returncode": 0,
-     "stdout_head": "CAND sub_blend_top2.csv oof_auc=0.85449\nCAND sub_cat.csv oof_auc=0.85405\nCAND sub_blend_all.csv oof_auc=0.85375\nCAND sub_lgb.csv oof_auc=0.85186\nCAND sub_xgb.csv oof_auc=0.84729\n",
+     "stdout_head": "CAND sub_blend_top2.csv oof_auc=0.85479\nCAND sub_cat.csv oof_auc=0.85475\nCAND sub_blend_all.csv oof_auc=0.85465\nCAND sub_lgb.csv oof_auc=0.85316\nCAND sub_xgb.csv oof_auc=0.85289\n",
      "cands": {
-      "sub_blend_top2.csv": 0.85449,
-      "sub_cat.csv": 0.85405,
-      "sub_blend_all.csv": 0.85375,
-      "sub_lgb.csv": 0.85186,
-      "sub_xgb.csv": 0.84729
+      "sub_blend_top2.csv": 0.85479,
+      "sub_cat.csv": 0.85475,
+      "sub_blend_all.csv": 0.85465,
+      "sub_lgb.csv": 0.85316,
+      "sub_xgb.csv": 0.85289
      }
     }
    },
@@ -823,33 +823,33 @@
     },
     "xgb": {
      "file": "sub_xgb.csv",
-     "oof": 0.84729,
-     "public": 0.8511764604203798,
-     "private": 0.8445294619162552
+     "oof": 0.85289,
+     "public": 0.8538441667690984,
+     "private": 0.8473453654670557
     },
     "cat": {
      "file": "sub_cat.csv",
-     "oof": 0.85405,
-     "public": 0.8540954446049208,
-     "private": 0.8498190376694646
+     "oof": 0.85475,
+     "public": 0.854630650390265,
+     "private": 0.8505497716456325
     },
     "lgb": {
      "file": "sub_lgb.csv",
-     "oof": 0.85186,
-     "public": 0.8520016760391699,
-     "private": 0.8467864276250746
+     "oof": 0.85316,
+     "public": 0.853146350613566,
+     "private": 0.8477488382146331
     },
     "blend_all": {
      "file": "sub_blend_all.csv",
-     "oof": 0.85375,
-     "public": 0.8537314918669208,
-     "private": 0.8482791166828777
+     "oof": 0.85465,
+     "public": 0.8545225369010305,
+     "private": 0.8491140811188362
     },
     "blend_top2": {
      "file": "sub_blend_top2.csv",
-     "oof": 0.85449,
-     "public": 0.854075758506955,
-     "private": 0.849232721319612
+     "oof": 0.85479,
+     "public": 0.8545877571036403,
+     "private": 0.8497331396023713
     }
    },
    "status": "ok",
@@ -858,10 +858,10 @@
    "selection": {
     "selected_A": "cat",
     "selected_B": "blend_top2",
-    "final_private": 0.8498190376694646,
-    "oracle": 0.8498190376694646,
-    "never_selected": 0.8498190376694646,
-    "blend_all_always": 0.8482791166828777
+    "final_private": 0.8505497716456325,
+    "oracle": 0.8505497716456325,
+    "never_selected": 0.8505497716456325,
+    "blend_all_always": 0.8491140811188362
    },
    "baseline_hgb_auc_private": 0.8365
   },
@@ -869,7 +869,7 @@
    "dataset": "train_07",
    "stages": {
     "safety": {
-     "secs": 8.8,
+     "secs": 4.8,
      "ok": true,
      "returncode": 0,
      "stdout_head": "RESULT safety val_auc=0.80719 n_train=10417 n_test=10000 n_cats=2\n",
@@ -882,46 +882,46 @@
      }
     },
     "xgb": {
-     "secs": 10.5,
+     "secs": 4.7,
      "ok": true,
      "returncode": 0,
-     "stdout_head": "RESULT xgb oof_auc=0.82668 secs=9 folds=5 seeds=1\n",
+     "stdout_head": "RESULT xgb oof_auc=0.82668 secs=3 folds=5 seeds=1\n",
      "result": {
       "stage": "xgb",
       "oof_auc": 0.82668,
-      "secs": 9.0,
+      "secs": 3.0,
       "folds": 5.0,
       "seeds": 1.0
      }
     },
     "cat": {
-     "secs": 25.6,
+     "secs": 11.7,
      "ok": true,
      "returncode": 0,
-     "stdout_head": "RESULT cat oof_auc=0.82235 secs=24 folds=5 seeds=1\n",
+     "stdout_head": "RESULT cat oof_auc=0.82235 secs=10 folds=5 seeds=1\n",
      "result": {
       "stage": "cat",
       "oof_auc": 0.82235,
-      "secs": 24.0,
+      "secs": 10.0,
       "folds": 5.0,
       "seeds": 1.0
      }
     },
     "lgb": {
-     "secs": 30.5,
+     "secs": 12.0,
      "ok": true,
      "returncode": 0,
-     "stdout_head": "RESULT lgb oof_auc=0.82513 secs=29 folds=5 seeds=1\n",
+     "stdout_head": "RESULT lgb oof_auc=0.82513 secs=11 folds=5 seeds=1\n",
      "result": {
       "stage": "lgb",
       "oof_auc": 0.82513,
-      "secs": 29.0,
+      "secs": 11.0,
       "folds": 5.0,
       "seeds": 1.0
      }
     },
     "blend": {
-     "secs": 1.7,
+     "secs": 1.2,
      "ok": true,
      "returncode": 0,
      "stdout_head": "CAND sub_blend_all.csv oof_auc=0.82950\nCAND sub_blend_top2.csv oof_auc=0.82764\nCAND sub_xgb.csv oof_auc=0.82668\nCAND sub_lgb.csv oof_auc=0.82513\nCAND sub_cat.csv oof_auc=0.82235\n",
@@ -989,7 +989,7 @@
    "dataset": "train_09",
    "stages": {
     "safety": {
-     "secs": 5.3,
+     "secs": 3.9,
      "ok": true,
      "returncode": 0,
      "stdout_head": "RESULT safety val_auc=0.61066 n_train=1109 n_test=10000 n_cats=0\n",
@@ -1002,46 +1002,46 @@
      }
     },
     "xgb": {
-     "secs": 10.0,
+     "secs": 4.8,
      "ok": true,
      "returncode": 0,
-     "stdout_head": "RESULT xgb oof_auc=0.64339 secs=9 folds=5 seeds=3\n",
+     "stdout_head": "RESULT xgb oof_auc=0.64339 secs=3 folds=5 seeds=3\n",
      "result": {
       "stage": "xgb",
       "oof_auc": 0.64339,
-      "secs": 9.0,
-      "folds": 5.0,
-      "seeds": 3.0
-     }
-    },
-    "cat": {
-     "secs": 4.5,
-     "ok": true,
-     "returncode": 0,
-     "stdout_head": "RESULT cat oof_auc=0.64656 secs=3 folds=5 seeds=3\n",
-     "result": {
-      "stage": "cat",
-      "oof_auc": 0.64656,
       "secs": 3.0,
       "folds": 5.0,
       "seeds": 3.0
      }
     },
-    "lgb": {
-     "secs": 20.6,
+    "cat": {
+     "secs": 2.8,
      "ok": true,
      "returncode": 0,
-     "stdout_head": "RESULT lgb oof_auc=0.64460 secs=19 folds=5 seeds=3\n",
+     "stdout_head": "RESULT cat oof_auc=0.64656 secs=1 folds=5 seeds=3\n",
+     "result": {
+      "stage": "cat",
+      "oof_auc": 0.64656,
+      "secs": 1.0,
+      "folds": 5.0,
+      "seeds": 3.0
+     }
+    },
+    "lgb": {
+     "secs": 9.6,
+     "ok": true,
+     "returncode": 0,
+     "stdout_head": "RESULT lgb oof_auc=0.64460 secs=8 folds=5 seeds=3\n",
      "result": {
       "stage": "lgb",
       "oof_auc": 0.6446,
-      "secs": 19.0,
+      "secs": 8.0,
       "folds": 5.0,
       "seeds": 3.0
      }
     },
     "blend": {
-     "secs": 1.4,
+     "secs": 1.2,
      "ok": true,
      "returncode": 0,
      "stdout_head": "CAND sub_blend_top2.csv oof_auc=0.65437\nCAND sub_blend_all.csv oof_auc=0.65382\nCAND sub_cat.csv oof_auc=0.64656\nCAND sub_lgb.csv oof_auc=0.64460\nCAND sub_xgb.csv oof_auc=0.64339\n",
@@ -1109,7 +1109,7 @@
    "dataset": "train_10",
    "stages": {
     "safety": {
-     "secs": 7.0,
+     "secs": 5.5,
      "ok": true,
      "returncode": 0,
      "stdout_head": "RESULT safety val_auc=0.85047 n_train=11800 n_test=10000 n_cats=0\n",
@@ -1122,46 +1122,46 @@
      }
     },
     "xgb": {
-     "secs": 17.3,
+     "secs": 8.8,
      "ok": true,
      "returncode": 0,
-     "stdout_head": "RESULT xgb oof_auc=0.84760 secs=16 folds=5 seeds=1\n",
+     "stdout_head": "RESULT xgb oof_auc=0.84760 secs=7 folds=5 seeds=1\n",
      "result": {
       "stage": "xgb",
       "oof_auc": 0.8476,
-      "secs": 16.0,
+      "secs": 7.0,
       "folds": 5.0,
       "seeds": 1.0
      }
     },
     "cat": {
-     "secs": 16.1,
+     "secs": 8.0,
      "ok": true,
      "returncode": 0,
-     "stdout_head": "RESULT cat oof_auc=0.84482 secs=15 folds=5 seeds=1\n",
+     "stdout_head": "RESULT cat oof_auc=0.84482 secs=7 folds=5 seeds=1\n",
      "result": {
       "stage": "cat",
       "oof_auc": 0.84482,
-      "secs": 15.0,
+      "secs": 7.0,
       "folds": 5.0,
       "seeds": 1.0
      }
     },
     "lgb": {
-     "secs": 30.3,
+     "secs": 11.5,
      "ok": true,
      "returncode": 0,
-     "stdout_head": "RESULT lgb oof_auc=0.84785 secs=29 folds=5 seeds=1\n",
+     "stdout_head": "RESULT lgb oof_auc=0.84785 secs=10 folds=5 seeds=1\n",
      "result": {
       "stage": "lgb",
       "oof_auc": 0.84785,
-      "secs": 29.0,
+      "secs": 10.0,
       "folds": 5.0,
       "seeds": 1.0
      }
     },
     "blend": {
-     "secs": 2.1,
+     "secs": 1.4,
      "ok": true,
      "returncode": 0,
      "stdout_head": "CAND sub_blend_all.csv oof_auc=0.85261\nCAND sub_blend_top2.csv oof_auc=0.85043\nCAND sub_lgb.csv oof_auc=0.84785\nCAND sub_xgb.csv oof_auc=0.84760\nCAND sub_cat.csv oof_auc=0.84482\n",
@@ -1225,131 +1225,11 @@
    },
    "baseline_hgb_auc_private": 0.8471
   },
-  "train_11": {
-   "dataset": "train_11",
-   "stages": {
-    "safety": {
-     "secs": 7.2,
-     "ok": true,
-     "returncode": 0,
-     "stdout_head": "RESULT safety val_auc=0.81606 n_train=28879 n_test=10000 n_cats=0\n",
-     "result": {
-      "stage": "safety",
-      "val_auc": 0.81606,
-      "n_train": 28879.0,
-      "n_test": 10000.0,
-      "n_cats": 0.0
-     }
-    },
-    "xgb": {
-     "secs": 19.9,
-     "ok": true,
-     "returncode": 0,
-     "stdout_head": "RESULT xgb oof_auc=0.82117 secs=18 folds=5 seeds=1\n",
-     "result": {
-      "stage": "xgb",
-      "oof_auc": 0.82117,
-      "secs": 18.0,
-      "folds": 5.0,
-      "seeds": 1.0
-     }
-    },
-    "cat": {
-     "secs": 45.2,
-     "ok": true,
-     "returncode": 0,
-     "stdout_head": "RESULT cat oof_auc=0.81560 secs=44 folds=5 seeds=1\n",
-     "result": {
-      "stage": "cat",
-      "oof_auc": 0.8156,
-      "secs": 44.0,
-      "folds": 5.0,
-      "seeds": 1.0
-     }
-    },
-    "lgb": {
-     "secs": 52.4,
-     "ok": true,
-     "returncode": 0,
-     "stdout_head": "RESULT lgb oof_auc=0.82036 secs=51 folds=5 seeds=1\n",
-     "result": {
-      "stage": "lgb",
-      "oof_auc": 0.82036,
-      "secs": 51.0,
-      "folds": 5.0,
-      "seeds": 1.0
-     }
-    },
-    "blend": {
-     "secs": 1.7,
-     "ok": true,
-     "returncode": 0,
-     "stdout_head": "CAND sub_blend_all.csv oof_auc=0.82408\nCAND sub_blend_top2.csv oof_auc=0.82334\nCAND sub_xgb.csv oof_auc=0.82117\nCAND sub_lgb.csv oof_auc=0.82036\nCAND sub_cat.csv oof_auc=0.81560\n",
-     "cands": {
-      "sub_blend_all.csv": 0.82408,
-      "sub_blend_top2.csv": 0.82334,
-      "sub_xgb.csv": 0.82117,
-      "sub_lgb.csv": 0.82036,
-      "sub_cat.csv": 0.8156
-     }
-    }
-   },
-   "candidates": {
-    "safety": {
-     "file": "sub_safety.csv",
-     "oof": null,
-     "public": 0.8268438655166344,
-     "private": 0.8154978838184638
-    },
-    "xgb": {
-     "file": "sub_xgb.csv",
-     "oof": 0.82117,
-     "public": 0.8334497767678546,
-     "private": 0.8263783357316083
-    },
-    "cat": {
-     "file": "sub_cat.csv",
-     "oof": 0.8156,
-     "public": 0.8289236850106415,
-     "private": 0.8167152725612361
-    },
-    "lgb": {
-     "file": "sub_lgb.csv",
-     "oof": 0.82036,
-     "public": 0.834200284841017,
-     "private": 0.8238764769884068
-    },
-    "blend_all": {
-     "file": "sub_blend_all.csv",
-     "oof": 0.82408,
-     "public": 0.834918068201821,
-     "private": 0.8249852389213462
-    },
-    "blend_top2": {
-     "file": "sub_blend_top2.csv",
-     "oof": 0.82334,
-     "public": 0.8345391336352435,
-     "private": 0.8258532928092094
-    }
-   },
-   "status": "ok",
-   "error": "",
-   "n_train": 28879,
-   "selection": {
-    "selected_A": "blend_all",
-    "selected_B": "blend_top2",
-    "final_private": 0.8258532928092094,
-    "oracle": 0.8263783357316083,
-    "never_selected": 0.8258532928092094,
-    "blend_all_always": 0.8249852389213462
-   },
-   "baseline_hgb_auc_private": 0.8137
-  },
   "train_12": {
    "dataset": "train_12",
    "stages": {
     "safety": {
-     "secs": 9.3,
+     "secs": 4.8,
      "ok": true,
      "returncode": 0,
      "stdout_head": "RESULT safety val_auc=0.78835 n_train=49432 n_test=10000 n_cats=1\n",
@@ -1362,40 +1242,40 @@
      }
     },
     "xgb": {
-     "secs": 9.1,
+     "secs": 3.5,
      "ok": true,
      "returncode": 0,
-     "stdout_head": "RESULT xgb oof_auc=0.78652 secs=8 folds=5 seeds=1\n",
+     "stdout_head": "RESULT xgb oof_auc=0.78652 secs=2 folds=5 seeds=1\n",
      "result": {
       "stage": "xgb",
       "oof_auc": 0.78652,
-      "secs": 8.0,
+      "secs": 2.0,
       "folds": 5.0,
       "seeds": 1.0
      }
     },
     "cat": {
-     "secs": 24.3,
+     "secs": 11.0,
      "ok": true,
      "returncode": 0,
-     "stdout_head": "RESULT cat oof_auc=0.78651 secs=22 folds=5 seeds=1\n",
+     "stdout_head": "RESULT cat oof_auc=0.78651 secs=10 folds=5 seeds=1\n",
      "result": {
       "stage": "cat",
       "oof_auc": 0.78651,
-      "secs": 22.0,
+      "secs": 10.0,
       "folds": 5.0,
       "seeds": 1.0
      }
     },
     "lgb": {
-     "secs": 16.6,
+     "secs": 10.2,
      "ok": true,
      "returncode": 0,
-     "stdout_head": "RESULT lgb oof_auc=0.78775 secs=15 folds=5 seeds=1\n",
+     "stdout_head": "RESULT lgb oof_auc=0.78775 secs=9 folds=5 seeds=1\n",
      "result": {
       "stage": "lgb",
       "oof_auc": 0.78775,
-      "secs": 15.0,
+      "secs": 9.0,
       "folds": 5.0,
       "seeds": 1.0
      }
@@ -1465,11 +1345,131 @@
    },
    "baseline_hgb_auc_private": 0.7695
   },
+  "train_11": {
+   "dataset": "train_11",
+   "stages": {
+    "safety": {
+     "secs": 4.3,
+     "ok": true,
+     "returncode": 0,
+     "stdout_head": "RESULT safety val_auc=0.81606 n_train=28879 n_test=10000 n_cats=0\n",
+     "result": {
+      "stage": "safety",
+      "val_auc": 0.81606,
+      "n_train": 28879.0,
+      "n_test": 10000.0,
+      "n_cats": 0.0
+     }
+    },
+    "xgb": {
+     "secs": 11.9,
+     "ok": true,
+     "returncode": 0,
+     "stdout_head": "RESULT xgb oof_auc=0.82117 secs=10 folds=5 seeds=1\n",
+     "result": {
+      "stage": "xgb",
+      "oof_auc": 0.82117,
+      "secs": 10.0,
+      "folds": 5.0,
+      "seeds": 1.0
+     }
+    },
+    "cat": {
+     "secs": 18.6,
+     "ok": true,
+     "returncode": 0,
+     "stdout_head": "RESULT cat oof_auc=0.81560 secs=17 folds=5 seeds=1\n",
+     "result": {
+      "stage": "cat",
+      "oof_auc": 0.8156,
+      "secs": 17.0,
+      "folds": 5.0,
+      "seeds": 1.0
+     }
+    },
+    "lgb": {
+     "secs": 23.7,
+     "ok": true,
+     "returncode": 0,
+     "stdout_head": "RESULT lgb oof_auc=0.82036 secs=22 folds=5 seeds=1\n",
+     "result": {
+      "stage": "lgb",
+      "oof_auc": 0.82036,
+      "secs": 22.0,
+      "folds": 5.0,
+      "seeds": 1.0
+     }
+    },
+    "blend": {
+     "secs": 1.5,
+     "ok": true,
+     "returncode": 0,
+     "stdout_head": "CAND sub_blend_all.csv oof_auc=0.82408\nCAND sub_blend_top2.csv oof_auc=0.82334\nCAND sub_xgb.csv oof_auc=0.82117\nCAND sub_lgb.csv oof_auc=0.82036\nCAND sub_cat.csv oof_auc=0.81560\n",
+     "cands": {
+      "sub_blend_all.csv": 0.82408,
+      "sub_blend_top2.csv": 0.82334,
+      "sub_xgb.csv": 0.82117,
+      "sub_lgb.csv": 0.82036,
+      "sub_cat.csv": 0.8156
+     }
+    }
+   },
+   "candidates": {
+    "safety": {
+     "file": "sub_safety.csv",
+     "oof": null,
+     "public": 0.8268438655166344,
+     "private": 0.8154978838184638
+    },
+    "xgb": {
+     "file": "sub_xgb.csv",
+     "oof": 0.82117,
+     "public": 0.8334497767678546,
+     "private": 0.8263783357316083
+    },
+    "cat": {
+     "file": "sub_cat.csv",
+     "oof": 0.8156,
+     "public": 0.8289236850106415,
+     "private": 0.8167152725612361
+    },
+    "lgb": {
+     "file": "sub_lgb.csv",
+     "oof": 0.82036,
+     "public": 0.834200284841017,
+     "private": 0.8238764769884068
+    },
+    "blend_all": {
+     "file": "sub_blend_all.csv",
+     "oof": 0.82408,
+     "public": 0.834918068201821,
+     "private": 0.8249852389213462
+    },
+    "blend_top2": {
+     "file": "sub_blend_top2.csv",
+     "oof": 0.82334,
+     "public": 0.8345391336352435,
+     "private": 0.8258532928092094
+    }
+   },
+   "status": "ok",
+   "error": "",
+   "n_train": 28879,
+   "selection": {
+    "selected_A": "blend_all",
+    "selected_B": "blend_top2",
+    "final_private": 0.8258532928092094,
+    "oracle": 0.8263783357316083,
+    "never_selected": 0.8258532928092094,
+    "blend_all_always": 0.8249852389213462
+   },
+   "baseline_hgb_auc_private": 0.8137
+  },
   "train_13": {
    "dataset": "train_13",
    "stages": {
     "safety": {
-     "secs": 5.3,
+     "secs": 2.5,
      "ok": true,
      "returncode": 0,
      "stdout_head": "RESULT safety val_auc=0.58320 n_train=500 n_test=10000 n_cats=4\n",
@@ -1482,46 +1482,46 @@
      }
     },
     "xgb": {
-     "secs": 8.8,
+     "secs": 3.2,
      "ok": true,
      "returncode": 0,
-     "stdout_head": "RESULT xgb oof_auc=0.67080 secs=7 folds=5 seeds=3\n",
+     "stdout_head": "RESULT xgb oof_auc=0.67080 secs=2 folds=5 seeds=3\n",
      "result": {
       "stage": "xgb",
       "oof_auc": 0.6708,
-      "secs": 7.0,
+      "secs": 2.0,
       "folds": 5.0,
       "seeds": 3.0
      }
     },
     "cat": {
-     "secs": 4.9,
+     "secs": 2.9,
      "ok": true,
      "returncode": 0,
-     "stdout_head": "RESULT cat oof_auc=0.69538 secs=3 folds=5 seeds=3\n",
+     "stdout_head": "RESULT cat oof_auc=0.69538 secs=2 folds=5 seeds=3\n",
      "result": {
       "stage": "cat",
       "oof_auc": 0.69538,
-      "secs": 3.0,
+      "secs": 2.0,
       "folds": 5.0,
       "seeds": 3.0
      }
     },
     "lgb": {
-     "secs": 12.3,
+     "secs": 4.6,
      "ok": true,
      "returncode": 0,
-     "stdout_head": "RESULT lgb oof_auc=0.69461 secs=11 folds=5 seeds=3\n",
+     "stdout_head": "RESULT lgb oof_auc=0.69461 secs=3 folds=5 seeds=3\n",
      "result": {
       "stage": "lgb",
       "oof_auc": 0.69461,
-      "secs": 11.0,
+      "secs": 3.0,
       "folds": 5.0,
       "seeds": 3.0
      }
     },
     "blend": {
-     "secs": 1.3,
+     "secs": 1.2,
      "ok": true,
      "returncode": 0,
      "stdout_head": "CAND sub_blend_top2.csv oof_auc=0.70622\nCAND sub_blend_all.csv oof_auc=0.69853\nCAND sub_cat.csv oof_auc=0.69538\nCAND sub_lgb.csv oof_auc=0.69461\nCAND sub_xgb.csv oof_auc=0.67080\n",
@@ -1589,7 +1589,7 @@
    "dataset": "train_14",
    "stages": {
     "safety": {
-     "secs": 11.5,
+     "secs": 3.9,
      "ok": true,
      "returncode": 0,
      "stdout_head": "RESULT safety val_auc=0.78866 n_train=11108 n_test=10000 n_cats=4\n",
@@ -1602,46 +1602,46 @@
      }
     },
     "xgb": {
-     "secs": 7.9,
+     "secs": 3.0,
      "ok": true,
      "returncode": 0,
-     "stdout_head": "RESULT xgb oof_auc=0.80680 secs=6 folds=5 seeds=1\n",
+     "stdout_head": "RESULT xgb oof_auc=0.80680 secs=2 folds=5 seeds=1\n",
      "result": {
       "stage": "xgb",
       "oof_auc": 0.8068,
-      "secs": 6.0,
+      "secs": 2.0,
       "folds": 5.0,
       "seeds": 1.0
      }
     },
     "cat": {
-     "secs": 20.6,
+     "secs": 8.3,
      "ok": true,
      "returncode": 0,
-     "stdout_head": "RESULT cat oof_auc=0.80271 secs=19 folds=5 seeds=1\n",
+     "stdout_head": "RESULT cat oof_auc=0.80271 secs=7 folds=5 seeds=1\n",
      "result": {
       "stage": "cat",
       "oof_auc": 0.80271,
-      "secs": 19.0,
-      "folds": 5.0,
-      "seeds": 1.0
-     }
-    },
-    "lgb": {
-     "secs": 8.7,
-     "ok": true,
-     "returncode": 0,
-     "stdout_head": "RESULT lgb oof_auc=0.80664 secs=7 folds=5 seeds=1\n",
-     "result": {
-      "stage": "lgb",
-      "oof_auc": 0.80664,
       "secs": 7.0,
       "folds": 5.0,
       "seeds": 1.0
      }
     },
+    "lgb": {
+     "secs": 7.0,
+     "ok": true,
+     "returncode": 0,
+     "stdout_head": "RESULT lgb oof_auc=0.80664 secs=6 folds=5 seeds=1\n",
+     "result": {
+      "stage": "lgb",
+      "oof_auc": 0.80664,
+      "secs": 6.0,
+      "folds": 5.0,
+      "seeds": 1.0
+     }
+    },
     "blend": {
-     "secs": 1.5,
+     "secs": 1.4,
      "ok": true,
      "returncode": 0,
      "stdout_head": "CAND sub_blend_all.csv oof_auc=0.80859\nCAND sub_blend_top2.csv oof_auc=0.80778\nCAND sub_xgb.csv oof_auc=0.80680\nCAND sub_lgb.csv oof_auc=0.80664\nCAND sub_cat.csv oof_auc=0.80271\n",
@@ -1709,7 +1709,7 @@
    "dataset": "train_15",
    "stages": {
     "safety": {
-     "secs": 3.1,
+     "secs": 2.4,
      "ok": true,
      "returncode": 0,
      "stdout_head": "RESULT safety val_auc=0.80600 n_train=500 n_test=10000 n_cats=7\n",
@@ -1722,40 +1722,40 @@
      }
     },
     "xgb": {
-     "secs": 6.4,
+     "secs": 4.5,
      "ok": true,
      "returncode": 0,
-     "stdout_head": "RESULT xgb oof_auc=0.85035 secs=5 folds=5 seeds=3\n",
+     "stdout_head": "RESULT xgb oof_auc=0.85035 secs=3 folds=5 seeds=3\n",
      "result": {
       "stage": "xgb",
       "oof_auc": 0.85035,
-      "secs": 5.0,
+      "secs": 3.0,
       "folds": 5.0,
       "seeds": 3.0
      }
     },
     "cat": {
-     "secs": 11.2,
+     "secs": 7.3,
      "ok": true,
      "returncode": 0,
-     "stdout_head": "RESULT cat oof_auc=0.86706 secs=10 folds=5 seeds=3\n",
+     "stdout_head": "RESULT cat oof_auc=0.86706 secs=6 folds=5 seeds=3\n",
      "result": {
       "stage": "cat",
       "oof_auc": 0.86706,
-      "secs": 10.0,
+      "secs": 6.0,
       "folds": 5.0,
       "seeds": 3.0
      }
     },
     "lgb": {
-     "secs": 15.5,
+     "secs": 9.9,
      "ok": true,
      "returncode": 0,
-     "stdout_head": "RESULT lgb oof_auc=0.85331 secs=14 folds=5 seeds=3\n",
+     "stdout_head": "RESULT lgb oof_auc=0.85331 secs=8 folds=5 seeds=3\n",
      "result": {
       "stage": "lgb",
       "oof_auc": 0.85331,
-      "secs": 14.0,
+      "secs": 8.0,
       "folds": 5.0,
       "seeds": 3.0
      }
@@ -1829,7 +1829,7 @@
    "dataset": "train_16",
    "stages": {
     "safety": {
-     "secs": 4.5,
+     "secs": 3.5,
      "ok": true,
      "returncode": 0,
      "stdout_head": "RESULT safety val_auc=0.90290 n_train=1809 n_test=10000 n_cats=0\n",
@@ -1842,40 +1842,40 @@
      }
     },
     "xgb": {
-     "secs": 22.4,
+     "secs": 11.7,
      "ok": true,
      "returncode": 0,
-     "stdout_head": "RESULT xgb oof_auc=0.88618 secs=21 folds=5 seeds=3\n",
+     "stdout_head": "RESULT xgb oof_auc=0.88618 secs=10 folds=5 seeds=3\n",
      "result": {
       "stage": "xgb",
       "oof_auc": 0.88618,
-      "secs": 21.0,
+      "secs": 10.0,
       "folds": 5.0,
       "seeds": 3.0
      }
     },
     "cat": {
-     "secs": 10.5,
+     "secs": 6.8,
      "ok": true,
      "returncode": 0,
-     "stdout_head": "RESULT cat oof_auc=0.90913 secs=9 folds=5 seeds=3\n",
+     "stdout_head": "RESULT cat oof_auc=0.90913 secs=6 folds=5 seeds=3\n",
      "result": {
       "stage": "cat",
       "oof_auc": 0.90913,
-      "secs": 9.0,
+      "secs": 6.0,
       "folds": 5.0,
       "seeds": 3.0
      }
     },
     "lgb": {
-     "secs": 26.6,
+     "secs": 13.3,
      "ok": true,
      "returncode": 0,
-     "stdout_head": "RESULT lgb oof_auc=0.88570 secs=25 folds=5 seeds=3\n",
+     "stdout_head": "RESULT lgb oof_auc=0.88570 secs=12 folds=5 seeds=3\n",
      "result": {
       "stage": "lgb",
       "oof_auc": 0.8857,
-      "secs": 25.0,
+      "secs": 12.0,
       "folds": 5.0,
       "seeds": 3.0
      }
@@ -1949,21 +1949,21 @@
  "summary": {
   "n_datasets": 16,
   "mean_baseline": 0.7889875000000001,
-  "mean_final_private": 0.8033270856107587,
-  "mean_oracle": 0.8034241063251081,
-  "mean_never_selected": 0.8033749761006916,
-  "mean_blend_all": 0.8022777194577442,
-  "mean_delta": 0.014339585610758654,
-  "worst_delta": 0.0004,
-  "max_stage_secs": 104.4,
+  "mean_final_private": 0.8034010076724095,
+  "mean_oracle": 0.8034538537107379,
+  "mean_never_selected": 0.8034047234863214,
+  "mean_blend_all": 0.8023139812471107,
+  "mean_delta": 0.014413507672409454,
+  "worst_delta": 0.0008,
+  "max_stage_secs": 41.4,
   "gates": {
    "a_mean_delta": true,
    "b_worst_delta": true,
-   "c_stage_time": false,
+   "c_stage_time": true,
    "d_static": true,
    "e_validate": true
   },
   "timeout_risk_datasets": [],
-  "overall_pass": false
+  "overall_pass": true
  }
 }

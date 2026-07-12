@@ -309,7 +309,10 @@ def main():
     ap.add_argument("--go-python", default=os.path.join(BENCH_DIR, "gbm_venv", "bin", "python"),
                     help="interpreter for go.py subprocesses (pandas 3.x venv)")
     ap.add_argument("--skip-validate", action="store_true")
+    ap.add_argument("--system-md", default=SYSTEM_MD,
+                    help="path to system.md to score (default: shipped submissions/03_cv_ensemble path)")
     args = ap.parse_args()
+    system_md = args.system_md
 
     if not os.path.exists(args.go_python):
         print("WARNING: %s not found, falling back to %s" % (args.go_python, sys.executable))
@@ -321,11 +324,11 @@ def main():
         print("WARNING: go.py env pandas is not 3.x — the pandas-3 'str' dtype hazard is NOT replicated")
 
     # Gate (d): static gates on the shipped prompt; extraction is the single source of truth.
-    gates_d = static_gates(SYSTEM_MD)
+    gates_d = static_gates(system_md)
     print("static gates:", json.dumps(gates_d))
     if not gates_d["pass"]:
         raise SystemExit("STATIC GATES FAILED — fix system.md before benchmarking")
-    _, go_code = extract_script(SYSTEM_MD)
+    _, go_code = extract_script(system_md)
 
     gates_e = None
     if not args.skip_validate:

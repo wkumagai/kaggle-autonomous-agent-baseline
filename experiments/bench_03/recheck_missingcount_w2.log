@@ -1,0 +1,5 @@
+go.py interpreter: /Users/kumacmini/kaggle-autonomous-agent-baseline/experiments/bench_03/gbm_venv/bin/python (pandas 3.0.3)
+static gates: {"illegal_brace_runs": [], "placeholders_used": ["max_budget_usd", "max_exec_seconds", "max_stdout_chars", "max_submissions", "max_time_minutes", "max_tool_calls", "metric_direction", "metric_name", "task_prompt"], "braces_in_script": 0, "script_unchanged_after_injection": true, "ast_parse_ok": true, "instruction_chars": 13502, "pass": true}
+validate_submission: PASS
+datasets: train_01,train_02,train_03,train_04,train_05,train_06,train_07,train_08,train_09,train_10,train_11,train_12,train_13,train_14,train_15,train_16 | workers=2
+[   23s] done train_01: final_private=0.711057912339377 delta=0.0063 max_stage=9.1s

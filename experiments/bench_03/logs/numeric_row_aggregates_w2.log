@@ -1,0 +1,55 @@
+go.py interpreter: /Users/kumacmini/kaggle-autonomous-agent-baseline-auto/experiments/bench_03/gbm_venv/bin/python (pandas 3.0.3)
+static gates: {"illegal_brace_runs": [], "placeholders_used": ["max_budget_usd", "max_exec_seconds", "max_stdout_chars", "max_submissions", "max_time_minutes", "max_tool_calls", "metric_direction", "metric_name", "task_prompt"], "braces_in_script": 0, "script_unchanged_after_injection": true, "ast_parse_ok": true, "instruction_chars": 15236, "pass": true}
+datasets: train_01,train_02,train_03,train_04,train_05,train_06,train_07,train_08,train_09,train_10,train_11,train_12,train_13,train_14,train_15,train_16 | workers=2
+[   26s] done train_01: final_private=0.7104356627354339 delta=0.0056 max_stage=10.1s
+[   69s] done train_03: final_private=0.8211412946424285 delta=0.0169 max_stage=21.9s
+[   89s] done train_02: final_private=0.97141113031234 delta=0.015 max_stage=38.2s
+[   93s] done train_04: final_private=0.8356618861886189 delta=0.0052 max_stage=8.9s
+[  110s] done train_05: final_private=0.6825962155645999 delta=0.0365 max_stage=8.1s
+[  112s] done train_06: final_private=0.8140546305262705 delta=0.0004 max_stage=6.2s
+[  130s] done train_08: final_private=0.8498190376694646 delta=0.0133 max_stage=6.2s
+[  144s] done train_07: final_private=0.8335841082630739 delta=0.0071 max_stage=12.4s
+[  150s] done train_09: final_private=0.6502882043356979 delta=0.0262 max_stage=7.6s
+[  177s] done train_10: final_private=0.8603968149954259 delta=0.0133 max_stage=13.6s
+[  203s] done train_11: final_private=0.8242728007433692 delta=0.0106 max_stage=19.7s
+[  206s] done train_12: final_private=0.7713814147364217 delta=0.0019 max_stage=10.9s
+[  217s] done train_13: final_private=0.6552624610498442 delta=0.0378 max_stage=4.1s
+[  231s] done train_14: final_private=0.811969662638711 delta=0.0076 max_stage=10.3s
+[  240s] done train_15: final_private=0.8609469425434821 delta=0.025 max_stage=7.8s
+[  269s] done train_16: final_private=0.9063776829418151 delta=0.0135 max_stage=16.9s
+
+dataset   n_train  baseline  final_pv pick_A      pick_B          delta  maxstg   oracle   nevsel blendall
+train_01    14957    0.7048    0.7104 blend_top2  blend_all     +0.0056    10.1   0.7104   0.7104   0.7101
+train_02    14929    0.9564    0.9714 blend_all   blend_top2    +0.0150    38.2   0.9714   0.9714   0.9714
+train_03     3501    0.8042    0.8211 cat         blend_top2    +0.0169    21.9   0.8211   0.8211   0.8201
+train_04     8775    0.8305    0.8357 blend_all   cat           +0.0052     8.9   0.8357   0.8357   0.8357
+train_05     1060    0.6461    0.6826 cat         blend_all     +0.0365     8.1   0.6826   0.6826   0.6747
+train_06    10803    0.8137    0.8141 xgb         cat           +0.0004     6.2   0.8148   0.8148   0.8148
+train_07    10417    0.8265    0.8336 blend_all   blend_top2    +0.0071    12.4   0.8336   0.8336   0.8336
+train_08     8173    0.8365    0.8498 cat         blend_top2    +0.0133     6.2   0.8498   0.8498   0.8483
+train_09     1109    0.6241    0.6503 blend_top2  blend_all     +0.0262     7.6   0.6503   0.6503   0.6497
+train_10    11800    0.8471    0.8604 blend_all   lgb           +0.0133    13.6   0.8604   0.8604   0.8604
+train_11    28879    0.8137    0.8243 blend_all   blend_top2    +0.0106    19.7   0.8243   0.8243   0.8236
+train_12    49432    0.7695    0.7714 blend_top2  blend_all     +0.0019    10.9   0.7714   0.7711   0.7714
+train_13      500    0.6175    0.6553 blend_top2  cat           +0.0378     4.1   0.6553   0.6553   0.6537
+train_14    11108    0.8044    0.8120 blend_top2  blend_all     +0.0076    10.3   0.8120   0.8120   0.8120
+train_15      500    0.8359    0.8609 blend_top2  blend_all     +0.0250     7.8   0.8609   0.8609   0.8597
+train_16     1809    0.8929    0.9064 cat         blend_top2    +0.0135    16.9   0.9064   0.9064   0.8967
+
+means over 16 datasets:
+  baseline_hgb      0.7890
+  final_private     0.8037  (hedge selection)
+  oracle            0.8038
+  never_selected    0.8038  (harness top-2-public fallback)
+  blend_all_always  0.8022
+  mean delta        +0.0147 | worst delta +0.0004 | max stage 38.2s
+
+PASS GATES:
+  (a) mean delta >= +0.010 : PASS (+0.0147)
+  (b) worst delta >= -0.005: PASS (+0.0004)
+  (c) max stage <= 100s    : PASS (38.2s)
+  (d) static gates         : PASS
+  (e) validate_submission  : SKIPPED
+  no dataset at 60-min wall-time risk (total*3 <= 40min for all)
+
+OVERALL: ALL GATES PASS — ok to submit

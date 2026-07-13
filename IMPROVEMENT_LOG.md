@@ -95,10 +95,17 @@
 > - **採用基準（mean両split正 かつ 両split回帰ゼロ）を満たす CLEAN IMPROVEMENT。** → `submissions/07_2gate_msl50/` を新設（06をコピーし system.md に min_samples_leaf 第2ゲートを1つ足すだけ・validate_submission.py 合格・既存提出物に差分なし確認済）。構造は 06と同じ sklearn-only 単一HGB・単発に「msl値をデータ駆動で決める第2ゲート1本」を足しただけ（新規列なし・保証外パッケージ非依存＝03の脆弱性を持たない）。
 > - **戦略的価値: 07は 06の弱点(境界 train_16)を悪化させずに、l2だけでは動かなかった train_09/13(小n)を Private で大きく底上げする。** 提出キューの改善段を 02→06→07 と一段深くする。生ログ=`experiments/bench_03/round21_2gate_msl50/{results.csv,summary.txt,run.log}`。
 >
-> **したがって次にやること（優先順・ラウンド21末で更新）:**
-> 1. **本日 2026-07-13 UTC は 03(ERROR)が1日1件枠を消費済み＝新規提出せず（確認済: 提出履歴の当日UTC分は 03 のみ・現在 ~07 UTC）。**
-> 2. **実提出キュー（3段に拡張）:** 次UTC日 **2026-07-14** に `submissions/02_early_stopping/`（(B)シンプル路線・grader保証で確実に動く再確立）、**2026-07-15** に `submissions/06_ngated_l2/`（02をクリーンにパレート改善）、**2026-07-16** に `submissions/07_2gate_msl50/`（06をさらにクリーンにパレート改善・本ラウンドで採用）。各提出手順は下記。※もし 07-14 の 02 が実グレーダーで無事スコアしたら 06/07 も同一 sklearn-only 構造なので安全に続けられる。急ぐなら 06 を飛ばして 07 を直接出す選択も可（07は06を内包）だが、最小変更で1段ずつ較正する保守案を既定とする。
-> 3. **次サイクルのオフライン最優先角度 = 「07の第2 msl ゲート内での min_samples_leaf magnitude スイープ」**（ラウンド19の l2 magnitude スイープと同型）。07の2ゲート構造(l2比0.010 / msl比0.015)はそのまま固定し、発火時の min_samples_leaf のみ {40, 60, 70} を 50(=07) と比較。round21/replay.py を雛形に再利用（発火判定は共通、msl値だけ差し替え）。msl=50 がスイートスポットか、さらに上げて発火3データを悪化なく底上げできるかを確認。
+> **🔎 探索済み・不採用（ラウンド22, 2026-07-13 ~08 UTC）— ラウンド21の最優先角度「07の第2mslゲート内での min_samples_leaf magnitude スイープ」を検証。msl=50(=07)が依然スイートスポットで確定・キュー不変:** 07の2ゲート構造(l2比≥0.010 / msl比≥0.015)はそのまま固定し、**発火時の `min_samples_leaf` magnitude のみ**を {40, 60, 70} で 50(=shipped 07) と比較（ラウンド19のl2 magnitudeスイープと同型）。専用replayハーネス `experiments/bench_03/round22_msl_magnitude/replay.py`（round21/replay.pyを拡張・sklearn-only `.venv`=grader保証パッケージと一致）で16データPublic/Private別AUC採点。**de-risk: 4設定×16=64 fit 全てクラッシュ無し完走(CLEAN RUN=YES)、`git status --porcelain` は `round22_msl_magnitude/` 配下のみ＝`submissions/`一切不触・確認済。** 全設定で発火は同一（mslゲートは train_09/13/15 のみ発火、train_16 は非発火で全設定 msl=20＝07と同一、他12データもバイト同一）。base=07(msl=50)に対する候補:
+> - **msl40:** mean Public Δ=**−0.00092** / Private Δ=**−0.00174**、W/L/T=1/2/13。train_09(−0.0089/−0.0116)・train_13(−0.0063/−0.0126) を明確に回帰。葉サイズを下げると害＝**不採用。**
+> - **msl60:** mean Public Δ=+0.00003 / Private Δ=+0.00000（実質フラット）。train_09 を両split・train_15 を Private で僅かに回帰 → 「悪化ゼロ」を満たさず**不採用。**
+> - **msl70:** mean Public Δ=+0.00023 / Private Δ=**−0.00016**（Private平均が負）。**train_15 は大きく改善(+0.0039/+0.0040)する一方 train_09 が両split回帰(−0.0022/−0.0041)・train_13 も Private回帰** → 不採用。
+> - **結論:** min_samples_leaf magnitude は **50(=07)が明確なスイートスポット**（正の平均かつ両split回帰ゼロは 50 のみ。40は一律悪化、60はフラット、70はPrivate負）。**07は msl magnitude ノブで局所最適が確定。提出キューは不変（02→06→07）。**
+> - **🔑 発見したリード（次サイクルの最優先角度）:** 発火3データは **同じ方向に動かない** — train_15 は msl を上げるほど単調に改善（msl70で +0.0039/+0.0040）する一方、train_09 は逆に msl を上げると回帰する「カウンタームーバー」、train_13 は中間。単一のグローバル msl 値では3データを同時に底上げできない。**つまり「msl magnitude を比(n_feat/n)でさらに階層化する ratio-tiered msl」**（例: 最高比の train_15(0.060) だけ msl=70、中比の train_09(0.016)/13(0.018) は msl=50 のまま）が train_15 の単調ゲインを悪化ゼロで拾える可能性。これが次ラウンドの最優先候補。生ログ=`experiments/bench_03/round22_msl_magnitude/{results.csv,summary.txt,run.log}`。
+>
+> **したがって次にやること（優先順・ラウンド22末で更新）:**
+> 1. **本日 2026-07-13 UTC は 03(ERROR)が1日1件枠を消費済み＝新規提出せず（確認済: 提出履歴の当日UTC分は 03 のみ・現在 ~08 UTC）。**
+> 2. **実提出キュー（3段・不変）:** 次UTC日 **2026-07-14** に `submissions/02_early_stopping/`（(B)シンプル路線・grader保証で確実に動く再確立）、**2026-07-15** に `submissions/06_ngated_l2/`（02をクリーンにパレート改善）、**2026-07-16** に `submissions/07_2gate_msl50/`（06をクリーンにパレート改善）。各提出手順は下記。※もし 07-14 の 02 が実グレーダーで無事スコアしたら 06/07 も同一 sklearn-only 構造なので安全に続けられる。
+> 3. **次サイクルのオフライン最優先角度 = 上記リード「ratio-tiered msl」**（07の2ゲート構造はそのまま、msl発火データの中でさらに比で階層化。最高比 train_15(0.060) は msl=70、中比 train_09/13 は msl=50 のまま＝07と同一を保つ2段目のmagnitudeゲート）。狙いは train_15 の単調ゲイン(+0.004)を train_09 の回帰を起こさず拾い、07をクリーンにパレート改善すること。round22/replay.py を雛形に再利用（比の階層で msl 値を分岐する1本を足すだけ）。閾値は dataset_stats.csv の比で train_15 のみを高tierに、09/13 を低tierに分ける値（例 比≥0.03）に設定。
 > 4. (A)複雑路線(03/05のgo.py堅牢化)は依然ユーザー確認待ちの大設計変更。独断着手しない。
 >
 > `07_2gate_msl50`（採用候補・06をクリーンにパレート改善）の提出手順:
@@ -157,6 +164,16 @@
 | 2026-07-16 提出予定（採用候補・**ラウンド21で検証済**） | （未提出・作成済み・validate合格） | **07_2gate_msl50**: 06 に「特徴量数/行数の比が高い(n_feat/n≥**0.015**)データだけ `min_samples_leaf=50`（既定20）」という**第2の、より厳しいデータ駆動ゲート**を1本足した単発・単一HGB（l2ゲートは06から不変の比≥0.010）。厳ゲートで境界データ train_16 を除外し、train_09/13/15(小n)を Private で大きく底上げ。sklearn-only・新規列なし・保証外パッケージ非依存で03の脆弱性を持たない。**06をクリーンにパレート改善**（発火3データ改善・悪化ゼロ・他13データ06と同一、mean Public +0.00093/Private +0.00254）。 | オフライン: 06比+0.00093（悪化ゼロ） | — |
 
 ## 各回の詳細メモ
+
+### 2026-07-13: ラウンド22 — 07の第2mslゲート内での min_samples_leaf magnitude スイープ（❌不採用・msl=50が最適／ratio-tiered mslのリード発見）
+
+ラウンド21末の最優先角度を検証。shipped 07 の2ゲート構造(l2比≥0.010 / msl比≥0.015、msl発火=train_09/13/15)を固定し、**発火時の min_samples_leaf magnitude のみ**を {40, 60, 70} で 50(=07) と比較（ラウンド19のl2 magnitudeスイープと同型）。ハーネス `experiments/bench_03/round22_msl_magnitude/replay.py`（round21/replay.py 拡張・sklearn-only `.venv`=grader保証パッケージと一致）で16データPublic/Private別AUC採点。**4設定×16=64 fit 全CLEAN RUN=YES、`submissions/`不触（git status で `round22_msl_magnitude/` のみ確認）。** train_16 は msl比0.0116<0.015 で全設定非発火（msl=20）、非発火12データも全設定バイト同一＝07と差が出るのは train_09/13/15 のみ。base=07(msl=50) に対する3候補:
+
+- **msl40:** mean Public Δ=−0.00092 / Private Δ=−0.00174、W/L/T=1/2/13。train_09(−0.0089/−0.0116)・train_13(−0.0063/−0.0126) 回帰。葉サイズ縮小は一律に害 → 不採用。
+- **msl60:** mean Public Δ=+0.00003 / Private Δ=+0.00000（フラット）。train_09 両split・train_15 Private を僅かに回帰 → 「悪化ゼロ」不成立で不採用。
+- **msl70:** mean Public Δ=+0.00023 / Private Δ=−0.00016（Private平均が負）。train_15 を大きく改善(+0.0039/+0.0040) するが train_09 が両split回帰(−0.0022/−0.0041)・train_13 も Private回帰 → 不採用。
+- **判断: 不採用。** 「mean両split正 かつ 両split回帰ゼロ」を満たすのは 50(=07) のみ。min_samples_leaf magnitude は 50 がスイートスポットで、07はこのノブで局所最適確定。キュー不変（02→06→07）。
+- **知見/リード:** 発火3データは同方向に動かない — train_15 は msl を上げるほど**単調に改善**(msl70で +0.004)、train_09 は逆に msl を上げると**回帰するカウンタームーバー**、train_13 は中間。単一グローバル msl では3データを同時に底上げできず 50 が均衡点。**→ 次角度: msl を比でさらに階層化する「ratio-tiered msl」**（最高比 train_15(0.060) だけ msl=70、中比 train_09/13 は msl=50 のまま＝07と同一を保つ）で train_15 の単調ゲインを train_09 の回帰なしに拾えるか。生ログ=`experiments/bench_03/round22_msl_magnitude/{results.csv,summary.txt,run.log}`。
 
 ### 2026-07-13: ラウンド20 — gate内でl2=1.0に第2正則化ノブを重ねる（❌不採用・train_16が必ず回帰／2段ゲートのリード発見）
 

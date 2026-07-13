@@ -1,0 +1,53 @@
+=== PER-DATASET (Public) ===
+dataset         base gate_ratio     dRatio  gate_nsml      dNsml
+train_01      0.7103     0.7103    +0.0000     0.7103    +0.0000
+train_02      0.9644     0.9644    +0.0000     0.9644    +0.0000
+train_03      0.7926     0.7926    +0.0000     0.7926    +0.0000
+train_04      0.8236     0.8236    +0.0000     0.8236    +0.0000
+train_05      0.6531     0.6531    +0.0000     0.6455    -0.0077
+train_06      0.7997     0.7997    +0.0000     0.7997    +0.0000
+train_07      0.8236     0.8236    +0.0000     0.8236    +0.0000
+train_08      0.8460     0.8460    +0.0000     0.8460    +0.0000
+train_09      0.6102     0.6146    +0.0044     0.6146    +0.0044
+train_10      0.8368     0.8368    +0.0000     0.8368    +0.0000
+train_11      0.8281     0.8281    +0.0000     0.8281    +0.0000
+train_12      0.7949     0.7949    +0.0000     0.7949    +0.0000
+train_13      0.6181     0.6214    +0.0033     0.6214    +0.0033
+train_14      0.7975     0.7975    +0.0000     0.7975    +0.0000
+train_15      0.8263     0.8352    +0.0089     0.8352    +0.0089
+train_16      0.8868     0.8922    +0.0054     0.8868    +0.0000
+
+=== PER-DATASET (Private) ===
+dataset         base gate_ratio     dRatio  gate_nsml      dNsml
+train_01      0.7048     0.7048    +0.0000     0.7048    +0.0000
+train_02      0.9635     0.9635    +0.0000     0.9635    +0.0000
+train_03      0.8095     0.8095    +0.0000     0.8095    +0.0000
+train_04      0.8250     0.8250    +0.0000     0.8250    +0.0000
+train_05      0.6569     0.6569    +0.0000     0.6549    -0.0020
+train_06      0.8137     0.8137    +0.0000     0.8137    +0.0000
+train_07      0.8265     0.8265    +0.0000     0.8265    +0.0000
+train_08      0.8411     0.8411    +0.0000     0.8411    +0.0000
+train_09      0.6194     0.6217    +0.0023     0.6217    +0.0023
+train_10      0.8477     0.8477    +0.0000     0.8477    +0.0000
+train_11      0.8167     0.8167    +0.0000     0.8167    +0.0000
+train_12      0.7695     0.7695    +0.0000     0.7695    +0.0000
+train_13      0.6244     0.6245    +0.0000     0.6245    +0.0000
+train_14      0.8044     0.8044    +0.0000     0.8044    +0.0000
+train_15      0.8251     0.8304    +0.0053     0.8304    +0.0053
+train_16      0.8849     0.8933    +0.0083     0.8849    +0.0000
+
+=== SUMMARY ===
+gate_ratio: mean Public d=+0.0014  mean Private d=+0.0010  Public W/L/T=4/0/12
+gate_nsmall: mean Public d=+0.0006  mean Private d=+0.0004  Public W/L/T=3/1/12
+
+=== GATE FIRINGS (datasets with l2=1.0) ===
+gate_ratio FIRED on (4): train_09, train_13, train_15, train_16
+gate_nsmall FIRED on (4): train_05, train_09, train_13, train_15
+
+=== REGRESSIONS vs base (strictly worse) ===
+gate_ratio Public regressions:  (none)
+gate_ratio Private regressions: (none)
+gate_nsmall Public regressions:  train_05(-0.0077)
+gate_nsmall Private regressions: train_05(-0.0020)
+
+CLEAN RUN: YES (exceptions=0, skipped=0)

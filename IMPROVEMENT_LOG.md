@@ -55,6 +55,23 @@
 > 2. **次サイクルのオフライン最優先角度 = 「n-gated l2_regularization」**（上のリード）。02の上で `if len(train) >= <閾値>: clf の l2_regularization=1.0 else 0.0`（列は増やさない・小n非発火で安全・大nの02回帰3件を狙う）を simple_replay ハーネスで検証。閾値は train_05/03/13(小n) を非発火に、train_15/16/04(大n) を発火にする値を dataset_stats.csv の n から決める。クリーンに02をパレート改善（悪化ゼロで大n底上げ）できれば採用候補として `submissions/06_*/` を新設。
 > 3. (A)複雑路線(03/05のgo.py堅牢化)は依然ユーザー確認待ちの大設計変更。独断着手しない。
 >
+> **✅ 採用候補（ラウンド18, 2026-07-13 ~04 UTC）— ラウンド17のリード「n-gated l2」を実装・検証し `submissions/06_ngated_l2/` を新設（validate合格）。ただし正しい軸は「生n」ではなく「特徴量/行数の比(n_feat/n)」だった:** ラウンド17末の最優先角度に従い gated l2 を実装。**まず軸を実証で正した** — 専用replayハーネス `experiments/bench_03/round18_ngated_l2/replay.py`（`.venv`=sklearn-only, grader保証パッケージと一致）で 02(l2=0.0)を基準に2ゲートを比較（48fit全てCLEAN RUN=YES）:
+> - **gate_ratio（採用）: `l2 = 1.0 if (n_feat/n) >= 0.010 else 0.0`。** train_09/13/15/16 の4データで発火、**全4データがPublic/Private両方で改善（悪化ゼロ）・残り12データは02とバイト同一** ＝**02のクリーンなパレート改善**。mean Public Δ=**+0.0014** / Private Δ=**+0.0010**、Public W/L/T=4/0/12。発火4データのPublic Δ: train_15 +0.0089, train_16 +0.0054, train_09 +0.0044, train_13 +0.0033。
+> - **gate_nsmall（対照・棄却）: `l2 = 1.0 if n <= 1200 else 0.0`（＝ラウンド17申し送りの「生nゲート」素直解釈）。** train_05/09/13/15 で発火し、**train_05 がPublic −0.0077 / Private −0.0020 と両面回帰** ＝パレート改善にならない。**これで「効く軸は生nではなく feature/row 比（過学習しやすさ）」が実証された** — ラウンド17の「n-gated」表現は軸を取り違えており、round18で訂正。（最大の勝ち train_15 は n=500＝最小データなので、生n≥閾値ゲートでは原理的に拾えない。）
+> - **戦略的価値: 06は 02が01(0.787,実グレーダー成功)に対して回帰していた3件のうち2件(train_15, train_16)を、まさにこのl2ゲートで埋める。** 02は01比で mean+0.0016 だが train_15 −0.0088 / train_16 −0.0071 / train_04 −0.0047 の3回帰を持つ「クリーンでない改善」だった。06はその train_15/16 を反転させるため、02より01に対しクリーンな改善に近づく。
+> - **構造的安全性: 06は 02と同じ sklearn-only 単一HGD・単発構成に「l2値をデータ駆動で決める1行」を足しただけ**（新規列なし・保証外パッケージ依存なし・小/低比データは l2=0.0 で02と完全同一）。03をERRORさせた「保証外パッケージ依存×6ステップ複雑手順」の脆弱性を構造的に持たない。単ノブ1変更でシンプル方針を維持。
+>
+> **したがって次にやること（優先順・ラウンド18末で更新）:**
+> 1. **本日 2026-07-13 UTC は 03(ERROR)が1日1件枠を消費済み＝新規提出不可。** 実提出は行っていない。
+> 2. **次UTC日 2026-07-14: `submissions/02_early_stopping/` を実提出（キュー不変・(B)確定）。** 目的は 03 ERROR以降途切れた「採点される提出」を、grader保証の sklearn-only 最小変更で再確立し、simple路線が実グレーダーで通ることを再確認すること。手順は下記。
+> 3. **その次 2026-07-15: `submissions/06_ngated_l2/` を実提出（採用候補・ラウンド18で02をクリーンにパレート改善と実証）。** 提出手順は下記。※もし 2026-07-14 の 02 が実グレーダーで問題なくスコアしたら、06も同一の sklearn-only 構造なので安全に続けられる。（枠は残り約25日分と潤沢なので、02で1枠使って再確立→06で改善、の2段が安全。急ぐなら 07-14 に 06 を直接出す選択も可＝06は02を内包し02の弱点も直すが、まず最小変更で再確立する保守案を既定とする。）
+> 4. (A)複雑路線(03/05のgo.py堅牢化)は依然ユーザー確認待ちの大設計変更。独断着手しない。
+> 5. **次サイクルのオフライン探索:** 素朴FE・TE系ハイパラは飽和確認済（R1-17）。gated-l2 は採用したので、次は (a) l2値そのものの微調整を発火データ内で（例 l2=0.5/2.0 を gate_ratio 内で・悪化なく上積みできるか）、(b) 同じ「過学習しやすさ軸」で他の正則化ノブ（`max_leaf_nodes` 縮小や `min_samples_leaf` 増）を同じ比ゲートで、あるいは (c) モデル族多様化（設計変更＝ユーザー確認要）。simple路線の検証は `experiments/bench_03/simple_replay.py` / `round18_ngated_l2/replay.py` の sklearn-only replay を再利用（benchmark.py は複雑03専用でsimple路線を検証できない）。
+>
+> `06_ngated_l2`（採用候補・02をクリーンにパレート改善）の提出手順:
+> `(cd submissions/06_ngated_l2/agent && rm -f ../submission.zip && zip -r ../submission.zip . -x '.*')` →
+> `kaggle competitions submit -c autonomous-agent-prediction-beta -f submissions/06_ngated_l2/submission.zip -m "06_ngated_l2: gated l2_regularization=1.0 when n_features/n_rows>=0.010 (on top of 02)"`
+>
 > `02_early_stopping`（安全なフォールバック）の提出手順:
 > `(cd submissions/02_early_stopping/agent && rm -f ../submission.zip && zip -r ../submission.zip . -x '.*')` →
 > `kaggle competitions submit -c autonomous-agent-prediction-beta -f submissions/02_early_stopping/submission.zip -m "02_early_stopping: single HGB + early_stopping (simple fallback after 03 ERROR)"`
@@ -99,8 +116,21 @@
 | 2026-07-13 | 54625716 | **03_cv_ensemble**: 交差検証＋XGBoost/LightGBM/CatBoostのアンサンブル＋段階的提出（詳細下記）。オフライン実測で平均AUC+0.0143、MBPローカルLLMでのE2Eリハーサル合格。ユーザー承認済み。**⚠️ 2026-07-13 00:02 UTC 提出したが Kaggle 実グレーダー上で `ERROR`（スコアなし）。** オフライン(go.py直接実行)とMBPローカルLLMリハーサルは通ったが、本番のエージェント実行環境(gemini-2.5-flash駆動の6ステップ手順)で失敗。詳細下記・要ユーザー判断。 | **ERROR** | — |
 | 保留（要判断） | （未提出・採用候補・**リスク再評価要**） | **05_te_ngated**: 03 ＋「n<1500 の小規模データセットだけに OOFターゲットエンコーディング列を足す」1点変更。オフラインで03をパレート優越。**ただし 03 と同じ複雑な go.py / 6ステップ・エージェント構造を共有するため、03がERRORした今、05も同様にERRORする可能性が高い。03のERROR原因が判明・解消するまで 05 の提出は保留。** | オフライン+0.0011 | — |
 | 2026-07-14 提出予定（キュー確定・安全策） | （未提出・作成済み・**ラウンド16で検証済**） | **02_early_stopping**: 01_baseline(0.787,実グレーダーで成功)に `early_stopping=True, max_iter=300` を足すだけの**単発・単一HGBの簡素構成**。複雑なエージェント手順を持たないため、03/05のERRORとは独立に実グレーダーで通る可能性が高い**安全なフォールバック候補**。**ラウンド16でグレーダー同等の sklearn-only 環境（xgb/lgb/cat 無し）にて16データ全部クラッシュ無し完走を実証**。01比オフライン mean d_pub +0.0016（8勝3敗＝クリーンなパレート改善ではないが平均正・安全）。**次UTC日(2026-07-14)に最優先で提出。** | 検証: 完走OK / 01比+0.0016 | — |
+| 2026-07-15 提出予定（採用候補・**ラウンド18で検証済**） | （未提出・作成済み・validate合格） | **06_ngated_l2**: 02 に「特徴量数/行数の比が高い(n_feat/n≥0.010)過学習しやすいデータだけ `l2_regularization=1.0`、他は0.0」という**データ駆動の1行ゲート**を足した単発・単一HGB。sklearn-only・新規列なし・保証外パッケージ非依存で03の脆弱性を持たない。**02をクリーンにパレート改善**（4データ改善・悪化ゼロ・12データ02と同一、mean Public +0.0014/Private +0.0010）。02が01比で回帰していた train_15/16 の2件をこのl2で反転。 | オフライン: 02比+0.0014（悪化ゼロ） | — |
 
 ## 各回の詳細メモ
+
+### 2026-07-13: ラウンド18 — gated l2_regularization（✅採用候補・06_ngated_l2作成／軸は生nでなく feature/row比だと実証）
+
+ラウンド17末の最優先角度「n-gated l2」を実装・検証した回。**結論: 特徴量数/行数の比でゲートする `l2` は 02 をクリーンにパレート改善し、`submissions/06_ngated_l2/` を新設（validate合格）。ただしラウンド17の「生nゲート」表現は軸を取り違えており、round18で feature/row 比へ訂正した。**
+
+- **ハーネス:** `experiments/bench_03/round18_ngated_l2/replay.py`。ラウンド17の `simple_replay.py` を拡張し、02のレシピ（HGB, categorical_features=dtype-mask, random_state=0, max_iter=300, early_stopping=True）をin-process再現、`.venv`（sklearn 1.9.0, xgb/lgb/cat 無し＝grader保証パッケージと一致）で16データをPublic/Private別AUC採点。`submissions/` は一切不触（`git status --porcelain` は `experiments/bench_03/round18_ngated_l2/` と後述の `submissions/06_ngated_l2/` のみ）。
+- **設定:** base=l2 0.0（＝shipped 02）／gate_ratio=`l2=1.0 if n_feat/n>=0.010 else 0.0`（仮説）／gate_nsmall=`l2=1.0 if n<=1200 else 0.0`（対照＝生nゲート）。48fit全てクラッシュ無し（CLEAN RUN=YES）。
+- **gate_ratio（採用）:** train_09/13/15/16 で発火＝**4データ全てPublic/Private両面で改善・悪化ゼロ**、残り12データは02とバイト同一。mean Public Δ=+0.0014 / Private Δ=+0.0010、Public W/L/T=4/0/12。発火4データPublic Δ: train_15 +0.0089・train_16 +0.0054・train_09 +0.0044・train_13 +0.0033（Private も全て≥0）。**02のクリーンなパレート改善。**
+- **gate_nsmall（棄却）:** train_05/09/13/15 で発火。**train_05 が Public −0.0077 / Private −0.0020 と両面回帰**（Public W/L/T=3/1/12）。→ パレート改善にならない。**これで「効く軸＝生nではなく feature/row 比（過学習しやすさ）」を実証。** 最大の勝ち train_15 は n=500＝最小データなので、生n≥閾値ゲートでは原理的に拾えない＝ラウンド17の「大nで発火」という記述は誤りだった。
+- **なぜ比が効くか:** l2 が助けたのは高次元/低サンプル（train_15=30feat/500行, train_09=18/1109, train_13=9/500, train_16=21/1809＝比≥0.011）で、害したのは低比（train_05=9/1060=0.0085, train_03=18/3501=0.0051）。過学習しやすいデータほど l2 が効くという教科書的な挙動で、比ゲートはこれを直接捉える。
+- **戦略的含意:** 06 は 02が01(0.787,実グレーダー成功)比で回帰していた3件(train_15 −0.0088 / train_16 −0.0071 / train_04 −0.0047)のうち **train_15・train_16 の2件をこのl2ゲートで反転**する。02は01比 mean+0.0016 だが3回帰を持つ「クリーンでない改善」であり、06はより01にクリーンな改善へ近づく。
+- **成果物:** `submissions/06_ngated_l2/`（agent.yaml の name を `ngated_l2_agent` に、system.md の Step1 モデル生成バレットに「n=len(train), n_feat=len(features), l2=1.0 if n_feat/n>=0.010 else 0.0」を足し `l2_regularization=l2` を渡す**1点変更のみ**。02とのdiffはこのバレットだけ＝自己diff確認済）。`validate_submission.py`→`VALIDATION SUCCESSFUL`。実提出は本日枠(03 ERRORが消費)のため未提出、キューは 2026-07-14=02 →2026-07-15=06。生ログ=`experiments/bench_03/round18_ngated_l2/{results.csv,summary.txt}`。
 
 ### 2026-07-13: ラウンド17 — simple路線初のsklearn-only単ノブ探索: `l2_regularization`（不採用・ただしn-gated l2の有望リード発見）
 - **背景:** 03複雑路線がERRORし、実提出は(B)sklearn-only simple路線(02)に確定。R16までのオフライン探索は全て複雑03 go.py上のFE差分だった。今回はR16提案に従い、**実際に出荷される02の上で simple単ノブ `l2_regularization` を初検証**。

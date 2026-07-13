@@ -1,0 +1,80 @@
+=== PER-DATASET (Public) ===
+dataset     l2G  msl      base    mf     mf_0.7     dmf_0.7    mf     mf_0.5     dmf_0.5
+train_01   False   20    0.7103     1     0.7103    +0.00000     1     0.7103    +0.00000
+train_02   False   20    0.9644     1     0.9644    +0.00000     1     0.9644    +0.00000
+train_03   False   20    0.7926     1     0.7926    +0.00000     1     0.7926    +0.00000
+train_04   False   20    0.8236     1     0.8236    +0.00000     1     0.8236    +0.00000
+train_05   False   20    0.6531     1     0.6531    +0.00000     1     0.6531    +0.00000
+train_06   False   20    0.7997     1     0.7997    +0.00000     1     0.7997    +0.00000
+train_07   False   20    0.8236     1     0.8236    +0.00000     1     0.8236    +0.00000
+train_08   False   20    0.8460     1     0.8460    +0.00000     1     0.8460    +0.00000
+train_09   True   50    0.6204   0.7     0.6283    +0.00783   0.5     0.6189    -0.00148
+train_10   False   20    0.8368     1     0.8368    +0.00000     1     0.8368    +0.00000
+train_11   False   20    0.8281     1     0.8281    +0.00000     1     0.8281    +0.00000
+train_12   False   20    0.7949     1     0.7949    +0.00000     1     0.7949    +0.00000
+train_13   True   50    0.6284   0.7     0.6131    -0.01528   0.5     0.6247    -0.00368
+train_14   False   20    0.7975     1     0.7975    +0.00000     1     0.7975    +0.00000
+train_15   True   70    0.8411   0.7     0.8445    +0.00343   0.5     0.8382    -0.00288
+train_16   True   20    0.8922   0.7     0.8886    -0.00359   0.5     0.8913    -0.00082
+
+=== PER-DATASET (Private) ===
+dataset     l2G  msl      base    mf     mf_0.7     dmf_0.7    mf     mf_0.5     dmf_0.5
+train_01   False   20    0.7048     1     0.7048    +0.00000     1     0.7048    +0.00000
+train_02   False   20    0.9635     1     0.9635    +0.00000     1     0.9635    +0.00000
+train_03   False   20    0.8095     1     0.8095    +0.00000     1     0.8095    +0.00000
+train_04   False   20    0.8250     1     0.8250    +0.00000     1     0.8250    +0.00000
+train_05   False   20    0.6569     1     0.6569    +0.00000     1     0.6569    +0.00000
+train_06   False   20    0.8137     1     0.8137    +0.00000     1     0.8137    +0.00000
+train_07   False   20    0.8265     1     0.8265    +0.00000     1     0.8265    +0.00000
+train_08   False   20    0.8411     1     0.8411    +0.00000     1     0.8411    +0.00000
+train_09   True   50    0.6335   0.7     0.6352    +0.00168   0.5     0.6340    +0.00054
+train_10   False   20    0.8477     1     0.8477    +0.00000     1     0.8477    +0.00000
+train_11   False   20    0.8167     1     0.8167    +0.00000     1     0.8167    +0.00000
+train_12   False   20    0.7695     1     0.7695    +0.00000     1     0.7695    +0.00000
+train_13   True   50    0.6440   0.7     0.6305    -0.01351   0.5     0.6381    -0.00593
+train_14   False   20    0.8044     1     0.8044    +0.00000     1     0.8044    +0.00000
+train_15   True   70    0.8436   0.7     0.8478    +0.00422   0.5     0.8420    -0.00159
+train_16   True   20    0.8933   0.7     0.8887    -0.00455   0.5     0.8890    -0.00421
+
+=== GATE FIRINGS ===
+L2 GATE (ratio>=0.010, l2=1.0) fired on (4): train_09, train_13, train_15, train_16
+max_features fires ONLY on the SAME L2-firing datasets (candidate configs only); base uses default max_features=1.0 everywhere.
+max_features<1.0 in 'base' (0): (none)  [base uses default max_features=1.0 everywhere]
+max_features=0.7 in 'mf_0.7' (4): train_09, train_13, train_15, train_16
+max_features=0.5 in 'mf_0.5' (4): train_09, train_13, train_15, train_16
+
+=== INVARIANT (non-firing datasets identical to base, delta 0) ===
+OK: every dataset where max_features did NOT fire is byte-identical to base (delta exactly 0). This covers all 12 non-L2-firing datasets for every candidate config (required base-reproduction check).
+
+=== DATASETS THAT ACTUALLY DIFFER (candidate vs base) ===
+mf_0.7: train_09, train_13, train_15, train_16
+mf_0.5: train_09, train_13, train_15, train_16
+
+=== SUMMARY (candidate vs base == shipped 08) ===
+mf_0.7: mean Public d=-0.00048  mean Private d=-0.00076  Public W/L/T=2/2/12  Private W/L/T=2/2/12
+mf_0.5: mean Public d=-0.00055  mean Private d=-0.00070  Public W/L/T=0/4/12  Private W/L/T=1/3/12
+
+=== PER-CANDIDATE DETAIL (datasets differing from base; all other deltas are exactly 0) ===
+--- mf_0.7 vs base ---
+  train_09   (mf 1->0.7)  pub 0.6204->0.6283 (+0.00783)   prv 0.6335->0.6352 (+0.00168)
+  train_13   (mf 1->0.7)  pub 0.6284->0.6131 (-0.01528)   prv 0.6440->0.6305 (-0.01351)
+  train_15   (mf 1->0.7)  pub 0.8411->0.8445 (+0.00343)   prv 0.8436->0.8478 (+0.00422)
+  train_16   (mf 1->0.7)  pub 0.8922->0.8886 (-0.00359)   prv 0.8933->0.8887 (-0.00455)
+  Public regressions:  train_13(-0.01528), train_16(-0.00359)
+  Private regressions: train_13(-0.01351), train_16(-0.00455)
+--- mf_0.5 vs base ---
+  train_09   (mf 1->0.5)  pub 0.6204->0.6189 (-0.00148)   prv 0.6335->0.6340 (+0.00054)
+  train_13   (mf 1->0.5)  pub 0.6284->0.6247 (-0.00368)   prv 0.6440->0.6381 (-0.00593)
+  train_15   (mf 1->0.5)  pub 0.8411->0.8382 (-0.00288)   prv 0.8436->0.8420 (-0.00159)
+  train_16   (mf 1->0.5)  pub 0.8922->0.8913 (-0.00082)   prv 0.8933->0.8890 (-0.00421)
+  Public regressions:  train_09(-0.00148), train_13(-0.00368), train_15(-0.00288), train_16(-0.00082)
+  Private regressions: train_13(-0.00593), train_15(-0.00159), train_16(-0.00421)
+
+=== VERDICT (adoption vs base == shipped 08) ===
+Criterion: CLEAN IMPROVEMENT over 08 iff mean delta positive AND zero regressions on BOTH splits.
+mf_0.7: NOT-CLEAN (non-positive mean Public (-0.00048); non-positive mean Private (-0.00076); Public regs [train_13(-0.01528), train_16(-0.00359)]; Private regs [train_13(-0.01351), train_16(-0.00455)])
+mf_0.5: NOT-CLEAN (non-positive mean Public (-0.00055); non-positive mean Private (-0.00070); Public regs [train_09(-0.00148), train_13(-0.00368), train_15(-0.00288), train_16(-0.00082)]; Private regs [train_13(-0.00593), train_15(-0.00159), train_16(-0.00421)])
+
+OVERALL: NO clean improvement over 08; base (shipped 08) remains best. max_features column-subsampling (0.7 or 0.5) on the L2-firing datasets did not cleanly beat the default 1.0.
+
+CLEAN RUN=YES (total_fits=48, exceptions=0, skipped=0, invariant_violations=0)

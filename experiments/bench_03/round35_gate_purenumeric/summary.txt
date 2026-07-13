@@ -1,0 +1,150 @@
+=== PER-DATASET (Public) — base + 3 gates (C/D/E) ===
+dataset       nTr  obj  msl     base  cand_C_nocap   d_C_nocap cand_D_exceptpn d_D_exceptpn  cand_E_all16   d_E_all16
+train_01    14957    5   20   0.7103        0.7134    +0.00312        0.7134    +0.00312        0.7134    +0.00312
+train_02    14929    2   20   0.9644        0.9681    +0.00371        0.9681    +0.00371        0.9681    +0.00371
+train_03     3501    7   20   0.7926        0.7994    +0.00685        0.7994    +0.00685        0.7994    +0.00685
+train_04     8775    0   20   0.8236        0.8236    +0.00000        0.8300    +0.00631        0.8300    +0.00631
+train_05     1060    5   20   0.6531        0.6560    +0.00287        0.6560    +0.00287        0.6560    +0.00287
+train_06    10803    9   20   0.7997        0.8002    +0.00053        0.8002    +0.00053        0.8002    +0.00053
+train_07    10417    6   20   0.8236        0.8289    +0.00528        0.8289    +0.00528        0.8289    +0.00528
+train_08     8173   12   20   0.8460        0.8492    +0.00313        0.8492    +0.00313        0.8492    +0.00313
+train_09     1109    4   50   0.6204        0.6303    +0.00985        0.6303    +0.00985        0.6303    +0.00985
+train_10    11800    0   20   0.8368        0.8368    +0.00000        0.8446    +0.00781        0.8446    +0.00781
+train_11    28879    0   20   0.8281        0.8281    +0.00000        0.8316    +0.00342        0.8316    +0.00342
+train_12    49432    3   20   0.7949        0.7961    +0.00122        0.7961    +0.00122        0.7961    +0.00122
+train_13      500    4   50   0.6284        0.6353    +0.00696        0.6353    +0.00696        0.6353    +0.00696
+train_14    11108   15   20   0.7975        0.8019    +0.00442        0.8019    +0.00442        0.8019    +0.00442
+train_15      500   24   70   0.8411        0.8513    +0.01016        0.8513    +0.01016        0.8513    +0.01016
+train_16     1809    0   20   0.8922        0.8922    +0.00000        0.8922    +0.00000        0.8898    -0.00238
+
+=== PER-DATASET (Private) — base + 3 gates (C/D/E) ===
+dataset       nTr  obj  msl     base  cand_C_nocap   d_C_nocap cand_D_exceptpn d_D_exceptpn  cand_E_all16   d_E_all16
+train_01    14957    5   20   0.7048        0.7077    +0.00286        0.7077    +0.00286        0.7077    +0.00286
+train_02    14929    2   20   0.9635        0.9670    +0.00349        0.9670    +0.00349        0.9670    +0.00349
+train_03     3501    7   20   0.8095        0.8160    +0.00646        0.8160    +0.00646        0.8160    +0.00646
+train_04     8775    0   20   0.8250        0.8250    +0.00000        0.8330    +0.00802        0.8330    +0.00802
+train_05     1060    5   20   0.6569        0.6607    +0.00383        0.6607    +0.00383        0.6607    +0.00383
+train_06    10803    9   20   0.8137        0.8141    +0.00039        0.8141    +0.00039        0.8141    +0.00039
+train_07    10417    6   20   0.8265        0.8291    +0.00261        0.8291    +0.00261        0.8291    +0.00261
+train_08     8173   12   20   0.8411        0.8429    +0.00176        0.8429    +0.00176        0.8429    +0.00176
+train_09     1109    4   50   0.6335        0.6398    +0.00634        0.6398    +0.00634        0.6398    +0.00634
+train_10    11800    0   20   0.8477        0.8477    +0.00000        0.8570    +0.00929        0.8570    +0.00929
+train_11    28879    0   20   0.8167        0.8167    +0.00000        0.8214    +0.00472        0.8214    +0.00472
+train_12    49432    3   20   0.7695        0.7715    +0.00200        0.7715    +0.00200        0.7715    +0.00200
+train_13      500    4   50   0.6440        0.6491    +0.00510        0.6491    +0.00510        0.6491    +0.00510
+train_14    11108   15   20   0.8044        0.8074    +0.00296        0.8074    +0.00296        0.8074    +0.00296
+train_15      500   24   70   0.8436        0.8563    +0.01268        0.8563    +0.01268        0.8563    +0.01268
+train_16     1809    0   20   0.8933        0.8933    +0.00000        0.8933    +0.00000        0.8887    -0.00458
+
+=== SEED-AVERAGING FIRING SETS PER GATE (K=5) ===
+  gate C nocap:      fire iff n_object_cols > 0
+  gate D exceptpn:   fire iff NOT(n_object_cols==0 AND n_train<4000)
+  gate E all16:      fire always
+gate C_nocap     fires on (12): train_01, train_02, train_03, train_05, train_06, train_07, train_08, train_09, train_12, train_13, train_14, train_15
+          expected (12) matched: YES
+gate D_exceptpn  fires on (15): train_01, train_02, train_03, train_04, train_05, train_06, train_07, train_08, train_09, train_10, train_11, train_12, train_13, train_14, train_15
+          expected (15) matched: YES
+gate E_all16     fires on (16): train_01, train_02, train_03, train_04, train_05, train_06, train_07, train_08, train_09, train_10, train_11, train_12, train_13, train_14, train_15, train_16
+          expected (16) matched: YES
+gate D excludes train_16 (sole pure-numeric small-n): YES
+gate D admits pure-numeric large-n {train_04,10,11}: YES
+
+=== INVARIANT (per gate: cand on datasets not firing under the gate is identical to base, delta 0) ===
+OK gate C_nocap: each of the 4 non-firing datasets is byte-identical to base (delta exactly 0). [train_04, train_10, train_11, train_16]
+OK gate D_exceptpn: each of the 1 non-firing datasets is byte-identical to base (delta exactly 0). [train_16]
+OK gate E_all16: each of the 0 non-firing datasets is byte-identical to base (delta exactly 0). [(none)]
+Required base-reproduction check. PASS.
+
+=== DATASETS THAT ACTUALLY DIFFER (candidate vs base) ===
+cand_C_nocap: (12) train_01, train_02, train_03, train_05, train_06, train_07, train_08, train_09, train_12, train_13, train_14, train_15
+cand_D_exceptpn: (15) train_01, train_02, train_03, train_04, train_05, train_06, train_07, train_08, train_09, train_10, train_11, train_12, train_13, train_14, train_15
+cand_E_all16: (16) train_01, train_02, train_03, train_04, train_05, train_06, train_07, train_08, train_09, train_10, train_11, train_12, train_13, train_14, train_15, train_16
+
+=== SUMMARY (each gate vs base == shipped 08) ===
+gate C_nocap     cand_C_nocap: mean Public d=+0.00363  mean Private d=+0.00316  Public W/L/T=12/0/4  Private W/L/T=12/0/4
+gate D_exceptpn  cand_D_exceptpn: mean Public d=+0.00473  mean Private d=+0.00453  Public W/L/T=15/0/1  Private W/L/T=15/0/1
+gate E_all16     cand_E_all16: mean Public d=+0.00458  mean Private d=+0.00425  Public W/L/T=15/1/0  Private W/L/T=15/1/0
+
+=== REPRODUCTION CHECK (gate C must match round34 nocap) ===
+gate C_nocap     vs round34: Public +0.00363 (ref +0.00363, YES); Private +0.00316 (ref +0.00316, YES)
+
+=== KEY QUESTION 1: pure-numeric LARGE-n datasets {train_04, train_10, train_11} under seed-avg ===
+  (all three fire under gate D and gate E; deltas read from gate E's K=5 average.)
+  train_04 (n=8775, obj=0): pub 0.8236->0.8300 (+0.00631)   prv 0.8250->0.8330 (+0.00802)   -> GAINS on both
+  train_10 (n=11800, obj=0): pub 0.8368->0.8446 (+0.00781)   prv 0.8477->0.8570 (+0.00929)   -> GAINS on both
+  train_11 (n=28879, obj=0): pub 0.8281->0.8316 (+0.00342)   prv 0.8167->0.8214 (+0.00472)   -> GAINS on both
+  => train_04/10/11 EACH gain on BOTH splits (no regression): YES
+
+=== KEY QUESTION 2: regressions under gate E (all-16) — is train_16 the SOLE regressor? ===
+  gate E Public regressions:  train_16(-0.00238)
+  gate E Private regressions: train_16(-0.00458)
+  train_16 (n=1809, obj=0) under gate E: pub 0.8922->0.8898 (-0.00238)   prv 0.8933->0.8887 (-0.00458)
+  => set of datasets regressing under gate E: ['train_16']
+  => train_16 is the SOLE regressor under gate E: YES
+
+=== PER-GATE DETAIL (datasets differing from base; all other deltas are exactly 0) ===
+--- gate C_nocap (cand_C_nocap) vs base ---
+  train_01   pub 0.7103->0.7134 (+0.00312)   prv 0.7048->0.7077 (+0.00286)
+  train_02   pub 0.9644->0.9681 (+0.00371)   prv 0.9635->0.9670 (+0.00349)
+  train_03   pub 0.7926->0.7994 (+0.00685)   prv 0.8095->0.8160 (+0.00646)
+  train_05   pub 0.6531->0.6560 (+0.00287)   prv 0.6569->0.6607 (+0.00383)
+  train_06   pub 0.7997->0.8002 (+0.00053)   prv 0.8137->0.8141 (+0.00039)
+  train_07   pub 0.8236->0.8289 (+0.00528)   prv 0.8265->0.8291 (+0.00261)
+  train_08   pub 0.8460->0.8492 (+0.00313)   prv 0.8411->0.8429 (+0.00176)
+  train_09   pub 0.6204->0.6303 (+0.00985)   prv 0.6335->0.6398 (+0.00634)
+  train_12   pub 0.7949->0.7961 (+0.00122)   prv 0.7695->0.7715 (+0.00200)
+  train_13   pub 0.6284->0.6353 (+0.00696)   prv 0.6440->0.6491 (+0.00510)
+  train_14   pub 0.7975->0.8019 (+0.00442)   prv 0.8044->0.8074 (+0.00296)
+  train_15   pub 0.8411->0.8513 (+0.01016)   prv 0.8436->0.8563 (+0.01268)
+  Public regressions:  (none)
+  Private regressions: (none)
+--- gate D_exceptpn (cand_D_exceptpn) vs base ---
+  train_01   pub 0.7103->0.7134 (+0.00312)   prv 0.7048->0.7077 (+0.00286)
+  train_02   pub 0.9644->0.9681 (+0.00371)   prv 0.9635->0.9670 (+0.00349)
+  train_03   pub 0.7926->0.7994 (+0.00685)   prv 0.8095->0.8160 (+0.00646)
+  train_04   pub 0.8236->0.8300 (+0.00631)   prv 0.8250->0.8330 (+0.00802)
+  train_05   pub 0.6531->0.6560 (+0.00287)   prv 0.6569->0.6607 (+0.00383)
+  train_06   pub 0.7997->0.8002 (+0.00053)   prv 0.8137->0.8141 (+0.00039)
+  train_07   pub 0.8236->0.8289 (+0.00528)   prv 0.8265->0.8291 (+0.00261)
+  train_08   pub 0.8460->0.8492 (+0.00313)   prv 0.8411->0.8429 (+0.00176)
+  train_09   pub 0.6204->0.6303 (+0.00985)   prv 0.6335->0.6398 (+0.00634)
+  train_10   pub 0.8368->0.8446 (+0.00781)   prv 0.8477->0.8570 (+0.00929)
+  train_11   pub 0.8281->0.8316 (+0.00342)   prv 0.8167->0.8214 (+0.00472)
+  train_12   pub 0.7949->0.7961 (+0.00122)   prv 0.7695->0.7715 (+0.00200)
+  train_13   pub 0.6284->0.6353 (+0.00696)   prv 0.6440->0.6491 (+0.00510)
+  train_14   pub 0.7975->0.8019 (+0.00442)   prv 0.8044->0.8074 (+0.00296)
+  train_15   pub 0.8411->0.8513 (+0.01016)   prv 0.8436->0.8563 (+0.01268)
+  Public regressions:  (none)
+  Private regressions: (none)
+--- gate E_all16 (cand_E_all16) vs base ---
+  train_01   pub 0.7103->0.7134 (+0.00312)   prv 0.7048->0.7077 (+0.00286)
+  train_02   pub 0.9644->0.9681 (+0.00371)   prv 0.9635->0.9670 (+0.00349)
+  train_03   pub 0.7926->0.7994 (+0.00685)   prv 0.8095->0.8160 (+0.00646)
+  train_04   pub 0.8236->0.8300 (+0.00631)   prv 0.8250->0.8330 (+0.00802)
+  train_05   pub 0.6531->0.6560 (+0.00287)   prv 0.6569->0.6607 (+0.00383)
+  train_06   pub 0.7997->0.8002 (+0.00053)   prv 0.8137->0.8141 (+0.00039)
+  train_07   pub 0.8236->0.8289 (+0.00528)   prv 0.8265->0.8291 (+0.00261)
+  train_08   pub 0.8460->0.8492 (+0.00313)   prv 0.8411->0.8429 (+0.00176)
+  train_09   pub 0.6204->0.6303 (+0.00985)   prv 0.6335->0.6398 (+0.00634)
+  train_10   pub 0.8368->0.8446 (+0.00781)   prv 0.8477->0.8570 (+0.00929)
+  train_11   pub 0.8281->0.8316 (+0.00342)   prv 0.8167->0.8214 (+0.00472)
+  train_12   pub 0.7949->0.7961 (+0.00122)   prv 0.7695->0.7715 (+0.00200)
+  train_13   pub 0.6284->0.6353 (+0.00696)   prv 0.6440->0.6491 (+0.00510)
+  train_14   pub 0.7975->0.8019 (+0.00442)   prv 0.8044->0.8074 (+0.00296)
+  train_15   pub 0.8411->0.8513 (+0.01016)   prv 0.8436->0.8563 (+0.01268)
+  train_16   pub 0.8922->0.8898 (-0.00238)   prv 0.8933->0.8887 (-0.00458)
+  Public regressions:  train_16(-0.00238)
+  Private regressions: train_16(-0.00458)
+
+=== VERDICT (adoption vs base == shipped 08) ===
+Criterion: CLEAN IMPROVEMENT over 08 iff mean delta positive AND zero regressions on BOTH splits.
+gate C_nocap     cand_C_nocap: CLEAN-IMPROVEMENT (mean pub=+0.00363, prv=+0.00316; no regressions)
+gate D_exceptpn  cand_D_exceptpn: CLEAN-IMPROVEMENT (mean pub=+0.00473, prv=+0.00453; no regressions)
+gate E_all16     cand_E_all16: NOT-CLEAN (Public regs [train_16(-0.00238)]; Private regs [train_16(-0.00458)])
+
+=== KEY QUESTION 3 / DECISION (gate D exceptpn vs gate C nocap) ===
+gate C nocap:    Public +0.00363  Private +0.00316
+gate D exceptpn: Public +0.00473 (+0.00110 vs C)  Private +0.00453 (+0.00138 vs C)  zero_regressions=YES
+CONCLUSION: gate D (except pure-numeric small-n) BEATS gate C on BOTH splits with ZERO regressions -> admitting the large-n pure-numeric datasets (train_04/10/11) while excluding train_16 is a CLEAN STRICT improvement over the round34 gate C.
+
+CLEAN RUN=YES (total_fits=80, exceptions=0, skipped=0, invariant_violations=0, firing_sets_match=YES, reproductions_ok=YES)

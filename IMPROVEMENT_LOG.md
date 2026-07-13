@@ -108,6 +108,22 @@
 > 3. **次サイクルのオフライン最優先角度 = 上記リード「ratio-tiered msl」**（07の2ゲート構造はそのまま、msl発火データの中でさらに比で階層化。最高比 train_15(0.060) は msl=70、中比 train_09/13 は msl=50 のまま＝07と同一を保つ2段目のmagnitudeゲート）。狙いは train_15 の単調ゲイン(+0.004)を train_09 の回帰を起こさず拾い、07をクリーンにパレート改善すること。round22/replay.py を雛形に再利用（比の階層で msl 値を分岐する1本を足すだけ）。閾値は dataset_stats.csv の比で train_15 のみを高tierに、09/13 を低tierに分ける値（例 比≥0.03）に設定。
 > 4. (A)複雑路線(03/05のgo.py堅牢化)は依然ユーザー確認待ちの大設計変更。独断着手しない。
 >
+> **✅ 採用候補（ラウンド23, 2026-07-13 ~09 UTC）— ラウンド22の最優先リード「ratio-tiered msl」を実装・検証し `submissions/08_ratio_tiered_msl/` を新設（validate合格）。07をクリーンにパレート改善:** ラウンド22で「msl magnitude は3発火データ(train_09/13/15)が同方向に動かず、train_15 は msl↑で単調改善(+0.004)する一方 train_09 は回帰するカウンタームーバー」と判明していた。この非対称性を、**msl発火データの中を同じ比(n_feat/n)でさらに階層化**し、最高比の train_15(0.060)だけ msl=70 に上げ、中比の train_09(0.0162)/13(0.0180)は 07 と同じ msl=50 のまま据え置くことで解けるという仮説を、専用replayハーネス `experiments/bench_03/round23_ratio_tiered_msl/replay.py`（`.venv`=sklearn-only, grader保証パッケージと一致・round22/replay.py を拡張）で検証。**de-risk: 2設定×16=32 fit 全てクラッシュ無し完走(CLEAN RUN=YES)、`git status --porcelain` は `round23_ratio_tiered_msl/` 配下のみ＝`submissions/`一切不触・確認済。** base=07(msl発火時=50固定)に対する候補 tiered(`msl = 70 if ratio>=0.030 else (50 if ratio>=0.015 else 20)`):
+> - **ゲート挙動（設計通り）**: 新規の高tier(比≥0.030)は **train_15(0.060)のみ発火**し msl 50→70。中比 train_09(0.0162)/13(0.0180) は高tier非発火で msl=50 のまま(07と同一)、train_16(0.0116)は msl-gate非発火で msl=20(07と同一)、非発火12データもバイト同一。**つまり 07 と異なるのは train_15 ただ1データのみ。**
+> - **結果: 変化したのは train_15 のみ。mean Public Δ=+0.00024 / Private Δ=+0.00025（＝train_15単独ゲインを16で平均）、W/L/T=1/0/15（両split回帰ゼロ）。** train_15 Public 0.8372→0.8411 (+0.00385)、Private 0.8396→0.8436 (+0.00403)＝ラウンド22の msl70 単独スイープで観測した train_15 のゲインと一致。他15データは 07 とバイト同一（delta 0.00000）。
+> - **採用基準（mean両split正 かつ 両split回帰ゼロ）を満たす CLEAN IMPROVEMENT。** → `submissions/08_ratio_tiered_msl/` を新設（07をコピーし system.md の msl ゲートを1行だけ「70/50/20 の3tier」に拡張・validate_submission.py 合格・self-diff で変更は当該ゲート行1本のみと確認・既存提出物に差分なし確認済）。構造は 07と同じ sklearn-only 単一HGB・単発に「高比のみ msl を一段上げる比tier1本」を足しただけ（新規列なし・保証外パッケージ非依存＝03の脆弱性を持たない）。
+> - **戦略的価値: 08は 07が拾えなかった train_15 の単調ゲインを、07の他データ(特にカウンタームーバー train_09)を一切悪化させずに取る。** 提出キューの改善段を 02→06→07→08 と一段深くする。生ログ=`experiments/bench_03/round23_ratio_tiered_msl/{results.csv,summary.txt}`。
+>
+> **したがって次にやること（優先順・ラウンド23末で更新）:**
+> 1. **本日 2026-07-13 UTC は 03(ERROR)が1日1件枠を消費済み＝新規提出せず（確認済: 提出履歴の当日UTC分は 03 のみ・現在 ~09 UTC）。**
+> 2. **実提出キュー（4段）:** 次UTC日 **2026-07-14** に `submissions/02_early_stopping/`（(B)シンプル路線・grader保証で確実に動く再確立）、**2026-07-15** に `submissions/06_ngated_l2/`（02をクリーンにパレート改善）、**2026-07-16** に `submissions/07_2gate_msl50/`（06をクリーンにパレート改善）、**2026-07-17** に `submissions/08_ratio_tiered_msl/`（07をクリーンにパレート改善）。各提出手順は下記。※4段とも同一の sklearn-only 単一HGB・単発構造なので、07-14 の 02 が実グレーダーで無事スコアすれば以降も安全に続く。
+> 3. **次サイクルのオフライン最優先角度:** ゲート系(l2/msl)の magnitude・tier・閾値は R17-23 で一通り局所最適を確認（l2=1.0 @0.010、msl=50 @0.015、msl=70 @0.030）。simple路線の単ノブ探索はかなり飽和してきた。まだ試していない直交角度の候補: (a) **l2 側にも同じ比tier**を入れる（高比データで l2 を 1.0→2.0 に一段上げる。ただし R19 で全体 l2=2.0 は train_15 Private回帰だったので、tier化で回避できるか）、(b) **early_stopping の `validation_fraction`** を高比(小n)データで広げる単ノブ、(c) それも飽和なら (d)モデル族/ブレンド多様化（設計変更＝ユーザー確認要）。検証は round23/replay.py を雛形に再利用（sklearn-only replay）。
+> 4. (A)複雑路線(03/05のgo.py堅牢化)は依然ユーザー確認待ちの大設計変更。独断着手しない。
+>
+> `08_ratio_tiered_msl`（採用候補・07をクリーンにパレート改善）の提出手順:
+> `(cd submissions/08_ratio_tiered_msl/agent && rm -f ../submission.zip && zip -r ../submission.zip . -x '.*')` →
+> `kaggle competitions submit -c autonomous-agent-prediction-beta -f submissions/08_ratio_tiered_msl/submission.zip -m "08_ratio_tiered_msl: on top of 07, min_samples_leaf=70 on high tier n_feat/n>=0.030 (train_15)"`
+>
 > `07_2gate_msl50`（採用候補・06をクリーンにパレート改善）の提出手順:
 > `(cd submissions/07_2gate_msl50/agent && rm -f ../submission.zip && zip -r ../submission.zip . -x '.*')` →
 > `kaggle competitions submit -c autonomous-agent-prediction-beta -f submissions/07_2gate_msl50/submission.zip -m "07_2gate_msl50: on top of 06, min_samples_leaf=50 on stricter gate n_feat/n>=0.015"`
@@ -164,6 +180,18 @@
 | 2026-07-16 提出予定（採用候補・**ラウンド21で検証済**） | （未提出・作成済み・validate合格） | **07_2gate_msl50**: 06 に「特徴量数/行数の比が高い(n_feat/n≥**0.015**)データだけ `min_samples_leaf=50`（既定20）」という**第2の、より厳しいデータ駆動ゲート**を1本足した単発・単一HGB（l2ゲートは06から不変の比≥0.010）。厳ゲートで境界データ train_16 を除外し、train_09/13/15(小n)を Private で大きく底上げ。sklearn-only・新規列なし・保証外パッケージ非依存で03の脆弱性を持たない。**06をクリーンにパレート改善**（発火3データ改善・悪化ゼロ・他13データ06と同一、mean Public +0.00093/Private +0.00254）。 | オフライン: 06比+0.00093（悪化ゼロ） | — |
 
 ## 各回の詳細メモ
+
+### 2026-07-13: ラウンド23 — ratio-tiered msl（✅採用候補・08_ratio_tiered_msl作成／07をクリーンにパレート改善）
+
+ラウンド22末の最優先リードを実装・検証した回。**結論: msl発火データを同じ比(n_feat/n)でさらに階層化し、最高比の train_15 だけ msl=70 に上げる「ratio-tiered msl」は 07 をクリーンにパレート改善し、`submissions/08_ratio_tiered_msl/` を新設（validate合格）。**
+
+- **背景（R22の非対称性）:** msl発火3データは msl↑に対し同方向に動かない — train_15 は単調改善(+0.004)、train_09 はカウンタームーバー(回帰)、train_13 は中間。単一グローバル msl では3データを同時に底上げできず 50 が均衡だった。ratio-tier で train_15 だけを高 msl に隔離すれば train_09 の回帰を避けて train_15 のゲインを取れるという仮説。
+- **ハーネス:** `experiments/bench_03/round23_ratio_tiered_msl/replay.py`（round22/replay.py 拡張・sklearn-only `.venv`=grader保証パッケージと一致）で16データPublic/Private別AUC採点。2設定×16=32 fit 全CLEAN RUN=YES、`submissions/` 不触（`git status --porcelain` は `round23_ratio_tiered_msl/` のみ確認）。
+- **設定:** base=07（msl発火時=50固定）／候補 tiered=`msl = 70 if ratio>=0.030 else (50 if ratio>=0.015 else 20)`。l2ゲート(1.0 @0.010)は両設定同一。
+- **ゲート挙動（設計通り）:** 新規高tier(比≥0.030)は **train_15(0.060)のみ発火**（msl 50→70）。中比 train_09(0.0162)/13(0.0180) は高tier非発火で msl=50(07と同一)、train_16(0.0116)は msl-gate非発火で msl=20(07と同一)、非発火12データもバイト同一。**07と異なるのは train_15 ただ1データ。**
+- **結果: mean Public Δ=+0.00024 / Private Δ=+0.00025、W/L/T=1/0/15（両split回帰ゼロ）。** train_15 Public 0.8372→0.8411 (+0.00385) / Private 0.8396→0.8436 (+0.00403)＝R22の msl70 単独スイープで見た train_15 ゲインと一致。他15データは 07 とバイト同一（delta 0）。
+- **判断: 採用候補。** 「mean両split正 かつ 両split回帰ゼロ」を満たす CLEAN IMPROVEMENT。`submissions/08_ratio_tiered_msl/` を新設（07コピー＋system.md の msl ゲート行を70/50/20の3tierに拡張・self-diffで変更は当該1行のみ確認・validate合格・既存提出物に差分なし）。構造は07と同じ sklearn-only 単一HGB・単発に比tier1本を足しただけ（新規列・保証外パッケージ非依存＝03の脆弱性なし）。提出キューを 02→06→07→08 と一段延長。
+- **知見/リード:** ゲート系(l2/msl)の magnitude・tier・閾値は R17-23 で一通り局所最適を確認（l2=1.0 @0.010、msl=50 @0.015、msl=70 @0.030）。simple単ノブ探索は飽和気味。次の未検証直交角度候補: (a) l2 にも同じ比tier（高比で l2 1.0→2.0、R19の全体2.0が起こした train_15 Private回帰を tier化で回避できるか）、(b) `validation_fraction` を高比データで広げる、(c) 飽和なら モデル族/ブレンド多様化（設計変更＝ユーザー確認要）。生ログ=`experiments/bench_03/round23_ratio_tiered_msl/{results.csv,summary.txt}`。
 
 ### 2026-07-13: ラウンド22 — 07の第2mslゲート内での min_samples_leaf magnitude スイープ（❌不採用・msl=50が最適／ratio-tiered mslのリード発見）
 

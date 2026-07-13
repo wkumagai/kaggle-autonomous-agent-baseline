@@ -18,6 +18,21 @@
 > 2. **提出枠について:** 03 は ERROR でも本日 2026-07-13 UTC の1日1件枠を消費した可能性が高い（要確認）。少なくとも直近提出が確定するまで新規提出しない。次UTC日(2026-07-14)以降、上のユーザー判断に従って **02_early_stopping（安全策）** か **05（複雑路線継続かつERROR原因解消後）** のいずれかを提出する。
 > 3. **05/04 を「複雑路線が実グレーダーで動く」と確認できるまで提出しないこと**（03と同構造でERROR再現の恐れ）。
 >
+> **🔬 ERROR原因の再現診断（2026-07-13 01:xx UTC・ラウンド15）— 複雑路線の脆弱性を実証。推奨は (B) シンプル路線寄りへさらに傾く:**
+> `03` の go.py（fenced pythonブロック）を、**xgboost/lightgbm/catboost を持たない環境（この repo の `.venv` と一致。Kaggle グレーダーのサンドボックスも同様の可能性が高い＝01のsystem.md自体が保証しているのは pandas/numpy/scikit-learn だけ）** で train_01 に対して段階実行し、失敗カスケードを実測した:
+> - `safety` → **OK**（lightgbm不在→sklearn HGB フォールバックが発火し `sub_safety.csv` を書く。exit 0, val_auc=0.70）
+> - `xgb` → **クラッシュ**（`import xgboost` で ImportError→`fit_fam` に fallback が無く stage 全体が落ちる。出力ファイルなし）
+> - `cat` → **クラッシュ**（同上、catboost不在）
+> - `lgb` → **クラッシュ**（.venv は lightgbm も不在。※base python3 には lightgbm はある＝グレーダーが何を持つかは不確定）
+> - `blend` → `RESULT blend no_models`（ブレンド対象ゼロ、何も書かない。残るのは `sub_safety.csv` のみ）
+>
+> **結論（証拠に基づく）:** 03の売り（xgb/cat/lgb の複数族アンサンブル）は**グレーダーに保証されていない外部パッケージに依存**している。パッケージが欠けると3族すべてが落ち、クリーンな6手順が「クラッシュ＋リカバリ分岐だらけの茨の道」に化ける。Step3で `sub_safety.csv` を先に提出する安全網はあるので**パッケージ欠如＝即・総ERROR**とまでは断定できない（総ERRORは agent実行層＝gemini-2.5-flash が茨の道で tool-call/時間予算を使い切る・最終選択を誤る等に起因する可能性が高く、これはオフラインでは検証不能）。だが**この脆弱性は gbm_venv（3族入り）で回すオフラインベンチでは完全に不可視**で、「オフライン＋MBPローカルは通ったのに本番ERROR」を素直に説明する。**一方 `01_baseline`(0.787成功) と `02_early_stopping` は sklearn の HGB 単独＝グレーダーが保証する範囲だけを使うので、この脆弱性を構造的に持たない。**
+>
+> **したがって推奨の更新（A/Bの最終決定は依然ユーザー・PushNotificationで報告）:**
+> - **(B) シンプル路線が既定として強く支持される。** 次の実提出（次UTC日 2026-07-14 以降。本日 2026-07-13 UTC枠は 03 が消費済み）は `submissions/02_early_stopping/`（sklearn-only・グレーダーで確実に動く・01への1点改善）を最優先とする。提出手順は上の「02の提出手順」参照。
+> - **(A) 複雑路線を続けるなら**、go.py を「各族が該当パッケージ不在時に sklearn HGB へフォールバックする／xgb・cat・lgb の存在を前提にしない」よう作り直す設計変更が必須（`architect`/`coder` に委譲）。これは「シンプル1変更」を超える設計変更なので独断で着手せず、ユーザー確認を待つ。
+> - 05/04/freq 等の複雑路線候補は上記(A)の堅牢化が済むまで提出しない（03同構造でERROR再現の恐れ）。
+>
 > `02_early_stopping`（安全なフォールバック）の提出手順:
 > `(cd submissions/02_early_stopping/agent && rm -f ../submission.zip && zip -r ../submission.zip . -x '.*')` →
 > `kaggle competitions submit -c autonomous-agent-prediction-beta -f submissions/02_early_stopping/submission.zip -m "02_early_stopping: single HGB + early_stopping (simple fallback after 03 ERROR)"`
@@ -64,6 +79,13 @@
 | 保留（安全策） | （未提出・作成済み） | **02_early_stopping**: 01_baseline(0.787,実グレーダーで成功)に `early_stopping=True, max_iter=300` を足すだけの**単発・単一HGBの簡素構成**。複雑なエージェント手順を持たないため、03/05のERRORとは独立に実グレーダーで通る可能性が高い**安全なフォールバック候補**。 | — | — |
 
 ## 各回の詳細メモ
+
+### 2026-07-13: ラウンド15 — 03 ERROR原因の再現診断（探索＝診断。新規候補は作らず）
+- **背景:** 03(複雑路線)が実グレーダーで ERROR。オフラインベンチは gbm_venv(xgb/lgb/cat 全部入り)で go.py を回すため、パッケージ依存の脆弱性が原理的に不可視。この回は新FE候補を1つ足す代わりに、**より価値の高い「本番ERRORの再現診断」**を探索として実施した。
+- **手法:** 03 の go.py を抽出し、**xgb/lgb/cat を持たない `.venv`**（Kaggleサンドボックスに近い最小構成）で train_01 に対し safety→xgb→cat→lgb→blend を段階実行。
+- **結果:** safety のみ成功（sklearn HGB フォールバック、`sub_safety.csv` 生成）。xgb/cat/lgb は ImportError で全クラッシュ（`fit_fam` に族フォールバックが無い）。blend は `no_models`。詳細は冒頭「🔬 ERROR原因の再現診断」ブロック参照。
+- **結論:** 03の複数族アンサンブルはグレーダー非保証の外部パッケージ(xgboost/catboost)依存で、欠けると3族が落ち6手順が失敗リカバリの茨道に化ける。Step3の安全網提出があるため総ERROR即断はできないが（総ERRORは agent実行層＝オフライン検証不能に起因の公算）、**この脆弱性がオフライン通過↔本番ERRORの乖離を素直に説明**。sklearn-only の 01/02 は構造的に無縁。→ 推奨は (B)シンプル路線寄りにさらに傾く。A/Bの最終判断はユーザー（報告済み）。
+- **提出:** 本日 2026-07-13 UTC枠は 03(ERROR)が消費済みのため無提出。次UTC日は 02_early_stopping（sklearn-only・安全策）を最優先候補として据え置き。
 
 ### 2026-07-12: 01_baseline (0.787)
 - ねらい: まず「確実に動く」シンプルな土台を作ること。特徴量エンジニアリングや調整は一切なし。

@@ -89,6 +89,22 @@
 > 3. **次サイクルのオフライン最優先角度 = 上記リード「2段ゲート msl50」**（l2は比0.010ゲートのまま、min_samples_leaf=50 は比0.015のより厳しいゲートで発火＝境界の train_16 を除外し train_09/13/15 の大利得を悪化ゼロで取りに行く）。検証は round20/replay.py を雛形に再利用。
 > 4. (A)複雑路線(03/05のgo.py堅牢化)は依然ユーザー確認待ちの大設計変更。独断着手しない。
 >
+> **✅ 採用候補（ラウンド21, 2026-07-13 ~07 UTC）— ラウンド20の最優先リード「2段ゲート msl50」を実装・検証し `submissions/07_2gate_msl50/` を新設（validate合格）。06をクリーンにパレート改善:** ラウンド20で「単一ゲートの msl50 は train_09/13/15 を大きく底上げ(Private +0.012〜+0.020)するが境界データ train_16(比0.0116)だけ僅かに回帰して不採用」と判明していた。その回帰を、**第2ノブ(min_samples_leaf=50)だけを l2ゲートより厳しい比0.015で発火**させることで除外できるという仮説を、専用replayハーネス `experiments/bench_03/round21_2gate_msl50/replay.py`（`.venv`=sklearn-only, grader保証パッケージと一致・round20/replay.pyを拡張）で検証。**de-risk: 16データ全fitクラッシュ無し完走(CLEAN RUN=YES)、`git status --porcelain` は round21配下のみ＝`submissions/`一切不触・確認済。** base=06(l2=1.0のみ)に対する候補 msl50_2gate:
+> - **ゲート挙動（設計通り）**: L2ゲート(比≥0.010・06から不変)は train_09/13/15/16 で発火(l2=1.0)。新規の第2 msl ゲート(比≥0.015)は train_09(0.0162)/13(0.0180)/15(0.0600) で発火(min_samples_leaf=50)、**境界 train_16(0.0116)は非発火→06と完全同一**。
+> - **結果: mean Public Δ=+0.00093 / Private Δ=+0.00254、W/L/T=3/0/13（両split回帰ゼロ）。** 発火3データ全て両split改善（train_13 Private +0.01955, train_09 Private +0.01181, train_15 Private +0.00920 ＝ round20 単一ゲート msl50 の利得と数値完全一致）。**train_16 は Public/Private とも Δ=0.00000（06にバイト同一）。** 他12データも06と同一。
+> - **採用基準（mean両split正 かつ 両split回帰ゼロ）を満たす CLEAN IMPROVEMENT。** → `submissions/07_2gate_msl50/` を新設（06をコピーし system.md に min_samples_leaf 第2ゲートを1つ足すだけ・validate_submission.py 合格・既存提出物に差分なし確認済）。構造は 06と同じ sklearn-only 単一HGB・単発に「msl値をデータ駆動で決める第2ゲート1本」を足しただけ（新規列なし・保証外パッケージ非依存＝03の脆弱性を持たない）。
+> - **戦略的価値: 07は 06の弱点(境界 train_16)を悪化させずに、l2だけでは動かなかった train_09/13(小n)を Private で大きく底上げする。** 提出キューの改善段を 02→06→07 と一段深くする。生ログ=`experiments/bench_03/round21_2gate_msl50/{results.csv,summary.txt,run.log}`。
+>
+> **したがって次にやること（優先順・ラウンド21末で更新）:**
+> 1. **本日 2026-07-13 UTC は 03(ERROR)が1日1件枠を消費済み＝新規提出せず（確認済: 提出履歴の当日UTC分は 03 のみ・現在 ~07 UTC）。**
+> 2. **実提出キュー（3段に拡張）:** 次UTC日 **2026-07-14** に `submissions/02_early_stopping/`（(B)シンプル路線・grader保証で確実に動く再確立）、**2026-07-15** に `submissions/06_ngated_l2/`（02をクリーンにパレート改善）、**2026-07-16** に `submissions/07_2gate_msl50/`（06をさらにクリーンにパレート改善・本ラウンドで採用）。各提出手順は下記。※もし 07-14 の 02 が実グレーダーで無事スコアしたら 06/07 も同一 sklearn-only 構造なので安全に続けられる。急ぐなら 06 を飛ばして 07 を直接出す選択も可（07は06を内包）だが、最小変更で1段ずつ較正する保守案を既定とする。
+> 3. **次サイクルのオフライン最優先角度 = 「07の第2 msl ゲート内での min_samples_leaf magnitude スイープ」**（ラウンド19の l2 magnitude スイープと同型）。07の2ゲート構造(l2比0.010 / msl比0.015)はそのまま固定し、発火時の min_samples_leaf のみ {40, 60, 70} を 50(=07) と比較。round21/replay.py を雛形に再利用（発火判定は共通、msl値だけ差し替え）。msl=50 がスイートスポットか、さらに上げて発火3データを悪化なく底上げできるかを確認。
+> 4. (A)複雑路線(03/05のgo.py堅牢化)は依然ユーザー確認待ちの大設計変更。独断着手しない。
+>
+> `07_2gate_msl50`（採用候補・06をクリーンにパレート改善）の提出手順:
+> `(cd submissions/07_2gate_msl50/agent && rm -f ../submission.zip && zip -r ../submission.zip . -x '.*')` →
+> `kaggle competitions submit -c autonomous-agent-prediction-beta -f submissions/07_2gate_msl50/submission.zip -m "07_2gate_msl50: on top of 06, min_samples_leaf=50 on stricter gate n_feat/n>=0.015"`
+>
 > `06_ngated_l2`（採用候補・02をクリーンにパレート改善）の提出手順:
 > `(cd submissions/06_ngated_l2/agent && rm -f ../submission.zip && zip -r ../submission.zip . -x '.*')` →
 > `kaggle competitions submit -c autonomous-agent-prediction-beta -f submissions/06_ngated_l2/submission.zip -m "06_ngated_l2: gated l2_regularization=1.0 when n_features/n_rows>=0.010 (on top of 02)"`
@@ -138,6 +154,7 @@
 | 保留（要判断） | （未提出・採用候補・**リスク再評価要**） | **05_te_ngated**: 03 ＋「n<1500 の小規模データセットだけに OOFターゲットエンコーディング列を足す」1点変更。オフラインで03をパレート優越。**ただし 03 と同じ複雑な go.py / 6ステップ・エージェント構造を共有するため、03がERRORした今、05も同様にERRORする可能性が高い。03のERROR原因が判明・解消するまで 05 の提出は保留。** | オフライン+0.0011 | — |
 | 2026-07-14 提出予定（キュー確定・安全策） | （未提出・作成済み・**ラウンド16で検証済**） | **02_early_stopping**: 01_baseline(0.787,実グレーダーで成功)に `early_stopping=True, max_iter=300` を足すだけの**単発・単一HGBの簡素構成**。複雑なエージェント手順を持たないため、03/05のERRORとは独立に実グレーダーで通る可能性が高い**安全なフォールバック候補**。**ラウンド16でグレーダー同等の sklearn-only 環境（xgb/lgb/cat 無し）にて16データ全部クラッシュ無し完走を実証**。01比オフライン mean d_pub +0.0016（8勝3敗＝クリーンなパレート改善ではないが平均正・安全）。**次UTC日(2026-07-14)に最優先で提出。** | 検証: 完走OK / 01比+0.0016 | — |
 | 2026-07-15 提出予定（採用候補・**ラウンド18で検証済**） | （未提出・作成済み・validate合格） | **06_ngated_l2**: 02 に「特徴量数/行数の比が高い(n_feat/n≥0.010)過学習しやすいデータだけ `l2_regularization=1.0`、他は0.0」という**データ駆動の1行ゲート**を足した単発・単一HGB。sklearn-only・新規列なし・保証外パッケージ非依存で03の脆弱性を持たない。**02をクリーンにパレート改善**（4データ改善・悪化ゼロ・12データ02と同一、mean Public +0.0014/Private +0.0010）。02が01比で回帰していた train_15/16 の2件をこのl2で反転。 | オフライン: 02比+0.0014（悪化ゼロ） | — |
+| 2026-07-16 提出予定（採用候補・**ラウンド21で検証済**） | （未提出・作成済み・validate合格） | **07_2gate_msl50**: 06 に「特徴量数/行数の比が高い(n_feat/n≥**0.015**)データだけ `min_samples_leaf=50`（既定20）」という**第2の、より厳しいデータ駆動ゲート**を1本足した単発・単一HGB（l2ゲートは06から不変の比≥0.010）。厳ゲートで境界データ train_16 を除外し、train_09/13/15(小n)を Private で大きく底上げ。sklearn-only・新規列なし・保証外パッケージ非依存で03の脆弱性を持たない。**06をクリーンにパレート改善**（発火3データ改善・悪化ゼロ・他13データ06と同一、mean Public +0.00093/Private +0.00254）。 | オフライン: 06比+0.00093（悪化ゼロ） | — |
 
 ## 各回の詳細メモ
 

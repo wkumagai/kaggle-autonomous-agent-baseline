@@ -1,0 +1,98 @@
+[OK] train_01 base06 (l2=0.0, l2_fired=False, msl_fired=False, msl=None): pub=0.710287 prv=0.704818
+[OK] train_01 msl50_2gate (l2=0.0, l2_fired=False, msl_fired=False, msl=None): pub=0.710287 prv=0.704818
+[OK] train_02 base06 (l2=0.0, l2_fired=False, msl_fired=False, msl=None): pub=0.964370 prv=0.963480
+[OK] train_02 msl50_2gate (l2=0.0, l2_fired=False, msl_fired=False, msl=None): pub=0.964370 prv=0.963480
+[OK] train_03 base06 (l2=0.0, l2_fired=False, msl_fired=False, msl=None): pub=0.792579 prv=0.809545
+[OK] train_03 msl50_2gate (l2=0.0, l2_fired=False, msl_fired=False, msl=None): pub=0.792579 prv=0.809545
+[OK] train_04 base06 (l2=0.0, l2_fired=False, msl_fired=False, msl=None): pub=0.823647 prv=0.824960
+[OK] train_04 msl50_2gate (l2=0.0, l2_fired=False, msl_fired=False, msl=None): pub=0.823647 prv=0.824960
+[OK] train_05 base06 (l2=0.0, l2_fired=False, msl_fired=False, msl=None): pub=0.653135 prv=0.656873
+[OK] train_05 msl50_2gate (l2=0.0, l2_fired=False, msl_fired=False, msl=None): pub=0.653135 prv=0.656873
+[OK] train_06 base06 (l2=0.0, l2_fired=False, msl_fired=False, msl=None): pub=0.799693 prv=0.813708
+[OK] train_06 msl50_2gate (l2=0.0, l2_fired=False, msl_fired=False, msl=None): pub=0.799693 prv=0.813708
+[OK] train_07 base06 (l2=0.0, l2_fired=False, msl_fired=False, msl=None): pub=0.823648 prv=0.826507
+[OK] train_07 msl50_2gate (l2=0.0, l2_fired=False, msl_fired=False, msl=None): pub=0.823648 prv=0.826507
+[OK] train_08 base06 (l2=0.0, l2_fired=False, msl_fired=False, msl=None): pub=0.846027 prv=0.841110
+[OK] train_08 msl50_2gate (l2=0.0, l2_fired=False, msl_fired=False, msl=None): pub=0.846027 prv=0.841110
+[OK] train_09 base06 (l2=1.0, l2_fired=True, msl_fired=False, msl=None): pub=0.614582 prv=0.621660
+[OK] train_09 msl50_2gate (l2=1.0, l2_fired=True, msl_fired=True, msl=50): pub=0.620424 prv=0.633474
+[OK] train_10 base06 (l2=0.0, l2_fired=False, msl_fired=False, msl=None): pub=0.836807 prv=0.847743
+[OK] train_10 msl50_2gate (l2=0.0, l2_fired=False, msl_fired=False, msl=None): pub=0.836807 prv=0.847743
+[OK] train_11 base06 (l2=0.0, l2_fired=False, msl_fired=False, msl=None): pub=0.828129 prv=0.816654
+[OK] train_11 msl50_2gate (l2=0.0, l2_fired=False, msl_fired=False, msl=None): pub=0.828129 prv=0.816654
+[OK] train_12 base06 (l2=0.0, l2_fired=False, msl_fired=False, msl=None): pub=0.794888 prv=0.769505
+[OK] train_12 msl50_2gate (l2=0.0, l2_fired=False, msl_fired=False, msl=None): pub=0.794888 prv=0.769505
+[OK] train_13 base06 (l2=1.0, l2_fired=True, msl_fired=False, msl=None): pub=0.621376 prv=0.624450
+[OK] train_13 msl50_2gate (l2=1.0, l2_fired=True, msl_fired=True, msl=50): pub=0.628380 prv=0.644000
+[OK] train_14 base06 (l2=0.0, l2_fired=False, msl_fired=False, msl=None): pub=0.797525 prv=0.804425
+[OK] train_14 msl50_2gate (l2=0.0, l2_fired=False, msl_fired=False, msl=None): pub=0.797525 prv=0.804425
+[OK] train_15 base06 (l2=1.0, l2_fired=True, msl_fired=False, msl=None): pub=0.835151 prv=0.830396
+[OK] train_15 msl50_2gate (l2=1.0, l2_fired=True, msl_fired=True, msl=50): pub=0.837247 prv=0.839595
+[OK] train_16 base06 (l2=1.0, l2_fired=True, msl_fired=False, msl=None): pub=0.892160 prv=0.893255
+[OK] train_16 msl50_2gate (l2=1.0, l2_fired=True, msl_fired=False, msl=None): pub=0.892160 prv=0.893255
+
+=== PER-DATASET (Public) ===
+dataset     l2G  mslG    base06   msl50_2gate  dmsl50_2gate
+train_01   False False    0.7103        0.7103       +0.0000
+train_02   False False    0.9644        0.9644       +0.0000
+train_03   False False    0.7926        0.7926       +0.0000
+train_04   False False    0.8236        0.8236       +0.0000
+train_05   False False    0.6531        0.6531       +0.0000
+train_06   False False    0.7997        0.7997       +0.0000
+train_07   False False    0.8236        0.8236       +0.0000
+train_08   False False    0.8460        0.8460       +0.0000
+train_09   True  True    0.6146        0.6204       +0.0058
+train_10   False False    0.8368        0.8368       +0.0000
+train_11   False False    0.8281        0.8281       +0.0000
+train_12   False False    0.7949        0.7949       +0.0000
+train_13   True  True    0.6214        0.6284       +0.0070
+train_14   False False    0.7975        0.7975       +0.0000
+train_15   True  True    0.8352        0.8372       +0.0021
+train_16   True False    0.8922        0.8922       +0.0000
+
+=== PER-DATASET (Private) ===
+dataset     l2G  mslG    base06   msl50_2gate  dmsl50_2gate
+train_01   False False    0.7048        0.7048       +0.0000
+train_02   False False    0.9635        0.9635       +0.0000
+train_03   False False    0.8095        0.8095       +0.0000
+train_04   False False    0.8250        0.8250       +0.0000
+train_05   False False    0.6569        0.6569       +0.0000
+train_06   False False    0.8137        0.8137       +0.0000
+train_07   False False    0.8265        0.8265       +0.0000
+train_08   False False    0.8411        0.8411       +0.0000
+train_09   True  True    0.6217        0.6335       +0.0118
+train_10   False False    0.8477        0.8477       +0.0000
+train_11   False False    0.8167        0.8167       +0.0000
+train_12   False False    0.7695        0.7695       +0.0000
+train_13   True  True    0.6245        0.6440       +0.0195
+train_14   False False    0.8044        0.8044       +0.0000
+train_15   True  True    0.8304        0.8396       +0.0092
+train_16   True False    0.8933        0.8933       +0.0000
+
+=== GATE FIRINGS ===
+L2 GATE (ratio>=0.010, base06 & candidate, l2=1.0) fired on (4): train_09, train_13, train_15, train_16
+MSL GATE (ratio>=0.015, candidate only, min_samples_leaf=50) fired on (3): train_09, train_13, train_15
+(datasets where the MSL gate does NOT fire are byte-identical to base06 -> delta 0, including the boundary l2-only dataset train_16)
+
+=== SUMMARY (each candidate vs base06) ===
+msl50_2gate: mean Public d=+0.00093  mean Private d=+0.00254  Public W/L/T=3/0/13  Private W/L/T=3/0/13
+
+=== PER-CANDIDATE DETAIL (MSL-gate firing datasets only; all other deltas are exactly 0) ===
+--- msl50_2gate ---
+  train_09   pub 0.6146->0.6204 (+0.00584)   prv 0.6217->0.6335 (+0.01181)
+  train_13   pub 0.6214->0.6284 (+0.00700)   prv 0.6245->0.6440 (+0.01955)
+  train_15   pub 0.8352->0.8372 (+0.00210)   prv 0.8304->0.8396 (+0.00920)
+  Public regressions:  (none)
+  Private regressions: (none)
+
+=== VERDICT (adoption vs base06) ===
+Criterion: CLEAN IMPROVEMENT over 06 iff mean delta positive AND zero regressions on BOTH splits.
+msl50_2gate: ADOPTED-CLEAN-IMPROVEMENT (mean pub=+0.00093, prv=+0.00254; no regressions)
+
+OVERALL: msl50_2gate is a CLEAN IMPROVEMENT over 06 (adoption candidate).
+
+CLEAN RUN: YES (exceptions=0, skipped=0)
+
+[WROTE] /Users/kumacmini/kaggle-autonomous-agent-baseline-auto/experiments/bench_03/round21_2gate_msl50/results.csv
+[WROTE] /Users/kumacmini/kaggle-autonomous-agent-baseline-auto/experiments/bench_03/round21_2gate_msl50/summary.txt
+HARNESS_DONE

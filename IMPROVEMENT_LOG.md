@@ -156,6 +156,18 @@
 > 3. **次サイクルのオフライン角度（期待値ほぼゼロ）:** 正則化族(R17-25)・不均衡族(R26)・ランダム化列サブサンプリング(R27)ともに 08 を超えず単ノブ探索は枯渇。残る simple 直交前処理は「数値列の欠損明示補完(HGBはNaNネイティブ処理なので効果薄の見込み)」「単調制約(generic設定が難しい)」程度。1本だけ round27/replay.py 雛形で試す。それも枯れたら実効的な伸びしろは (A)go.py 堅牢化 or (c)モデル族多様化＝**大設計変更でユーザー確認必須**（独断で複雑化しない）。
 > 4. (A)複雑路線(03/05のgo.py堅牢化)は依然ユーザー確認待ちの大設計変更。独断着手しない。
 >
+> **🔎 探索済み・不採用（ラウンド28, 2026-07-13 ~14 UTC）— 正則化「族の外」だがまだ触っていなかった直交ノブ `max_bins`（ヒストグラム分割粒度, HGB既定255）を検証。不採用。単ノブ探索の枯渇がさらに強固に:** R17-27 で葉/重み(l2/msl/mln)・学習率・クラス重み・列サブサンプリングが全滅したので、R28 は**別機構**の正則化 `HistGradientBoostingClassifier(max_bins=<mb>)` を検証。max_bins を下げると特徴量の離散化が粗くなり、極小データの過学習を抑える分散削減効果があるので、l2/msl とは異なる経路で効く可能性があった。08 の l2/msl 2ゲート・early_stopping・特徴量は全て固定し、`max_bins` のみを L2ゲートと同じ比(n_feat/n≥0.010)発火データ(train_09/13/15/16)に適用、mb∈{127, 63} を既定255(=08)と比較。専用replayハーネス `experiments/bench_03/round28_max_bins/replay.py`（round27/replay.py を拡張・sklearn-only `.venv`=grader保証パッケージと一致）で16データPublic/Private別AUC採点。**de-risk: 3設定×16=48 fit 全CLEAN RUN=YES(exceptions=0/skipped=0/invariant_violations=0)、`git status --porcelain` は `round28_max_bins/` 配下のみ＝`submissions/`一切不触・確認済。非発火12データは全設定で08とバイト同一(delta 0)・検証済。** base=08 に対する2候補:
+> - **mb=127:** mean Public Δ=**−0.00173** / Private Δ=**−0.00184**、Public W/L/T=0/4/12・Private 0/4/12。**不採用（両split平均負・発火4データ全てが両split回帰）。** 最悪 train_13(−0.0134/−0.0161)・train_16(−0.0094/−0.0106)。分割粒度を半減すると極小データがむしろ情報を失い一律悪化。
+> - **mb=63:** mean Public Δ=**−0.00000** / Private Δ=**−0.00019**、Public 2/2/12・Private 1/3/12。**不採用（両split平均が非正）。** train_09 は両split改善(+0.0015/+0.0021)するが、train_15(Public −0.0030)・train_16・train_13(Private −0.0019) が回帰して相殺。
+> - **🔑 知見（ヒストグラム分割粒度の軸も閉じる）: train_13 が再びカウンタームーバー**（R22 msl↑・R25 lr↓・R27 列間引きでも回帰した高比・極小n=500データ）。max_bins を粗くしても train_09 の改善を train_13/15/16 の回帰が上回る。**葉/重み・学習率・クラス重み・列サブサンプリングに続き、ヒストグラム分割粒度もこのsuiteでは 08 を超えられないと確定。**
+> - **⚠️ 方針上の含意（更新・R28）: 正則化(R17-25)＋不均衡(R26)＋列サブサンプリング(R27)＋分割粒度(R28) の単ノブ族が**すべて 08 を超えず。simple 単ノブ探索は実質完全に枯渇**。唯一 08 が拾えない一貫パターンは「train_13(高比・n=500極小・カウンタームーバー)を悪化させずに底上げする単ノブが存在しない」こと——どのノブでも train_13 は他の発火データと逆方向に動く。残る simple 直交前処理（欠損明示補完＝HGBネイティブNaN処理で効果薄、単調制約＝generic設定困難）は期待値ほぼゼロ。**実効的な伸びしろは (A)複雑路線 go.py 堅牢化 or (c)モデル族/ブレンド多様化＝大設計変更でユーザー確認必須**。生ログ=`experiments/bench_03/round28_max_bins/{results.csv,summary.txt,run.log}`。
+>
+> **したがって次にやること（優先順・ラウンド28末で更新）:**
+> 1. **本日 2026-07-13 UTC は 03(ERROR)が1日1件枠を消費済み＝新規提出せず（確認済: 提出履歴の当日UTC分は 03 のみ・現在 ~14 UTC）。**
+> 2. **実提出キュー（4段・不変）:** 次UTC日 **2026-07-14** に `submissions/02_early_stopping/`、**2026-07-15** に `submissions/06_ngated_l2/`、**2026-07-16** に `submissions/07_2gate_msl50/`、**2026-07-17** に `submissions/08_ratio_tiered_msl/`。**キューはR28で不変（08が依然ベスト）。** 各提出手順は下記。
+> 3. **次サイクルのオフライン角度（期待値ほぼゼロ）:** 正則化族(R17-25)・不均衡(R26)・列サブサンプリング(R27)・分割粒度(R28) すべて 08 を超えず単ノブ探索は完全枯渇。残る simple 直交前処理は「欠損明示補完(HGBはNaNネイティブなので効果薄)」「単調制約(generic設定困難)」程度で、1本試す価値はあるが期待値ほぼゼロ。**枯れたら実効的な伸びしろは (A)go.py 堅牢化 or (c)モデル族多様化＝大設計変更でユーザー確認必須**（独断で複雑化しない）。単ノブが完全に枯れた事実は、次にユーザーへ (A)/(c) の方針判断を仰ぐ材料として明記する。
+> 4. (A)複雑路線(03/05のgo.py堅牢化)は依然ユーザー確認待ちの大設計変更。独断着手しない。
+>
 > `08_ratio_tiered_msl`（採用候補・07をクリーンにパレート改善）の提出手順:
 > `(cd submissions/08_ratio_tiered_msl/agent && rm -f ../submission.zip && zip -r ../submission.zip . -x '.*')` →
 > `kaggle competitions submit -c autonomous-agent-prediction-beta -f submissions/08_ratio_tiered_msl/submission.zip -m "08_ratio_tiered_msl: on top of 07, min_samples_leaf=70 on high tier n_feat/n>=0.030 (train_15)"`

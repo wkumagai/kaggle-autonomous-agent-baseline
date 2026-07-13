@@ -1,0 +1,133 @@
+[OK] train_01 base (l2=0.0, l2_fired=False, msl=20, mb=255, mb_fired=False): pub=0.710287 prv=0.704818
+[OK] train_01 mb_127 (l2=0.0, l2_fired=False, msl=20, mb=255, mb_fired=False): pub=0.710287 prv=0.704818
+[OK] train_01 mb_63 (l2=0.0, l2_fired=False, msl=20, mb=255, mb_fired=False): pub=0.710287 prv=0.704818
+[OK] train_02 base (l2=0.0, l2_fired=False, msl=20, mb=255, mb_fired=False): pub=0.964370 prv=0.963480
+[OK] train_02 mb_127 (l2=0.0, l2_fired=False, msl=20, mb=255, mb_fired=False): pub=0.964370 prv=0.963480
+[OK] train_02 mb_63 (l2=0.0, l2_fired=False, msl=20, mb=255, mb_fired=False): pub=0.964370 prv=0.963480
+[OK] train_03 base (l2=0.0, l2_fired=False, msl=20, mb=255, mb_fired=False): pub=0.792579 prv=0.809545
+[OK] train_03 mb_127 (l2=0.0, l2_fired=False, msl=20, mb=255, mb_fired=False): pub=0.792579 prv=0.809545
+[OK] train_03 mb_63 (l2=0.0, l2_fired=False, msl=20, mb=255, mb_fired=False): pub=0.792579 prv=0.809545
+[OK] train_04 base (l2=0.0, l2_fired=False, msl=20, mb=255, mb_fired=False): pub=0.823647 prv=0.824960
+[OK] train_04 mb_127 (l2=0.0, l2_fired=False, msl=20, mb=255, mb_fired=False): pub=0.823647 prv=0.824960
+[OK] train_04 mb_63 (l2=0.0, l2_fired=False, msl=20, mb=255, mb_fired=False): pub=0.823647 prv=0.824960
+[OK] train_05 base (l2=0.0, l2_fired=False, msl=20, mb=255, mb_fired=False): pub=0.653135 prv=0.656873
+[OK] train_05 mb_127 (l2=0.0, l2_fired=False, msl=20, mb=255, mb_fired=False): pub=0.653135 prv=0.656873
+[OK] train_05 mb_63 (l2=0.0, l2_fired=False, msl=20, mb=255, mb_fired=False): pub=0.653135 prv=0.656873
+[OK] train_06 base (l2=0.0, l2_fired=False, msl=20, mb=255, mb_fired=False): pub=0.799693 prv=0.813708
+[OK] train_06 mb_127 (l2=0.0, l2_fired=False, msl=20, mb=255, mb_fired=False): pub=0.799693 prv=0.813708
+[OK] train_06 mb_63 (l2=0.0, l2_fired=False, msl=20, mb=255, mb_fired=False): pub=0.799693 prv=0.813708
+[OK] train_07 base (l2=0.0, l2_fired=False, msl=20, mb=255, mb_fired=False): pub=0.823648 prv=0.826507
+[OK] train_07 mb_127 (l2=0.0, l2_fired=False, msl=20, mb=255, mb_fired=False): pub=0.823648 prv=0.826507
+[OK] train_07 mb_63 (l2=0.0, l2_fired=False, msl=20, mb=255, mb_fired=False): pub=0.823648 prv=0.826507
+[OK] train_08 base (l2=0.0, l2_fired=False, msl=20, mb=255, mb_fired=False): pub=0.846027 prv=0.841110
+[OK] train_08 mb_127 (l2=0.0, l2_fired=False, msl=20, mb=255, mb_fired=False): pub=0.846027 prv=0.841110
+[OK] train_08 mb_63 (l2=0.0, l2_fired=False, msl=20, mb=255, mb_fired=False): pub=0.846027 prv=0.841110
+[OK] train_09 base (l2=1.0, l2_fired=True, msl=50, mb=255, mb_fired=False): pub=0.620424 prv=0.633474
+[OK] train_09 mb_127 (l2=1.0, l2_fired=True, msl=50, mb=127, mb_fired=True): pub=0.619708 prv=0.632671
+[OK] train_09 mb_63 (l2=1.0, l2_fired=True, msl=50, mb=63, mb_fired=True): pub=0.621892 prv=0.635597
+[OK] train_10 base (l2=0.0, l2_fired=False, msl=20, mb=255, mb_fired=False): pub=0.836807 prv=0.847743
+[OK] train_10 mb_127 (l2=0.0, l2_fired=False, msl=20, mb=255, mb_fired=False): pub=0.836807 prv=0.847743
+[OK] train_10 mb_63 (l2=0.0, l2_fired=False, msl=20, mb=255, mb_fired=False): pub=0.836807 prv=0.847743
+[OK] train_11 base (l2=0.0, l2_fired=False, msl=20, mb=255, mb_fired=False): pub=0.828129 prv=0.816654
+[OK] train_11 mb_127 (l2=0.0, l2_fired=False, msl=20, mb=255, mb_fired=False): pub=0.828129 prv=0.816654
+[OK] train_11 mb_63 (l2=0.0, l2_fired=False, msl=20, mb=255, mb_fired=False): pub=0.828129 prv=0.816654
+[OK] train_12 base (l2=0.0, l2_fired=False, msl=20, mb=255, mb_fired=False): pub=0.794888 prv=0.769505
+[OK] train_12 mb_127 (l2=0.0, l2_fired=False, msl=20, mb=255, mb_fired=False): pub=0.794888 prv=0.769505
+[OK] train_12 mb_63 (l2=0.0, l2_fired=False, msl=20, mb=255, mb_fired=False): pub=0.794888 prv=0.769505
+[OK] train_13 base (l2=1.0, l2_fired=True, msl=50, mb=255, mb_fired=False): pub=0.628380 prv=0.644000
+[OK] train_13 mb_127 (l2=1.0, l2_fired=True, msl=50, mb=127, mb_fired=True): pub=0.615016 prv=0.627921
+[OK] train_13 mb_63 (l2=1.0, l2_fired=True, msl=50, mb=63, mb_fired=True): pub=0.630791 prv=0.642100
+[OK] train_14 base (l2=0.0, l2_fired=False, msl=20, mb=255, mb_fired=False): pub=0.797525 prv=0.804425
+[OK] train_14 mb_127 (l2=0.0, l2_fired=False, msl=20, mb=255, mb_fired=False): pub=0.797525 prv=0.804425
+[OK] train_14 mb_63 (l2=0.0, l2_fired=False, msl=20, mb=255, mb_fired=False): pub=0.797525 prv=0.804425
+[OK] train_15 base (l2=1.0, l2_fired=True, msl=70, mb=255, mb_fired=False): pub=0.841097 prv=0.843627
+[OK] train_15 mb_127 (l2=1.0, l2_fired=True, msl=70, mb=127, mb_fired=True): pub=0.836891 prv=0.841699
+[OK] train_15 mb_63 (l2=1.0, l2_fired=True, msl=70, mb=63, mb_fired=True): pub=0.838069 prv=0.841831
+[OK] train_16 base (l2=1.0, l2_fired=True, msl=20, mb=255, mb_fired=False): pub=0.892160 prv=0.893255
+[OK] train_16 mb_127 (l2=1.0, l2_fired=True, msl=20, mb=127, mb_fired=True): pub=0.882775 prv=0.882649
+[OK] train_16 mb_63 (l2=1.0, l2_fired=True, msl=20, mb=63, mb_fired=True): pub=0.891298 prv=0.891823
+
+=== PER-DATASET (Public) ===
+dataset     l2G  msl      base    mb     mb_127     dmb_127    mb      mb_63      dmb_63
+train_01   False   20    0.7103   255     0.7103    +0.00000   255     0.7103    +0.00000
+train_02   False   20    0.9644   255     0.9644    +0.00000   255     0.9644    +0.00000
+train_03   False   20    0.7926   255     0.7926    +0.00000   255     0.7926    +0.00000
+train_04   False   20    0.8236   255     0.8236    +0.00000   255     0.8236    +0.00000
+train_05   False   20    0.6531   255     0.6531    +0.00000   255     0.6531    +0.00000
+train_06   False   20    0.7997   255     0.7997    +0.00000   255     0.7997    +0.00000
+train_07   False   20    0.8236   255     0.8236    +0.00000   255     0.8236    +0.00000
+train_08   False   20    0.8460   255     0.8460    +0.00000   255     0.8460    +0.00000
+train_09   True   50    0.6204   127     0.6197    -0.00072    63     0.6219    +0.00147
+train_10   False   20    0.8368   255     0.8368    +0.00000   255     0.8368    +0.00000
+train_11   False   20    0.8281   255     0.8281    +0.00000   255     0.8281    +0.00000
+train_12   False   20    0.7949   255     0.7949    +0.00000   255     0.7949    +0.00000
+train_13   True   50    0.6284   127     0.6150    -0.01336    63     0.6308    +0.00241
+train_14   False   20    0.7975   255     0.7975    +0.00000   255     0.7975    +0.00000
+train_15   True   70    0.8411   127     0.8369    -0.00421    63     0.8381    -0.00303
+train_16   True   20    0.8922   127     0.8828    -0.00938    63     0.8913    -0.00086
+
+=== PER-DATASET (Private) ===
+dataset     l2G  msl      base    mb     mb_127     dmb_127    mb      mb_63      dmb_63
+train_01   False   20    0.7048   255     0.7048    +0.00000   255     0.7048    +0.00000
+train_02   False   20    0.9635   255     0.9635    +0.00000   255     0.9635    +0.00000
+train_03   False   20    0.8095   255     0.8095    +0.00000   255     0.8095    +0.00000
+train_04   False   20    0.8250   255     0.8250    +0.00000   255     0.8250    +0.00000
+train_05   False   20    0.6569   255     0.6569    +0.00000   255     0.6569    +0.00000
+train_06   False   20    0.8137   255     0.8137    +0.00000   255     0.8137    +0.00000
+train_07   False   20    0.8265   255     0.8265    +0.00000   255     0.8265    +0.00000
+train_08   False   20    0.8411   255     0.8411    +0.00000   255     0.8411    +0.00000
+train_09   True   50    0.6335   127     0.6327    -0.00080    63     0.6356    +0.00212
+train_10   False   20    0.8477   255     0.8477    +0.00000   255     0.8477    +0.00000
+train_11   False   20    0.8167   255     0.8167    +0.00000   255     0.8167    +0.00000
+train_12   False   20    0.7695   255     0.7695    +0.00000   255     0.7695    +0.00000
+train_13   True   50    0.6440   127     0.6279    -0.01608    63     0.6421    -0.00190
+train_14   False   20    0.8044   255     0.8044    +0.00000   255     0.8044    +0.00000
+train_15   True   70    0.8436   127     0.8417    -0.00193    63     0.8418    -0.00180
+train_16   True   20    0.8933   127     0.8826    -0.01061    63     0.8918    -0.00143
+
+=== GATE FIRINGS ===
+L2 GATE (ratio>=0.010, l2=1.0) fired on (4): train_09, train_13, train_15, train_16
+max_bins fires ONLY on the SAME L2-firing datasets (candidate configs only); base uses default max_bins=255 everywhere.
+max_bins<255 in 'base' (0): (none)  [base uses default max_bins=255 everywhere]
+max_bins=127 in 'mb_127' (4): train_09, train_13, train_15, train_16
+max_bins=63 in 'mb_63' (4): train_09, train_13, train_15, train_16
+
+=== INVARIANT (non-firing datasets identical to base, delta 0) ===
+OK: every dataset where max_bins did NOT fire is byte-identical to base (delta exactly 0). This covers all 12 non-L2-firing datasets for every candidate config (required base-reproduction check).
+
+=== DATASETS THAT ACTUALLY DIFFER (candidate vs base) ===
+mb_127: train_09, train_13, train_15, train_16
+mb_63: train_09, train_13, train_15, train_16
+
+=== SUMMARY (candidate vs base == shipped 08) ===
+mb_127: mean Public d=-0.00173  mean Private d=-0.00184  Public W/L/T=0/4/12  Private W/L/T=0/4/12
+mb_63: mean Public d=-0.00000  mean Private d=-0.00019  Public W/L/T=2/2/12  Private W/L/T=1/3/12
+
+=== PER-CANDIDATE DETAIL (datasets differing from base; all other deltas are exactly 0) ===
+--- mb_127 vs base ---
+  train_09   (mb 255->127)  pub 0.6204->0.6197 (-0.00072)   prv 0.6335->0.6327 (-0.00080)
+  train_13   (mb 255->127)  pub 0.6284->0.6150 (-0.01336)   prv 0.6440->0.6279 (-0.01608)
+  train_15   (mb 255->127)  pub 0.8411->0.8369 (-0.00421)   prv 0.8436->0.8417 (-0.00193)
+  train_16   (mb 255->127)  pub 0.8922->0.8828 (-0.00938)   prv 0.8933->0.8826 (-0.01061)
+  Public regressions:  train_09(-0.00072), train_13(-0.01336), train_15(-0.00421), train_16(-0.00938)
+  Private regressions: train_09(-0.00080), train_13(-0.01608), train_15(-0.00193), train_16(-0.01061)
+--- mb_63 vs base ---
+  train_09   (mb 255->63)  pub 0.6204->0.6219 (+0.00147)   prv 0.6335->0.6356 (+0.00212)
+  train_13   (mb 255->63)  pub 0.6284->0.6308 (+0.00241)   prv 0.6440->0.6421 (-0.00190)
+  train_15   (mb 255->63)  pub 0.8411->0.8381 (-0.00303)   prv 0.8436->0.8418 (-0.00180)
+  train_16   (mb 255->63)  pub 0.8922->0.8913 (-0.00086)   prv 0.8933->0.8918 (-0.00143)
+  Public regressions:  train_15(-0.00303), train_16(-0.00086)
+  Private regressions: train_13(-0.00190), train_15(-0.00180), train_16(-0.00143)
+
+=== VERDICT (adoption vs base == shipped 08) ===
+Criterion: CLEAN IMPROVEMENT over 08 iff mean delta positive AND zero regressions on BOTH splits.
+mb_127: NOT-CLEAN (non-positive mean Public (-0.00173); non-positive mean Private (-0.00184); Public regs [train_09(-0.00072), train_13(-0.01336), train_15(-0.00421), train_16(-0.00938)]; Private regs [train_09(-0.00080), train_13(-0.01608), train_15(-0.00193), train_16(-0.01061)])
+mb_63: NOT-CLEAN (non-positive mean Public (-0.00000); non-positive mean Private (-0.00019); Public regs [train_15(-0.00303), train_16(-0.00086)]; Private regs [train_13(-0.00190), train_15(-0.00180), train_16(-0.00143)])
+
+OVERALL: NO clean improvement over 08; base (shipped 08) remains best. max_bins coarser histogram binning (127 or 63) on the L2-firing datasets did not cleanly beat the default 255.
+
+CLEAN RUN=YES (total_fits=48, exceptions=0, skipped=0, invariant_violations=0)
+
+[WROTE] /Users/kumacmini/kaggle-autonomous-agent-baseline-auto/experiments/bench_03/round28_max_bins/results.csv
+[WROTE] /Users/kumacmini/kaggle-autonomous-agent-baseline-auto/experiments/bench_03/round28_max_bins/summary.txt
+HARNESS_DONE

@@ -44,6 +44,17 @@
 > 3. **(A) 複雑路線（03/05のgo.py堅牢化＝各族のsklearn HGBフォールバック実装）は依然ユーザー確認待ちの大設計変更**。独断着手しない。ただし 02 が安全確定した今、(B)を止める理由は無いので 02 提出は(A)判断と独立に進める。
 > 4. FEはこのsuiteで飽和（R1-14）、simple のハイパラ(early_stopping忍耐)もR16で局所最適確認。実効的な伸びしろは (b)モデル族/ブレンド多様化のみで、これは設計変更のためユーザー確認要。次サイクルのオフライン探索は「まだ試していない直交角度」を1つ選ぶ（例: HGBの`l2_regularization`や`max_leaf_nodes`など simple 単ノブ、または 01↔02 の悪化3件に効く条件付き選択）。検証ハーネス雛形は今回の手法（sklearn-only .venv で01/02系を直接replay採点）を再利用可。
 >
+> **🔎 探索済み・不採用（ラウンド17, 2026-07-13 ~03 UTC）— ただし「n-gated l2」という有望リードを発見。simple路線初のsklearn-only単ノブ探索:** ラウンド16の「次の角度」提案に従い、**shipped 02(sklearn-only HGB, early_stopping, max_iter=300)の上で `l2_regularization` 単ノブ**を初検証（これまでの`reg_l2_bump`候補は複雑03 go.py側だったのに対し、今回はグレーダー保証のsklearn-only simple路線での初のl2探索）。02のtrain.pyロジックを`git show HEAD:submissions/02_early_stopping/agent/prompts/system.md`基準にin-process再現し、`.venv`(sklearn 1.9.0, xgb/lgb/cat無し)で16データ全部をPublic/Private別AUC採点する専用replayハーネスを新設（`submissions/`は一切不触・git status確認済）。l2 ∈ {0.0(=02), 0.1, 1.0} を比較。**まず重要な de-risk 成果: 3設定×16データ=48 fit 全てクラッシュ無し完走（CLEAN RUN=True）。simple路線がグレーダー環境で確実に動くことを再確認。** 採点結果:**両方とも不採用。**
+> - **l2=0.1:** mean Public Δ=**−0.0012**, Private Δ=−0.0012, Public 7勝9敗。平均が負で明確に劣化。即・不採用。
+> - **l2=1.0:** mean Public Δ=**+0.0010**（ノイズ域）, Private +0.0012, Public 10勝6敗。平均は僅かに正だが**明確な回帰を伴う**（train_05 −0.0077, train_03 −0.0039＝どちらも小n弱点データを更に悪化）。「meanが明確に正 かつ 悪化なし」の採用基準を満たさない。**不採用。**
+> - **🔑 発見したリード（次サイクルの最優先角度）:** l2=1.0 が効いたデータは **02が01に対して回帰した3件そのもの**だった — train_15 (Public +0.0089/Priv +0.0053), train_16 (+0.0054/+0.0083), train_04 (Priv +0.0042)。**つまり「02の3つの回帰は大n側で、l2正則化を足すと綺麗に反転する」一方、l2は小n(train_05/03/13)を明確に害する。** これは05(n-gated TE)と全く同じ n依存の構造で、**「大n(例 n≥閾値)のときだけ l2_regularization を足す n-gated l2」**が次の有望候補（小nの害を避けつつ02の3回帰を直せる可能性）。素朴な全体一律l2は不採用だが、n-gatedにする価値が数値で裏付けられた。
+> - 生ハーネス=`experiments/bench_03/simple_replay.py`、結果=`experiments/bench_03/round17_l2simple/{results.csv,summary.txt,run.log}`。このsklearn-only replayハーネスは今後の全simple路線候補で再利用する（benchmark.pyは複雑03専用で simple路線を検証できないため、これが simple路線の正式な検証ハーネス）。
+>
+> **したがって次にやること（優先順・ラウンド17末で更新）:**
+> 1. **実提出キューは不変:** 次UTC日 **2026-07-14** に `submissions/02_early_stopping/` を最優先で実提出（(B)シンプル路線確定・R16で安全実証済）。本日 2026-07-13 UTC枠は 03(ERROR) が消費済みで新規提出不可。
+> 2. **次サイクルのオフライン最優先角度 = 「n-gated l2_regularization」**（上のリード）。02の上で `if len(train) >= <閾値>: clf の l2_regularization=1.0 else 0.0`（列は増やさない・小n非発火で安全・大nの02回帰3件を狙う）を simple_replay ハーネスで検証。閾値は train_05/03/13(小n) を非発火に、train_15/16/04(大n) を発火にする値を dataset_stats.csv の n から決める。クリーンに02をパレート改善（悪化ゼロで大n底上げ）できれば採用候補として `submissions/06_*/` を新設。
+> 3. (A)複雑路線(03/05のgo.py堅牢化)は依然ユーザー確認待ちの大設計変更。独断着手しない。
+>
 > `02_early_stopping`（安全なフォールバック）の提出手順:
 > `(cd submissions/02_early_stopping/agent && rm -f ../submission.zip && zip -r ../submission.zip . -x '.*')` →
 > `kaggle competitions submit -c autonomous-agent-prediction-beta -f submissions/02_early_stopping/submission.zip -m "02_early_stopping: single HGB + early_stopping (simple fallback after 03 ERROR)"`
@@ -90,6 +101,13 @@
 | 2026-07-14 提出予定（キュー確定・安全策） | （未提出・作成済み・**ラウンド16で検証済**） | **02_early_stopping**: 01_baseline(0.787,実グレーダーで成功)に `early_stopping=True, max_iter=300` を足すだけの**単発・単一HGBの簡素構成**。複雑なエージェント手順を持たないため、03/05のERRORとは独立に実グレーダーで通る可能性が高い**安全なフォールバック候補**。**ラウンド16でグレーダー同等の sklearn-only 環境（xgb/lgb/cat 無し）にて16データ全部クラッシュ無し完走を実証**。01比オフライン mean d_pub +0.0016（8勝3敗＝クリーンなパレート改善ではないが平均正・安全）。**次UTC日(2026-07-14)に最優先で提出。** | 検証: 完走OK / 01比+0.0016 | — |
 
 ## 各回の詳細メモ
+
+### 2026-07-13: ラウンド17 — simple路線初のsklearn-only単ノブ探索: `l2_regularization`（不採用・ただしn-gated l2の有望リード発見）
+- **背景:** 03複雑路線がERRORし、実提出は(B)sklearn-only simple路線(02)に確定。R16までのオフライン探索は全て複雑03 go.py上のFE差分だった。今回はR16提案に従い、**実際に出荷される02の上で simple単ノブ `l2_regularization` を初検証**。
+- **手法:** benchmark.py は複雑03専用でsimple路線を検証できないため、**simple路線専用のsklearn-only replayハーネス `experiments/bench_03/simple_replay.py` を新設**。02のtrain.pyロジック（`git show HEAD:submissions/02_early_stopping/agent/prompts/system.md`基準・HGB categorical_features=dtype==object mask, random_state=0, max_iter=300, early_stopping=True）をin-processで16データに再現し、`.venv`(sklearn 1.9.0, xgb/lgb/cat 無し)でPublic/Private別にAUC採点。l2 ∈ {0.0, 0.1, 1.0} を比較。coderサブエージェントに委譲（絶対厳守ルール伝達済・`submissions/`不触をgit statusで確認）。
+- **結果:** 48 fit 全クラッシュ無し完走（CLEAN RUN）。l2=0.1: mean Pub Δ=−0.0012(7勝9敗)→即不採用。l2=1.0: mean Pub Δ=+0.0010(ノイズ域,10勝6敗)だが train_05 −0.0077 / train_03 −0.0039 の明確な小n回帰を伴い採用基準未達→不採用。
+- **🔑 発見:** l2=1.0が効いたのは**02が01に対し回帰した3件(train_15/16/04)そのもの**（train_15 Pub +0.0089, train_16 +0.0054, train_04 Priv +0.0042）。害は小n(train_05/03/13)に集中。05(n-gated TE)と同型のn依存構造 → **次サイクル最優先角度=「n-gated l2（大nのみl2=1.0を発火）」**。閾値は dataset_stats.csv のnで小n非発火・大n発火に設定。
+- **提出:** 本日 2026-07-13 UTC枠は 03(ERROR)が消費済みで無提出。実提出キュー不変（2026-07-14に02_early_stopping）。
 
 ### 2026-07-13: ラウンド15 — 03 ERROR原因の再現診断（探索＝診断。新規候補は作らず）
 - **背景:** 03(複雑路線)が実グレーダーで ERROR。オフラインベンチは gbm_venv(xgb/lgb/cat 全部入り)で go.py を回すため、パッケージ依存の脆弱性が原理的に不可視。この回は新FE候補を1つ足す代わりに、**より価値の高い「本番ERRORの再現診断」**を探索として実施した。

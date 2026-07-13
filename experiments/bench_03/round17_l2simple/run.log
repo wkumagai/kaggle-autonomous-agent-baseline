@@ -1,0 +1,96 @@
+[OK] train_01 base (l2=0.0): pub=0.710287 prv=0.704818
+[OK] train_01 cand_a (l2=0.1): pub=0.711044 prv=0.701667
+[OK] train_01 cand_b (l2=1.0): pub=0.712044 prv=0.703282
+[OK] train_02 base (l2=0.0): pub=0.964370 prv=0.963480
+[OK] train_02 cand_a (l2=0.1): pub=0.962758 prv=0.961763
+[OK] train_02 cand_b (l2=1.0): pub=0.963771 prv=0.963364
+[OK] train_03 base (l2=0.0): pub=0.792579 prv=0.809545
+[OK] train_03 cand_a (l2=0.1): pub=0.790524 prv=0.807230
+[OK] train_03 cand_b (l2=1.0): pub=0.788720 prv=0.806237
+[OK] train_04 base (l2=0.0): pub=0.823647 prv=0.824960
+[OK] train_04 cand_a (l2=0.1): pub=0.823015 prv=0.825423
+[OK] train_04 cand_b (l2=1.0): pub=0.823742 prv=0.829119
+[OK] train_05 base (l2=0.0): pub=0.653135 prv=0.656873
+[OK] train_05 cand_a (l2=0.1): pub=0.649576 prv=0.656009
+[OK] train_05 cand_b (l2=1.0): pub=0.645481 prv=0.654912
+[OK] train_06 base (l2=0.0): pub=0.799693 prv=0.813708
+[OK] train_06 cand_a (l2=0.1): pub=0.798351 prv=0.812977
+[OK] train_06 cand_b (l2=1.0): pub=0.799003 prv=0.813958
+[OK] train_07 base (l2=0.0): pub=0.823648 prv=0.826507
+[OK] train_07 cand_a (l2=0.1): pub=0.823780 prv=0.825924
+[OK] train_07 cand_b (l2=1.0): pub=0.826186 prv=0.827707
+[OK] train_08 base (l2=0.0): pub=0.846027 prv=0.841110
+[OK] train_08 cand_a (l2=0.1): pub=0.846309 prv=0.840274
+[OK] train_08 cand_b (l2=1.0): pub=0.847307 prv=0.840315
+[OK] train_09 base (l2=0.0): pub=0.610226 prv=0.619378
+[OK] train_09 cand_a (l2=0.1): pub=0.604309 prv=0.615121
+[OK] train_09 cand_b (l2=1.0): pub=0.614582 prv=0.621660
+[OK] train_10 base (l2=0.0): pub=0.836807 prv=0.847743
+[OK] train_10 cand_a (l2=0.1): pub=0.840555 prv=0.847473
+[OK] train_10 cand_b (l2=1.0): pub=0.838190 prv=0.846831
+[OK] train_11 base (l2=0.0): pub=0.828129 prv=0.816654
+[OK] train_11 cand_a (l2=0.1): pub=0.824934 prv=0.814792
+[OK] train_11 cand_b (l2=1.0): pub=0.830120 prv=0.821179
+[OK] train_12 base (l2=0.0): pub=0.794888 prv=0.769505
+[OK] train_12 cand_a (l2=0.1): pub=0.795580 prv=0.770753
+[OK] train_12 cand_b (l2=1.0): pub=0.794761 prv=0.770917
+[OK] train_13 base (l2=0.0): pub=0.618072 prv=0.624446
+[OK] train_13 cand_a (l2=0.1): pub=0.612198 prv=0.617900
+[OK] train_13 cand_b (l2=1.0): pub=0.621376 prv=0.624450
+[OK] train_14 base (l2=0.0): pub=0.797525 prv=0.804425
+[OK] train_14 cand_a (l2=0.1): pub=0.795051 prv=0.805130
+[OK] train_14 cand_b (l2=1.0): pub=0.796194 prv=0.804636
+[OK] train_15 base (l2=0.0): pub=0.826289 prv=0.825088
+[OK] train_15 cand_a (l2=0.1): pub=0.827297 prv=0.825554
+[OK] train_15 cand_b (l2=1.0): pub=0.835151 prv=0.830396
+[OK] train_16 base (l2=0.0): pub=0.886807 prv=0.884908
+[OK] train_16 cand_a (l2=0.1): pub=0.887382 prv=0.885251
+[OK] train_16 cand_b (l2=1.0): pub=0.892160 prv=0.893255
+
+=== PER-DATASET (Public) ===
+dataset         base    cand_a         dA    cand_b         dB
+train_01      0.7103    0.7110    +0.0008    0.7120    +0.0018
+train_02      0.9644    0.9628    -0.0016    0.9638    -0.0006
+train_03      0.7926    0.7905    -0.0021    0.7887    -0.0039
+train_04      0.8236    0.8230    -0.0006    0.8237    +0.0001
+train_05      0.6531    0.6496    -0.0036    0.6455    -0.0077
+train_06      0.7997    0.7984    -0.0013    0.7990    -0.0007
+train_07      0.8236    0.8238    +0.0001    0.8262    +0.0025
+train_08      0.8460    0.8463    +0.0003    0.8473    +0.0013
+train_09      0.6102    0.6043    -0.0059    0.6146    +0.0044
+train_10      0.8368    0.8406    +0.0037    0.8382    +0.0014
+train_11      0.8281    0.8249    -0.0032    0.8301    +0.0020
+train_12      0.7949    0.7956    +0.0007    0.7948    -0.0001
+train_13      0.6181    0.6122    -0.0059    0.6214    +0.0033
+train_14      0.7975    0.7951    -0.0025    0.7962    -0.0013
+train_15      0.8263    0.8273    +0.0010    0.8352    +0.0089
+train_16      0.8868    0.8874    +0.0006    0.8922    +0.0054
+
+=== PER-DATASET (Private) ===
+dataset         base    cand_a         dA    cand_b         dB
+train_01      0.7048    0.7017    -0.0032    0.7033    -0.0015
+train_02      0.9635    0.9618    -0.0017    0.9634    -0.0001
+train_03      0.8095    0.8072    -0.0023    0.8062    -0.0033
+train_04      0.8250    0.8254    +0.0005    0.8291    +0.0042
+train_05      0.6569    0.6560    -0.0009    0.6549    -0.0020
+train_06      0.8137    0.8130    -0.0007    0.8140    +0.0002
+train_07      0.8265    0.8259    -0.0006    0.8277    +0.0012
+train_08      0.8411    0.8403    -0.0008    0.8403    -0.0008
+train_09      0.6194    0.6151    -0.0043    0.6217    +0.0023
+train_10      0.8477    0.8475    -0.0003    0.8468    -0.0009
+train_11      0.8167    0.8148    -0.0019    0.8212    +0.0045
+train_12      0.7695    0.7708    +0.0012    0.7709    +0.0014
+train_13      0.6244    0.6179    -0.0065    0.6245    +0.0000
+train_14      0.8044    0.8051    +0.0007    0.8046    +0.0002
+train_15      0.8251    0.8256    +0.0005    0.8304    +0.0053
+train_16      0.8849    0.8853    +0.0003    0.8933    +0.0083
+
+=== SUMMARY ===
+cand_a: mean Public d=-0.0012  mean Private d=-0.0012  Public W/L/T=7/9/0
+cand_b: mean Public d=+0.0010  mean Private d=+0.0012  Public W/L/T=10/6/0
+
+CLEAN RUN: YES (exceptions=0, skipped=0)
+
+[WROTE] /Users/kumacmini/kaggle-autonomous-agent-baseline-auto/experiments/bench_03/round17_l2simple/results.csv
+[WROTE] /Users/kumacmini/kaggle-autonomous-agent-baseline-auto/experiments/bench_03/round17_l2simple/summary.txt
+HARNESS_DONE

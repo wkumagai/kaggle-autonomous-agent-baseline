@@ -1,0 +1,216 @@
+[OK] train_01 (n=14957, obj=5, fits=55): d_pub=+0.00312 d_prv=+0.00286 test=GAIN | var=1.34e-03 llImpr=+2.17e-03 hAUC=0.7114
+[OK] train_02 (n=14929, obj=2, fits=55): d_pub=+0.00371 d_prv=+0.00349 test=GAIN | var=3.60e-03 llImpr=+8.46e-03 hAUC=0.9610
+[OK] train_03 (n=3501, obj=7, fits=55): d_pub=+0.00685 d_prv=+0.00646 test=GAIN | var=4.02e-03 llImpr=+7.55e-03 hAUC=0.7974
+[OK] train_04 (n=8775, obj=0, fits=55): d_pub=+0.00631 d_prv=+0.00802 test=GAIN | var=2.64e-03 llImpr=+6.69e-03 hAUC=0.8237
+[OK] train_05 (n=1060, obj=5, fits=55): d_pub=+0.00287 d_prv=+0.00383 test=GAIN | var=5.08e-03 llImpr=+1.24e-02 hAUC=0.6661
+[OK] train_06 (n=10803, obj=9, fits=55): d_pub=+0.00053 d_prv=+0.00039 test=GAIN | var=8.14e-04 llImpr=+1.34e-03 hAUC=0.8091
+[OK] train_07 (n=10417, obj=6, fits=55): d_pub=+0.00528 d_prv=+0.00261 test=GAIN | var=2.80e-03 llImpr=+7.03e-03 hAUC=0.8196
+[OK] train_08 (n=8173, obj=12, fits=55): d_pub=+0.00313 d_prv=+0.00176 test=GAIN | var=1.40e-03 llImpr=+3.87e-03 hAUC=0.8442
+[OK] train_09 (n=1109, obj=4, fits=55): d_pub=+0.00985 d_prv=+0.00634 test=GAIN | var=3.06e-03 llImpr=+7.25e-03 hAUC=0.6100
+[OK] train_10 (n=11800, obj=0, fits=55): d_pub=+0.00781 d_prv=+0.00929 test=GAIN | var=3.86e-03 llImpr=+8.01e-03 hAUC=0.8380
+[OK] train_11 (n=28879, obj=0, fits=55): d_pub=+0.00342 d_prv=+0.00472 test=GAIN | var=2.25e-03 llImpr=+7.15e-03 hAUC=0.8099
+[OK] train_12 (n=49432, obj=3, fits=55): d_pub=+0.00122 d_prv=+0.00200 test=GAIN | var=3.54e-04 llImpr=+6.82e-04 hAUC=0.7877
+[OK] train_13 (n=500, obj=4, fits=55): d_pub=+0.00696 d_prv=+0.00510 test=GAIN | var=2.54e-03 llImpr=+2.05e-02 hAUC=0.6471
+[OK] train_14 (n=11108, obj=15, fits=55): d_pub=+0.00442 d_prv=+0.00296 test=GAIN | var=1.87e-03 llImpr=+5.16e-03 hAUC=0.7989
+[OK] train_15 (n=500, obj=24, fits=55): d_pub=+0.01016 d_prv=+0.01268 test=GAIN | var=4.02e-03 llImpr=+1.31e-02 hAUC=0.8420
+[OK] train_16 (n=1809, obj=0, fits=55): d_pub=-0.00238 d_prv=-0.00458 test=REG | var=5.93e-03 llImpr=+1.79e-02 hAUC=0.8616
+
+=== KEY QUESTION 1: IN-SAMPLE METRICS PER DATASET (no test labels) ===
+  seed_var / seed_disagree : K=5 seed-prediction spread on the internal
+       holdout (HIGH => seeds disagree => averaging should help).
+  ll_impr / br_impr : in-sample log-loss / Brier improvement of avg over
+       seed0 (HIGH/positive => averaging helps in-sample).
+  hAUC : seed0 holdout AUC level (HIGH => saturated => averaging can't help).
+  truth = does K=5 averaging TRULY help on the real test (ground truth).
+  * = train_16 (the sole real-test regressor we need to EXCLUDE).
+dataset       nTr  obj   seed_var  seed_dis    ll_impr    br_impr    hAUC     d_pub     d_prv  truth
+train_01    14957    5  1.336e-03 4.457e-02 +2.174e-03 +9.328e-04  0.7114  +0.00312  +0.00286   GAIN
+train_02    14929    2  3.604e-03 5.547e-02 +8.459e-03 +3.160e-03  0.9610  +0.00371  +0.00349   GAIN
+train_03     3501    7  4.018e-03 7.470e-02 +7.553e-03 +3.102e-03  0.7974  +0.00685  +0.00646   GAIN
+train_04     8775    0  2.636e-03 5.781e-02 +6.687e-03 +2.789e-03  0.8237  +0.00631  +0.00802   GAIN
+train_05     1060    5  5.082e-03 8.840e-02 +1.239e-02 +5.018e-03  0.6661  +0.00287  +0.00383   GAIN
+train_06    10803    9  8.137e-04 3.352e-02 +1.338e-03 +5.127e-04  0.8091  +0.00053  +0.00039   GAIN
+train_07    10417    6  2.804e-03 6.181e-02 +7.030e-03 +2.930e-03  0.8196  +0.00528  +0.00261   GAIN
+train_08     8173   12  1.399e-03 4.221e-02 +3.870e-03 +1.375e-03  0.8442  +0.00313  +0.00176   GAIN
+train_09     1109    4  3.059e-03 6.901e-02 +7.247e-03 +3.046e-03  0.6100  +0.00985  +0.00634   GAIN
+train_10    11800    0  3.862e-03 7.281e-02 +8.014e-03 +3.496e-03  0.8380  +0.00781  +0.00929   GAIN
+train_11    28879    0  2.251e-03 5.577e-02 +7.153e-03 +2.961e-03  0.8099  +0.00342  +0.00472   GAIN
+train_12    49432    3  3.543e-04 2.095e-02 +6.823e-04 +2.831e-04  0.7877  +0.00122  +0.00200   GAIN
+train_13      500    4  2.536e-03 6.273e-02 +2.054e-02 +8.174e-03  0.6471  +0.00696  +0.00510   GAIN
+train_14    11108   15  1.872e-03 4.847e-02 +5.163e-03 +2.125e-03  0.7989  +0.00442  +0.00296   GAIN
+train_15      500   24  4.022e-03 7.724e-02 +1.314e-02 +5.398e-03  0.8420  +0.01016  +0.01268   GAIN
+train_16     1809    0  5.931e-03 8.399e-02 +1.794e-02 +5.083e-03  0.8616  -0.00238  -0.00458    REG *
+
+=== KEY QUESTION 2: does a metric SEPARATE train_16 from all 15 gainers? ===
+  For a HIGH-fires metric, a clean gate needs train_16 < min(gainers).
+  For a LOW-fires  metric, a clean gate needs train_16 > max(gainers).
+  margin > 0 => a midpoint threshold reproduces gate D exactly (fires all 15, excludes train_16).
+metric          dir     train_16   gainer_min   gainer_max       margin  clean_sep
+seed_var         ge   5.9312e-03   3.5434e-04   5.0823e-03  -5.5768e-03         no
+seed_disagree    ge   8.3988e-02   2.0947e-02   8.8401e-02  -6.3041e-02         no
+logloss_impr     ge   1.7938e-02   6.8232e-04   2.0540e-02  -1.7256e-02         no
+brier_impr       ge   5.0833e-03   2.8309e-04   8.1737e-03  -4.8002e-03         no
+holdout_auc      le   8.6165e-01   6.0997e-01   9.6095e-01  -9.9306e-02         no
+
+  seed_var       (mean per-row variance across K=5 seed holdout probs):
+      train_16=5.9312e-03 vs gainer MIN=3.5434e-04 (needs train_16 BELOW gainer min); margin=-5.5768e-03 -> NO clean separation
+  seed_disagree  (mean per-row mean-pairwise |p_i-p_j| across K seeds):
+      train_16=8.3988e-02 vs gainer MIN=2.0947e-02 (needs train_16 BELOW gainer min); margin=-6.3041e-02 -> NO clean separation
+  logloss_impr   (log_loss(seed0) - log_loss(avg) on holdout):
+      train_16=1.7938e-02 vs gainer MIN=6.8232e-04 (needs train_16 BELOW gainer min); margin=-1.7256e-02 -> NO clean separation
+  brier_impr     (brier(seed0) - brier(avg) on holdout):
+      train_16=5.0833e-03 vs gainer MIN=2.8309e-04 (needs train_16 BELOW gainer min); margin=-4.8002e-03 -> NO clean separation
+  holdout_auc    (seed0 holdout AUC level (saturation)):
+      train_16=8.6165e-01 vs gainer MAX=9.6095e-01 (needs train_16 ABOVE gainer max); margin=-9.9306e-02 -> NO clean separation
+
+=== REFERENCE GATES (anchors; C from n_obj, D from n_obj & n_train) ===
+gate C_nocap     fires on (12): train_01, train_02, train_03, train_05, train_06, train_07, train_08, train_09, train_12, train_13, train_14, train_15
+    mean Public d=+0.00363  mean Private d=+0.00316  Public W/L/T=12/0/4  Private W/L/T=12/0/4  excludes_16=YES  clean=YES
+gate D_exceptpn  fires on (15): train_01, train_02, train_03, train_04, train_05, train_06, train_07, train_08, train_09, train_10, train_11, train_12, train_13, train_14, train_15
+    mean Public d=+0.00473  mean Private d=+0.00453  Public W/L/T=15/0/1  Private W/L/T=15/0/1  excludes_16=YES  clean=YES
+
+=== REPRODUCTION CHECK (C==round34/35, D==round35, G_rep R=1==round36 G) ===
+gate C_nocap    : Public +0.00363 (ref +0.00363, YES); Private +0.00316 (ref +0.00316, YES)
+gate D_exceptpn : Public +0.00473 (ref +0.00473, YES); Private +0.00453 (ref +0.00453, YES)
+gate G_rep R=1  : Public +0.00426 (ref +0.00426), Private +0.00419 (ref +0.00419), nFire=13 (ref 13), drops=['train_06', 'train_13', 'train_16'] (ref ['train_06', 'train_13', 'train_16']) -> YES
+
+=== KEY QUESTION 3: best CLEAN in-sample gate per metric ===
+  clean = mean>0 on BOTH splits AND zero regressions (=> train_16 NOT firing).
+  A metric REPRODUCES gate D iff its best clean gate fires exactly the 15 gainers.
+metric                  thr nFire   meanPub   meanPrv Pub W/L/T Prv W/L/T exc16 allGain  =D?
+seed_var                 --     0  (no clean gate exists for this metric)
+seed_disagree    8.3988e-02     1  +0.00018  +0.00024 1/0/15  1/0/15    YES      no   no
+logloss_impr     2.0540e-02     1  +0.00043  +0.00032 1/0/15  1/0/15    YES      no   no
+brier_impr       5.0833e-03     2  +0.00107  +0.00111 2/0/14  2/0/14    YES      no   no
+holdout_auc      8.6165e-01    14  +0.00449  +0.00431 14/0/2   14/0/2     YES      no   no
+
+  best clean gate firing set per metric:
+    seed_var      : (none)
+    seed_disagree : fires 1, excludes ['train_01', 'train_02', 'train_03', 'train_04', 'train_06', 'train_07', 'train_08', 'train_09', 'train_10', 'train_11', 'train_12', 'train_13', 'train_14', 'train_15', 'train_16']
+    logloss_impr  : fires 1, excludes ['train_01', 'train_02', 'train_03', 'train_04', 'train_05', 'train_06', 'train_07', 'train_08', 'train_09', 'train_10', 'train_11', 'train_12', 'train_14', 'train_15', 'train_16']
+    brier_impr    : fires 2, excludes ['train_01', 'train_02', 'train_03', 'train_04', 'train_05', 'train_06', 'train_07', 'train_08', 'train_09', 'train_10', 'train_11', 'train_12', 'train_14', 'train_16']
+    holdout_auc   : fires 14, excludes ['train_02', 'train_16']
+
+=== SEPARATION-MIDPOINT GATES (only metrics with clean_sep) ===
+  NONE — no in-sample metric cleanly separates train_16 from every gainer, so no midpoint gate reproduces gate D.
+
+=== KEY QUESTION 3 (full): per-metric FULL threshold sweep ===
+--- seed_var (fire iff metric >= thr) : mean per-row variance across K=5 seed holdout probs ---
+         thr nFire   meanPub   meanPrv Pub W/L/T Prv W/L/T exc16 allGain clean  =D?
+ -9.9965e-01    16  +0.00458  +0.00425 15/1/0   15/1/0      no     YES    no   no
+  3.5434e-04    15  +0.00450  +0.00412 14/1/1   14/1/1      no      no    no   no
+  8.1374e-04    14  +0.00447  +0.00410 13/1/2   13/1/2      no      no    no   no
+  1.3362e-03    14  +0.00447  +0.00410 13/1/2   13/1/2      no      no    no   no
+  1.3987e-03    13  +0.00427  +0.00392 12/1/3   12/1/3      no      no    no   no
+  1.8717e-03    12  +0.00408  +0.00381 11/1/4   11/1/4      no      no    no   no
+  2.2513e-03    11  +0.00380  +0.00362 10/1/5   10/1/5      no      no    no   no
+  2.5363e-03    10  +0.00359  +0.00333 9/1/6   9/1/6      no      no    no   no
+  2.6357e-03     9  +0.00315  +0.00301 8/1/7   8/1/7      no      no    no   no
+  2.8037e-03     8  +0.00276  +0.00251 7/1/8   7/1/8      no      no    no   no
+  3.0586e-03     6  +0.00181  +0.00195 5/1/10  5/1/10     no      no    no   no
+  3.6039e-03     5  +0.00158  +0.00173 4/1/11  4/1/11     no      no    no   no
+  3.8617e-03     4  +0.00109  +0.00115 3/1/12  3/1/12     no      no    no   no
+  4.0178e-03     4  +0.00109  +0.00115 3/1/12  3/1/12     no      no    no   no
+  4.0224e-03     2  +0.00003  -0.00005 1/1/14  1/1/14     no      no    no   no
+  5.0823e-03     2  +0.00003  -0.00005 1/1/14  1/1/14     no      no    no   no
+  5.9312e-03     1  -0.00015  -0.00029 0/1/15  0/1/15     no      no    no   no
+  1.0059e+00     0  +0.00000  +0.00000 0/0/16  0/0/16    YES      no    no   no
+--- seed_disagree (fire iff metric >= thr) : mean per-row mean-pairwise |p_i-p_j| across K seeds ---
+         thr nFire   meanPub   meanPrv Pub W/L/T Prv W/L/T exc16 allGain clean  =D?
+ -9.7905e-01    16  +0.00458  +0.00425 15/1/0   15/1/0      no     YES    no   no
+  2.0947e-02    15  +0.00450  +0.00412 14/1/1   14/1/1      no      no    no   no
+  3.3522e-02    15  +0.00450  +0.00412 14/1/1   14/1/1      no      no    no   no
+  4.2213e-02    14  +0.00447  +0.00410 13/1/2   13/1/2      no      no    no   no
+  4.4573e-02    12  +0.00408  +0.00381 11/1/4   11/1/4      no      no    no   no
+  4.8468e-02    12  +0.00408  +0.00381 11/1/4   11/1/4      no      no    no   no
+  5.5465e-02    10  +0.00357  +0.00340 9/1/6   9/1/6      no      no    no   no
+  5.5774e-02     9  +0.00336  +0.00311 8/1/7   8/1/7      no      no    no   no
+  5.7806e-02     9  +0.00336  +0.00311 8/1/7   8/1/7      no      no    no   no
+  6.1811e-02     8  +0.00296  +0.00261 7/1/8   7/1/8      no      no    no   no
+  6.2732e-02     6  +0.00220  +0.00213 5/1/10  5/1/10     no      no    no   no
+  6.9014e-02     5  +0.00158  +0.00173 4/1/11  4/1/11     no      no    no   no
+  7.2809e-02     5  +0.00158  +0.00173 4/1/11  4/1/11     no      no    no   no
+  7.4695e-02     3  +0.00067  +0.00075 2/1/13  2/1/13     no      no    no   no
+  7.7236e-02     2  +0.00003  -0.00005 1/1/14  1/1/14     no      no    no   no
+  8.3988e-02     1  +0.00018  +0.00024 1/0/15  1/0/15    YES      no   YES   no
+  8.8401e-02     1  +0.00018  +0.00024 1/0/15  1/0/15    YES      no   YES   no
+  1.0884e+00     0  +0.00000  +0.00000 0/0/16  0/0/16    YES      no    no   no
+--- logloss_impr (fire iff metric >= thr) : log_loss(seed0) - log_loss(avg) on holdout ---
+         thr nFire   meanPub   meanPrv Pub W/L/T Prv W/L/T exc16 allGain clean  =D?
+ -9.9932e-01    16  +0.00458  +0.00425 15/1/0   15/1/0      no     YES    no   no
+  6.8232e-04    15  +0.00450  +0.00412 14/1/1   14/1/1      no      no    no   no
+  1.3378e-03    14  +0.00447  +0.00410 13/1/2   13/1/2      no      no    no   no
+  2.1739e-03    13  +0.00427  +0.00392 12/1/3   12/1/3      no      no    no   no
+  3.8704e-03    12  +0.00408  +0.00381 11/1/4   11/1/4      no      no    no   no
+  5.1629e-03    11  +0.00380  +0.00362 10/1/5   10/1/5      no      no    no   no
+  6.6868e-03    11  +0.00380  +0.00362 10/1/5   10/1/5      no      no    no   no
+  7.0300e-03    10  +0.00341  +0.00312 9/1/6   9/1/6      no      no    no   no
+  7.1532e-03     9  +0.00308  +0.00296 8/1/7   8/1/7      no      no    no   no
+  7.2471e-03     8  +0.00286  +0.00266 7/1/8   7/1/8      no      no    no   no
+  7.5533e-03     6  +0.00182  +0.00186 5/1/10  5/1/10     no      no    no   no
+  8.0141e-03     6  +0.00182  +0.00186 5/1/10  5/1/10     no      no    no   no
+  8.4589e-03     5  +0.00133  +0.00128 4/1/11  4/1/11     no      no    no   no
+  1.2389e-02     4  +0.00110  +0.00106 3/1/12  3/1/12     no      no    no   no
+  1.3145e-02     3  +0.00092  +0.00083 2/1/13  2/1/13     no      no    no   no
+  1.7938e-02     2  +0.00029  +0.00003 1/1/14  1/1/14     no      no    no   no
+  2.0540e-02     1  +0.00043  +0.00032 1/0/15  1/0/15    YES      no   YES   no
+  1.0205e+00     0  +0.00000  +0.00000 0/0/16  0/0/16    YES      no    no   no
+--- brier_impr (fire iff metric >= thr) : brier(seed0) - brier(avg) on holdout ---
+         thr nFire   meanPub   meanPrv Pub W/L/T Prv W/L/T exc16 allGain clean  =D?
+ -9.9972e-01    16  +0.00458  +0.00425 15/1/0   15/1/0      no     YES    no   no
+  2.8309e-04    15  +0.00450  +0.00412 14/1/1   14/1/1      no      no    no   no
+  5.1265e-04    14  +0.00447  +0.00410 13/1/2   13/1/2      no      no    no   no
+  9.3277e-04    13  +0.00427  +0.00392 12/1/3   12/1/3      no      no    no   no
+  1.3750e-03    12  +0.00408  +0.00381 11/1/4   11/1/4      no      no    no   no
+  2.1251e-03    12  +0.00408  +0.00381 11/1/4   11/1/4      no      no    no   no
+  2.7891e-03    10  +0.00341  +0.00312 9/1/6   9/1/6      no      no    no   no
+  2.9296e-03    10  +0.00341  +0.00312 9/1/6   9/1/6      no      no    no   no
+  2.9615e-03     9  +0.00308  +0.00296 8/1/7   8/1/7      no      no    no   no
+  3.0457e-03     8  +0.00286  +0.00266 7/1/8   7/1/8      no      no    no   no
+  3.1016e-03     6  +0.00182  +0.00186 5/1/10  5/1/10     no      no    no   no
+  3.1596e-03     6  +0.00182  +0.00186 5/1/10  5/1/10     no      no    no   no
+  3.4958e-03     4  +0.00110  +0.00106 3/1/12  3/1/12     no      no    no   no
+  5.0181e-03     3  +0.00092  +0.00083 2/1/13  2/1/13     no      no    no   no
+  5.0833e-03     2  +0.00107  +0.00111 2/0/14  2/0/14    YES      no   YES   no
+  5.3976e-03     1  +0.00043  +0.00032 1/0/15  1/0/15    YES      no   YES   no
+  8.1737e-03     0  +0.00000  +0.00000 0/0/16  0/0/16    YES      no    no   no
+  1.0082e+00     0  +0.00000  +0.00000 0/0/16  0/0/16    YES      no    no   no
+--- holdout_auc (fire iff metric <= thr) : seed0 holdout AUC level (saturation) ---
+         thr nFire   meanPub   meanPrv Pub W/L/T Prv W/L/T exc16 allGain clean  =D?
+ -3.9003e-01     0  +0.00000  +0.00000 0/0/16  0/0/16    YES      no    no   no
+  6.0997e-01     1  +0.00062  +0.00040 1/0/15  1/0/15    YES      no   YES   no
+  6.4715e-01     2  +0.00105  +0.00072 2/0/14  2/0/14    YES      no   YES   no
+  6.6612e-01     2  +0.00105  +0.00072 2/0/14  2/0/14    YES      no   YES   no
+  7.1145e-01     4  +0.00142  +0.00113 4/0/12  4/0/12    YES      no   YES   no
+  7.8766e-01     4  +0.00142  +0.00113 4/0/12  4/0/12    YES      no   YES   no
+  7.9739e-01     6  +0.00193  +0.00166 6/0/10  6/0/10    YES      no   YES   no
+  7.9888e-01     7  +0.00220  +0.00185 7/0/9   7/0/9     YES      no   YES   no
+  8.0906e-01     7  +0.00220  +0.00185 7/0/9   7/0/9     YES      no   YES   no
+  8.0995e-01     8  +0.00224  +0.00187 8/0/8   8/0/8     YES      no   YES   no
+  8.1959e-01     9  +0.00245  +0.00217 9/0/7   9/0/7     YES      no   YES   no
+  8.2370e-01    11  +0.00318  +0.00283 11/0/5   11/0/5     YES      no   YES   no
+  8.3801e-01    12  +0.00366  +0.00341 12/0/4   12/0/4     YES      no   YES   no
+  8.4204e-01    13  +0.00430  +0.00420 13/0/3   13/0/3     YES      no   YES   no
+  8.4421e-01    13  +0.00430  +0.00420 13/0/3   13/0/3     YES      no   YES   no
+  8.6165e-01    14  +0.00449  +0.00431 14/0/2   14/0/2     YES      no   YES   no
+  9.6095e-01    16  +0.00458  +0.00425 15/1/0   15/1/0      no     YES    no   no
+  1.9610e+00    16  +0.00458  +0.00425 15/1/0   15/1/0      no     YES    no   no
+
+=== INVARIANT (non-firing datasets byte-identical to base, delta 0) ===
+OK: for every reference and swept in-sample gate, each non-firing dataset reuses the exact seed-0 base array (applied delta exactly 0 on both splits). PASS.
+
+=== VERDICT (angle h) ===
+  gate C (robust ref): Public +0.00363  Private +0.00316  (fires 12)
+  gate D (n=1 caveat): Public +0.00473  Private +0.00453  (fires 15, excludes only train_16)
+  in-sample metrics that CLEANLY separate train_16 from all 15 gainers: NONE
+  in-sample metrics whose best clean gate REPRODUCES gate D: NONE
+
+VERDICT: ANGLE (h) FAILS (valid NEGATIVE result). No in-sample metric (seed-prediction variance, seed disagreement, in-sample log-loss or Brier improvement, or holdout-AUC saturation) cleanly separates train_16 from all 15 real-test gainers, so none reproduces gate D mechanistically. train_16's real-test harm is NOT accompanied by a distinctive in-sample signature at K=5: on the internal holdout its seed-averaging looks like a gainer (its holdout lift even goes positive, cf. round37), so training-time behaviour does not foresee its unique test-time regression. gate C (fire iff n_object_cols>0, +0.00363/+0.00316) remains the ROBUST ship recommendation; gate D's edge stays justified only by the single-dataset (train_16) observation, not by any in-sample mechanism.
+
+  MECHANISTIC TAKEAWAY: train_16's seed-averaging is in-sample INDISTINGUISHABLE from the gainers at K=5 — its holdout seed_var/disagreement/loss-improvement/AUC all fall inside the gainer cloud, so its test-time harm has no training-time tell.
+
+CLEAN RUN=YES (total_fits=880, datasets=16/16, exceptions=0, skipped=0, invariant_violations=0, reproductions_ok=YES, anchor_R1_ok=YES, ref_firesets_ok=YES)
+
+[WROTE] /Users/kumacmini/kaggle-autonomous-agent-baseline-auto/experiments/bench_03/round38_insample_gate/results.csv
+[WROTE] /Users/kumacmini/kaggle-autonomous-agent-baseline-auto/experiments/bench_03/round38_insample_gate/summary.txt
+HARNESS_DONE

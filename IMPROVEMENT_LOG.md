@@ -75,6 +75,20 @@
 > - **結論:** l2 magnitude は L=1.0 が明確なスイートスポット（正の平均かつ両split回帰ゼロは L1.0 のみ）。**06(L=1.0) は magnitude ノブで局所最適が確定。提出キューは不変（07-14=02 → 07-15=06）。** 生ログ=`experiments/bench_03/round19_l2_magnitude/{results.csv,summary.txt}`。
 > - **次サイクルの最優先角度 = 上記(b)「別の正則化ノブを同じ gate_ratio(n_feat/n>=0.010) で」**（例: 発火データのみ `max_leaf_nodes` を既定31から縮小、または `min_samples_leaf` を増やす）。magnitudeノブ(a)は本ラウンドで飽和したので(b)へ移る。検証は round19/replay.py を雛形に再利用（発火判定は共通、変える1ノブだけ差し替え）。
 >
+> **🔎 探索済み・不採用（ラウンド20, 2026-07-13 ~06 UTC）— ラウンド19の次角度(b)「同じ gate_ratio 内で l2=1.0 に第2の正則化ノブを重ねる」を検証。第2ノブは全て train_16 を回帰させ不採用。06(l2=1.0のみ)が依然最良:** shipped 06 のゲート(`n_feat/n>=0.010`・発火=train_09/13/15/16)と l2=1.0 はそのまま固定し、**発火データにだけ第2の正則化ノブを追加**して 06 をさらにクリーンに底上げできるかを検証（非発火12データは 02/06 と完全同一を保つ設計）。専用replayハーネス `experiments/bench_03/round20_gated_reg2/replay.py`（round19/replay.py を拡張・sklearn-only `.venv`=grader保証パッケージと一致）で16データPublic/Private別AUC採点。**de-risk: 5設定×16データ=80 fit 全てクラッシュ無し完走（CLEAN RUN=YES）、`git status --porcelain` は `experiments/bench_03/round20_gated_reg2/` のみ＝`submissions/` 一切不触・確認済。** 全設定で発火は同一（train_09/13/15/16）、非発火12データは全設定でバイト同一（delta 0）。base=06(l2=1.0)に対する4候補:
+> - **msl40（`min_samples_leaf=20→40` を発火時のみ）:** mean Public +0.00001 / Private +0.00058、W/L/T=3/1/12。train_09 Public −0.0030 と train_16 Private −0.0035 を回帰 → **不採用。**
+> - **msl50（`min_samples_leaf=50`）: 4候補中最大の平均利得（Public +0.00089 / Private +0.00251）。** train_09/13/15 を両split明確に底上げ（train_13 Private +0.0196, train_09 Private +0.0118, train_15 Private +0.0092）。**だが train_16 が僅かに回帰（Public −0.00069 / Private −0.00048）→「悪化ゼロ」を満たさず不採用。**
+> - **mln20（`max_leaf_nodes=31→20`）:** 平均が両split負（Public −0.00013）、train_16 を両split回帰（Public −0.0078 / Private −0.0074）→ **不採用。**
+> - **mln15（`max_leaf_nodes=15`）:** 平均 Public 負（−0.00089）、train_15/16 を両split回帰 → **不採用。**
+> - **結論:** 06 の上に第2正則化ノブを重ねても、発火4データのうち **train_16 が必ず回帰**するため誰もクリーンに 06 を上回らない。**06(l2=1.0のみ)がこのゲート下の局所最適。**
+> - **🔑 発見したリード（次サイクルの最優先角度）:** msl50 は train_09/13/15 に大きく効き（Private で +0.009〜+0.020）、唯一の障害が train_16 の極僅かな回帰（Private −0.0005）だった。**train_16 はゲート比 21/1809=0.0116 で閾値0.010をギリギリ超えて発火する「境界データ」**（他の3発火データは比0.016〜0.060と明確に高い）。つまり **「第2ノブ(min_samples_leaf増)はより厳しい別ゲート（例 n_feat/n>=0.015）で発火させ、境界の train_16 を除外」**すれば、msl50 の train_09/13/15 の大きな利得を悪化ゼロで取れる可能性がある。これが次ラウンドの最優先候補（l2ゲートは0.010のまま、msl系の第2ノブだけ 0.015 の厳ゲートにする「2段ゲート」）。生ログ=`experiments/bench_03/round20_gated_reg2/{results.csv,summary.txt,run.log}`。
+>
+> **したがって次にやること（優先順・ラウンド20末で更新）:**
+> 1. **本日 2026-07-13 UTC は 03(ERROR)が1日1件枠を消費済み＝新規提出せず（確認済: 提出履歴の当日UTC分は 03 のみ）。**
+> 2. **実提出キューは不変:** 次UTC日 **2026-07-14** に `submissions/02_early_stopping/` を最優先で実提出（(B)シンプル路線・R16で安全実証済）、その次 **2026-07-15** に `submissions/06_ngated_l2/`（採用候補・R18で02をクリーンにパレート改善）。手順は下記。
+> 3. **次サイクルのオフライン最優先角度 = 上記リード「2段ゲート msl50」**（l2は比0.010ゲートのまま、min_samples_leaf=50 は比0.015のより厳しいゲートで発火＝境界の train_16 を除外し train_09/13/15 の大利得を悪化ゼロで取りに行く）。検証は round20/replay.py を雛形に再利用。
+> 4. (A)複雑路線(03/05のgo.py堅牢化)は依然ユーザー確認待ちの大設計変更。独断着手しない。
+>
 > `06_ngated_l2`（採用候補・02をクリーンにパレート改善）の提出手順:
 > `(cd submissions/06_ngated_l2/agent && rm -f ../submission.zip && zip -r ../submission.zip . -x '.*')` →
 > `kaggle competitions submit -c autonomous-agent-prediction-beta -f submissions/06_ngated_l2/submission.zip -m "06_ngated_l2: gated l2_regularization=1.0 when n_features/n_rows>=0.010 (on top of 02)"`
@@ -126,6 +140,17 @@
 | 2026-07-15 提出予定（採用候補・**ラウンド18で検証済**） | （未提出・作成済み・validate合格） | **06_ngated_l2**: 02 に「特徴量数/行数の比が高い(n_feat/n≥0.010)過学習しやすいデータだけ `l2_regularization=1.0`、他は0.0」という**データ駆動の1行ゲート**を足した単発・単一HGB。sklearn-only・新規列なし・保証外パッケージ非依存で03の脆弱性を持たない。**02をクリーンにパレート改善**（4データ改善・悪化ゼロ・12データ02と同一、mean Public +0.0014/Private +0.0010）。02が01比で回帰していた train_15/16 の2件をこのl2で反転。 | オフライン: 02比+0.0014（悪化ゼロ） | — |
 
 ## 各回の詳細メモ
+
+### 2026-07-13: ラウンド20 — gate内でl2=1.0に第2正則化ノブを重ねる（❌不採用・train_16が必ず回帰／2段ゲートのリード発見）
+
+ラウンド19の次角度(b)を検証。shipped 06 のゲート(`n_feat/n>=0.010`, 発火=train_09/13/15/16)と l2=1.0 を固定し、**発火データにだけ第2の正則化ノブ**を足して 06 をさらに底上げできるか。非発火12データは 02/06 と完全同一を保つ設計。ハーネス `experiments/bench_03/round20_gated_reg2/replay.py`（round19/replay.py 拡張・sklearn-only `.venv`）で16データPublic/Private別AUC採点。**5設定×16=80 fit 全CLEAN RUN=YES、`submissions/`不触（git status で `round20_gated_reg2/` のみ確認）。** 非発火12データは全設定でバイト同一（delta 0）。
+
+- **msl40（min_samples_leaf 20→40）:** mean Public +0.00001 / Private +0.00058。train_09 Public −0.0030・train_16 Private −0.0035 を回帰 → 不採用。
+- **msl50（min_samples_leaf=50）:** 4候補中**最大の平均利得**（Public +0.00089 / Private +0.00251）。train_13 Private +0.0196・train_09 Private +0.0118・train_15 Private +0.0092 と小n高比データを大きく底上げ。**唯一の障害が train_16 の極僅かな回帰（Public −0.00069 / Private −0.00048）** → 「悪化ゼロ」基準を満たさず不採用。
+- **mln20（max_leaf_nodes 31→20）:** 平均が両split負、train_16 を両split回帰（Public −0.0078） → 不採用。
+- **mln15（max_leaf_nodes=15）:** 平均 Public 負、train_15/16 を両split回帰 → 不採用。
+- **結論:** 06 の上に第2正則化ノブを重ねても、発火4データのうち **train_16 が必ず回帰**するため誰も 06 をクリーンに上回らない。06(l2=1.0のみ)がこのゲート下の局所最適。
+- **知見/リード:** train_16 はゲート比 21/1809=**0.0116** で閾値0.010をギリギリ超える「境界データ」（他3発火データは比0.016〜0.060と明確に高い＝より過学習しやすい）。第2ノブ(min_samples_leaf増)は train_09/13/15 の高比データには明確に効くが、境界の train_16 では逆効果。**→ 次角度: 第2ノブだけ比0.015のより厳しいゲートで発火させ train_16 を除外する「2段ゲート」**（l2は0.010のまま）。これで msl50 の大利得を悪化ゼロで取れる可能性。生ログ=`experiments/bench_03/round20_gated_reg2/{results.csv,summary.txt,run.log}`。
 
 ### 2026-07-13: ラウンド19 — gate_ratio内のl2 magnitudeスイープ（❌不採用・L=1.0=06が最適で確定）
 

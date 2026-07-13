@@ -1,0 +1,173 @@
+[OK] train_01 base06 (l2=0.0, fired=False): pub=0.710287 prv=0.704818
+[OK] train_01 msl40 (l2=0.0, fired=False): pub=0.710287 prv=0.704818
+[OK] train_01 msl50 (l2=0.0, fired=False): pub=0.710287 prv=0.704818
+[OK] train_01 mln20 (l2=0.0, fired=False): pub=0.710287 prv=0.704818
+[OK] train_01 mln15 (l2=0.0, fired=False): pub=0.710287 prv=0.704818
+[OK] train_02 base06 (l2=0.0, fired=False): pub=0.964370 prv=0.963480
+[OK] train_02 msl40 (l2=0.0, fired=False): pub=0.964370 prv=0.963480
+[OK] train_02 msl50 (l2=0.0, fired=False): pub=0.964370 prv=0.963480
+[OK] train_02 mln20 (l2=0.0, fired=False): pub=0.964370 prv=0.963480
+[OK] train_02 mln15 (l2=0.0, fired=False): pub=0.964370 prv=0.963480
+[OK] train_03 base06 (l2=0.0, fired=False): pub=0.792579 prv=0.809545
+[OK] train_03 msl40 (l2=0.0, fired=False): pub=0.792579 prv=0.809545
+[OK] train_03 msl50 (l2=0.0, fired=False): pub=0.792579 prv=0.809545
+[OK] train_03 mln20 (l2=0.0, fired=False): pub=0.792579 prv=0.809545
+[OK] train_03 mln15 (l2=0.0, fired=False): pub=0.792579 prv=0.809545
+[OK] train_04 base06 (l2=0.0, fired=False): pub=0.823647 prv=0.824960
+[OK] train_04 msl40 (l2=0.0, fired=False): pub=0.823647 prv=0.824960
+[OK] train_04 msl50 (l2=0.0, fired=False): pub=0.823647 prv=0.824960
+[OK] train_04 mln20 (l2=0.0, fired=False): pub=0.823647 prv=0.824960
+[OK] train_04 mln15 (l2=0.0, fired=False): pub=0.823647 prv=0.824960
+[OK] train_05 base06 (l2=0.0, fired=False): pub=0.653135 prv=0.656873
+[OK] train_05 msl40 (l2=0.0, fired=False): pub=0.653135 prv=0.656873
+[OK] train_05 msl50 (l2=0.0, fired=False): pub=0.653135 prv=0.656873
+[OK] train_05 mln20 (l2=0.0, fired=False): pub=0.653135 prv=0.656873
+[OK] train_05 mln15 (l2=0.0, fired=False): pub=0.653135 prv=0.656873
+[OK] train_06 base06 (l2=0.0, fired=False): pub=0.799693 prv=0.813708
+[OK] train_06 msl40 (l2=0.0, fired=False): pub=0.799693 prv=0.813708
+[OK] train_06 msl50 (l2=0.0, fired=False): pub=0.799693 prv=0.813708
+[OK] train_06 mln20 (l2=0.0, fired=False): pub=0.799693 prv=0.813708
+[OK] train_06 mln15 (l2=0.0, fired=False): pub=0.799693 prv=0.813708
+[OK] train_07 base06 (l2=0.0, fired=False): pub=0.823648 prv=0.826507
+[OK] train_07 msl40 (l2=0.0, fired=False): pub=0.823648 prv=0.826507
+[OK] train_07 msl50 (l2=0.0, fired=False): pub=0.823648 prv=0.826507
+[OK] train_07 mln20 (l2=0.0, fired=False): pub=0.823648 prv=0.826507
+[OK] train_07 mln15 (l2=0.0, fired=False): pub=0.823648 prv=0.826507
+[OK] train_08 base06 (l2=0.0, fired=False): pub=0.846027 prv=0.841110
+[OK] train_08 msl40 (l2=0.0, fired=False): pub=0.846027 prv=0.841110
+[OK] train_08 msl50 (l2=0.0, fired=False): pub=0.846027 prv=0.841110
+[OK] train_08 mln20 (l2=0.0, fired=False): pub=0.846027 prv=0.841110
+[OK] train_08 mln15 (l2=0.0, fired=False): pub=0.846027 prv=0.841110
+[OK] train_09 base06 (l2=1.0, fired=True): pub=0.614582 prv=0.621660
+[OK] train_09 msl40 (l2=1.0, fired=True): pub=0.611565 prv=0.621861
+[OK] train_09 msl50 (l2=1.0, fired=True): pub=0.620424 prv=0.633474
+[OK] train_09 mln20 (l2=1.0, fired=True): pub=0.620263 prv=0.626021
+[OK] train_09 mln15 (l2=1.0, fired=True): pub=0.618476 prv=0.635129
+[OK] train_10 base06 (l2=0.0, fired=False): pub=0.836807 prv=0.847743
+[OK] train_10 msl40 (l2=0.0, fired=False): pub=0.836807 prv=0.847743
+[OK] train_10 msl50 (l2=0.0, fired=False): pub=0.836807 prv=0.847743
+[OK] train_10 mln20 (l2=0.0, fired=False): pub=0.836807 prv=0.847743
+[OK] train_10 mln15 (l2=0.0, fired=False): pub=0.836807 prv=0.847743
+[OK] train_11 base06 (l2=0.0, fired=False): pub=0.828129 prv=0.816654
+[OK] train_11 msl40 (l2=0.0, fired=False): pub=0.828129 prv=0.816654
+[OK] train_11 msl50 (l2=0.0, fired=False): pub=0.828129 prv=0.816654
+[OK] train_11 mln20 (l2=0.0, fired=False): pub=0.828129 prv=0.816654
+[OK] train_11 mln15 (l2=0.0, fired=False): pub=0.828129 prv=0.816654
+[OK] train_12 base06 (l2=0.0, fired=False): pub=0.794888 prv=0.769505
+[OK] train_12 msl40 (l2=0.0, fired=False): pub=0.794888 prv=0.769505
+[OK] train_12 msl50 (l2=0.0, fired=False): pub=0.794888 prv=0.769505
+[OK] train_12 mln20 (l2=0.0, fired=False): pub=0.794888 prv=0.769505
+[OK] train_12 mln15 (l2=0.0, fired=False): pub=0.794888 prv=0.769505
+[OK] train_13 base06 (l2=1.0, fired=True): pub=0.621376 prv=0.624450
+[OK] train_13 msl40 (l2=1.0, fired=True): pub=0.622053 prv=0.631448
+[OK] train_13 msl50 (l2=1.0, fired=True): pub=0.628380 prv=0.644000
+[OK] train_13 mln20 (l2=1.0, fired=True): pub=0.621376 prv=0.624450
+[OK] train_13 mln15 (l2=1.0, fired=True): pub=0.625359 prv=0.631900
+[OK] train_14 base06 (l2=0.0, fired=False): pub=0.797525 prv=0.804425
+[OK] train_14 msl40 (l2=0.0, fired=False): pub=0.797525 prv=0.804425
+[OK] train_14 msl50 (l2=0.0, fired=False): pub=0.797525 prv=0.804425
+[OK] train_14 mln20 (l2=0.0, fired=False): pub=0.797525 prv=0.804425
+[OK] train_14 mln15 (l2=0.0, fired=False): pub=0.797525 prv=0.804425
+[OK] train_15 base06 (l2=1.0, fired=True): pub=0.835151 prv=0.830396
+[OK] train_15 msl40 (l2=1.0, fired=True): pub=0.837681 prv=0.835924
+[OK] train_15 msl50 (l2=1.0, fired=True): pub=0.837247 prv=0.839595
+[OK] train_15 mln20 (l2=1.0, fired=True): pub=0.835151 prv=0.830396
+[OK] train_15 mln15 (l2=1.0, fired=True): pub=0.829992 prv=0.828455
+[OK] train_16 base06 (l2=1.0, fired=True): pub=0.892160 prv=0.893255
+[OK] train_16 msl40 (l2=1.0, fired=True): pub=0.892199 prv=0.889750
+[OK] train_16 msl50 (l2=1.0, fired=True): pub=0.891469 prv=0.892777
+[OK] train_16 mln20 (l2=1.0, fired=True): pub=0.884390 prv=0.885815
+[OK] train_16 mln15 (l2=1.0, fired=True): pub=0.875277 prv=0.877865
+
+=== PER-DATASET (Public) ===
+dataset    fired    base06     msl40    dmsl40     msl50    dmsl50     mln20    dmln20     mln15    dmln15
+train_01   False    0.7103    0.7103   +0.0000    0.7103   +0.0000    0.7103   +0.0000    0.7103   +0.0000
+train_02   False    0.9644    0.9644   +0.0000    0.9644   +0.0000    0.9644   +0.0000    0.9644   +0.0000
+train_03   False    0.7926    0.7926   +0.0000    0.7926   +0.0000    0.7926   +0.0000    0.7926   +0.0000
+train_04   False    0.8236    0.8236   +0.0000    0.8236   +0.0000    0.8236   +0.0000    0.8236   +0.0000
+train_05   False    0.6531    0.6531   +0.0000    0.6531   +0.0000    0.6531   +0.0000    0.6531   +0.0000
+train_06   False    0.7997    0.7997   +0.0000    0.7997   +0.0000    0.7997   +0.0000    0.7997   +0.0000
+train_07   False    0.8236    0.8236   +0.0000    0.8236   +0.0000    0.8236   +0.0000    0.8236   +0.0000
+train_08   False    0.8460    0.8460   +0.0000    0.8460   +0.0000    0.8460   +0.0000    0.8460   +0.0000
+train_09    True    0.6146    0.6116   -0.0030    0.6204   +0.0058    0.6203   +0.0057    0.6185   +0.0039
+train_10   False    0.8368    0.8368   +0.0000    0.8368   +0.0000    0.8368   +0.0000    0.8368   +0.0000
+train_11   False    0.8281    0.8281   +0.0000    0.8281   +0.0000    0.8281   +0.0000    0.8281   +0.0000
+train_12   False    0.7949    0.7949   +0.0000    0.7949   +0.0000    0.7949   +0.0000    0.7949   +0.0000
+train_13    True    0.6214    0.6221   +0.0007    0.6284   +0.0070    0.6214   +0.0000    0.6254   +0.0040
+train_14   False    0.7975    0.7975   +0.0000    0.7975   +0.0000    0.7975   +0.0000    0.7975   +0.0000
+train_15    True    0.8352    0.8377   +0.0025    0.8372   +0.0021    0.8352   +0.0000    0.8300   -0.0052
+train_16    True    0.8922    0.8922   +0.0000    0.8915   -0.0007    0.8844   -0.0078    0.8753   -0.0169
+
+=== PER-DATASET (Private) ===
+dataset    fired    base06     msl40    dmsl40     msl50    dmsl50     mln20    dmln20     mln15    dmln15
+train_01   False    0.7048    0.7048   +0.0000    0.7048   +0.0000    0.7048   +0.0000    0.7048   +0.0000
+train_02   False    0.9635    0.9635   +0.0000    0.9635   +0.0000    0.9635   +0.0000    0.9635   +0.0000
+train_03   False    0.8095    0.8095   +0.0000    0.8095   +0.0000    0.8095   +0.0000    0.8095   +0.0000
+train_04   False    0.8250    0.8250   +0.0000    0.8250   +0.0000    0.8250   +0.0000    0.8250   +0.0000
+train_05   False    0.6569    0.6569   +0.0000    0.6569   +0.0000    0.6569   +0.0000    0.6569   +0.0000
+train_06   False    0.8137    0.8137   +0.0000    0.8137   +0.0000    0.8137   +0.0000    0.8137   +0.0000
+train_07   False    0.8265    0.8265   +0.0000    0.8265   +0.0000    0.8265   +0.0000    0.8265   +0.0000
+train_08   False    0.8411    0.8411   +0.0000    0.8411   +0.0000    0.8411   +0.0000    0.8411   +0.0000
+train_09    True    0.6217    0.6219   +0.0002    0.6335   +0.0118    0.6260   +0.0044    0.6351   +0.0135
+train_10   False    0.8477    0.8477   +0.0000    0.8477   +0.0000    0.8477   +0.0000    0.8477   +0.0000
+train_11   False    0.8167    0.8167   +0.0000    0.8167   +0.0000    0.8167   +0.0000    0.8167   +0.0000
+train_12   False    0.7695    0.7695   +0.0000    0.7695   +0.0000    0.7695   +0.0000    0.7695   +0.0000
+train_13    True    0.6245    0.6314   +0.0070    0.6440   +0.0195    0.6245   +0.0000    0.6319   +0.0074
+train_14   False    0.8044    0.8044   +0.0000    0.8044   +0.0000    0.8044   +0.0000    0.8044   +0.0000
+train_15    True    0.8304    0.8359   +0.0055    0.8396   +0.0092    0.8304   +0.0000    0.8285   -0.0019
+train_16    True    0.8933    0.8897   -0.0035    0.8928   -0.0005    0.8858   -0.0074    0.8779   -0.0154
+
+=== GATE FIRINGS (config-independent; base06 l2=1.0 here) ===
+GATE FIRED on (4): train_09, train_13, train_15, train_16
+(non-firing datasets are byte-identical across all configs -> delta 0)
+
+=== SUMMARY (each candidate vs base06) ===
+msl40: mean Public d=+0.00001  mean Private d=+0.00058  Public W/L/T=3/1/12  Private W/L/T=3/1/12
+msl50: mean Public d=+0.00089  mean Private d=+0.00251  Public W/L/T=3/1/12  Private W/L/T=3/1/12
+mln20: mean Public d=-0.00013  mean Private d=-0.00019  Public W/L/T=1/1/14  Private W/L/T=1/1/14
+mln15: mean Public d=-0.00089  mean Private d=+0.00022  Public W/L/T=2/2/12  Private W/L/T=2/2/12
+
+=== PER-CANDIDATE DETAIL (firing datasets only; non-firing deltas are exactly 0) ===
+--- msl40 ---
+  train_09   pub 0.6146->0.6116 (-0.00302)   prv 0.6217->0.6219 (+0.00020)
+  train_13   pub 0.6214->0.6221 (+0.00068)   prv 0.6245->0.6314 (+0.00700)
+  train_15   pub 0.8352->0.8377 (+0.00253)   prv 0.8304->0.8359 (+0.00553)
+  train_16   pub 0.8922->0.8922 (+0.00004)   prv 0.8933->0.8897 (-0.00350)
+  Public regressions:  train_09(-0.00302)
+  Private regressions: train_16(-0.00350)
+--- msl50 ---
+  train_09   pub 0.6146->0.6204 (+0.00584)   prv 0.6217->0.6335 (+0.01181)
+  train_13   pub 0.6214->0.6284 (+0.00700)   prv 0.6245->0.6440 (+0.01955)
+  train_15   pub 0.8352->0.8372 (+0.00210)   prv 0.8304->0.8396 (+0.00920)
+  train_16   pub 0.8922->0.8915 (-0.00069)   prv 0.8933->0.8928 (-0.00048)
+  Public regressions:  train_16(-0.00069)
+  Private regressions: train_16(-0.00048)
+--- mln20 ---
+  train_09   pub 0.6146->0.6203 (+0.00568)   prv 0.6217->0.6260 (+0.00436)
+  train_13   pub 0.6214->0.6214 (+0.00000)   prv 0.6245->0.6245 (+0.00000)
+  train_15   pub 0.8352->0.8352 (+0.00000)   prv 0.8304->0.8304 (+0.00000)
+  train_16   pub 0.8922->0.8844 (-0.00777)   prv 0.8933->0.8858 (-0.00744)
+  Public regressions:  train_16(-0.00777)
+  Private regressions: train_16(-0.00744)
+--- mln15 ---
+  train_09   pub 0.6146->0.6185 (+0.00389)   prv 0.6217->0.6351 (+0.01347)
+  train_13   pub 0.6214->0.6254 (+0.00398)   prv 0.6245->0.6319 (+0.00745)
+  train_15   pub 0.8352->0.8300 (-0.00516)   prv 0.8304->0.8285 (-0.00194)
+  train_16   pub 0.8922->0.8753 (-0.01688)   prv 0.8933->0.8779 (-0.01539)
+  Public regressions:  train_15(-0.00516), train_16(-0.01688)
+  Private regressions: train_15(-0.00194), train_16(-0.01539)
+
+=== VERDICT (adoption vs base06) ===
+Criterion: clean improvement over 06 iff mean delta positive AND zero regressions on BOTH splits.
+msl40: REJECTED (Public regs [train_09(-0.00302)]; Private regs [train_16(-0.00350)])
+msl50: REJECTED (Public regs [train_16(-0.00069)]; Private regs [train_16(-0.00048)])
+mln20: REJECTED (non-positive mean Public (-0.00013); non-positive mean Private (-0.00019); Public regs [train_16(-0.00777)]; Private regs [train_16(-0.00744)])
+mln15: REJECTED (non-positive mean Public (-0.00089); Public regs [train_15(-0.00516), train_16(-0.01688)]; Private regs [train_15(-0.00194), train_16(-0.01539)])
+
+OVERALL: NO second knob cleanly improves 06; base06 (l2=1.0 only) remains best.
+
+CLEAN RUN: YES (exceptions=0, skipped=0)
+
+[WROTE] /Users/kumacmini/kaggle-autonomous-agent-baseline-auto/experiments/bench_03/round20_gated_reg2/results.csv
+[WROTE] /Users/kumacmini/kaggle-autonomous-agent-baseline-auto/experiments/bench_03/round20_gated_reg2/summary.txt
+HARNESS_DONE

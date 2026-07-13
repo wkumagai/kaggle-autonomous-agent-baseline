@@ -138,6 +138,18 @@
 > 3. **次サイクルのオフライン角度（期待値ほぼゼロ・上の含意参照）:** 正則化・早期停止・学習率の単ノブは R17-25 で完全枯渇。残る simple 単ノブは実質 `max_iter` くらいだが early_stopping 併用のため意味が薄い。**単ノブでヒットは見込めない。** 次に試すなら「まだ触っていない直交な simple 前処理」（例: 数値列の欠損補完戦略の変更、単調制約など）を1本だけ round25/replay.py 雛形で試す。それも枯れたら、実効的な伸びしろは (A)go.py 堅牢化 or (c)モデル族多様化＝**大設計変更でユーザー確認必須**（独断で複雑化しない）。
 > 4. (A)複雑路線(03/05のgo.py堅牢化)は依然ユーザー確認待ちの大設計変更。独断着手しない。
 >
+> **🔎 探索済み・不採用（ラウンド26, 2026-07-13 ~12 UTC）— 正則化族が枯れたので初の非正則化・直交ノブ「class_weight」を検証。不採用。だが「このsuiteは事実上クラス均衡」という新事実を確定し、不均衡系アプローチの軸を丸ごと閉じた:** R17-25 は全て正則化/早期停止/学習率族の単ノブで、いずれも 08 を超えなかった。R26 は初めて**族の外**の直交ノブ `HistGradientBoostingClassifier(class_weight=...)`（sklearn 1.6+、.venv=1.9.0で利用可）を検証。AUCはランクベースだがクラス再重み付けは学習される確率のランキングを変えうるので動く可能性がある。08 の l2/msl 2ゲート・early_stopping・特徴量は全て固定し、class_weight ノブのみを差し替え。専用replayハーネス `experiments/bench_03/round26_class_weight/replay.py`（round25/replay.py を拡張・sklearn-only `.venv`=grader保証パッケージと一致）で16データPublic/Private別AUC採点。**de-risk: 3設定×16=48 fit 全CLEAN RUN=YES(exceptions=0/skipped=0/invariant_violations=0)、`git status --porcelain` は `round26_class_weight/` 配下のみ＝`submissions/`一切不触・確認済。base再現は round25 baseとバイト一致(max abs diff=0.0)。** base=08 に対する2候補:
+> - **cw_gated（`class_weight='balanced'` を「学習データのマイノリティ比 < 0.35」の不均衡データだけに適用）: 発火ゼロ。mean Public/Private Δ=+0.00000、W/L/T=0/0/16。** **🔑 発火ゼロの理由＝新事実: この16データは全て事実上クラス均衡（マイノリティ比 0.489〜0.500）**で、どのデータも 0.35 ゲートを越えない → cw_gated は全16データで 08 とバイト同一。**不採用（＝08そのもの）。**
+> - **cw_global（`class_weight='balanced'` を全データに適用）: mean Public Δ=−0.00166 / Private Δ=−0.00129、Public W/L/T=6/8/2・Private 6/8/2。不採用（両split平均負＋両split回帰8件、最悪 train_16 Public −0.00918/Private −0.00770）。** 均衡データを再重み付けするとノイズ注入になり左右対称に僅かに悪化。
+> - **🔑 知見（不均衡系の軸を閉じる）: このsuiteは~50/50均衡なので、class_weight・少数クラスオーバーサンプリング・focal的な不均衡対策は構造的に無効**（発火しないか、均衡データを歪めて悪化）。正則化族(R17-25)に続き、**不均衡族もこのsuiteでは伸びしろ無しと確定**。
+> - **⚠️ 方針上の含意（更新）: 単ノブ正則化(R17-25)＋不均衡対策(R26)がいずれも 08 を超えず。オフラインの simple 探索で残る直交角度は「数値欠損の明示補完」「単調制約」等の前処理系ごく僅かのみで、いずれも期待値は低い。** 実効的な伸びしろは依然 (A)複雑路線 go.py 堅牢化 or (c)モデル族/ブレンド多様化＝**大設計変更でユーザー確認必須**。次サイクルも探索は継続する(タスク指示)が単ノブの期待値は実質ゼロ。生ログ=`experiments/bench_03/round26_class_weight/{results.csv,summary.txt,run.log}`。
+>
+> **したがって次にやること（優先順・ラウンド26末で更新）:**
+> 1. **本日 2026-07-13 UTC は 03(ERROR)が1日1件枠を消費済み＝新規提出せず（確認済: 提出履歴の当日UTC分は 03 のみ・現在 ~12 UTC）。**
+> 2. **実提出キュー（4段・不変）:** 次UTC日 **2026-07-14** に `submissions/02_early_stopping/`、**2026-07-15** に `submissions/06_ngated_l2/`、**2026-07-16** に `submissions/07_2gate_msl50/`、**2026-07-17** に `submissions/08_ratio_tiered_msl/`。**キューはR26で不変（08が依然ベスト）。** 各提出手順は下記。
+> 3. **次サイクルのオフライン角度（期待値低）:** 正則化族(R17-25)・不均衡族(R26)ともに 08 を超えず枯渇。残る simple 直交前処理は「数値列の欠損明示補完(HGBはNaNネイティブ処理なので効果薄の見込み)」「単調制約(generic設定が難しい)」程度。1本だけ round26/replay.py 雛形で試す。それも枯れたら実効的な伸びしろは (A)go.py 堅牢化 or (c)モデル族多様化＝**大設計変更でユーザー確認必須**（独断で複雑化しない）。
+> 4. (A)複雑路線(03/05のgo.py堅牢化)は依然ユーザー確認待ちの大設計変更。独断着手しない。
+>
 > `08_ratio_tiered_msl`（採用候補・07をクリーンにパレート改善）の提出手順:
 > `(cd submissions/08_ratio_tiered_msl/agent && rm -f ../submission.zip && zip -r ../submission.zip . -x '.*')` →
 > `kaggle competitions submit -c autonomous-agent-prediction-beta -f submissions/08_ratio_tiered_msl/submission.zip -m "08_ratio_tiered_msl: on top of 07, min_samples_leaf=70 on high tier n_feat/n>=0.030 (train_15)"`
@@ -198,6 +210,19 @@
 | 2026-07-16 提出予定（採用候補・**ラウンド21で検証済**） | （未提出・作成済み・validate合格） | **07_2gate_msl50**: 06 に「特徴量数/行数の比が高い(n_feat/n≥**0.015**)データだけ `min_samples_leaf=50`（既定20）」という**第2の、より厳しいデータ駆動ゲート**を1本足した単発・単一HGB（l2ゲートは06から不変の比≥0.010）。厳ゲートで境界データ train_16 を除外し、train_09/13/15(小n)を Private で大きく底上げ。sklearn-only・新規列なし・保証外パッケージ非依存で03の脆弱性を持たない。**06をクリーンにパレート改善**（発火3データ改善・悪化ゼロ・他13データ06と同一、mean Public +0.00093/Private +0.00254）。 | オフライン: 06比+0.00093（悪化ゼロ） | — |
 
 ## 各回の詳細メモ
+
+### 2026-07-13: ラウンド26 — class_weight（❌不採用・初の非正則化直交ノブ／「このsuiteは事実上クラス均衡」を確定し不均衡系の軸を閉じた）
+
+R17-25 の正則化/早期停止/学習率族が全て 08 を超えなかったため、初めて族の外の直交ノブ `HistGradientBoostingClassifier(class_weight=...)`（sklearn 1.6+、`.venv`=1.9.0で利用可）を検証。08 の l2/msl 2ゲート・early_stopping・特徴量は固定し class_weight ノブのみ差し替え。ハーネス `experiments/bench_03/round26_class_weight/replay.py`（round25/replay.py 拡張・sklearn-only `.venv`=grader保証パッケージと一致）で16データPublic/Private別AUC採点。**3設定×16=48 fit 全CLEAN RUN=YES(exceptions=0/invariant_violations=0)、`submissions/`不触（git status で `round26_class_weight/` のみ確認）、base再現は round25 baseとバイト一致。** base=08 に対し:
+
+- **cw_gated（`'balanced'` を学習データのマイノリティ比<0.35のときだけ）:** 発火ゼロ。mean Public/Private Δ=+0.00000、W/L/T=0/0/16。**発火ゼロの理由＝新事実: この16データは全て事実上クラス均衡（マイノリティ比 0.489〜0.500）**でゲートを越えない → 全16データで08とバイト同一。不採用（＝08）。
+- **cw_global（`'balanced'` を全データ）:** mean Public Δ=−0.00166 / Private Δ=−0.00129、W/L/T=6/8/2（両split）。両split平均負＋両split回帰8件（最悪 train_16 Public −0.00918/Private −0.00770）。均衡データの再重み付けはノイズ注入で左右対称に僅か悪化。不採用。
+
+**知見:** このsuiteは~50/50均衡なので class_weight・少数クラスオーバーサンプリング等の不均衡対策は構造的に無効。**正則化族(R17-25)に続き不均衡族(R26)もこのsuiteでは伸びしろ無しと確定。** 単ノブ探索の実効的な枯渇がさらに濃厚。残る simple 直交角度は前処理系ごく僅か（欠損明示補完・単調制約）で期待値は低く、実効的伸びしろは (A)複雑路線 go.py 堅牢化 or (c)モデル族多様化＝大設計変更（ユーザー確認必須）に限られる。生ログ=`experiments/bench_03/round26_class_weight/{results.csv,summary.txt,run.log}`。
+
+### 2026-07-13: ラウンド25 — learning_rate を高比データで下げる（❌不採用・単ノブ探索の枯渇を確定）
+
+shipped 08 の l2/msl 2ゲートを固定し、HGB の **`learning_rate` のみ**を L2ゲートと同じ比(n_feat/n≥0.010)発火データ(train_09/13/15/16)で {0.07, 0.05} に下げ、既定0.1(=08)と比較。ハーネス `experiments/bench_03/round25_learning_rate/replay.py`（round24/replay.py 拡張・sklearn-only `.venv`）で16データPublic/Private別AUC採点。**3設定×16=48 fit 全CLEAN RUN=YES、`submissions/`不触（git status で `round25_learning_rate/` のみ）。** base=08 に対し lr07（mean Public −0.00035/Private −0.00022）・lr05（mean Public −0.00078/Private −0.00097）とも不採用。**知見: 遅学習に対し train_09(lr↓で改善)と train_13(大きく回帰)がカウンタームーバーだが、救いたい train_09 の比(0.0162)が train_13(0.0180)より低いため ratio-tier で分離不能＝この軸は dead end。** l2/msl/mln/valfrac/lr の正則化系単ノブが完全枯渇。生ログ=`experiments/bench_03/round25_learning_rate/{results.csv,summary.txt,run.log}`。
 
 ### 2026-07-13: ラウンド24 — validation_fraction を高比データで広げる（❌不採用・既定0.1が最適／単ノブ探索の枯渇を確認）
 

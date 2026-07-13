@@ -1,0 +1,140 @@
+[OK] train_01 base (l2=0.0, l2_fired=False, msl=20, min_frac=0.4974, cw=None, cw_fired=False): pub=0.710287 prv=0.704818
+[OK] train_01 cw_global (l2=0.0, l2_fired=False, msl=20, min_frac=0.4974, cw=balanced, cw_fired=True): pub=0.710465 prv=0.702879
+[OK] train_01 cw_gated (l2=0.0, l2_fired=False, msl=20, min_frac=0.4974, cw=None, cw_fired=False): pub=0.710287 prv=0.704818
+[OK] train_02 base (l2=0.0, l2_fired=False, msl=20, min_frac=0.4968, cw=None, cw_fired=False): pub=0.964370 prv=0.963480
+[OK] train_02 cw_global (l2=0.0, l2_fired=False, msl=20, min_frac=0.4968, cw=balanced, cw_fired=True): pub=0.964617 prv=0.961905
+[OK] train_02 cw_gated (l2=0.0, l2_fired=False, msl=20, min_frac=0.4968, cw=None, cw_fired=False): pub=0.964370 prv=0.963480
+[OK] train_03 base (l2=0.0, l2_fired=False, msl=20, min_frac=0.4953, cw=None, cw_fired=False): pub=0.792579 prv=0.809545
+[OK] train_03 cw_global (l2=0.0, l2_fired=False, msl=20, min_frac=0.4953, cw=balanced, cw_fired=True): pub=0.789340 prv=0.805993
+[OK] train_03 cw_gated (l2=0.0, l2_fired=False, msl=20, min_frac=0.4953, cw=None, cw_fired=False): pub=0.792579 prv=0.809545
+[OK] train_04 base (l2=0.0, l2_fired=False, msl=20, min_frac=0.4988, cw=None, cw_fired=False): pub=0.823647 prv=0.824960
+[OK] train_04 cw_global (l2=0.0, l2_fired=False, msl=20, min_frac=0.4988, cw=balanced, cw_fired=True): pub=0.820625 prv=0.823805
+[OK] train_04 cw_gated (l2=0.0, l2_fired=False, msl=20, min_frac=0.4988, cw=None, cw_fired=False): pub=0.823647 prv=0.824960
+[OK] train_05 base (l2=0.0, l2_fired=False, msl=20, min_frac=0.4943, cw=None, cw_fired=False): pub=0.653135 prv=0.656873
+[OK] train_05 cw_global (l2=0.0, l2_fired=False, msl=20, min_frac=0.4943, cw=balanced, cw_fired=True): pub=0.645469 prv=0.654850
+[OK] train_05 cw_gated (l2=0.0, l2_fired=False, msl=20, min_frac=0.4943, cw=None, cw_fired=False): pub=0.653135 prv=0.656873
+[OK] train_06 base (l2=0.0, l2_fired=False, msl=20, min_frac=0.4963, cw=None, cw_fired=False): pub=0.799693 prv=0.813708
+[OK] train_06 cw_global (l2=0.0, l2_fired=False, msl=20, min_frac=0.4963, cw=balanced, cw_fired=True): pub=0.798319 prv=0.814179
+[OK] train_06 cw_gated (l2=0.0, l2_fired=False, msl=20, min_frac=0.4963, cw=None, cw_fired=False): pub=0.799693 prv=0.813708
+[OK] train_07 base (l2=0.0, l2_fired=False, msl=20, min_frac=0.4928, cw=None, cw_fired=False): pub=0.823648 prv=0.826507
+[OK] train_07 cw_global (l2=0.0, l2_fired=False, msl=20, min_frac=0.4928, cw=balanced, cw_fired=True): pub=0.824750 prv=0.824305
+[OK] train_07 cw_gated (l2=0.0, l2_fired=False, msl=20, min_frac=0.4928, cw=None, cw_fired=False): pub=0.823648 prv=0.826507
+[OK] train_08 base (l2=0.0, l2_fired=False, msl=20, min_frac=0.4890, cw=None, cw_fired=False): pub=0.846027 prv=0.841110
+[OK] train_08 cw_global (l2=0.0, l2_fired=False, msl=20, min_frac=0.4890, cw=balanced, cw_fired=True): pub=0.846328 prv=0.841823
+[OK] train_08 cw_gated (l2=0.0, l2_fired=False, msl=20, min_frac=0.4890, cw=None, cw_fired=False): pub=0.846027 prv=0.841110
+[OK] train_09 base (l2=1.0, l2_fired=True, msl=50, min_frac=0.4986, cw=None, cw_fired=False): pub=0.620424 prv=0.633474
+[OK] train_09 cw_global (l2=1.0, l2_fired=True, msl=50, min_frac=0.4986, cw=balanced, cw_fired=True): pub=0.613537 prv=0.627232
+[OK] train_09 cw_gated (l2=1.0, l2_fired=True, msl=50, min_frac=0.4986, cw=None, cw_fired=False): pub=0.620424 prv=0.633474
+[OK] train_10 base (l2=0.0, l2_fired=False, msl=20, min_frac=0.4973, cw=None, cw_fired=False): pub=0.836807 prv=0.847743
+[OK] train_10 cw_global (l2=0.0, l2_fired=False, msl=20, min_frac=0.4973, cw=balanced, cw_fired=True): pub=0.840277 prv=0.849839
+[OK] train_10 cw_gated (l2=0.0, l2_fired=False, msl=20, min_frac=0.4973, cw=None, cw_fired=False): pub=0.836807 prv=0.847743
+[OK] train_11 base (l2=0.0, l2_fired=False, msl=20, min_frac=0.4968, cw=None, cw_fired=False): pub=0.828129 prv=0.816654
+[OK] train_11 cw_global (l2=0.0, l2_fired=False, msl=20, min_frac=0.4968, cw=balanced, cw_fired=True): pub=0.827895 prv=0.816802
+[OK] train_11 cw_gated (l2=0.0, l2_fired=False, msl=20, min_frac=0.4968, cw=None, cw_fired=False): pub=0.828129 prv=0.816654
+[OK] train_12 base (l2=0.0, l2_fired=False, msl=20, min_frac=0.4993, cw=None, cw_fired=False): pub=0.794888 prv=0.769505
+[OK] train_12 cw_global (l2=0.0, l2_fired=False, msl=20, min_frac=0.4993, cw=balanced, cw_fired=True): pub=0.795845 prv=0.771047
+[OK] train_12 cw_gated (l2=0.0, l2_fired=False, msl=20, min_frac=0.4993, cw=None, cw_fired=False): pub=0.794888 prv=0.769505
+[OK] train_13 base (l2=1.0, l2_fired=True, msl=50, min_frac=0.5000, cw=None, cw_fired=False): pub=0.628380 prv=0.644000
+[OK] train_13 cw_global (l2=1.0, l2_fired=True, msl=50, min_frac=0.5000, cw=balanced, cw_fired=True): pub=0.628380 prv=0.644000
+[OK] train_13 cw_gated (l2=1.0, l2_fired=True, msl=50, min_frac=0.5000, cw=None, cw_fired=False): pub=0.628380 prv=0.644000
+[OK] train_14 base (l2=0.0, l2_fired=False, msl=20, min_frac=0.4978, cw=None, cw_fired=False): pub=0.797525 prv=0.804425
+[OK] train_14 cw_global (l2=0.0, l2_fired=False, msl=20, min_frac=0.4978, cw=balanced, cw_fired=True): pub=0.796328 prv=0.805220
+[OK] train_14 cw_gated (l2=0.0, l2_fired=False, msl=20, min_frac=0.4978, cw=None, cw_fired=False): pub=0.797525 prv=0.804425
+[OK] train_15 base (l2=1.0, l2_fired=True, msl=70, min_frac=0.5000, cw=None, cw_fired=False): pub=0.841097 prv=0.843627
+[OK] train_15 cw_global (l2=1.0, l2_fired=True, msl=70, min_frac=0.5000, cw=balanced, cw_fired=True): pub=0.841097 prv=0.843627
+[OK] train_15 cw_gated (l2=1.0, l2_fired=True, msl=70, min_frac=0.5000, cw=None, cw_fired=False): pub=0.841097 prv=0.843627
+[OK] train_16 base (l2=1.0, l2_fired=True, msl=20, min_frac=0.4986, cw=None, cw_fired=False): pub=0.892160 prv=0.893255
+[OK] train_16 cw_global (l2=1.0, l2_fired=True, msl=20, min_frac=0.4986, cw=balanced, cw_fired=True): pub=0.882980 prv=0.885554
+[OK] train_16 cw_gated (l2=1.0, l2_fired=True, msl=20, min_frac=0.4986, cw=None, cw_fired=False): pub=0.892160 prv=0.893255
+
+=== PER-DATASET (Public) ===
+dataset     l2G  msl  minFrac      base        cw  cw_global  dcw_global        cw   cw_gated   dcw_gated
+train_01   False   20   0.4974    0.7103  balanced     0.7105    +0.00018      None     0.7103    +0.00000
+train_02   False   20   0.4968    0.9644  balanced     0.9646    +0.00025      None     0.9644    +0.00000
+train_03   False   20   0.4953    0.7926  balanced     0.7893    -0.00324      None     0.7926    +0.00000
+train_04   False   20   0.4988    0.8236  balanced     0.8206    -0.00302      None     0.8236    +0.00000
+train_05   False   20   0.4943    0.6531  balanced     0.6455    -0.00767      None     0.6531    +0.00000
+train_06   False   20   0.4963    0.7997  balanced     0.7983    -0.00137      None     0.7997    +0.00000
+train_07   False   20   0.4928    0.8236  balanced     0.8248    +0.00110      None     0.8236    +0.00000
+train_08   False   20   0.4890    0.8460  balanced     0.8463    +0.00030      None     0.8460    +0.00000
+train_09   True   50   0.4986    0.6204  balanced     0.6135    -0.00689      None     0.6204    +0.00000
+train_10   False   20   0.4973    0.8368  balanced     0.8403    +0.00347      None     0.8368    +0.00000
+train_11   False   20   0.4968    0.8281  balanced     0.8279    -0.00023      None     0.8281    +0.00000
+train_12   False   20   0.4993    0.7949  balanced     0.7958    +0.00096      None     0.7949    +0.00000
+train_13   True   50   0.5000    0.6284  balanced     0.6284    +0.00000      None     0.6284    +0.00000
+train_14   False   20   0.4978    0.7975  balanced     0.7963    -0.00120      None     0.7975    +0.00000
+train_15   True   70   0.5000    0.8411  balanced     0.8411    +0.00000      None     0.8411    +0.00000
+train_16   True   20   0.4986    0.8922  balanced     0.8830    -0.00918      None     0.8922    +0.00000
+
+=== PER-DATASET (Private) ===
+dataset     l2G  msl  minFrac      base        cw  cw_global  dcw_global        cw   cw_gated   dcw_gated
+train_01   False   20   0.4974    0.7048  balanced     0.7029    -0.00194      None     0.7048    +0.00000
+train_02   False   20   0.4968    0.9635  balanced     0.9619    -0.00157      None     0.9635    +0.00000
+train_03   False   20   0.4953    0.8095  balanced     0.8060    -0.00355      None     0.8095    +0.00000
+train_04   False   20   0.4988    0.8250  balanced     0.8238    -0.00115      None     0.8250    +0.00000
+train_05   False   20   0.4943    0.6569  balanced     0.6548    -0.00202      None     0.6569    +0.00000
+train_06   False   20   0.4963    0.8137  balanced     0.8142    +0.00047      None     0.8137    +0.00000
+train_07   False   20   0.4928    0.8265  balanced     0.8243    -0.00220      None     0.8265    +0.00000
+train_08   False   20   0.4890    0.8411  balanced     0.8418    +0.00071      None     0.8411    +0.00000
+train_09   True   50   0.4986    0.6335  balanced     0.6272    -0.00624      None     0.6335    +0.00000
+train_10   False   20   0.4973    0.8477  balanced     0.8498    +0.00210      None     0.8477    +0.00000
+train_11   False   20   0.4968    0.8167  balanced     0.8168    +0.00015      None     0.8167    +0.00000
+train_12   False   20   0.4993    0.7695  balanced     0.7710    +0.00154      None     0.7695    +0.00000
+train_13   True   50   0.5000    0.6440  balanced     0.6440    +0.00000      None     0.6440    +0.00000
+train_14   False   20   0.4978    0.8044  balanced     0.8052    +0.00080      None     0.8044    +0.00000
+train_15   True   70   0.5000    0.8436  balanced     0.8436    +0.00000      None     0.8436    +0.00000
+train_16   True   20   0.4986    0.8933  balanced     0.8856    -0.00770      None     0.8933    +0.00000
+
+=== GATE FIRINGS ===
+L2 GATE (ratio>=0.010, l2=1.0) fired on (4): train_09, train_13, train_15, train_16
+CW 'balanced' in 'base' (0): (none)  [base uses default class_weight=None everywhere]
+CW 'balanced' in 'cw_global' (16): train_01, train_02, train_03, train_04, train_05, train_06, train_07, train_08, train_09, train_10, train_11, train_12, train_13, train_14, train_15, train_16
+CW 'balanced' in 'cw_gated' (0): (none)
+(cw_gated fires 'balanced' iff training minority-class fraction < 0.35; otherwise class_weight=None == base. cw_global fires 'balanced' on every dataset.)
+
+=== INVARIANT (resolved class_weight=None => identical to base, delta 0) ===
+OK: every dataset whose resolved class_weight is None is byte-identical to base (delta exactly 0). This covers all cw_gated datasets with minority fraction >= 0.35 (required near-identity check).
+
+=== DATASETS THAT ACTUALLY DIFFER (candidate vs base) ===
+cw_global: train_01, train_02, train_03, train_04, train_05, train_06, train_07, train_08, train_09, train_10, train_11, train_12, train_14, train_16
+cw_gated: (none)
+
+=== SUMMARY (candidate vs base == shipped 08) ===
+cw_global: mean Public d=-0.00166  mean Private d=-0.00129  Public W/L/T=6/8/2  Private W/L/T=6/8/2
+cw_gated: mean Public d=+0.00000  mean Private d=+0.00000  Public W/L/T=0/0/16  Private W/L/T=0/0/16
+
+=== PER-CANDIDATE DETAIL (datasets differing from base; all other deltas are exactly 0) ===
+--- cw_global vs base ---
+  train_01   (cw None->balanced, minFrac=0.4974)  pub 0.7103->0.7105 (+0.00018)   prv 0.7048->0.7029 (-0.00194)
+  train_02   (cw None->balanced, minFrac=0.4968)  pub 0.9644->0.9646 (+0.00025)   prv 0.9635->0.9619 (-0.00157)
+  train_03   (cw None->balanced, minFrac=0.4953)  pub 0.7926->0.7893 (-0.00324)   prv 0.8095->0.8060 (-0.00355)
+  train_04   (cw None->balanced, minFrac=0.4988)  pub 0.8236->0.8206 (-0.00302)   prv 0.8250->0.8238 (-0.00115)
+  train_05   (cw None->balanced, minFrac=0.4943)  pub 0.6531->0.6455 (-0.00767)   prv 0.6569->0.6548 (-0.00202)
+  train_06   (cw None->balanced, minFrac=0.4963)  pub 0.7997->0.7983 (-0.00137)   prv 0.8137->0.8142 (+0.00047)
+  train_07   (cw None->balanced, minFrac=0.4928)  pub 0.8236->0.8248 (+0.00110)   prv 0.8265->0.8243 (-0.00220)
+  train_08   (cw None->balanced, minFrac=0.4890)  pub 0.8460->0.8463 (+0.00030)   prv 0.8411->0.8418 (+0.00071)
+  train_09   (cw None->balanced, minFrac=0.4986)  pub 0.6204->0.6135 (-0.00689)   prv 0.6335->0.6272 (-0.00624)
+  train_10   (cw None->balanced, minFrac=0.4973)  pub 0.8368->0.8403 (+0.00347)   prv 0.8477->0.8498 (+0.00210)
+  train_11   (cw None->balanced, minFrac=0.4968)  pub 0.8281->0.8279 (-0.00023)   prv 0.8167->0.8168 (+0.00015)
+  train_12   (cw None->balanced, minFrac=0.4993)  pub 0.7949->0.7958 (+0.00096)   prv 0.7695->0.7710 (+0.00154)
+  train_14   (cw None->balanced, minFrac=0.4978)  pub 0.7975->0.7963 (-0.00120)   prv 0.8044->0.8052 (+0.00080)
+  train_16   (cw None->balanced, minFrac=0.4986)  pub 0.8922->0.8830 (-0.00918)   prv 0.8933->0.8856 (-0.00770)
+  Public regressions:  train_03(-0.00324), train_04(-0.00302), train_05(-0.00767), train_06(-0.00137), train_09(-0.00689), train_11(-0.00023), train_14(-0.00120), train_16(-0.00918)
+  Private regressions: train_01(-0.00194), train_02(-0.00157), train_03(-0.00355), train_04(-0.00115), train_05(-0.00202), train_07(-0.00220), train_09(-0.00624), train_16(-0.00770)
+--- cw_gated vs base ---
+  (no datasets differ)
+  Public regressions:  (none)
+  Private regressions: (none)
+
+=== VERDICT (adoption vs base == shipped 08) ===
+Criterion: CLEAN IMPROVEMENT over 08 iff mean delta positive AND zero regressions on BOTH splits.
+cw_global: NOT-CLEAN (non-positive mean Public (-0.00166); non-positive mean Private (-0.00129); Public regs [train_03(-0.00324), train_04(-0.00302), train_05(-0.00767), train_06(-0.00137), train_09(-0.00689), train_11(-0.00023), train_14(-0.00120), train_16(-0.00918)]; Private regs [train_01(-0.00194), train_02(-0.00157), train_03(-0.00355), train_04(-0.00115), train_05(-0.00202), train_07(-0.00220), train_09(-0.00624), train_16(-0.00770)])
+cw_gated: NOT-CLEAN (non-positive mean Public (+0.00000); non-positive mean Private (+0.00000))
+
+OVERALL: NO clean improvement over 08; base (shipped 08) remains best. class_weight='balanced' (global or minority-gated) did not cleanly beat the default class_weight=None.
+
+CLEAN RUN=YES (total_fits=48, exceptions=0, skipped=0, invariant_violations=0)
+
+[WROTE] /Users/kumacmini/kaggle-autonomous-agent-baseline-auto/experiments/bench_03/round26_class_weight/results.csv
+[WROTE] /Users/kumacmini/kaggle-autonomous-agent-baseline-auto/experiments/bench_03/round26_class_weight/summary.txt
+HARNESS_DONE

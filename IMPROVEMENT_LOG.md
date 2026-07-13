@@ -126,6 +126,18 @@
 > 3. **次サイクルのオフライン角度（期待値低・上の含意参照）:** 正則化・早期停止系の単ノブは R17-24 でほぼ枯渇（l2/msl/mln/valfrac すべて 08 を超えず）。まだ触っていない直交ノブは実質 **`learning_rate`**（既定0.1を高比データで下げる＝遅学習で正則化）くらい。これを round24/replay.py 雛形で1本試す。ただし他の正則化ノブが全滅している以上ヒットの見込みは薄い。**ここまで単ノブが枯れたら、次の実効的な伸びしろは (A)複雑路線のgo.py堅牢化 か (c)モデル族/ブレンド多様化——どちらも大設計変更でユーザー確認必須**。独断で複雑化しない。
 > 4. (A)複雑路線(03/05のgo.py堅牢化)は依然ユーザー確認待ちの大設計変更。独断着手しない。
 >
+> **🔎 探索済み・不採用（ラウンド25, 2026-07-13 ~11 UTC）— ラウンド24の最後の未検証直交ノブ「learning_rate を高比データで下げる」を実装・検証。不採用。単ノブ探索の枯渇が確定的に:** shipped 08 の l2/msl 2ゲートはそのまま固定し、**HGB の `learning_rate` のみ**を、L2ゲートと同じ比(n_feat/n≥0.010)発火データ(train_09/13/15/16)で {0.07, 0.05} に下げて既定0.1(=08)と比較（round24/replay.py を拡張した専用ハーネス `experiments/bench_03/round25_learning_rate/replay.py`・sklearn-only `.venv`=grader保証パッケージと一致）。**de-risk: 3設定×16=48 fit 全CLEAN RUN=YES(exceptions=0/skipped=0/invariant_violations=0)、`git status --porcelain` は `round25_learning_rate/` 配下のみ＝`submissions/`一切不触・確認済。** 非発火12データは全設定バイト同一(delta 0)、差が出るのは発火4データのみ。base=08 に対し:
+> - **lr07（0.1→0.07）: mean Public Δ=−0.00035 / Private Δ=−0.00022、Public W/L/T=1/3/12・Private 2/2/12。不採用（両split平均負）。** train_09 だけ両split改善(Public +0.0031/Private +0.0017)だが、train_13(Public −0.0051/Private −0.0058)・train_16(Public −0.0027)が明確に回帰。
+> - **lr05（0.1→0.05）: mean Public Δ=−0.00078 / Private Δ=−0.00097、Public 1/3/12・Private 1/3/12。不採用（lr07より悪化幅拡大）。** train_13 が最悪（Public −0.0100/Private −0.0115）、train_15 も両split回帰。
+> - **🔑 知見（この角度は ratio 軸では救済不能＝dead end）:** 遅学習に対し train_09 と train_13 が**逆方向に動くカウンタームーバー**（train_09 は lr↓で改善、train_13 は大きく回帰）。ラウンド22の msl と同じ非対称だが、**今回は ratio-tier で分離できない**——train_09 の比は 18/1109=**0.0162**、train_13 の比は 9/500=**0.0180** で、**救いたい train_09 の方が比が低い**。「高比だけ lr を下げる」tier では原理的に必ず train_13(高比側)も巻き込むため、round23 のような tier 分岐で train_09 単独を拾うことができない。→ **learning_rate は不採用で確定・この軸の派生も閉じた。**
+> - **⚠️ 方針上の含意（更新）:** l2(R17-19)・msl(R20-23)・max_leaf_nodes(R20)・validation_fraction(R24)・learning_rate(R25) と、**shipped 単一HGB の正則化・早期停止・学習率系の単ノブは完全に出尽くし、いずれも 08 を超えるクリーン改善を出せなかった**（08=直近唯一の採用も train_15 単独 +0.004＝16平均+0.00024の極小）。**オフライン単ノブ探索の伸びしろは枯渇。** 次の実効的な伸びしろは (A)複雑路線 go.py 堅牢化 か (c)モデル族/ブレンド多様化のみで、**どちらも「シンプル1変更」を超える大設計変更でユーザー確認必須**。次サイクル以降も探索は継続する(タスク指示)が、単ノブでは期待値が実質ゼロであることを明記する。生ログ=`experiments/bench_03/round25_learning_rate/{results.csv,summary.txt,run.log}`。
+>
+> **したがって次にやること（優先順・ラウンド25末で更新）:**
+> 1. **本日 2026-07-13 UTC は 03(ERROR)が1日1件枠を消費済み＝新規提出せず（確認済: 提出履歴の当日UTC分は 03 のみ・現在 ~11 UTC）。**
+> 2. **実提出キュー（4段・不変）:** 次UTC日 **2026-07-14** に `submissions/02_early_stopping/`、**2026-07-15** に `submissions/06_ngated_l2/`、**2026-07-16** に `submissions/07_2gate_msl50/`、**2026-07-17** に `submissions/08_ratio_tiered_msl/`。**キューはR25で不変（08が依然ベスト、単ノブ探索は枯渇）。** 各提出手順は下記。
+> 3. **次サイクルのオフライン角度（期待値ほぼゼロ・上の含意参照）:** 正則化・早期停止・学習率の単ノブは R17-25 で完全枯渇。残る simple 単ノブは実質 `max_iter` くらいだが early_stopping 併用のため意味が薄い。**単ノブでヒットは見込めない。** 次に試すなら「まだ触っていない直交な simple 前処理」（例: 数値列の欠損補完戦略の変更、単調制約など）を1本だけ round25/replay.py 雛形で試す。それも枯れたら、実効的な伸びしろは (A)go.py 堅牢化 or (c)モデル族多様化＝**大設計変更でユーザー確認必須**（独断で複雑化しない）。
+> 4. (A)複雑路線(03/05のgo.py堅牢化)は依然ユーザー確認待ちの大設計変更。独断着手しない。
+>
 > `08_ratio_tiered_msl`（採用候補・07をクリーンにパレート改善）の提出手順:
 > `(cd submissions/08_ratio_tiered_msl/agent && rm -f ../submission.zip && zip -r ../submission.zip . -x '.*')` →
 > `kaggle competitions submit -c autonomous-agent-prediction-beta -f submissions/08_ratio_tiered_msl/submission.zip -m "08_ratio_tiered_msl: on top of 07, min_samples_leaf=70 on high tier n_feat/n>=0.030 (train_15)"`

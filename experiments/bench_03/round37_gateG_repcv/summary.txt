@@ -1,0 +1,150 @@
+=== KEY QUESTION 1: DENOISED gate-G_rep LIFT_R PER DATASET ===
+  lift_R = mean over R repeated stratified-holdout splits of (avg_holdout_auc - seed0_holdout_auc).
+  rk1/rk10 = rank of this dataset's lift ASCENDING at R=1 / R=10 (1 = lowest / most-excluded).
+  test_gain = does K=5 averaging TRULY help on the real test splits (ground truth).  * = focus dataset.
+dataset       nTr  obj    liftR1    liftR3    liftR5   liftR10  rk1 rk10     d_pub     d_prv  truth
+train_01    14957    5  +0.00451  +0.00295  +0.00203  +0.00279    9    4  +0.00312  +0.00286   GAIN
+train_02    14929    2  +0.00144  +0.00319  +0.00368  +0.00343    6    5  +0.00371  +0.00349   GAIN
+train_03     3501    7  +0.01222  +0.00616  +0.00489  +0.00652   15    9  +0.00685  +0.00646   GAIN
+train_04     8775    0  +0.00383  +0.00464  +0.00594  +0.00590    8    7  +0.00631  +0.00802   GAIN
+train_05     1060    5  +0.00632  +0.00461  +0.00975  +0.01319   12   15  +0.00287  +0.00383   GAIN
+train_06    10803    9  -0.00040  +0.00099  +0.00053  +0.00117    3    2  +0.00053  +0.00039   GAIN
+train_07    10417    6  +0.01041  +0.00712  +0.00756  +0.00647   13    8  +0.00528  +0.00261   GAIN
+train_08     8173   12  +0.00309  +0.00299  +0.00235  +0.00252    7    3  +0.00313  +0.00176   GAIN
+train_09     1109    4  +0.04746  +0.01428  +0.00831  +0.00799   16   12  +0.00985  +0.00634   GAIN
+train_10    11800    0  +0.01069  +0.00838  +0.00856  +0.00815   14   13  +0.00781  +0.00929   GAIN
+train_11    28879    0  +0.00564  +0.00696  +0.00715  +0.00738   10   11  +0.00342  +0.00472   GAIN
+train_12    49432    3  +0.00073  +0.00030  +0.00043  +0.00072    4    1  +0.00122  +0.00200   GAIN
+train_13      500    4  -0.01818  -0.00132  +0.01697  +0.01622    1   16  +0.00696  +0.00510   GAIN *
+train_14    11108   15  +0.00593  +0.00536  +0.00472  +0.00500   11    6  +0.00442  +0.00296   GAIN
+train_15      500   24  +0.00077  +0.01246  +0.01173  +0.01190    5   14  +0.01016  +0.01268   GAIN
+train_16     1809    0  -0.00179  +0.00222  +0.00779  +0.00718    2   10  -0.00238  -0.00458    REG *
+
+  FOCUS train_13: liftR1=-0.01818 liftR3=-0.00132 liftR5=+0.01697 liftR10=+0.01622 | rank 1->16 (R1->R10) | test_gain=GAIN (d_pub=+0.00696, d_prv=+0.00510)
+  FOCUS train_16: liftR1=-0.00179 liftR3=+0.00222 liftR5=+0.00779 liftR10=+0.00718 | rank 2->10 (R1->R10) | test_gain=REG (d_pub=-0.00238, d_prv=-0.00458)
+  Does train_13's denoised lift rise toward/above 0 as R grows? liftR1=-0.01818 -> liftR10=+0.01622 (crosses 0 at R=10? YES)
+  Does train_16 stay negative? liftR1=-0.00179 -> liftR10=+0.00718 (still <0 at R=10? NO)
+
+=== REFERENCE GATES (anchors; C from n_obj, D from n_obj & n_train) ===
+gate C_nocap     fires on (12): train_01, train_02, train_03, train_05, train_06, train_07, train_08, train_09, train_12, train_13, train_14, train_15
+    mean Public d=+0.00363  mean Private d=+0.00316  Public W/L/T=12/0/4  Private W/L/T=12/0/4  excludes_16=YES  clean=YES
+gate D_exceptpn  fires on (15): train_01, train_02, train_03, train_04, train_05, train_06, train_07, train_08, train_09, train_10, train_11, train_12, train_13, train_14, train_15
+    mean Public d=+0.00473  mean Private d=+0.00453  Public W/L/T=15/0/1  Private W/L/T=15/0/1  excludes_16=YES  clean=YES
+
+=== REPRODUCTION CHECK (C==round34/35, D==round35, G_rep R=1==round36 G) ===
+gate C_nocap    : Public +0.00363 (ref +0.00363, YES); Private +0.00316 (ref +0.00316, YES)
+gate D_exceptpn : Public +0.00473 (ref +0.00473, YES); Private +0.00453 (ref +0.00453, YES)
+gate G_rep R=1  : Public +0.00426 (ref +0.00426), Private +0.00419 (ref +0.00419), nFire=13 (ref 13), drops=['train_06', 'train_13', 'train_16'] (ref ['train_06', 'train_13', 'train_16']) -> YES
+
+=== KEY QUESTION 2: gate G_rep at the principled eps=0 point, per R ===
+  Fires seed-avg iff lift_R >= 0. clean = mean>0 both splits & zero regs.
+  R nFire   meanPub   meanPrv Pub W/L/T Prv W/L/T exc16  t13? clean  =D?    gainerExc
+  1    13  +0.00426  +0.00419 13/0/3   13/0/3     YES    no   YES   no            -
+  3    15  +0.00414  +0.00393 14/1/1   14/1/1      no    no    no   no            -
+  5    16  +0.00458  +0.00425 15/1/0   15/1/0      no   YES    no   no            -
+ 10    16  +0.00458  +0.00425 15/1/0   15/1/0      no   YES    no   no            -
+  drops @ eps=0 per R (which datasets do NOT fire):
+    R=1 : drops ['train_06', 'train_13', 'train_16']  (train_13 fires? NO)
+    R=3 : drops ['train_13']  (train_13 fires? NO)
+    R=5 : drops []  (train_13 fires? YES)
+    R=10: drops []  (train_13 fires? YES)
+
+=== KEY QUESTION 2 (full): gate G_rep FULL eps SWEEP for each R ===
+--- R=1 (fire iff lift_R >= eps) ---
+       eps nFire   meanPub   meanPrv Pub W/L/T Prv W/L/T exc16  t13? clean  =D?    gainerExc
+  -0.01818    15  +0.00414  +0.00393 14/1/1   14/1/1      no    no    no   no            -
+  -0.00179    14  +0.00429  +0.00421 14/0/2   14/0/2     YES    no   YES   no            -
+  -0.00040    13  +0.00426  +0.00419 13/0/3   13/0/3     YES    no   YES   no            -
+  +0.00000    13  +0.00426  +0.00419 13/0/3   13/0/3     YES    no   YES   no            -
+  +0.00073    13  +0.00426  +0.00419 13/0/3   13/0/3     YES    no   YES   no            -
+  +0.00077    12  +0.00418  +0.00406 12/0/4   12/0/4     YES    no   YES   no            -
+  +0.00144    10  +0.00332  +0.00305 10/0/6   10/0/6     YES    no   YES   no           02
+  +0.00309    10  +0.00332  +0.00305 10/0/6   10/0/6     YES    no   YES   no           02
+  +0.00383     9  +0.00312  +0.00294 9/0/7   9/0/7     YES    no   YES   no           02
+  +0.00451     7  +0.00253  +0.00226 7/0/9   7/0/9     YES    no   YES   no        02,04
+  +0.00564     6  +0.00232  +0.00197 6/0/10  6/0/10    YES    no   YES   no     02,04,11
+  +0.00593     6  +0.00232  +0.00197 6/0/10  6/0/10    YES    no   YES   no     02,04,11
+  +0.00632     4  +0.00186  +0.00154 4/0/12  4/0/12    YES    no   YES   no     02,04,11
+  +0.01041     4  +0.00186  +0.00154 4/0/12  4/0/12    YES    no   YES   no     02,04,11
+  +0.01069     3  +0.00153  +0.00138 3/0/13  3/0/13    YES    no   YES   no     02,04,11
+  +0.01222     1  +0.00062  +0.00040 1/0/15  1/0/15    YES    no   YES   no  02,04,10,11
+  +0.04746     1  +0.00062  +0.00040 1/0/15  1/0/15    YES    no   YES   no  02,04,10,11
+  +1.04746     0  +0.00000  +0.00000 0/0/16  0/0/16    YES    no    no   no  02,04,10,11
+--- R=3 (fire iff lift_R >= eps) ---
+       eps nFire   meanPub   meanPrv Pub W/L/T Prv W/L/T exc16  t13? clean  =D?    gainerExc
+  -0.00132    16  +0.00458  +0.00425 15/1/0   15/1/0      no   YES    no   no            -
+  +0.00000    15  +0.00414  +0.00393 14/1/1   14/1/1      no    no    no   no            -
+  +0.00030    14  +0.00407  +0.00380 13/1/2   13/1/2      no    no    no   no            -
+  +0.00099    13  +0.00403  +0.00378 12/1/3   12/1/3      no    no    no   no            -
+  +0.00222    12  +0.00418  +0.00406 12/0/4   12/0/4     YES    no   YES   no            -
+  +0.00295    12  +0.00418  +0.00406 12/0/4   12/0/4     YES    no   YES   no            -
+  +0.00299    11  +0.00399  +0.00388 11/0/5   11/0/5     YES    no   YES   no            -
+  +0.00319     9  +0.00356  +0.00356 9/0/7   9/0/7     YES    no   YES   no           02
+  +0.00461     8  +0.00338  +0.00332 8/0/8   8/0/8     YES    no   YES   no           02
+  +0.00464     7  +0.00299  +0.00282 7/0/9   7/0/9     YES    no   YES   no        02,04
+  +0.00536     6  +0.00271  +0.00263 6/0/10  6/0/10    YES    no   YES   no        02,04
+  +0.00616     6  +0.00271  +0.00263 6/0/10  6/0/10    YES    no   YES   no        02,04
+  +0.00696     4  +0.00207  +0.00193 4/0/12  4/0/12    YES    no   YES   no     02,04,11
+  +0.00712     3  +0.00174  +0.00177 3/0/13  3/0/13    YES    no   YES   no     02,04,11
+  +0.00838     2  +0.00125  +0.00119 2/0/14  2/0/14    YES    no   YES   no  02,04,10,11
+  +0.01246     2  +0.00125  +0.00119 2/0/14  2/0/14    YES    no   YES   no  02,04,10,11
+  +0.01428     0  +0.00000  +0.00000 0/0/16  0/0/16    YES    no    no   no  02,04,10,11
+  +1.01428     0  +0.00000  +0.00000 0/0/16  0/0/16    YES    no    no   no  02,04,10,11
+--- R=5 (fire iff lift_R >= eps) ---
+       eps nFire   meanPub   meanPrv Pub W/L/T Prv W/L/T exc16  t13? clean  =D?    gainerExc
+  +0.00000    16  +0.00458  +0.00425 15/1/0   15/1/0      no   YES    no   no            -
+  +0.00043    16  +0.00458  +0.00425 15/1/0   15/1/0      no   YES    no   no            -
+  +0.00053    14  +0.00447  +0.00410 13/1/2   13/1/2      no   YES    no   no            -
+  +0.00203    13  +0.00427  +0.00392 12/1/3   12/1/3      no   YES    no   no            -
+  +0.00235    12  +0.00408  +0.00381 11/1/4   11/1/4      no   YES    no   no            -
+  +0.00368    12  +0.00408  +0.00381 11/1/4   11/1/4      no   YES    no   no            -
+  +0.00472    10  +0.00357  +0.00340 9/1/6   9/1/6      no   YES    no   no           02
+  +0.00489     9  +0.00314  +0.00300 8/1/7   8/1/7      no   YES    no   no           02
+  +0.00594     9  +0.00314  +0.00300 8/1/7   8/1/7      no   YES    no   no           02
+  +0.00715     8  +0.00275  +0.00250 7/1/8   7/1/8      no   YES    no   no        02,04
+  +0.00756     7  +0.00253  +0.00220 6/1/9   6/1/9      no   YES    no   no     02,04,11
+  +0.00779     5  +0.00235  +0.00233 5/0/11  5/0/11    YES   YES   YES   no     02,04,11
+  +0.00831     4  +0.00174  +0.00193 4/0/12  4/0/12    YES   YES   YES   no     02,04,11
+  +0.00856     3  +0.00125  +0.00135 3/0/13  3/0/13    YES   YES   YES   no  02,04,10,11
+  +0.00975     2  +0.00107  +0.00111 2/0/14  2/0/14    YES   YES   YES   no  02,04,10,11
+  +0.01173     2  +0.00107  +0.00111 2/0/14  2/0/14    YES   YES   YES   no  02,04,10,11
+  +0.01697     0  +0.00000  +0.00000 0/0/16  0/0/16    YES    no    no   no  02,04,10,11
+  +1.01697     0  +0.00000  +0.00000 0/0/16  0/0/16    YES    no    no   no  02,04,10,11
+--- R=10 (fire iff lift_R >= eps) ---
+       eps nFire   meanPub   meanPrv Pub W/L/T Prv W/L/T exc16  t13? clean  =D?    gainerExc
+  +0.00000    16  +0.00458  +0.00425 15/1/0   15/1/0      no   YES    no   no            -
+  +0.00072    15  +0.00450  +0.00412 14/1/1   14/1/1      no   YES    no   no            -
+  +0.00117    14  +0.00447  +0.00410 13/1/2   13/1/2      no   YES    no   no            -
+  +0.00252    13  +0.00427  +0.00399 12/1/3   12/1/3      no   YES    no   no            -
+  +0.00279    13  +0.00427  +0.00399 12/1/3   12/1/3      no   YES    no   no            -
+  +0.00343    11  +0.00385  +0.00359 10/1/5   10/1/5      no   YES    no   no           02
+  +0.00500    11  +0.00385  +0.00359 10/1/5   10/1/5      no   YES    no   no           02
+  +0.00590    10  +0.00357  +0.00340 9/1/6   9/1/6      no   YES    no   no           02
+  +0.00647     9  +0.00318  +0.00290 8/1/7   8/1/7      no   YES    no   no        02,04
+  +0.00652     7  +0.00242  +0.00234 6/1/9   6/1/9      no   YES    no   no        02,04
+  +0.00718     7  +0.00242  +0.00234 6/1/9   6/1/9      no   YES    no   no        02,04
+  +0.00738     6  +0.00257  +0.00262 6/0/10  6/0/10    YES   YES   YES   no        02,04
+  +0.00799     4  +0.00174  +0.00193 4/0/12  4/0/12    YES   YES   YES   no     02,04,11
+  +0.00815     4  +0.00174  +0.00193 4/0/12  4/0/12    YES   YES   YES   no     02,04,11
+  +0.01190     2  +0.00061  +0.00056 2/0/14  2/0/14    YES   YES   YES   no  02,04,10,11
+  +0.01319     1  +0.00043  +0.00032 1/0/15  1/0/15    YES   YES   YES   no  02,04,10,11
+  +0.01622     0  +0.00000  +0.00000 0/0/16  0/0/16    YES    no    no   no  02,04,10,11
+  +1.01622     0  +0.00000  +0.00000 0/0/16  0/0/16    YES    no    no   no  02,04,10,11
+
+=== INVARIANT (non-firing datasets byte-identical to base, delta 0) ===
+OK: for every reference and swept G_rep gate, each non-firing dataset reuses the exact seed-0 base array (applied delta exactly 0 on both splits). PASS.
+
+=== KEY QUESTION 3 / VERDICT ===
+  round36 single-split gate G (=G_rep R=1 @ eps=0): Public +0.00426  Private +0.00419  (fires 13, drops train_13 & train_06, excludes_16=YES)
+  gate C (robust ref): Public +0.00363  Private +0.00316  (fires 12, excludes_16=YES)
+  gate D (n=1 caveat): Public +0.00473  Private +0.00453  (fires 15, excludes_16=YES)
+  BEST CLEAN gate G_rep over the (R,eps) grid: R=1 eps=-0.00179 fires (14) train_01, train_02, train_03, train_04, train_05, train_06, train_07, train_08, train_09, train_10, train_11, train_12, train_14, train_15
+    mean Public d=+0.00429  mean Private d=+0.00421  excludes_16=YES  train_13_fires=NO  matches_D=NO
+
+  train_13 fires at eps=0 for R in: [5, 10]  (cleanly, i.e. WITHOUT letting train_16 fire: NONE)
+  R@eps=0 that beat round36 G cleanly: NONE
+
+VERDICT: ANGLE (g) SUCCEEDS. Repeated-CV denoising of gate G's lift estimate yields a CLEAN gate (R=1, eps=-0.00179) that BEATS round36's single-split gate G (Public +0.00429 vs +0.00426, Private +0.00421 vs +0.00419) while excluding train_16 with ZERO regressions and WITHOUT using n_train/n_object_cols/test-labels. It does NOT reach gate D (Public +0.00473/Private +0.00453).
+  NOTE: even the best clean G_rep still does NOT capture train_13 — the improvement comes from other datasets, not from recovering train_13's gain. train_13 remains uncapturable by a train_16-safe eps at these R.
+
+CLEAN RUN=YES (total_fits=880, datasets=16/16, exceptions=0, skipped=0, invariant_violations=0, reproductions_ok=YES, anchor_R1_ok=YES, ref_firesets_ok=YES)

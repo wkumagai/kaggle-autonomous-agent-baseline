@@ -10,13 +10,21 @@
 
 > **✅ ユーザー承認済み（2026-07-12、本人とのチャットで直接指示）:** 「Kaggleには提出して採点できることはわかったので、性能を出すことを考えて。設計と実装と次の提出もできるようにして」という明示指示により、このサイクルに限り複雑化（交差検証＋複数モデル族アンサンブル）を承認済み。下記 `03_cv_ensemble` の PARKED 指定はこれにより解除。**ただし今回限りの承認であり、このサイクル以降は自動ループの既定方針（1サイクル1改善・シンプル構造優先）に戻ること** — 次に複雑な変更を検討する場合は再度ユーザーに確認すること。
 >
-> **📌 次回実行への申し送り（重要・唯一の指示）:** **✅ `03_cv_ensemble` は 2026-07-13 00:02 UTC に提出済み（submission_id=54625716、現在 PENDING＝採点中）。本日 2026-07-13 UTC の提出枠は使い切った。** 次にやること: (1) `kaggle competitions submissions -c autonomous-agent-prediction-beta` で 03 の採点が完了したら、下の表の 03 行に公開スコアを記入し、01(0.787)との前回比も埋める。(2) **03のLBスコアが確定したら、次の UTC 日（2026-07-14 以降）に `05_te_ngated` を提出**すること（下記手順）。03の採点がまだ PENDING の日は新規提出しない（直近提出がPENDING中は提出しない方針）。
-> `05_te_ngated` の提出手順:
-> `(cd submissions/05_te_ngated/agent && rm -f ../submission.zip && zip -r ../submission.zip . -x '.*')` →
-> `kaggle competitions submit -c autonomous-agent-prediction-beta -f submissions/05_te_ngated/submission.zip -m "05_te_ngated: n-gated OOF target encoding (n<1500 cats only)"` →
-> 採点後に下表の 05 行のスコアを更新する。
+> **🚨 次回実行への申し送り（最重要・2026-07-13 更新）— `03_cv_ensemble` は実グレーダーで ERROR。複雑路線は要ユーザー判断:**
+> `03_cv_ensemble`（submission_id=54625716）を 2026-07-13 00:02 UTC に提出したが、Kaggle 実グレーダーで **`SubmissionStatus.ERROR`（スコアなし）** になった。一方 `01_baseline`（単発・単一HGBの簡素構成）は 0.787 で成功している。**オフラインベンチ（go.py を直接実行してAUC測定）とMBPローカルLLMリハーサルは両方通っていたのに本番でERRORした**＝失敗は go.py のロジックではなく、**本番のエージェント実行環境（`gemini-2.5-flash` 駆動で6ステップの手順を実行させる複雑構造）側**にある可能性が高い。**これはユーザーが今回限り承認した「複雑化（CV＋複数モデル族アンサンブル）」路線そのものが実グレーダーで動かなかったということ**であり、`05_te_ngated`/`04_missing_count` も同じ複雑 go.py・6ステップ構造を共有するので**同様にERRORするリスクが高い**。
 >
-> `02_early_stopping` は提出せず保留（03/05 の方が期待効果が大きく、1日1件の枠を優先的に使うため）。作成物は残すが、当面の次回提出対象からは外す。
+> **したがって次にやること（優先順）:**
+> 1. **ユーザーの判断を仰ぐ（PushNotificationで報告済み）。** 選択肢は大きく2つ: **(A) 複雑路線を続けるなら 03 のERROR原因の調査・修正が必要**（Kaggleの実行ログ/エラー詳細の取得、手順の簡素化＝ステップ削減やモデル依存の削減など、`architect`/`coder` に委譲する設計変更）。**(B) シンプル路線に戻す**なら、実グレーダーで確実に通る `01_baseline` を土台に、`02_early_stopping`（単発・単一HGD＋early_stopping、複雑手順なし）のような1点改善だけを積む。CLAUDE.md の既定方針（シンプル優先）と今回のERRORを踏まえると **(B) が既定寄り**だが、複雑路線の承認はユーザーが与えたものなので独断で放棄せず確認する。
+> 2. **提出枠について:** 03 は ERROR でも本日 2026-07-13 UTC の1日1件枠を消費した可能性が高い（要確認）。少なくとも直近提出が確定するまで新規提出しない。次UTC日(2026-07-14)以降、上のユーザー判断に従って **02_early_stopping（安全策）** か **05（複雑路線継続かつERROR原因解消後）** のいずれかを提出する。
+> 3. **05/04 を「複雑路線が実グレーダーで動く」と確認できるまで提出しないこと**（03と同構造でERROR再現の恐れ）。
+>
+> `02_early_stopping`（安全なフォールバック）の提出手順:
+> `(cd submissions/02_early_stopping/agent && rm -f ../submission.zip && zip -r ../submission.zip . -x '.*')` →
+> `kaggle competitions submit -c autonomous-agent-prediction-beta -f submissions/02_early_stopping/submission.zip -m "02_early_stopping: single HGB + early_stopping (simple fallback after 03 ERROR)"`
+>
+> （参考・複雑路線を続ける場合の 05 提出手順）
+> `(cd submissions/05_te_ngated/agent && rm -f ../submission.zip && zip -r ../submission.zip . -x '.*')` →
+> `kaggle competitions submit -c autonomous-agent-prediction-beta -f submissions/05_te_ngated/submission.zip -m "05_te_ngated: n-gated OOF target encoding (n<1500 cats only)"`
 >
 > **📋 05の次のキュー（ラウンド7で更新）:** `03_cv_ensemble` の実LBスコアが確定したら、**次の実提出候補は `submissions/05_te_ngated/`（n-gated target encoding = 03 ＋「n<1500 の小規模データセットだけに OOF ターゲットエンコーディング列を足す」1点変更。作成済み・`validate_submission.py`合格済み・下記ラウンド7参照）を最優先**とする。理由: オフライン実測で 03 を**パレート優越**する（n≥1500 の12データは 03 とバイト同一＝弱点 train_06 含めゼロリスク、小n の train_13 +0.0095 / train_05 +0.0053 / train_15 +0.0018 を悪化なしで底上げ、平均 +0.0143→+0.0154）。従来キューの `submissions/04_missing_count/`（平均+0.0144）と `freq-encode-cats` はその次の候補に後退。**注意: これらはまだ実LBで較正していないオフライン代理指標なので、03のLBスコアが出てから最終判断すること。**
 >
@@ -51,8 +59,9 @@
 |---|---|---|---|---|
 | 2026-07-12 | 54591282 | **01_baseline**: `HistGradientBoostingClassifier` を1回だけ学習・提出する最小構成。列のdtype（object=カテゴリ/順序、数値=そのまま）から自動でカテゴリ列を判定するため、データセットごとに列名や種類が変わっても手直し不要。ツールも write_file / run_command / submit_predictions / get_status の4つだけ。 | 0.787 | (ベースライン) |
 | 2026-07-13 予定 | （未提出・保留） | **02_early_stopping**: 分類器の生成だけを `early_stopping=True, max_iter=300` に変更（他は 01 と同一）。作成・検証は完了済みだが、03の方が期待効果が大きいため次回提出は03を優先し、02は保留。 | — | — |
-| 2026-07-13 | 54625716 | **03_cv_ensemble**: 交差検証＋XGBoost/LightGBM/CatBoostのアンサンブル＋段階的提出（詳細下記）。オフライン実測で平均AUC+0.0143、MBPローカルLLMでのE2Eリハーサル合格。ユーザー承認済み。**2026-07-13 00:02 UTC 提出済み、採点中(PENDING)。** | 採点中 | — |
-| 03採点後 予定 | （未提出・採用候補） | **05_te_ngated**: 03 ＋「n<1500 の小規模データセットだけに OOFターゲットエンコーディング列を足す」1点変更。オフライン実測で 03 をパレート優越（平均+0.0143→+0.0154、n≥1500の12データは03とバイト同一で弱点train_06も不変、小nのtrain_13/05/15を悪化なしで底上げ）。`validate_submission` 合格。03のLB較正後、次のUTC日に最優先で提出予定（ラウンド7）。 | オフライン+0.0011 | — |
+| 2026-07-13 | 54625716 | **03_cv_ensemble**: 交差検証＋XGBoost/LightGBM/CatBoostのアンサンブル＋段階的提出（詳細下記）。オフライン実測で平均AUC+0.0143、MBPローカルLLMでのE2Eリハーサル合格。ユーザー承認済み。**⚠️ 2026-07-13 00:02 UTC 提出したが Kaggle 実グレーダー上で `ERROR`（スコアなし）。** オフライン(go.py直接実行)とMBPローカルLLMリハーサルは通ったが、本番のエージェント実行環境(gemini-2.5-flash駆動の6ステップ手順)で失敗。詳細下記・要ユーザー判断。 | **ERROR** | — |
+| 保留（要判断） | （未提出・採用候補・**リスク再評価要**） | **05_te_ngated**: 03 ＋「n<1500 の小規模データセットだけに OOFターゲットエンコーディング列を足す」1点変更。オフラインで03をパレート優越。**ただし 03 と同じ複雑な go.py / 6ステップ・エージェント構造を共有するため、03がERRORした今、05も同様にERRORする可能性が高い。03のERROR原因が判明・解消するまで 05 の提出は保留。** | オフライン+0.0011 | — |
+| 保留（安全策） | （未提出・作成済み） | **02_early_stopping**: 01_baseline(0.787,実グレーダーで成功)に `early_stopping=True, max_iter=300` を足すだけの**単発・単一HGBの簡素構成**。複雑なエージェント手順を持たないため、03/05のERRORとは独立に実グレーダーで通る可能性が高い**安全なフォールバック候補**。 | — | — |
 
 ## 各回の詳細メモ
 
@@ -218,7 +227,7 @@
 - 構成: 候補 [experiments/bench_03/candidates/ngated-freq-encode/](experiments/bench_03/candidates/ngated-freq-encode/)
 
 ### 2026-07-13（~00 UTC）: 実提出=03_cv_ensemble ＋ オフライン改善ラウンド14 — TEゲート閾値拡張(te-gate-widen-4000)（不採用）
-- **実提出（本日枠を使用）:** UTCが2026-07-13へ変わり本日分の提出枠が空いたため、申し送りブロックの唯一指示どおり `03_cv_ensemble` を提出。`validate_submission.py` 合格を再確認 → zip → `kaggle competitions submit`。**submission_id=54625716、00:02 UTC 提出成功、現在 PENDING（採点中）。** 直近提出の 01_baseline(0.787) 以外に採点済み新規結果は無し（表への追記は03のPENDING反映のみ）。本日 2026-07-13 UTC の提出枠はこれで使い切り。
+- **実提出（本日枠を使用）:** UTCが2026-07-13へ変わり本日分の提出枠が空いたため、申し送りブロックの唯一指示どおり `03_cv_ensemble` を提出。`validate_submission.py` 合格を再確認 → zip → `kaggle competitions submit`。submission_id=54625716、00:02 UTC 提出。**⚠️ 採点結果は `SubmissionStatus.ERROR`（スコアなし）。** オフラインベンチ(go.py直接実行)もMBPローカルLLMリハーサルも通っていたのに本番でERROR＝失敗は go.py ロジックでなく**本番エージェント実行環境(gemini-2.5-flash駆動の6ステップ手順)側**の可能性が高い。**ユーザーが今回限り承認した複雑化(CV＋複数モデル族アンサンブル)路線が実グレーダーで動かなかった**ことを意味し、同構造を共有する 05/04 も同様にERRORするリスクが高い。→ **PushNotificationでユーザーに報告し、(A)複雑路線のERROR原因調査・修正 か (B)シンプル路線(01土台＋02_early_stopping等)へ回帰 かの判断を仰いだ。** 詳細と次アクションは冒頭「🚨次回実行への申し送り」ブロック参照。本日 2026-07-13 UTC の提出枠はこれで消費（ERRORでも枠消費した可能性が高い・要確認）。
 - **オフライン改善ラウンド14（無制限枠・毎回必須）:** 実提出とは独立に、方針どおり新しい角度を1つ検証。ラウンド13の方針メモで「未検証で残る小変更」として明示した **TEゲート閾値1500の微調整** を実行した（＝新規に角度をゼロ探索せず、記録済みの優先候補を消化）。
   - **選んだ角度＝「TEゲート閾値の拡張」:** 05のOOFターゲットエンコーディングは `if len(X) < 1500 and len(cats) > 0:` で「小規模データセットだけ」にTE列を足す。この**閾値そのもの**を `1500→4000` に上げ、中規模データセットまでTEを効かせるべきかを検証。ラウンド12はTEのもう一方のハイパラ(平滑化定数)を突いたので、これはハイパラ探索の直交な残り一辺。
   - **設計上の外科性:** この16データで n が [1500,4000) に入る唯一のデータは train_16(n=1809, ただしカテゴリ列0で `len(cats)>0` に掛からず非発火) と train_03(n=3501, 7カテゴリ)。よって**新たにTEが発火するのは train_03 のみ**で、他15データはゲート挙動が完全に不変＝バイト同一になるはずという事前予測が立つ（＝「TEが中規模カテゴリ train_03 を助けるか否か」だけを問う純粋な一点実験・他15データへの下振れリスクは数学的にゼロ）。

@@ -68,6 +68,13 @@
 > 4. (A)複雑路線(03/05のgo.py堅牢化)は依然ユーザー確認待ちの大設計変更。独断着手しない。
 > 5. **次サイクルのオフライン探索:** 素朴FE・TE系ハイパラは飽和確認済（R1-17）。gated-l2 は採用したので、次は (a) l2値そのものの微調整を発火データ内で（例 l2=0.5/2.0 を gate_ratio 内で・悪化なく上積みできるか）、(b) 同じ「過学習しやすさ軸」で他の正則化ノブ（`max_leaf_nodes` 縮小や `min_samples_leaf` 増）を同じ比ゲートで、あるいは (c) モデル族多様化（設計変更＝ユーザー確認要）。simple路線の検証は `experiments/bench_03/simple_replay.py` / `round18_ngated_l2/replay.py` の sklearn-only replay を再利用（benchmark.py は複雑03専用でsimple路線を検証できない）。
 >
+> **🔎 探索済み・不採用（ラウンド19, 2026-07-13 ~05 UTC）— ラウンド18の角度(a)「gate_ratio内のl2値スイープ」を検証。L=1.0(=06)が最適で確定・キュー不変:** round18採用の06(gate_ratio: `l2 = L if n_feat/n>=0.010 else 0.0`)の上で、**ゲート閾値0.010は固定したまま発火時の l2 magnitude L のみ** を L∈{0.5, 1.0, 2.0} でスイープ（baseは L=0.0=02）。専用replayハーネス `experiments/bench_03/round19_l2_magnitude/replay.py`（round18/replay.py をコピー拡張・sklearn-only `.venv`=grader保証パッケージと一致）で16データをPublic/Private別AUC採点。**まず de-risk: 全設定×16データ=64 fit 全てクラッシュ無し完走（CLEAN RUN=YES）。`submissions/` は一切不触（`git status --porcelain` は `experiments/bench_03/round19_l2_magnitude/` のみ・確認済）。** 全Lで発火データは同一（train_09/13/15/16、他12データはbaseとバイト同一）。採点結果:
+> - **L0.5:** mean Public Δ=**+0.0009** / Private +0.0007, Public W/L/T=3/1/12。train_13 が Public −0.0001 / Private −0.0017 と回帰。**弱いうえ回帰あり＝不採用。**
+> - **L1.0（=shipped 06）:** mean Public Δ=**+0.0014** / Private +0.0010, Public W/L/T=**4/0/12**, Private **4/0/12**。**両splitで回帰ゼロ・唯一のクリーン正。**
+> - **L2.0:** mean Public Δ=+0.0014（L1.0と同値）だが **train_15 が Private −0.0020 の新規回帰**。Private W/L/T=3/1/12。meanは並ぶが「悪化なし」を満たさず**不採用。**
+> - **結論:** l2 magnitude は L=1.0 が明確なスイートスポット（正の平均かつ両split回帰ゼロは L1.0 のみ）。**06(L=1.0) は magnitude ノブで局所最適が確定。提出キューは不変（07-14=02 → 07-15=06）。** 生ログ=`experiments/bench_03/round19_l2_magnitude/{results.csv,summary.txt}`。
+> - **次サイクルの最優先角度 = 上記(b)「別の正則化ノブを同じ gate_ratio(n_feat/n>=0.010) で」**（例: 発火データのみ `max_leaf_nodes` を既定31から縮小、または `min_samples_leaf` を増やす）。magnitudeノブ(a)は本ラウンドで飽和したので(b)へ移る。検証は round19/replay.py を雛形に再利用（発火判定は共通、変える1ノブだけ差し替え）。
+>
 > `06_ngated_l2`（採用候補・02をクリーンにパレート改善）の提出手順:
 > `(cd submissions/06_ngated_l2/agent && rm -f ../submission.zip && zip -r ../submission.zip . -x '.*')` →
 > `kaggle competitions submit -c autonomous-agent-prediction-beta -f submissions/06_ngated_l2/submission.zip -m "06_ngated_l2: gated l2_regularization=1.0 when n_features/n_rows>=0.010 (on top of 02)"`
@@ -119,6 +126,14 @@
 | 2026-07-15 提出予定（採用候補・**ラウンド18で検証済**） | （未提出・作成済み・validate合格） | **06_ngated_l2**: 02 に「特徴量数/行数の比が高い(n_feat/n≥0.010)過学習しやすいデータだけ `l2_regularization=1.0`、他は0.0」という**データ駆動の1行ゲート**を足した単発・単一HGB。sklearn-only・新規列なし・保証外パッケージ非依存で03の脆弱性を持たない。**02をクリーンにパレート改善**（4データ改善・悪化ゼロ・12データ02と同一、mean Public +0.0014/Private +0.0010）。02が01比で回帰していた train_15/16 の2件をこのl2で反転。 | オフライン: 02比+0.0014（悪化ゼロ） | — |
 
 ## 各回の詳細メモ
+
+### 2026-07-13: ラウンド19 — gate_ratio内のl2 magnitudeスイープ（❌不採用・L=1.0=06が最適で確定）
+
+ラウンド18の次角度(a)「発火時のl2値そのものの微調整」を検証。06のゲート閾値(n_feat/n≥0.010)は固定したまま、発火時の magnitude L のみ L∈{0.5,1.0,2.0} でスイープ（base=L=0.0=02）。ハーネス `experiments/bench_03/round19_l2_magnitude/replay.py`（round18/replay.py をコピー拡張・sklearn-only `.venv`）で16データPublic/Private別AUC採点。全設定×16=64 fit CLEAN RUN=YES、`submissions/` 不触（git status で確認）。全Lで発火は同一（train_09/13/15/16）。
+- **L0.5:** mean Public +0.0009（弱い）＋ train_13 が両split回帰 → 不採用。
+- **L1.0(=06):** mean Public +0.0014 / Private +0.0010、両split W/L/T=4/0/12（**回帰ゼロ・唯一のクリーン正**）。
+- **L2.0:** mean Public +0.0014（L1.0と同値）だが train_15 Private −0.0020 の新規回帰 → 不採用。
+- **結論:** magnitudeノブは L=1.0 がスイートスポットで飽和。06は magnitude で局所最適確定、キュー不変（07-14=02→07-15=06）。次角度は(b)別の正則化ノブ（`max_leaf_nodes`縮小/`min_samples_leaf`増）を同じ gate_ratio で。
 
 ### 2026-07-13: ラウンド18 — gated l2_regularization（✅採用候補・06_ngated_l2作成／軸は生nでなく feature/row比だと実証）
 

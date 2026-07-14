@@ -1,0 +1,266 @@
+==============================================================================
+bench_03 round54 — ROW-BOOTSTRAP BAGGING (K=10) vs SEED-AVG (K=10) vs base-08 (ALL 16)  [OFFLINE]
+==============================================================================
+
+SETUP:
+  base    == shipped 08: HGB, early_stopping, cat_mask=object cols,
+             seed-0, full train.
+  bag     == row-bootstrap bagging K=10. Per k in 0..9: resample n
+             TRAIN ROWS WITH replacement via RandomState(k), fit an
+             identical base-08 HGB (random_state=k) on the resample,
+             predict_proba on the SAME test; aggregate = MEAN of the
+             valid-k proba vectors. l2/msl are the base-08 gate values
+             from the ORIGINAL full train (NOT recomputed on resample).
+             GUARD: single-target-class resample -> that k skipped.
+  seedavg == plain seed-avg K=10: fit K base-08 HGB on the FULL train,
+             random_state 0..9, MEAN of proba. UN-GATED across all 16.
+  Single new mechanism vs seedavg = ROW-LEVEL bootstrap diversity.
+
+=== BOOTSTRAP GUARD (single-class resamples skipped) ===
+dataset     valid_k    skipped_k
+train_01         10            -
+train_02         10            -
+train_03         10            -
+train_04         10            -
+train_05         10            -
+train_06         10            -
+train_07         10            -
+train_08         10            -
+train_09         10            -
+train_10         10            -
+train_11         10            -
+train_12         10            -
+train_13         10            -
+train_14         10            -
+train_15         10            -
+train_16         10            -
+  datasets with any skip: 0, total k skipped: 0
+
+=== HEADLINE (arm vs base == shipped 08, all 16) ===
+  bag     : mean ΔPublic=+0.001374 (W/L/T 9/7/0)  mean ΔPrivate=+0.001579 (W/L/T 9/7/0)
+  seedavg : mean ΔPublic=+0.005547 (W/L/T 15/1/0)  mean ΔPrivate=+0.005323 (W/L/T 15/1/0)
+
+=== HEAD-TO-HEAD: bag vs seedavg (per-dataset, both arms vs base) ===
+dataset       bag_dpub     sa_dpub    bag_dprv     sa_dprv
+train_01     -0.006270   +0.003664   -0.005312   +0.003721
+train_02     +0.004064   +0.004422   +0.003253   +0.004082
+train_03     +0.004888   +0.007894   +0.001162   +0.007277
+train_04     +0.005124   +0.007293   +0.004836   +0.009558
+train_05     +0.001214   +0.008396   +0.008460   +0.008332
+train_06     -0.006459   +0.000509   -0.012141   +0.000499
+train_07     +0.006891   +0.005985   +0.003414   +0.002506
+train_08     -0.006110   +0.003650   -0.004376   +0.001720
+train_09     -0.000182   +0.011098   +0.001342   +0.009305
+train_10     +0.011140   +0.008376   +0.010828   +0.010273
+train_11     +0.004191   +0.004160   +0.009904   +0.005312
+train_12     -0.002653   +0.001583   -0.001253   +0.002337
+train_13     -0.006384   +0.007333   -0.006171   +0.006216
+train_14     +0.000028   +0.003512   -0.000802   +0.004048
+train_15     +0.013109   +0.011448   +0.016562   +0.013693
+train_16     -0.000599   -0.000572   -0.004447   -0.003712
+  Public : bag>seedavg on 4, seedavg>bag on 12
+  Private: bag>seedavg on 5, seedavg>bag on 11
+
+=== NOISY SMALL-N FOCUS (train_05, train_09, train_13) ===
+  train_05 (n=1060): bag ΔPub=+0.001214 ΔPrv=+0.008460 | seedavg ΔPub=+0.008396 ΔPrv=+0.008332
+  train_09 (n=1109): bag ΔPub=-0.000182 ΔPrv=+0.001342 | seedavg ΔPub=+0.011098 ΔPrv=+0.009305
+  train_13 (n=500): bag ΔPub=-0.006384 ΔPrv=-0.006171 | seedavg ΔPub=+0.007333 ΔPrv=+0.006216
+
+=== REPRODUCTION CHECK (base on ALL 16 vs round53, tol<5e-6) ===
+  train_01: Public 0.710287 vs r53 0.710287 (|d|=0.00e+00, YES); Private 0.704818 vs r53 0.704818 (|d|=0.00e+00, YES)
+  train_02: Public 0.964370 vs r53 0.964370 (|d|=0.00e+00, YES); Private 0.963480 vs r53 0.963480 (|d|=0.00e+00, YES)
+  train_03: Public 0.792579 vs r53 0.792579 (|d|=0.00e+00, YES); Private 0.809545 vs r53 0.809545 (|d|=0.00e+00, YES)
+  train_04: Public 0.823647 vs r53 0.823647 (|d|=0.00e+00, YES); Private 0.824960 vs r53 0.824960 (|d|=0.00e+00, YES)
+  train_05: Public 0.653135 vs r53 0.653135 (|d|=0.00e+00, YES); Private 0.656873 vs r53 0.656873 (|d|=0.00e+00, YES)
+  train_06: Public 0.799693 vs r53 0.799693 (|d|=0.00e+00, YES); Private 0.813708 vs r53 0.813708 (|d|=0.00e+00, YES)
+  train_07: Public 0.823648 vs r53 0.823648 (|d|=0.00e+00, YES); Private 0.826507 vs r53 0.826507 (|d|=0.00e+00, YES)
+  train_08: Public 0.846027 vs r53 0.846027 (|d|=0.00e+00, YES); Private 0.841110 vs r53 0.841110 (|d|=0.00e+00, YES)
+  train_09: Public 0.620424 vs r53 0.620424 (|d|=0.00e+00, YES); Private 0.633474 vs r53 0.633474 (|d|=0.00e+00, YES)
+  train_10: Public 0.836807 vs r53 0.836807 (|d|=0.00e+00, YES); Private 0.847743 vs r53 0.847743 (|d|=0.00e+00, YES)
+  train_11: Public 0.828129 vs r53 0.828129 (|d|=0.00e+00, YES); Private 0.816654 vs r53 0.816654 (|d|=0.00e+00, YES)
+  train_12: Public 0.794888 vs r53 0.794888 (|d|=0.00e+00, YES); Private 0.769505 vs r53 0.769505 (|d|=0.00e+00, YES)
+  train_13: Public 0.628380 vs r53 0.628380 (|d|=0.00e+00, YES); Private 0.644000 vs r53 0.644000 (|d|=0.00e+00, YES)
+  train_14: Public 0.797525 vs r53 0.797525 (|d|=0.00e+00, YES); Private 0.804425 vs r53 0.804425 (|d|=0.00e+00, YES)
+  train_15: Public 0.841097 vs r53 0.841097 (|d|=0.00e+00, YES); Private 0.843627 vs r53 0.843627 (|d|=0.00e+00, YES)
+  train_16: Public 0.892160 vs r53 0.892160 (|d|=0.00e+00, YES); Private 0.893255 vs r53 0.893255 (|d|=0.00e+00, YES)
+  max |dev| over all 16x2 = 0.00e+00
+  REPRODUCTION: PASS
+
+=== PER-DATASET ΔAUC (Public) — base vs bag ===
+dataset          base        arm       delta
+train_01     0.710287   0.704017   -0.006270
+train_02     0.964370   0.968434   +0.004064
+train_03     0.792579   0.797467   +0.004888
+train_04     0.823647   0.828771   +0.005124
+train_05     0.653135   0.654349   +0.001214
+train_06     0.799693   0.793234   -0.006459
+train_07     0.823648   0.830538   +0.006891
+train_08     0.846027   0.839917   -0.006110
+train_09     0.620424   0.620242   -0.000182
+train_10     0.836807   0.847947   +0.011140
+train_11     0.828129   0.832320   +0.004191
+train_12     0.794888   0.792234   -0.002653
+train_13     0.628380   0.621997   -0.006384
+train_14     0.797525   0.797553   +0.000028
+train_15     0.841097   0.854206   +0.013109
+train_16     0.892160   0.891561   -0.000599
+
+=== PER-DATASET ΔAUC (Private) — base vs bag ===
+dataset          base        arm       delta
+train_01     0.704818   0.699506   -0.005312
+train_02     0.963480   0.966733   +0.003253
+train_03     0.809545   0.810706   +0.001162
+train_04     0.824960   0.829795   +0.004836
+train_05     0.656873   0.665333   +0.008460
+train_06     0.813708   0.801568   -0.012141
+train_07     0.826507   0.829921   +0.003414
+train_08     0.841110   0.836733   -0.004376
+train_09     0.633474   0.634816   +0.001342
+train_10     0.847743   0.858571   +0.010828
+train_11     0.816654   0.826558   +0.009904
+train_12     0.769505   0.768252   -0.001253
+train_13     0.644000   0.637829   -0.006171
+train_14     0.804425   0.803623   -0.000802
+train_15     0.843627   0.860188   +0.016562
+train_16     0.893255   0.888808   -0.004447
+
+=== PER-DATASET ΔAUC (Public) — base vs seedavg ===
+dataset          base        arm       delta
+train_01     0.710287   0.713951   +0.003664
+train_02     0.964370   0.968792   +0.004422
+train_03     0.792579   0.800473   +0.007894
+train_04     0.823647   0.830940   +0.007293
+train_05     0.653135   0.661531   +0.008396
+train_06     0.799693   0.800202   +0.000509
+train_07     0.823648   0.829633   +0.005985
+train_08     0.846027   0.849677   +0.003650
+train_09     0.620424   0.631522   +0.011098
+train_10     0.836807   0.845183   +0.008376
+train_11     0.828129   0.832289   +0.004160
+train_12     0.794888   0.796471   +0.001583
+train_13     0.628380   0.635713   +0.007333
+train_14     0.797525   0.801037   +0.003512
+train_15     0.841097   0.852545   +0.011448
+train_16     0.892160   0.891588   -0.000572
+
+=== PER-DATASET ΔAUC (Private) — base vs seedavg ===
+dataset          base        arm       delta
+train_01     0.704818   0.708539   +0.003721
+train_02     0.963480   0.967562   +0.004082
+train_03     0.809545   0.816822   +0.007277
+train_04     0.824960   0.834517   +0.009558
+train_05     0.656873   0.665205   +0.008332
+train_06     0.813708   0.814208   +0.000499
+train_07     0.826507   0.829013   +0.002506
+train_08     0.841110   0.842830   +0.001720
+train_09     0.633474   0.642779   +0.009305
+train_10     0.847743   0.858015   +0.010273
+train_11     0.816654   0.821966   +0.005312
+train_12     0.769505   0.771842   +0.002337
+train_13     0.644000   0.650216   +0.006216
+train_14     0.804425   0.808473   +0.004048
+train_15     0.843627   0.857319   +0.013693
+train_16     0.893255   0.889543   -0.003712
+
+=== REGRESSIONS (ΔAUC < -1e-6) ===
+  bag Public  train_01: -0.006270
+  bag Public  train_06: -0.006459
+  bag Public  train_08: -0.006110
+  bag Public  train_09: -0.000182
+  bag Public  train_12: -0.002653
+  bag Public  train_13: -0.006384
+  bag Public  train_16: -0.000599
+  bag Private train_01: -0.005312
+  bag Private train_06: -0.012141
+  bag Private train_08: -0.004376
+  bag Private train_12: -0.001253
+  bag Private train_13: -0.006171
+  bag Private train_14: -0.000802
+  bag Private train_16: -0.004447
+  seedavg Public  train_16: -0.000572
+  seedavg Private train_16: -0.003712
+
+=== IMPROVEMENTS (ΔAUC > +1e-6) ===
+  bag Public  train_02: +0.004064
+  bag Public  train_03: +0.004888
+  bag Public  train_04: +0.005124
+  bag Public  train_05: +0.001214
+  bag Public  train_07: +0.006891
+  bag Public  train_10: +0.011140
+  bag Public  train_11: +0.004191
+  bag Public  train_14: +0.000028
+  bag Public  train_15: +0.013109
+  bag Private train_02: +0.003253
+  bag Private train_03: +0.001162
+  bag Private train_04: +0.004836
+  bag Private train_05: +0.008460
+  bag Private train_07: +0.003414
+  bag Private train_09: +0.001342
+  bag Private train_10: +0.010828
+  bag Private train_11: +0.009904
+  bag Private train_15: +0.016562
+  seedavg Public  train_01: +0.003664
+  seedavg Public  train_02: +0.004422
+  seedavg Public  train_03: +0.007894
+  seedavg Public  train_04: +0.007293
+  seedavg Public  train_05: +0.008396
+  seedavg Public  train_06: +0.000509
+  seedavg Public  train_07: +0.005985
+  seedavg Public  train_08: +0.003650
+  seedavg Public  train_09: +0.011098
+  seedavg Public  train_10: +0.008376
+  seedavg Public  train_11: +0.004160
+  seedavg Public  train_12: +0.001583
+  seedavg Public  train_13: +0.007333
+  seedavg Public  train_14: +0.003512
+  seedavg Public  train_15: +0.011448
+  seedavg Private train_01: +0.003721
+  seedavg Private train_02: +0.004082
+  seedavg Private train_03: +0.007277
+  seedavg Private train_04: +0.009558
+  seedavg Private train_05: +0.008332
+  seedavg Private train_06: +0.000499
+  seedavg Private train_07: +0.002506
+  seedavg Private train_08: +0.001720
+  seedavg Private train_09: +0.009305
+  seedavg Private train_10: +0.010273
+  seedavg Private train_11: +0.005312
+  seedavg Private train_12: +0.002337
+  seedavg Private train_13: +0.006216
+  seedavg Private train_14: +0.004048
+  seedavg Private train_15: +0.013693
+
+=== LARGEST SINGLE MOVES ===
+  -- bag --
+    Public max regression : train_06 -0.006459
+    Public max improvement: train_15 +0.013109
+    Private max regression : train_06 -0.012141
+    Private max improvement: train_15 +0.016562
+  -- seedavg --
+    Public max regression : train_16 -0.000572
+    Public max improvement: train_15 +0.011448
+    Private max regression : train_16 -0.003712
+    Private max improvement: train_15 +0.013693
+
+=== ADOPTION ANALYSIS ===
+Per arm: ADOPT iff mean ΔPublic > 0 AND mean ΔPrivate > 0 with ZERO
+  regression on EITHER split. Any regression, or net-negative/
+  negligible mean on either split => REJECT.
+
+  [bag] zero_regressions=NO (Public regs=7, Private regs=7)
+  [bag] mean ΔPublic  = +0.001374  (clean gain: YES)
+  [bag] mean ΔPrivate = +0.001579  (clean gain: YES)
+  [bag] -> REJECT
+
+  [seedavg] zero_regressions=NO (Public regs=1, Private regs=1)
+  [seedavg] mean ΔPublic  = +0.005547  (clean gain: YES)
+  [seedavg] mean ΔPrivate = +0.005323  (clean gain: YES)
+  [seedavg] -> REJECT
+
+=== VERDICT ===
+  Row-bootstrap bagging does NOT beat plain seed-avg on both mean splits (bag ΔPub +0.001374 vs seedavg +0.005547; bag ΔPrv +0.001579 vs seedavg +0.005323).
+  REJECT (clean-win test): no arm improves BOTH splits with zero regressions across all 16. Row-bootstrap injects row-level diversity but discards ~37% of the training rows per member, which hurts the well-fit large-n datasets even as it may help noisy small-n ones -> no universal clean win.
+
+SHIP VERDICT: REJECT
+
+CLEAN RUN: YES (0 exceptions)  [total_fits=336, datasets_scored=16/16, skipped=0, reproduction=YES, base_repro_maxdev=0.00e+00, bag_k_skipped_total=0]

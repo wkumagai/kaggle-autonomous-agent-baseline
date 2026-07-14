@@ -1,0 +1,41 @@
+--- gate-D  (n_train<2000 AND obj>0) ---
+  fired=4 [train_05,train_09,train_13,train_15]
+  over-16 mean dPublic =+0.001933   mean dPrivate=+0.002734
+  fired-subset mean dPublic =+0.007731   dPrivate=+0.010938
+  regressions among fired: Public=NONE  Private=NONE
+  CLEAN-WIN (zero reg both splits, net+ both): YES
+
+--- gate-D' (n_train<5000 AND obj>0) ---
+  fired=5 [train_03,train_05,train_09,train_13,train_15]
+  over-16 mean dPublic =+0.002230   mean dPrivate=+0.002976
+  fired-subset mean dPublic =+0.007136   dPrivate=+0.009522
+  regressions among fired: Public=NONE  Private=NONE
+  CLEAN-WIN (zero reg both splits, net+ both): YES
+
+--- gate-D''(n_train<4000 AND obj>0) ---
+  fired=5 [train_03,train_05,train_09,train_13,train_15]
+  over-16 mean dPublic =+0.002230   mean dPrivate=+0.002976
+  fired-subset mean dPublic =+0.007136   dPrivate=+0.009522
+  regressions among fired: Public=NONE  Private=NONE
+  CLEAN-WIN (zero reg both splits, net+ both): YES
+
+--- gate-C  (obj>0, all sizes) [reference] ---
+  fired=12 [train_01,train_02,train_03,train_05,train_06,train_07,train_08,train_09,train_12,train_13,train_14,train_15]
+  over-16 mean dPublic =+0.000970   mean dPrivate=+0.001493
+  fired-subset mean dPublic =+0.001293   dPrivate=+0.001990
+  regressions among fired: Public=['train_02', 'train_06', 'train_08', 'train_12', 'train_14']  Private=['train_01', 'train_02', 'train_06', 'train_07', 'train_08', 'train_12', 'train_14']
+  CLEAN-WIN (zero reg both splits, net+ both): NO
+
+=== obj>0 datasets by n_train (both-split clean-win = W) ===
+  train_13  n=   500 obj= 4  dPub=+0.00039 dPriv=+0.00230  [W]
+  train_15  n=   500 obj=24  dPub=+0.01209 dPriv=+0.01376  [W]
+  train_05  n=  1060 obj= 5  dPub=+0.00895 dPriv=+0.01577  [W]
+  train_09  n=  1109 obj= 4  dPub=+0.00948 dPriv=+0.01192  [W]
+  train_03  n=  3501 obj= 7  dPub=+0.00475 dPriv=+0.00386  [W]
+  train_08  n=  8173 obj=12  dPub=-0.00053 dPriv=-0.00064  [L]
+  train_07  n= 10417 obj= 6  dPub=+0.00133 dPriv=-0.00083  [L]
+  train_06  n= 10803 obj= 9  dPub=-0.00548 dPriv=-0.00709  [L]
+  train_14  n= 11108 obj=15  dPub=-0.00729 dPriv=-0.00764  [L]
+  train_02  n= 14929 obj= 2  dPub=-0.00516 dPriv=-0.00411  [L]
+  train_01  n= 14957 obj= 5  dPub=+0.00196 dPriv=-0.00058  [L]
+  train_12  n= 49432 obj= 3  dPub=-0.00499 dPriv=-0.00283  [L]

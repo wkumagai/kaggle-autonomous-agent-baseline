@@ -1,0 +1,134 @@
+[OK] train_01 n_tr=14957 obj=5 l2=0.0 msl=20 fits=2 base pub=0.710287 prv=0.704818  cand pub=0.706806 prv=0.702934
+[OK] train_02 n_tr=14929 obj=2 l2=0.0 msl=20 fits=2 base pub=0.964370 prv=0.963480  cand pub=0.964477 prv=0.963588
+[OK] train_03 n_tr=3501 obj=7 l2=0.0 msl=20 fits=2 base pub=0.792579 prv=0.809545  cand pub=0.788204 prv=0.808414
+[OK] train_04 n_tr=8775 obj=0 l2=0.0 msl=20 fits=2 base pub=0.823647 prv=0.824960  cand pub=0.823595 prv=0.824440
+[OK] train_05 n_tr=1060 obj=5 l2=0.0 msl=20 fits=2 base pub=0.653135 prv=0.656873  cand pub=0.651779 prv=0.655920
+[OK] train_06 n_tr=10803 obj=9 l2=0.0 msl=20 fits=2 base pub=0.799693 prv=0.813708  cand pub=0.797364 prv=0.811609
+[OK] train_07 n_tr=10417 obj=6 l2=0.0 msl=20 fits=2 base pub=0.823648 prv=0.826507  cand pub=0.825035 prv=0.826884
+[OK] train_08 n_tr=8173 obj=12 l2=0.0 msl=20 fits=2 base pub=0.846027 prv=0.841110  cand pub=0.844799 prv=0.840432
+[OK] train_09 n_tr=1109 obj=4 l2=1.0 msl=50 fits=2 base pub=0.620424 prv=0.633474  cand pub=0.618661 prv=0.632136
+[OK] train_10 n_tr=11800 obj=0 l2=0.0 msl=20 fits=2 base pub=0.836807 prv=0.847743  cand pub=0.836901 prv=0.847964
+[OK] train_11 n_tr=28879 obj=0 l2=0.0 msl=20 fits=2 base pub=0.828129 prv=0.816654  cand pub=0.828369 prv=0.816832
+[OK] train_12 n_tr=49432 obj=3 l2=0.0 msl=20 fits=2 base pub=0.794888 prv=0.769505  cand pub=0.794304 prv=0.769252
+[OK] train_13 n_tr=500 obj=4 l2=1.0 msl=50 fits=2 base pub=0.628380 prv=0.644000  cand pub=0.611685 prv=0.624890
+[OK] train_14 n_tr=11108 obj=15 l2=0.0 msl=20 fits=2 base pub=0.797525 prv=0.804425  cand pub=0.796769 prv=0.804302
+[OK] train_15 n_tr=500 obj=24 l2=1.0 msl=70 fits=2 base pub=0.841097 prv=0.843627  cand pub=0.841678 prv=0.844839
+[OK] train_16 n_tr=1809 obj=0 l2=1.0 msl=20 fits=2 base pub=0.892160 prv=0.893255  cand pub=0.892543 prv=0.893217
+
+==============================================================================
+bench_03 round48 — EARLY-STOPPING n_iter_no_change=20 single-knob (ALL 16)  [OFFLINE]
+==============================================================================
+
+SETUP:
+  base == shipped 08 (git HEAD:submissions/08...): HGB, early_stopping,
+    n_iter_no_change UNSET -> sklearn default 10 (patience before halt).
+    base column = seed-0 for all 16 datasets.
+  cand == base + the SINGLE kwarg n_iter_no_change=20 in the HGB
+    constructor, applied to ALL 16 datasets (no subgroup gating).
+    Everything else byte-identical (random_state=0, max_iter=300,
+    early_stopping=True, l2 gate, tiered msl gate, categorical mask).
+
+=== HEADLINE (cand n_iter_no_change=20 vs base == shipped 08, all 16) ===
+  mean ΔPublic  = -0.001864   Public  W/L/T = 6/10/0
+  mean ΔPrivate = -0.001627   Private W/L/T = 5/11/0
+
+=== REPRODUCTION CHECK (base on ALL 16 vs round41, tol<5e-6) ===
+  train_01: Public 0.710287 vs r41 0.710287 (|d|=0.00e+00, YES); Private 0.704818 vs r41 0.704818 (|d|=0.00e+00, YES)
+  train_02: Public 0.964370 vs r41 0.964370 (|d|=0.00e+00, YES); Private 0.963480 vs r41 0.963480 (|d|=0.00e+00, YES)
+  train_03: Public 0.792579 vs r41 0.792579 (|d|=0.00e+00, YES); Private 0.809545 vs r41 0.809545 (|d|=0.00e+00, YES)
+  train_04: Public 0.823647 vs r41 0.823647 (|d|=0.00e+00, YES); Private 0.824960 vs r41 0.824960 (|d|=0.00e+00, YES)
+  train_05: Public 0.653135 vs r41 0.653135 (|d|=0.00e+00, YES); Private 0.656873 vs r41 0.656873 (|d|=0.00e+00, YES)
+  train_06: Public 0.799693 vs r41 0.799693 (|d|=0.00e+00, YES); Private 0.813708 vs r41 0.813708 (|d|=0.00e+00, YES)
+  train_07: Public 0.823648 vs r41 0.823648 (|d|=0.00e+00, YES); Private 0.826507 vs r41 0.826507 (|d|=0.00e+00, YES)
+  train_08: Public 0.846027 vs r41 0.846027 (|d|=0.00e+00, YES); Private 0.841110 vs r41 0.841110 (|d|=0.00e+00, YES)
+  train_09: Public 0.620424 vs r41 0.620424 (|d|=0.00e+00, YES); Private 0.633474 vs r41 0.633474 (|d|=0.00e+00, YES)
+  train_10: Public 0.836807 vs r41 0.836807 (|d|=0.00e+00, YES); Private 0.847743 vs r41 0.847743 (|d|=0.00e+00, YES)
+  train_11: Public 0.828129 vs r41 0.828129 (|d|=0.00e+00, YES); Private 0.816654 vs r41 0.816654 (|d|=0.00e+00, YES)
+  train_12: Public 0.794888 vs r41 0.794888 (|d|=0.00e+00, YES); Private 0.769505 vs r41 0.769505 (|d|=0.00e+00, YES)
+  train_13: Public 0.628380 vs r41 0.628380 (|d|=0.00e+00, YES); Private 0.644000 vs r41 0.644000 (|d|=0.00e+00, YES)
+  train_14: Public 0.797525 vs r41 0.797525 (|d|=0.00e+00, YES); Private 0.804425 vs r41 0.804425 (|d|=0.00e+00, YES)
+  train_15: Public 0.841097 vs r41 0.841097 (|d|=0.00e+00, YES); Private 0.843627 vs r41 0.843627 (|d|=0.00e+00, YES)
+  train_16: Public 0.892160 vs r41 0.892160 (|d|=0.00e+00, YES); Private 0.893255 vs r41 0.893255 (|d|=0.00e+00, YES)
+  max |dev| over all 16x2 = 0.00e+00
+  REPRODUCTION: PASS
+
+=== PER-DATASET ΔAUC (Public) — base vs cand n_iter_no_change=20 ===
+dataset          base       cand       delta
+train_01     0.710287   0.706806   -0.003482
+train_02     0.964370   0.964477   +0.000107
+train_03     0.792579   0.788204   -0.004375
+train_04     0.823647   0.823595   -0.000052
+train_05     0.653135   0.651779   -0.001356
+train_06     0.799693   0.797364   -0.002330
+train_07     0.823648   0.825035   +0.001387
+train_08     0.846027   0.844799   -0.001227
+train_09     0.620424   0.618661   -0.001763
+train_10     0.836807   0.836901   +0.000094
+train_11     0.828129   0.828369   +0.000240
+train_12     0.794888   0.794304   -0.000584
+train_13     0.628380   0.611685   -0.016695
+train_14     0.797525   0.796769   -0.000756
+train_15     0.841097   0.841678   +0.000581
+train_16     0.892160   0.892543   +0.000383
+
+=== PER-DATASET ΔAUC (Private) — base vs cand n_iter_no_change=20 ===
+dataset          base       cand       delta
+train_01     0.704818   0.702934   -0.001884
+train_02     0.963480   0.963588   +0.000108
+train_03     0.809545   0.808414   -0.001131
+train_04     0.824960   0.824440   -0.000520
+train_05     0.656873   0.655920   -0.000953
+train_06     0.813708   0.811609   -0.002099
+train_07     0.826507   0.826884   +0.000376
+train_08     0.841110   0.840432   -0.000677
+train_09     0.633474   0.632136   -0.001338
+train_10     0.847743   0.847964   +0.000222
+train_11     0.816654   0.816832   +0.000178
+train_12     0.769505   0.769252   -0.000253
+train_13     0.644000   0.624890   -0.019110
+train_14     0.804425   0.804302   -0.000123
+train_15     0.843627   0.844839   +0.001212
+train_16     0.893255   0.893217   -0.000038
+
+=== REGRESSIONS (ΔAUC < -1e-6) ===
+  Public  train_01: -0.003482
+  Public  train_03: -0.004375
+  Public  train_04: -0.000052
+  Public  train_05: -0.001356
+  Public  train_06: -0.002330
+  Public  train_08: -0.001227
+  Public  train_09: -0.001763
+  Public  train_12: -0.000584
+  Public  train_13: -0.016695
+  Public  train_14: -0.000756
+  Private train_01: -0.001884
+  Private train_03: -0.001131
+  Private train_04: -0.000520
+  Private train_05: -0.000953
+  Private train_06: -0.002099
+  Private train_08: -0.000677
+  Private train_09: -0.001338
+  Private train_12: -0.000253
+  Private train_13: -0.019110
+  Private train_14: -0.000123
+  Private train_16: -0.000038
+
+=== ADOPTION ANALYSIS ===
+ADOPT iff mean ΔPublic > 0 AND mean ΔPrivate > 0 with ZERO regression
+  on EITHER split (no dataset ΔAUC < 0 on Public or Private). Any
+  regression, or net-negative/negligible mean on either split => REJECT.
+
+  zero_regressions = NO (Public regs=10, Private regs=11)
+  mean ΔPublic  = -0.001864  (>0 & >negligible: NO)
+  mean ΔPrivate = -0.001627  (>0 & >negligible: NO)
+
+=== VERDICT ===
+  REJECT: 21 regression(s); Public mean -0.001864 not a clean gain; Private mean -0.001627 not a clean gain. base-08 (default patience=10) stays at least as good overall.
+
+SHIP VERDICT: REJECT
+
+CLEAN RUN: YES (0 exceptions)  [total_fits=32, datasets_scored=16/16, skipped=0, reproduction=YES]
+
+[WROTE] /Users/kumacmini/kaggle-autonomous-agent-baseline-auto/experiments/bench_03/round48_niter_patience/results.csv
+[WROTE] /Users/kumacmini/kaggle-autonomous-agent-baseline-auto/experiments/bench_03/round48_niter_patience/summary.txt
+HARNESS_DONE

@@ -1,0 +1,79 @@
+==============================================================================
+bench_03 round41 — PURE-NUMERIC (obj=0) ORTHOGONAL SINGLE-KNOB SWEEP  [OFFLINE]
+==============================================================================
+
+SETUP:
+  base == shipped 08 (git HEAD:submissions/08...): HGB, early_stopping,
+    validation_fraction UNSET -> sklearn default 0.10. base column =
+    seed-0 for all 16 datasets.
+  Candidates apply ONE orthogonal knob to the seed-0 model, ONLY on the
+    4 obj=0 (pure-numeric) datasets ['train_04', 'train_10', 'train_11', 'train_16'];
+    the 12 obj>0 datasets always == base-08 (byte-identical, delta 0).
+  Knobs:
+    A cand_A_lr005   : learning_rate 0.1 -> 0.05 (early_stopping on)
+    B cand_B_mf070   : max_features 1.0 -> 0.7 (random_state=0)
+    C cand_C_l2force : l2_regularization forced to 1.0 (base=0 on 04/10/11; no-op on 16)
+    D cand_D_msl50   : min_samples_leaf 20 -> 50
+
+=== SWEEP TABLE (each candidate vs base == shipped 08, over all 16) ===
+candidate          meanDPub   meanDPrv    Pub W/L/T    Prv W/L/T
+cand_A_lr005       -0.00004   +0.00050       1/3/12       4/0/12
+cand_B_mf070       -0.00023   -0.00030       1/3/12       1/3/12
+cand_C_l2force     +0.00022   +0.00049       3/0/13       2/1/13
+cand_D_msl50       -0.00000   +0.00061       2/2/12       3/1/12
+
+=== REPRODUCTION CHECK (base on obj=0 vs round40, tol<5e-6) ===
+  train_04: Public 0.823647 vs r40 0.823647 (|d|=0.00e+00, YES); Private 0.824960 vs r40 0.824960 (|d|=0.00e+00, YES)  [known ~0.8236/0.8250]
+  train_10: Public 0.836807 vs r40 0.836807 (|d|=0.00e+00, YES); Private 0.847743 vs r40 0.847743 (|d|=0.00e+00, YES)  [known ~0.8368/0.8477]
+  train_11: Public 0.828129 vs r40 0.828129 (|d|=0.00e+00, YES); Private 0.816654 vs r40 0.816654 (|d|=0.00e+00, YES)  [known ~0.8281/0.8167]
+  train_16: Public 0.892160 vs r40 0.892160 (|d|=0.00e+00, YES); Private 0.893255 vs r40 0.893255 (|d|=0.00e+00, YES)  [known ~0.8922/0.8933]
+  REPRODUCTION: PASS
+
+=== PARTITION CHECK ===
+  obj=0 (pure-numeric) matched ['train_04', 'train_10', 'train_11', 'train_16']: YES
+  obj>0 (12 categorical) matched: YES
+
+=== INVARIANT (obj>0 datasets byte-identical to base for every candidate) ===
+  OK: each of the 12 obj>0 datasets is byte-identical to base (delta exactly 0) across all 4 candidates. PASS.
+
+=== PER obj=0 DATASET ΔAUC (Public) — base + 4 candidates ===
+dataset        base        A_lr005         d        B_mf070         d      C_l2force         d        D_msl50         d
+train_04     0.8236         0.8226  -0.00109         0.8224  -0.00128         0.8237  +0.00010         0.8229  -0.00076
+train_10     0.8368         0.8390  +0.00222         0.8419  +0.00513         0.8382  +0.00138         0.8380  +0.00116
+train_11     0.8281         0.8273  -0.00082         0.8242  -0.00390         0.8301  +0.00199         0.8283  +0.00022
+train_16     0.8922         0.8912  -0.00098         0.8886  -0.00359         0.8922  +0.00000         0.8915  -0.00069
+
+=== PER obj=0 DATASET ΔAUC (Private) — base + 4 candidates ===
+dataset        base        A_lr005         d        B_mf070         d      C_l2force         d        D_msl50         d
+train_04     0.8250         0.8281  +0.00316         0.8230  -0.00197         0.8291  +0.00416         0.8268  +0.00185
+train_10     0.8477         0.8489  +0.00120         0.8507  +0.00294         0.8468  -0.00091         0.8498  +0.00203
+train_11     0.8167         0.8202  +0.00353         0.8154  -0.00123         0.8212  +0.00452         0.8231  +0.00641
+train_16     0.8933         0.8934  +0.00013         0.8887  -0.00455         0.8933  +0.00000         0.8928  -0.00048
+
+=== obj=0 GROUP MEAN ΔAUC (over the 4 pure-numeric datasets only) ===
+  candidate          meanDPub   meanDPrv   obj0 Pub W/L/T   obj0 Prv W/L/T
+  cand_A_lr005       -0.00017   +0.00200            1/3/0            4/0/0
+  cand_B_mf070       -0.00091   -0.00120            1/3/0            1/3/0
+  cand_C_l2force     +0.00087   +0.00194            3/0/1            2/1/1
+  cand_D_msl50       -0.00002   +0.00245            2/2/0            3/1/0
+
+=== ADOPTION ANALYSIS ===
+A candidate is ADOPT iff on the obj=0 group it improves >=1 dataset
+  (ΔAUC>0 on BOTH splits for that dataset) with ZERO regression
+  anywhere (obj=0 or obj>0, either split). Any negative ΔAUC => REJECT.
+
+  cand_A_lr005: REJECT  zero_regressions=NO improves{train_10(+0.00222/+0.00120)} REGRESSIONS[train_04(-0.00109), train_11(-0.00082), train_16(-0.00098)]
+  cand_B_mf070: REJECT  zero_regressions=NO improves{train_10(+0.00513/+0.00294)} REGRESSIONS[train_04(-0.00128), train_11(-0.00390), train_16(-0.00359), train_04(-0.00197), train_11(-0.00123), train_16(-0.00455)]
+  cand_C_l2force: REJECT  zero_regressions=NO improves{train_04(+0.00010/+0.00416), train_11(+0.00199/+0.00452)} REGRESSIONS[train_10(-0.00091)]
+  cand_D_msl50: REJECT  zero_regressions=NO improves{train_10(+0.00116/+0.00203), train_11(+0.00022/+0.00641)} REGRESSIONS[train_04(-0.00076), train_16(-0.00069), train_16(-0.00048)]
+
+=== VERDICT ===
+KEY QUESTION: is there an orthogonal single knob that cleanly improves
+  any obj=0 (pure-numeric) dataset with ZERO regression anywhere, while
+  leaving all 12 obj>0 datasets byte-identical to base-08?
+
+  NO candidate is a clean ADOPT: every knob either regresses at least one obj=0 dataset/split or fails to improve any dataset on BOTH splits. base-08 stays best on the pure-numeric region.
+
+SHIP VERDICT: REJECT (no clean single-knob improvement on the obj=0 group)
+
+CLEAN RUN: YES (0 exceptions)  [total_fits=32, skipped=0, invariant_violations=0, obj0_partition=YES, objpos_partition=YES, reproduction=YES]

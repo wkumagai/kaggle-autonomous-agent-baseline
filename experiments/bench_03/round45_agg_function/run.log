@@ -1,0 +1,117 @@
+[OK] train_01 n_tr=14957 obj=5 fires=True msl=20 fits=10 base pub=0.710287 prv=0.704818
+[OK] train_02 n_tr=14929 obj=2 fires=True msl=20 fits=10 base pub=0.964370 prv=0.963480
+[OK] train_03 n_tr=3501 obj=7 fires=True msl=20 fits=10 base pub=0.792579 prv=0.809545
+[OK] train_04 n_tr=8775 obj=0 fires=False msl=20 fits=1 base pub=0.823647 prv=0.824960
+[OK] train_05 n_tr=1060 obj=5 fires=True msl=20 fits=10 base pub=0.653135 prv=0.656873
+[OK] train_06 n_tr=10803 obj=9 fires=True msl=20 fits=10 base pub=0.799693 prv=0.813708
+[OK] train_07 n_tr=10417 obj=6 fires=True msl=20 fits=10 base pub=0.823648 prv=0.826507
+[OK] train_08 n_tr=8173 obj=12 fires=True msl=20 fits=10 base pub=0.846027 prv=0.841110
+[OK] train_09 n_tr=1109 obj=4 fires=True msl=50 fits=10 base pub=0.620424 prv=0.633474
+[OK] train_10 n_tr=11800 obj=0 fires=False msl=20 fits=1 base pub=0.836807 prv=0.847743
+[OK] train_11 n_tr=28879 obj=0 fires=False msl=20 fits=1 base pub=0.828129 prv=0.816654
+[OK] train_12 n_tr=49432 obj=3 fires=True msl=20 fits=10 base pub=0.794888 prv=0.769505
+[OK] train_13 n_tr=500 obj=4 fires=True msl=50 fits=10 base pub=0.628380 prv=0.644000
+[OK] train_14 n_tr=11108 obj=15 fires=True msl=20 fits=10 base pub=0.797525 prv=0.804425
+[OK] train_15 n_tr=500 obj=24 fires=True msl=70 fits=10 base pub=0.841097 prv=0.843627
+[OK] train_16 n_tr=1809 obj=0 fires=False msl=20 fits=1 base pub=0.892160 prv=0.893255
+
+==============================================================================
+bench_03 round45 — GATE-C SEED-AVG AGGREGATION FUNCTION (K=10 fixed, seeds {0..9}, holdout base-08 default 0.10)  [OFFLINE]
+==============================================================================
+
+SETUP:
+  base == shipped 08 (git HEAD:submissions/08_ratio_tiered_msl/agent/prompts/system.md): HGB, early_stopping, validation_fraction UNSET ->
+    sklearn default 0.10. base column = seed-0, vf UNSET, for all 16
+    datasets.
+  Gate C: fires iff n_object_cols>0 (12 categorical datasets); pure-
+    numeric (obj=0) datasets stay single seed-0 == base (delta 0) for
+    every aggregator.
+  Seeds FIXED: {0,1,2,3,4,5,6,7,8,9} (K=10, == round43/round44 SET_A).
+  Sweep: the AGGREGATION over the 10 per-seed proba vectors:
+    mean   = arithmetic mean (reproduces round43/round44 K10)
+    median = per-test-row median of the 10 proba values
+    trim10 = 10%-trimmed mean: per row drop min AND max, mean middle 8
+
+=== SWEEP TABLE (each aggregator vs base == shipped 08, K=10 seeds 0..9) ===
+agg        meanDPub   meanDPrv    Pub W/L/T    Prv W/L/T
+mean       +0.00434   +0.00398       12/0/4       12/0/4  <- anchor (must == round44 SET_A)
+median     +0.00432   +0.00379       12/0/4       12/0/4
+trim10     +0.00435   +0.00397       12/0/4       12/0/4
+
+=== REPRODUCTION CHECK (mean recomputed here vs round44 SET_A K10, tol<5e-6) ===
+  mean: Public +0.004343 vs round44 SET_A +0.004343 (|d|=0.00e+00, YES); Private +0.003984 vs round44 SET_A +0.003984 (|d|=0.00e+00, YES)
+  round43 coarse context: K10 ~ +0.00434/+0.00398 (printed, not asserted)
+  REPRODUCTION: PASS
+
+=== GATE-C FIRING SET (fires iff n_object_cols>0) ===
+  fires on (12): train_01, train_02, train_03, train_05, train_06, train_07, train_08, train_09, train_12, train_13, train_14, train_15
+  expected 12 categorical matched: YES
+  obj=0 datasets ['train_04', 'train_10', 'train_11', 'train_16'] excluded: YES
+  base column == seed-0 on all 12 fired datasets: YES
+
+=== INVARIANT (obj=0 datasets byte-identical to base for every aggregator) ===
+  OK: each of the 4 obj=0 datasets ['train_04', 'train_10', 'train_11', 'train_16'] is byte-identical to base (delta exactly 0) across all 3 aggregators. PASS.
+  (obj0 predictions share the seed-0 base object for every aggregator: YES)
+
+=== PER-DATASET ΔAUC vs base across aggregators (Public) — base + {mean,median,trim10} ===
+dataset     obj     base     mean         d   median         d   trim10         d
+train_01      5   0.7103   0.7140  +0.00366   0.7138  +0.00347   0.7139  +0.00364
+train_02      2   0.9644   0.9688  +0.00442   0.9686  +0.00424   0.9687  +0.00434
+train_03      7   0.7926   0.8005  +0.00789   0.8007  +0.00809   0.8005  +0.00795
+train_04      0   0.8236   0.8236  +0.00000   0.8236  +0.00000   0.8236  +0.00000
+train_05      5   0.6531   0.6615  +0.00840   0.6621  +0.00895   0.6618  +0.00867
+train_06      9   0.7997   0.8002  +0.00051   0.8003  +0.00057   0.8002  +0.00051
+train_07      6   0.8236   0.8296  +0.00599   0.8295  +0.00585   0.8297  +0.00603
+train_08     12   0.8460   0.8497  +0.00365   0.8495  +0.00347   0.8496  +0.00362
+train_09      4   0.6204   0.6315  +0.01110   0.6319  +0.01149   0.6317  +0.01129
+train_10      0   0.8368   0.8368  +0.00000   0.8368  +0.00000   0.8368  +0.00000
+train_11      0   0.8281   0.8281  +0.00000   0.8281  +0.00000   0.8281  +0.00000
+train_12      3   0.7949   0.7965  +0.00158   0.7966  +0.00169   0.7964  +0.00156
+train_13      4   0.6284   0.6357  +0.00733   0.6354  +0.00704   0.6356  +0.00721
+train_14     15   0.7975   0.8010  +0.00351   0.8007  +0.00321   0.8010  +0.00346
+train_15     24   0.8411   0.8525  +0.01145   0.8522  +0.01111   0.8525  +0.01138
+train_16      0   0.8922   0.8922  +0.00000   0.8922  +0.00000   0.8922  +0.00000
+
+=== PER-DATASET ΔAUC vs base across aggregators (Private) — base + {mean,median,trim10} ===
+dataset     obj     base     mean         d   median         d   trim10         d
+train_01      5   0.7048   0.7085  +0.00372   0.7081  +0.00323   0.7085  +0.00364
+train_02      2   0.9635   0.9676  +0.00408   0.9675  +0.00399   0.9676  +0.00407
+train_03      7   0.8095   0.8168  +0.00728   0.8166  +0.00706   0.8169  +0.00732
+train_04      0   0.8250   0.8250  +0.00000   0.8250  +0.00000   0.8250  +0.00000
+train_05      5   0.6569   0.6652  +0.00833   0.6645  +0.00765   0.6651  +0.00819
+train_06      9   0.8137   0.8142  +0.00050   0.8139  +0.00014   0.8142  +0.00053
+train_07      6   0.8265   0.8290  +0.00251   0.8286  +0.00214   0.8288  +0.00231
+train_08     12   0.8411   0.8428  +0.00172   0.8433  +0.00221   0.8430  +0.00184
+train_09      4   0.6335   0.6428  +0.00930   0.6429  +0.00943   0.6427  +0.00922
+train_10      0   0.8477   0.8477  +0.00000   0.8477  +0.00000   0.8477  +0.00000
+train_11      0   0.8167   0.8167  +0.00000   0.8167  +0.00000   0.8167  +0.00000
+train_12      3   0.7695   0.7718  +0.00234   0.7718  +0.00227   0.7719  +0.00236
+train_13      4   0.6440   0.6502  +0.00622   0.6501  +0.00611   0.6501  +0.00611
+train_14     15   0.8044   0.8085  +0.00405   0.8082  +0.00375   0.8085  +0.00412
+train_15     24   0.8436   0.8573  +0.01369   0.8563  +0.01265   0.8574  +0.01375
+train_16      0   0.8933   0.8933  +0.00000   0.8933  +0.00000   0.8933  +0.00000
+
+=== HEAD-TO-HEAD: median / trim10 vs mean (does a robust agg beat mean?) ===
+  (per-dataset delta = agg_AUC - mean_AUC; W/L/T counts fired+obj0; obj0 are exact ties)
+  median vs mean: meanΔPub diff -0.000019, meanΔPrv diff -0.000194
+    Public  W/L/T vs mean = 5/7/4; Private W/L/T vs mean = 2/10/4
+    losses vs mean: Pub:train_01(-0.00020), Pub:train_02(-0.00018), Pub:train_07(-0.00013), Pub:train_08(-0.00018), Pub:train_13(-0.00029), Pub:train_14(-0.00030), Pub:train_15(-0.00033), Prv:train_01(-0.00049), Prv:train_02(-0.00009), Prv:train_03(-0.00022), Prv:train_05(-0.00068), Prv:train_06(-0.00036), Prv:train_07(-0.00037), Prv:train_12(-0.00006), Prv:train_13(-0.00011), Prv:train_14(-0.00030), Prv:train_15(-0.00104)
+    CLEAN BEAT vs mean (higher meanΔ on BOTH splits, zero per-dataset losses): NO
+  trim10 vs mean: meanΔPub diff +0.000011, meanΔPrv diff -0.000017
+    Public  W/L/T vs mean = 4/8/4; Private W/L/T vs mean = 6/6/4
+    losses vs mean: Pub:train_01(-0.00003), Pub:train_02(-0.00008), Pub:train_06(-0.00000), Pub:train_08(-0.00003), Pub:train_12(-0.00002), Pub:train_13(-0.00013), Pub:train_14(-0.00005), Pub:train_15(-0.00007), Prv:train_01(-0.00008), Prv:train_02(-0.00001), Prv:train_05(-0.00014), Prv:train_07(-0.00020), Prv:train_09(-0.00008), Prv:train_13(-0.00010)
+    CLEAN BEAT vs mean (higher meanΔ on BOTH splits, zero per-dataset losses): NO
+
+=== VERDICT ===
+KEY QUESTION: for gate-C K=10 seed-averaging (seeds 0..9), is the arithmetic MEAN the best aggregator, or does a robust aggregator (median / 10%-trimmed mean) beat it?
+
+  mean reproduces round44 SET_A (== round43 K10) exactly (|d|<5e-06 on both splits) -- correctness anchor holds.
+  Mean ΔAUC vs base: mean=Pub+0.00434/Prv+0.00398, median=Pub+0.00432/Prv+0.00379, trim10=Pub+0.00435/Prv+0.00397
+  Best mean ΔPub aggregator: trim10; best mean ΔPrv aggregator: mean.
+  ANSWER: neither median nor trim10 cleanly beats mean (no aggregator is higher on BOTH splits with zero per-dataset regressions vs mean). MEAN remains the ship aggregator for the gate-C x K=10 seed-averaging recommendation.
+
+CLEAN RUN=YES (total_fits=124, exceptions=0, skipped=0, invariant_violations=0, firing_set_match=YES, obj0_excluded=YES, reproduction=YES, base_eq_seed0=YES, obj0_identical=YES)
+
+[WROTE] /Users/kumacmini/kaggle-autonomous-agent-baseline-auto/experiments/bench_03/round45_agg_function/results.csv
+[WROTE] /Users/kumacmini/kaggle-autonomous-agent-baseline-auto/experiments/bench_03/round45_agg_function/summary.txt
+HARNESS_DONE

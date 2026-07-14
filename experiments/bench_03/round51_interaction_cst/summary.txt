@@ -1,0 +1,135 @@
+==============================================================================
+bench_03 round51 — INTERACTION-CONSTRAINT (no_interactions) single-knob sweep (ALL 16)  [OFFLINE]
+==============================================================================
+
+SETUP:
+  base == shipped 08 (git HEAD:submissions/08...): HGB, early_stopping,
+    cat_mask = object-dtype columns ONLY, interaction_cst UNSET
+    (sklearn default None). base column = seed-0, all 16.
+  noint == base pipeline with interaction_cst='no_interactions'
+    added (HGB constrained to an ADDITIVE model: no feature
+    interactions). Applied to ALL 16 datasets (no subgroup gating).
+    Everything else byte-identical (random_state=0, max_iter=300,
+    early_stopping=True, l2 gate, tiered msl gate, cat_mask,
+    max_depth UNSET; ONLY interaction_cst differs).
+
+=== HEADLINE (noint vs base == shipped 08, all 16) ===
+  noint: mean ΔPublic=-0.052082 (W/L/T 6/10/0)  mean ΔPrivate=-0.054032 (W/L/T 4/12/0)
+
+=== REPRODUCTION CHECK (base on ALL 16 vs round50, tol<5e-6) ===
+  train_01: Public 0.710287 vs r50 0.710287 (|d|=0.00e+00, YES); Private 0.704818 vs r50 0.704818 (|d|=0.00e+00, YES)
+  train_02: Public 0.964370 vs r50 0.964370 (|d|=0.00e+00, YES); Private 0.963480 vs r50 0.963480 (|d|=0.00e+00, YES)
+  train_03: Public 0.792579 vs r50 0.792579 (|d|=0.00e+00, YES); Private 0.809545 vs r50 0.809545 (|d|=0.00e+00, YES)
+  train_04: Public 0.823647 vs r50 0.823647 (|d|=0.00e+00, YES); Private 0.824960 vs r50 0.824960 (|d|=0.00e+00, YES)
+  train_05: Public 0.653135 vs r50 0.653135 (|d|=0.00e+00, YES); Private 0.656873 vs r50 0.656873 (|d|=0.00e+00, YES)
+  train_06: Public 0.799693 vs r50 0.799693 (|d|=0.00e+00, YES); Private 0.813708 vs r50 0.813708 (|d|=0.00e+00, YES)
+  train_07: Public 0.823648 vs r50 0.823648 (|d|=0.00e+00, YES); Private 0.826507 vs r50 0.826507 (|d|=0.00e+00, YES)
+  train_08: Public 0.846027 vs r50 0.846027 (|d|=0.00e+00, YES); Private 0.841110 vs r50 0.841110 (|d|=0.00e+00, YES)
+  train_09: Public 0.620424 vs r50 0.620424 (|d|=0.00e+00, YES); Private 0.633474 vs r50 0.633474 (|d|=0.00e+00, YES)
+  train_10: Public 0.836807 vs r50 0.836807 (|d|=0.00e+00, YES); Private 0.847743 vs r50 0.847743 (|d|=0.00e+00, YES)
+  train_11: Public 0.828129 vs r50 0.828129 (|d|=0.00e+00, YES); Private 0.816654 vs r50 0.816654 (|d|=0.00e+00, YES)
+  train_12: Public 0.794888 vs r50 0.794888 (|d|=0.00e+00, YES); Private 0.769505 vs r50 0.769505 (|d|=0.00e+00, YES)
+  train_13: Public 0.628380 vs r50 0.628380 (|d|=0.00e+00, YES); Private 0.644000 vs r50 0.644000 (|d|=0.00e+00, YES)
+  train_14: Public 0.797525 vs r50 0.797525 (|d|=0.00e+00, YES); Private 0.804425 vs r50 0.804425 (|d|=0.00e+00, YES)
+  train_15: Public 0.841097 vs r50 0.841097 (|d|=0.00e+00, YES); Private 0.843627 vs r50 0.843627 (|d|=0.00e+00, YES)
+  train_16: Public 0.892160 vs r50 0.892160 (|d|=0.00e+00, YES); Private 0.893255 vs r50 0.893255 (|d|=0.00e+00, YES)
+  max |dev| over all 16x2 = 0.00e+00
+  REPRODUCTION: PASS
+
+=== PER-DATASET ΔAUC (Public) — base vs noint ===
+dataset          base       cand       delta
+train_01     0.710287   0.705190   -0.005097
+train_02     0.964370   0.823547   -0.140823
+train_03     0.792579   0.793444   +0.000866
+train_04     0.823647   0.746466   -0.077181
+train_05     0.653135   0.664768   +0.011633
+train_06     0.799693   0.799878   +0.000185
+train_07     0.823648   0.738212   -0.085435
+train_08     0.846027   0.855728   +0.009701
+train_09     0.620424   0.614477   -0.005947
+train_10     0.836807   0.640099   -0.196708
+train_11     0.828129   0.732000   -0.096129
+train_12     0.794888   0.720562   -0.074326
+train_13     0.628380   0.636531   +0.008151
+train_14     0.797525   0.720957   -0.076568
+train_15     0.841097   0.849266   +0.008169
+train_16     0.892160   0.778359   -0.113801
+
+=== PER-DATASET ΔAUC (Private) — base vs noint ===
+dataset          base       cand       delta
+train_01     0.704818   0.698433   -0.006385
+train_02     0.963480   0.825863   -0.137617
+train_03     0.809545   0.810765   +0.001220
+train_04     0.824960   0.758583   -0.066377
+train_05     0.656873   0.669618   +0.012745
+train_06     0.813708   0.812350   -0.001358
+train_07     0.826507   0.729767   -0.096741
+train_08     0.841110   0.850924   +0.009815
+train_09     0.633474   0.630843   -0.002631
+train_10     0.847743   0.631341   -0.216402
+train_11     0.816654   0.704812   -0.111842
+train_12     0.769505   0.697310   -0.072195
+train_13     0.644000   0.641550   -0.002450
+train_14     0.804425   0.730042   -0.074383
+train_15     0.843627   0.850246   +0.006619
+train_16     0.893255   0.786730   -0.106525
+
+=== REGRESSIONS (ΔAUC < -1e-6) ===
+  noint Public  train_01: -0.005097
+  noint Public  train_02: -0.140823
+  noint Public  train_04: -0.077181
+  noint Public  train_07: -0.085435
+  noint Public  train_09: -0.005947
+  noint Public  train_10: -0.196708
+  noint Public  train_11: -0.096129
+  noint Public  train_12: -0.074326
+  noint Public  train_14: -0.076568
+  noint Public  train_16: -0.113801
+  noint Private train_01: -0.006385
+  noint Private train_02: -0.137617
+  noint Private train_04: -0.066377
+  noint Private train_06: -0.001358
+  noint Private train_07: -0.096741
+  noint Private train_09: -0.002631
+  noint Private train_10: -0.216402
+  noint Private train_11: -0.111842
+  noint Private train_12: -0.072195
+  noint Private train_13: -0.002450
+  noint Private train_14: -0.074383
+  noint Private train_16: -0.106525
+
+=== IMPROVEMENTS (ΔAUC > +1e-6) ===
+  noint Public  train_03: +0.000866
+  noint Public  train_05: +0.011633
+  noint Public  train_06: +0.000185
+  noint Public  train_08: +0.009701
+  noint Public  train_13: +0.008151
+  noint Public  train_15: +0.008169
+  noint Private train_03: +0.001220
+  noint Private train_05: +0.012745
+  noint Private train_08: +0.009815
+  noint Private train_15: +0.006619
+
+=== LARGEST SINGLE MOVES ===
+  Public max regression : train_10 -0.196708
+  Public max improvement: train_05 +0.011633
+  Private max regression : train_10 -0.216402
+  Private max improvement: train_05 +0.012745
+
+=== ADOPTION ANALYSIS ===
+ADOPT iff noint has mean ΔPublic > 0 AND mean ΔPrivate > 0 with
+  ZERO regression on EITHER split (no dataset ΔAUC < 0 on Public or
+  Private). Any regression, or net-negative/negligible mean on either
+  split => REJECT.
+
+  [noint] zero_regressions=NO (Public regs=10, Private regs=12)
+  [noint] mean ΔPublic  = -0.052082  (clean gain: NO)
+  [noint] mean ΔPrivate = -0.054032  (clean gain: NO)
+  [noint] -> REJECT
+
+=== VERDICT ===
+  REJECT: interaction_cst='no_interactions' does not beat base-08 on BOTH splits with zero regressions. Constraining HGB to an additive model changes tree geometry on an already-tuned model -> base-08 stays at least as good overall.
+
+SHIP VERDICT: REJECT
+
+CLEAN RUN: YES (0 exceptions)  [total_fits=32, datasets_scored=16/16, skipped=0, reproduction=YES]

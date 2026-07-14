@@ -1,0 +1,235 @@
+==============================================================================
+bench_03 round53 — DATA-DRIVEN PER-FEATURE MONOTONIC CONSTRAINTS (`monotonic_cst`) sweep (ALL 16)  [OFFLINE]
+==============================================================================
+
+SETUP:
+  base == shipped 08 (git HEAD:submissions/08...): HGB, early_stopping,
+    cat_mask = object-dtype columns ONLY, monotonic_cst UNSET.
+    base column = seed-0, all 16.
+  mono_all    == base pipeline + monotonic_cst = sign(TRAIN corr) on
+    EVERY numeric feature (categoricals forced 0).
+  mono_strong == same, but numeric only constrained where |corr|>=0.05.
+    Constraint direction is the sign of each feature's TRAIN-only
+    Pearson correlation with target. Applied to ALL 16 datasets
+    (no subgroup gating). Everything else byte-identical
+    (random_state=0, max_iter=300, early_stopping=True, l2 gate,
+    tiered msl gate, cat_mask, max_depth/interaction_cst/tol UNSET;
+    ONLY the monotonic_cst argument differs). Categorical features
+    ALWAYS carry constraint 0 (sklearn raises otherwise).
+
+=== CONSTRAINT FIRING (numeric features constrained per dataset) ===
+dataset     n_obj  cst_all  cst_strong
+train_01        5        7           5
+train_02        2       26          15
+train_03        7       11           7
+train_04        0       12           9
+train_05        5        4           2
+train_06        9        0           0
+train_07        6       11           3
+train_08       12        0           0
+train_09        4       14           8
+train_10        0       27           4
+train_11        0       20           7
+train_12        3        5           3
+train_13        4        5           2
+train_14       15        8           7
+train_15       24        6           4
+train_16        0       21           8
+  TOTAL numeric features constrained: mono_all=177, mono_strong=84
+
+=== HEADLINE (candidate vs base == shipped 08, all 16) ===
+  mono_all: mean ΔPublic=-0.032462 (W/L/T 4/10/2)  mean ΔPrivate=-0.033289 (W/L/T 5/9/2)
+  mono_strong: mean ΔPublic=-0.020656 (W/L/T 4/10/2)  mean ΔPrivate=-0.021106 (W/L/T 4/10/2)
+
+=== REPRODUCTION CHECK (base on ALL 16 vs round52, tol<5e-6) ===
+  train_01: Public 0.710287 vs r52 0.710287 (|d|=0.00e+00, YES); Private 0.704818 vs r52 0.704818 (|d|=0.00e+00, YES)
+  train_02: Public 0.964370 vs r52 0.964370 (|d|=0.00e+00, YES); Private 0.963480 vs r52 0.963480 (|d|=0.00e+00, YES)
+  train_03: Public 0.792579 vs r52 0.792579 (|d|=0.00e+00, YES); Private 0.809545 vs r52 0.809545 (|d|=0.00e+00, YES)
+  train_04: Public 0.823647 vs r52 0.823647 (|d|=0.00e+00, YES); Private 0.824960 vs r52 0.824960 (|d|=0.00e+00, YES)
+  train_05: Public 0.653135 vs r52 0.653135 (|d|=0.00e+00, YES); Private 0.656873 vs r52 0.656873 (|d|=0.00e+00, YES)
+  train_06: Public 0.799693 vs r52 0.799693 (|d|=0.00e+00, YES); Private 0.813708 vs r52 0.813708 (|d|=0.00e+00, YES)
+  train_07: Public 0.823648 vs r52 0.823648 (|d|=0.00e+00, YES); Private 0.826507 vs r52 0.826507 (|d|=0.00e+00, YES)
+  train_08: Public 0.846027 vs r52 0.846027 (|d|=0.00e+00, YES); Private 0.841110 vs r52 0.841110 (|d|=0.00e+00, YES)
+  train_09: Public 0.620424 vs r52 0.620424 (|d|=0.00e+00, YES); Private 0.633474 vs r52 0.633474 (|d|=0.00e+00, YES)
+  train_10: Public 0.836807 vs r52 0.836807 (|d|=0.00e+00, YES); Private 0.847743 vs r52 0.847743 (|d|=0.00e+00, YES)
+  train_11: Public 0.828129 vs r52 0.828129 (|d|=0.00e+00, YES); Private 0.816654 vs r52 0.816654 (|d|=0.00e+00, YES)
+  train_12: Public 0.794888 vs r52 0.794888 (|d|=0.00e+00, YES); Private 0.769505 vs r52 0.769505 (|d|=0.00e+00, YES)
+  train_13: Public 0.628380 vs r52 0.628380 (|d|=0.00e+00, YES); Private 0.644000 vs r52 0.644000 (|d|=0.00e+00, YES)
+  train_14: Public 0.797525 vs r52 0.797525 (|d|=0.00e+00, YES); Private 0.804425 vs r52 0.804425 (|d|=0.00e+00, YES)
+  train_15: Public 0.841097 vs r52 0.841097 (|d|=0.00e+00, YES); Private 0.843627 vs r52 0.843627 (|d|=0.00e+00, YES)
+  train_16: Public 0.892160 vs r52 0.892160 (|d|=0.00e+00, YES); Private 0.893255 vs r52 0.893255 (|d|=0.00e+00, YES)
+  max |dev| over all 16x2 = 0.00e+00
+  REPRODUCTION: PASS
+
+=== PER-DATASET ΔAUC (Public) — base vs mono_all ===
+dataset          base       cand       delta
+train_01     0.710287   0.716483   +0.006196
+train_02     0.964370   0.871148   -0.093222
+train_03     0.792579   0.795176   +0.002598
+train_04     0.823647   0.782481   -0.041166
+train_05     0.653135   0.657583   +0.004448
+train_06     0.799693   0.799693   +0.000000
+train_07     0.823648   0.786426   -0.037221
+train_08     0.846027   0.846027   +0.000000
+train_09     0.620424   0.630938   +0.010514
+train_10     0.836807   0.706050   -0.130757
+train_11     0.828129   0.752637   -0.075492
+train_12     0.794888   0.754631   -0.040257
+train_13     0.628380   0.621398   -0.006982
+train_14     0.797525   0.766921   -0.030604
+train_15     0.841097   0.840193   -0.000904
+train_16     0.892160   0.805623   -0.086537
+
+=== PER-DATASET ΔAUC (Private) — base vs mono_all ===
+dataset          base       cand       delta
+train_01     0.704818   0.709939   +0.005121
+train_02     0.963480   0.875628   -0.087853
+train_03     0.809545   0.813759   +0.004215
+train_04     0.824960   0.784612   -0.040347
+train_05     0.656873   0.667632   +0.010759
+train_06     0.813708   0.813708   +0.000000
+train_07     0.826507   0.787207   -0.039300
+train_08     0.841110   0.841110   +0.000000
+train_09     0.633474   0.637254   +0.003779
+train_10     0.847743   0.708482   -0.139261
+train_11     0.816654   0.735553   -0.081102
+train_12     0.769505   0.732058   -0.037448
+train_13     0.644000   0.637565   -0.006435
+train_14     0.804425   0.767445   -0.036980
+train_15     0.843627   0.843830   +0.000203
+train_16     0.893255   0.805284   -0.087971
+
+=== PER-DATASET ΔAUC (Public) — base vs mono_strong ===
+dataset          base       cand       delta
+train_01     0.710287   0.714077   +0.003790
+train_02     0.964370   0.906979   -0.057391
+train_03     0.792579   0.794681   +0.002103
+train_04     0.823647   0.789843   -0.033804
+train_05     0.653135   0.653543   +0.000408
+train_06     0.799693   0.799693   +0.000000
+train_07     0.823648   0.822927   -0.000721
+train_08     0.846027   0.846027   +0.000000
+train_09     0.620424   0.625615   +0.005191
+train_10     0.836807   0.807848   -0.028959
+train_11     0.828129   0.782750   -0.045379
+train_12     0.794888   0.754120   -0.040768
+train_13     0.628380   0.615895   -0.012486
+train_14     0.797525   0.766686   -0.030839
+train_15     0.841097   0.836583   -0.004514
+train_16     0.892160   0.805037   -0.087123
+
+=== PER-DATASET ΔAUC (Private) — base vs mono_strong ===
+dataset          base       cand       delta
+train_01     0.704818   0.704856   +0.000038
+train_02     0.963480   0.904210   -0.059270
+train_03     0.809545   0.810054   +0.000509
+train_04     0.824960   0.796508   -0.028452
+train_05     0.656873   0.659754   +0.002881
+train_06     0.813708   0.813708   +0.000000
+train_07     0.826507   0.825549   -0.000959
+train_08     0.841110   0.841110   +0.000000
+train_09     0.633474   0.642537   +0.009063
+train_10     0.847743   0.808207   -0.039536
+train_11     0.816654   0.767187   -0.049468
+train_12     0.769505   0.731749   -0.037756
+train_13     0.644000   0.632718   -0.011282
+train_14     0.804425   0.772038   -0.032387
+train_15     0.843627   0.839871   -0.003756
+train_16     0.893255   0.805931   -0.087324
+
+=== REGRESSIONS (ΔAUC < -1e-6) ===
+  mono_all Public  train_02: -0.093222
+  mono_all Public  train_04: -0.041166
+  mono_all Public  train_07: -0.037221
+  mono_all Public  train_10: -0.130757
+  mono_all Public  train_11: -0.075492
+  mono_all Public  train_12: -0.040257
+  mono_all Public  train_13: -0.006982
+  mono_all Public  train_14: -0.030604
+  mono_all Public  train_15: -0.000904
+  mono_all Public  train_16: -0.086537
+  mono_all Private train_02: -0.087853
+  mono_all Private train_04: -0.040347
+  mono_all Private train_07: -0.039300
+  mono_all Private train_10: -0.139261
+  mono_all Private train_11: -0.081102
+  mono_all Private train_12: -0.037448
+  mono_all Private train_13: -0.006435
+  mono_all Private train_14: -0.036980
+  mono_all Private train_16: -0.087971
+  mono_strong Public  train_02: -0.057391
+  mono_strong Public  train_04: -0.033804
+  mono_strong Public  train_07: -0.000721
+  mono_strong Public  train_10: -0.028959
+  mono_strong Public  train_11: -0.045379
+  mono_strong Public  train_12: -0.040768
+  mono_strong Public  train_13: -0.012486
+  mono_strong Public  train_14: -0.030839
+  mono_strong Public  train_15: -0.004514
+  mono_strong Public  train_16: -0.087123
+  mono_strong Private train_02: -0.059270
+  mono_strong Private train_04: -0.028452
+  mono_strong Private train_07: -0.000959
+  mono_strong Private train_10: -0.039536
+  mono_strong Private train_11: -0.049468
+  mono_strong Private train_12: -0.037756
+  mono_strong Private train_13: -0.011282
+  mono_strong Private train_14: -0.032387
+  mono_strong Private train_15: -0.003756
+  mono_strong Private train_16: -0.087324
+
+=== IMPROVEMENTS (ΔAUC > +1e-6) ===
+  mono_all Public  train_01: +0.006196
+  mono_all Public  train_03: +0.002598
+  mono_all Public  train_05: +0.004448
+  mono_all Public  train_09: +0.010514
+  mono_all Private train_01: +0.005121
+  mono_all Private train_03: +0.004215
+  mono_all Private train_05: +0.010759
+  mono_all Private train_09: +0.003779
+  mono_all Private train_15: +0.000203
+  mono_strong Public  train_01: +0.003790
+  mono_strong Public  train_03: +0.002103
+  mono_strong Public  train_05: +0.000408
+  mono_strong Public  train_09: +0.005191
+  mono_strong Private train_01: +0.000038
+  mono_strong Private train_03: +0.000509
+  mono_strong Private train_05: +0.002881
+  mono_strong Private train_09: +0.009063
+
+=== LARGEST SINGLE MOVES ===
+  -- mono_all --
+    Public max regression : train_10 -0.130757
+    Public max improvement: train_09 +0.010514
+    Private max regression : train_10 -0.139261
+    Private max improvement: train_05 +0.010759
+  -- mono_strong --
+    Public max regression : train_16 -0.087123
+    Public max improvement: train_09 +0.005191
+    Private max regression : train_16 -0.087324
+    Private max improvement: train_09 +0.009063
+  OVERALL largest regression : mono_all Private train_10 -0.139261
+  OVERALL largest improvement: mono_all Private train_05 +0.010759
+
+=== ADOPTION ANALYSIS ===
+Per candidate arm: ADOPT iff mean ΔPublic > 0 AND mean ΔPrivate > 0
+  with ZERO regression on EITHER split (no dataset ΔAUC < 0 on Public
+  or Private). Any regression, or net-negative/negligible mean on
+  either split => REJECT.
+
+  [mono_all] zero_regressions=NO (Public regs=10, Private regs=9)
+  [mono_all] mean ΔPublic  = -0.032462  (clean gain: NO)
+  [mono_all] mean ΔPrivate = -0.033289  (clean gain: NO)
+  [mono_all] -> REJECT
+
+  [mono_strong] zero_regressions=NO (Public regs=10, Private regs=10)
+  [mono_strong] mean ΔPublic  = -0.020656  (clean gain: NO)
+  [mono_strong] mean ΔPrivate = -0.021106  (clean gain: NO)
+  [mono_strong] -> REJECT
+
+=== VERDICT ===
+  REJECT: no monotonic_cst arm beats base-08 on BOTH splits with zero regressions. Data-driven monotone constraints from the sign of a marginal correlation ignore feature interactions; where the true response is non-monotone (or the sign is noisy), the constraint under-fits -> base-08 (monotonic_cst UNSET) stays at least as good overall.
+
+SHIP VERDICT: REJECT
+
+CLEAN RUN: YES (0 exceptions)  [total_fits=48, datasets_scored=16/16, skipped=0, reproduction=YES, base_repro_maxdev=0.00e+00]

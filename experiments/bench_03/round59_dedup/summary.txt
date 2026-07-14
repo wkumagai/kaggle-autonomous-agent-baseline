@@ -1,0 +1,119 @@
+==============================================================================
+bench_03 round59 — TRAINING-ROW DEDUPLICATION: base-08 full-train vs base-08 deduped-train (ALL 16)  [OFFLINE]
+==============================================================================
+
+SETUP:
+  base   == shipped 08: HGB, early_stopping, cat_mask=object cols,
+            seed-0, fit on the FULL train frame.
+  dedup  == IDENTICAL base-08 model + IDENTICAL l2/msl (computed from
+            the FULL train, NOT recomputed after dedup), seed-0, fit on
+            train.drop_duplicates(keep='first') (exact-duplicate rows
+            removed across all columns except the unique row_id).
+  Single new mechanism = training-row deduplication (changes the SAMPLE
+  only; model, hyperparameters, seed, and test set are unchanged).
+
+=== HEADLINE (dedup vs base == shipped 08, ALL 16, un-gated) ===
+  mean ΔPublic =+0.000013  (W/L/T 1/1/14)
+  mean ΔPrivate=-0.000158  (W/L/T 0/2/14)
+
+=== DEDUP FOOTPRINT (rows removed by drop_duplicates) ===
+dataset      n_before    n_after   dropped   drop_%
+train_01        14957      14957         0   0.000%
+train_02        14929      14929         0   0.000%
+train_03         3501       3501         0   0.000%
+train_04         8775       8775         0   0.000%
+train_05         1060       1060         0   0.000%
+train_06        10803      10311       492   4.554%
+train_07        10417      10417         0   0.000%
+train_08         8173       8168         5   0.061%
+train_09         1109       1109         0   0.000%
+train_10        11800      11800         0   0.000%
+train_11        28879      28879         0   0.000%
+train_12        49432      49432         0   0.000%
+train_13          500        500         0   0.000%
+train_14        11108      11108         0   0.000%
+train_15          500        500         0   0.000%
+train_16         1809       1809         0   0.000%
+  TOTAL: before=177752 after=177255 dropped=497 (0.280%)  datasets_with_duplicates=2/16
+
+=== PER-DATASET ΔAUC (Public) — base vs dedup ===
+dataset     gateC  dropped       base      dedup       delta
+train_01     True        0   0.710287   0.710287   +0.000000
+train_02     True        0   0.964370   0.964370   +0.000000
+train_03     True        0   0.792579   0.792579   +0.000000
+train_04    False        0   0.823647   0.823647   +0.000000
+train_05     True        0   0.653135   0.653135   +0.000000
+train_06     True      492   0.799693   0.799436   -0.000257
+train_07     True        0   0.823648   0.823648   +0.000000
+train_08     True        5   0.846027   0.846490   +0.000463
+train_09     True        0   0.620424   0.620424   +0.000000
+train_10    False        0   0.836807   0.836807   +0.000000
+train_11    False        0   0.828129   0.828129   +0.000000
+train_12     True        0   0.794888   0.794888   +0.000000
+train_13     True        0   0.628380   0.628380   +0.000000
+train_14     True        0   0.797525   0.797525   +0.000000
+train_15     True        0   0.841097   0.841097   +0.000000
+train_16    False        0   0.892160   0.892160   +0.000000
+
+=== PER-DATASET ΔAUC (Private) — base vs dedup ===
+dataset     gateC  dropped       base      dedup       delta
+train_01     True        0   0.704818   0.704818   +0.000000
+train_02     True        0   0.963480   0.963480   +0.000000
+train_03     True        0   0.809545   0.809545   +0.000000
+train_04    False        0   0.824960   0.824960   +0.000000
+train_05     True        0   0.656873   0.656873   +0.000000
+train_06     True      492   0.813708   0.811271   -0.002438
+train_07     True        0   0.826507   0.826507   +0.000000
+train_08     True        5   0.841110   0.841017   -0.000092
+train_09     True        0   0.633474   0.633474   +0.000000
+train_10    False        0   0.847743   0.847743   +0.000000
+train_11    False        0   0.816654   0.816654   +0.000000
+train_12     True        0   0.769505   0.769505   +0.000000
+train_13     True        0   0.644000   0.644000   +0.000000
+train_14     True        0   0.804425   0.804425   +0.000000
+train_15     True        0   0.843627   0.843627   +0.000000
+train_16    False        0   0.893255   0.893255   +0.000000
+
+=== REGRESSIONS (ΔAUC < -1e-6) ===
+  Public  train_06: -0.000257
+  Private train_06: -0.002438
+  Private train_08: -0.000092
+
+=== IMPROVEMENTS (ΔAUC > +1e-6) ===
+  Public  train_08: +0.000463
+
+=== REPRODUCTION CHECK (base on ALL 16 vs round58 base, tol=0) ===
+  train_01: Public 0.710287 vs r58 0.710287 (|d|=0.00e+00, YES); Private 0.704818 vs r58 0.704818 (|d|=0.00e+00, YES)
+  train_02: Public 0.964370 vs r58 0.964370 (|d|=0.00e+00, YES); Private 0.963480 vs r58 0.963480 (|d|=0.00e+00, YES)
+  train_03: Public 0.792579 vs r58 0.792579 (|d|=0.00e+00, YES); Private 0.809545 vs r58 0.809545 (|d|=0.00e+00, YES)
+  train_04: Public 0.823647 vs r58 0.823647 (|d|=0.00e+00, YES); Private 0.824960 vs r58 0.824960 (|d|=0.00e+00, YES)
+  train_05: Public 0.653135 vs r58 0.653135 (|d|=0.00e+00, YES); Private 0.656873 vs r58 0.656873 (|d|=0.00e+00, YES)
+  train_06: Public 0.799693 vs r58 0.799693 (|d|=0.00e+00, YES); Private 0.813708 vs r58 0.813708 (|d|=0.00e+00, YES)
+  train_07: Public 0.823648 vs r58 0.823648 (|d|=0.00e+00, YES); Private 0.826507 vs r58 0.826507 (|d|=0.00e+00, YES)
+  train_08: Public 0.846027 vs r58 0.846027 (|d|=0.00e+00, YES); Private 0.841110 vs r58 0.841110 (|d|=0.00e+00, YES)
+  train_09: Public 0.620424 vs r58 0.620424 (|d|=0.00e+00, YES); Private 0.633474 vs r58 0.633474 (|d|=0.00e+00, YES)
+  train_10: Public 0.836807 vs r58 0.836807 (|d|=0.00e+00, YES); Private 0.847743 vs r58 0.847743 (|d|=0.00e+00, YES)
+  train_11: Public 0.828129 vs r58 0.828129 (|d|=0.00e+00, YES); Private 0.816654 vs r58 0.816654 (|d|=0.00e+00, YES)
+  train_12: Public 0.794888 vs r58 0.794888 (|d|=0.00e+00, YES); Private 0.769505 vs r58 0.769505 (|d|=0.00e+00, YES)
+  train_13: Public 0.628380 vs r58 0.628380 (|d|=0.00e+00, YES); Private 0.644000 vs r58 0.644000 (|d|=0.00e+00, YES)
+  train_14: Public 0.797525 vs r58 0.797525 (|d|=0.00e+00, YES); Private 0.804425 vs r58 0.804425 (|d|=0.00e+00, YES)
+  train_15: Public 0.841097 vs r58 0.841097 (|d|=0.00e+00, YES); Private 0.843627 vs r58 0.843627 (|d|=0.00e+00, YES)
+  train_16: Public 0.892160 vs r58 0.892160 (|d|=0.00e+00, YES); Private 0.893255 vs r58 0.893255 (|d|=0.00e+00, YES)
+  max |dev| over all 16x2 = 0.00e+00
+  REPRODUCTION (base==round58 base): PASS
+
+=== ADOPTION ANALYSIS ===
+ADOPT iff mean ΔPublic > 0 AND mean ΔPrivate > 0 with ZERO regression
+  on EITHER split (over all 16). Any regression, or net-negative /
+  negligible mean on either split => REJECT.
+
+  zero_regressions=NO (Public regs=1, Private regs=2)
+  mean ΔPublic  = +0.000013  (clean gain: YES)
+  mean ΔPrivate = -0.000158  (clean gain: NO)
+
+=== VERDICT ===
+  REJECT (clean-win test): dedup does not improve BOTH mean splits with zero regressions.
+
+SHIP VERDICT: REJECT
+
+CLEAN RUN: YES (0 exceptions)  [total_fits=32, datasets_scored=16/16, skipped=0, single_class_skips=0, gate_c_datasets=12, reproduction=YES (base_maxdev=0.00e+00)]

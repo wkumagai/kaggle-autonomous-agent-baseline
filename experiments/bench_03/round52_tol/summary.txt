@@ -1,0 +1,187 @@
+==============================================================================
+bench_03 round52 — EARLY-STOPPING TOLERANCE (`tol`) single-knob sweep (ALL 16)  [OFFLINE]
+==============================================================================
+
+SETUP:
+  base == shipped 08 (git HEAD:submissions/08...): HGB, early_stopping,
+    cat_mask = object-dtype columns ONLY, tol UNSET (sklearn default
+    1e-7). base column = seed-0, all 16.
+  tol1e3 == base pipeline with tol=1e-3 added.
+  tol1e4 == base pipeline with tol=1e-4 added.
+    Raising tol makes early_stopping trigger on smaller improvements
+    -> stops sooner -> more regularization. Applied to ALL 16 datasets
+    (no subgroup gating). Everything else byte-identical
+    (random_state=0, max_iter=300, early_stopping=True, l2 gate,
+    tiered msl gate, cat_mask, max_depth/interaction_cst UNSET;
+    ONLY the tol argument differs).
+
+=== HEADLINE (candidate vs base == shipped 08, all 16) ===
+  tol1e3: mean ΔPublic=-0.000497 (W/L/T 9/3/4)  mean ΔPrivate=-0.000629 (W/L/T 7/5/4)
+  tol1e4: mean ΔPublic=-0.000415 (W/L/T 2/1/13)  mean ΔPrivate=-0.000322 (W/L/T 1/2/13)
+
+=== REPRODUCTION CHECK (base on ALL 16 vs round51, tol<5e-6) ===
+  train_01: Public 0.710287 vs r51 0.710287 (|d|=0.00e+00, YES); Private 0.704818 vs r51 0.704818 (|d|=0.00e+00, YES)
+  train_02: Public 0.964370 vs r51 0.964370 (|d|=0.00e+00, YES); Private 0.963480 vs r51 0.963480 (|d|=0.00e+00, YES)
+  train_03: Public 0.792579 vs r51 0.792579 (|d|=0.00e+00, YES); Private 0.809545 vs r51 0.809545 (|d|=0.00e+00, YES)
+  train_04: Public 0.823647 vs r51 0.823647 (|d|=0.00e+00, YES); Private 0.824960 vs r51 0.824960 (|d|=0.00e+00, YES)
+  train_05: Public 0.653135 vs r51 0.653135 (|d|=0.00e+00, YES); Private 0.656873 vs r51 0.656873 (|d|=0.00e+00, YES)
+  train_06: Public 0.799693 vs r51 0.799693 (|d|=0.00e+00, YES); Private 0.813708 vs r51 0.813708 (|d|=0.00e+00, YES)
+  train_07: Public 0.823648 vs r51 0.823648 (|d|=0.00e+00, YES); Private 0.826507 vs r51 0.826507 (|d|=0.00e+00, YES)
+  train_08: Public 0.846027 vs r51 0.846027 (|d|=0.00e+00, YES); Private 0.841110 vs r51 0.841110 (|d|=0.00e+00, YES)
+  train_09: Public 0.620424 vs r51 0.620424 (|d|=0.00e+00, YES); Private 0.633474 vs r51 0.633474 (|d|=0.00e+00, YES)
+  train_10: Public 0.836807 vs r51 0.836807 (|d|=0.00e+00, YES); Private 0.847743 vs r51 0.847743 (|d|=0.00e+00, YES)
+  train_11: Public 0.828129 vs r51 0.828129 (|d|=0.00e+00, YES); Private 0.816654 vs r51 0.816654 (|d|=0.00e+00, YES)
+  train_12: Public 0.794888 vs r51 0.794888 (|d|=0.00e+00, YES); Private 0.769505 vs r51 0.769505 (|d|=0.00e+00, YES)
+  train_13: Public 0.628380 vs r51 0.628380 (|d|=0.00e+00, YES); Private 0.644000 vs r51 0.644000 (|d|=0.00e+00, YES)
+  train_14: Public 0.797525 vs r51 0.797525 (|d|=0.00e+00, YES); Private 0.804425 vs r51 0.804425 (|d|=0.00e+00, YES)
+  train_15: Public 0.841097 vs r51 0.841097 (|d|=0.00e+00, YES); Private 0.843627 vs r51 0.843627 (|d|=0.00e+00, YES)
+  train_16: Public 0.892160 vs r51 0.892160 (|d|=0.00e+00, YES); Private 0.893255 vs r51 0.893255 (|d|=0.00e+00, YES)
+  max |dev| over all 16x2 = 0.00e+00
+  REPRODUCTION: PASS
+
+=== PER-DATASET ΔAUC (Public) — base vs tol1e3 ===
+dataset          base       cand       delta
+train_01     0.710287   0.710861   +0.000574
+train_02     0.964370   0.962516   -0.001854
+train_03     0.792579   0.792982   +0.000403
+train_04     0.823647   0.824156   +0.000509
+train_05     0.653135   0.653135   +0.000000
+train_06     0.799693   0.799854   +0.000161
+train_07     0.823648   0.823648   +0.000000
+train_08     0.846027   0.846144   +0.000117
+train_09     0.620424   0.620424   +0.000000
+train_10     0.836807   0.837144   +0.000337
+train_11     0.828129   0.827098   -0.001031
+train_12     0.794888   0.795766   +0.000879
+train_13     0.628380   0.628380   +0.000000
+train_14     0.797525   0.797909   +0.000384
+train_15     0.841097   0.841273   +0.000176
+train_16     0.892160   0.883555   -0.008605
+
+=== PER-DATASET ΔAUC (Private) — base vs tol1e3 ===
+dataset          base       cand       delta
+train_01     0.704818   0.705484   +0.000666
+train_02     0.963480   0.960826   -0.002654
+train_03     0.809545   0.809441   -0.000104
+train_04     0.824960   0.826178   +0.001219
+train_05     0.656873   0.656873   +0.000000
+train_06     0.813708   0.814179   +0.000470
+train_07     0.826507   0.826507   +0.000000
+train_08     0.841110   0.841180   +0.000071
+train_09     0.633474   0.633474   +0.000000
+train_10     0.847743   0.846680   -0.001063
+train_11     0.816654   0.813208   -0.003447
+train_12     0.769505   0.770642   +0.001137
+train_13     0.644000   0.644000   +0.000000
+train_14     0.804425   0.804897   +0.000472
+train_15     0.843627   0.844242   +0.000616
+train_16     0.893255   0.885814   -0.007441
+
+=== PER-DATASET ΔAUC (Public) — base vs tol1e4 ===
+dataset          base       cand       delta
+train_01     0.710287   0.710287   +0.000000
+train_02     0.964370   0.964455   +0.000085
+train_03     0.792579   0.792579   +0.000000
+train_04     0.823647   0.823647   +0.000000
+train_05     0.653135   0.653135   +0.000000
+train_06     0.799693   0.799693   +0.000000
+train_07     0.823648   0.823648   +0.000000
+train_08     0.846027   0.846027   +0.000000
+train_09     0.620424   0.620424   +0.000000
+train_10     0.836807   0.836807   +0.000000
+train_11     0.828129   0.828129   +0.000000
+train_12     0.794888   0.795088   +0.000200
+train_13     0.628380   0.628380   +0.000000
+train_14     0.797525   0.797525   +0.000000
+train_15     0.841097   0.841097   +0.000000
+train_16     0.892160   0.885236   -0.006924
+
+=== PER-DATASET ΔAUC (Private) — base vs tol1e4 ===
+dataset          base       cand       delta
+train_01     0.704818   0.704818   +0.000000
+train_02     0.963480   0.963464   -0.000016
+train_03     0.809545   0.809545   +0.000000
+train_04     0.824960   0.824960   +0.000000
+train_05     0.656873   0.656873   +0.000000
+train_06     0.813708   0.813708   +0.000000
+train_07     0.826507   0.826507   +0.000000
+train_08     0.841110   0.841110   +0.000000
+train_09     0.633474   0.633474   +0.000000
+train_10     0.847743   0.847743   +0.000000
+train_11     0.816654   0.816654   +0.000000
+train_12     0.769505   0.770401   +0.000896
+train_13     0.644000   0.644000   +0.000000
+train_14     0.804425   0.804425   +0.000000
+train_15     0.843627   0.843627   +0.000000
+train_16     0.893255   0.887227   -0.006028
+
+=== REGRESSIONS (ΔAUC < -1e-6) ===
+  tol1e3 Public  train_02: -0.001854
+  tol1e3 Public  train_11: -0.001031
+  tol1e3 Public  train_16: -0.008605
+  tol1e3 Private train_02: -0.002654
+  tol1e3 Private train_03: -0.000104
+  tol1e3 Private train_10: -0.001063
+  tol1e3 Private train_11: -0.003447
+  tol1e3 Private train_16: -0.007441
+  tol1e4 Public  train_16: -0.006924
+  tol1e4 Private train_02: -0.000016
+  tol1e4 Private train_16: -0.006028
+
+=== IMPROVEMENTS (ΔAUC > +1e-6) ===
+  tol1e3 Public  train_01: +0.000574
+  tol1e3 Public  train_03: +0.000403
+  tol1e3 Public  train_04: +0.000509
+  tol1e3 Public  train_06: +0.000161
+  tol1e3 Public  train_08: +0.000117
+  tol1e3 Public  train_10: +0.000337
+  tol1e3 Public  train_12: +0.000879
+  tol1e3 Public  train_14: +0.000384
+  tol1e3 Public  train_15: +0.000176
+  tol1e3 Private train_01: +0.000666
+  tol1e3 Private train_04: +0.001219
+  tol1e3 Private train_06: +0.000470
+  tol1e3 Private train_08: +0.000071
+  tol1e3 Private train_12: +0.001137
+  tol1e3 Private train_14: +0.000472
+  tol1e3 Private train_15: +0.000616
+  tol1e4 Public  train_02: +0.000085
+  tol1e4 Public  train_12: +0.000200
+  tol1e4 Private train_12: +0.000896
+
+=== LARGEST SINGLE MOVES ===
+  -- tol1e3 --
+    Public max regression : train_16 -0.008605
+    Public max improvement: train_12 +0.000879
+    Private max regression : train_16 -0.007441
+    Private max improvement: train_04 +0.001219
+  -- tol1e4 --
+    Public max regression : train_16 -0.006924
+    Public max improvement: train_12 +0.000200
+    Private max regression : train_16 -0.006028
+    Private max improvement: train_12 +0.000896
+  OVERALL largest regression : tol1e3 Public train_16 -0.008605
+  OVERALL largest improvement: tol1e3 Private train_04 +0.001219
+
+=== ADOPTION ANALYSIS ===
+Per candidate arm: ADOPT iff mean ΔPublic > 0 AND mean ΔPrivate > 0
+  with ZERO regression on EITHER split (no dataset ΔAUC < 0 on Public
+  or Private). Any regression, or net-negative/negligible mean on
+  either split => REJECT.
+
+  [tol1e3] zero_regressions=NO (Public regs=3, Private regs=5)
+  [tol1e3] mean ΔPublic  = -0.000497  (clean gain: NO)
+  [tol1e3] mean ΔPrivate = -0.000629  (clean gain: NO)
+  [tol1e3] -> REJECT
+
+  [tol1e4] zero_regressions=NO (Public regs=1, Private regs=2)
+  [tol1e4] mean ΔPublic  = -0.000415  (clean gain: NO)
+  [tol1e4] mean ΔPrivate = -0.000322  (clean gain: NO)
+  [tol1e4] -> REJECT
+
+=== VERDICT ===
+  REJECT: no tol value beats base-08 on BOTH splits with zero regressions. Raising tol makes early_stopping halt sooner (fewer boosting iterations); on an already-tuned model this under-fits some datasets -> base-08 (tol default 1e-7) stays at least as good overall.
+
+SHIP VERDICT: REJECT
+
+CLEAN RUN: YES (0 exceptions)  [total_fits=48, datasets_scored=16/16, skipped=0, reproduction=YES]

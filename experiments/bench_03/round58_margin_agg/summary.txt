@@ -1,0 +1,258 @@
+==============================================================================
+bench_03 round58 — MARGIN-SPACE avg (K=10) vs PROB-SPACE avg (K=10) vs base-08 (ALL 16)  [OFFLINE]
+==============================================================================
+
+SETUP:
+  base       == shipped 08: HGB, early_stopping, cat_mask=object cols,
+                seed-0, full train.
+  seed cache == fit K=10 base-08 HGB on FULL train, random_state 0..9,
+                cache BOTH proba P(class==1) AND raw margin
+                decision_function(test) per member ONCE. Both arms below
+                are derived from the SAME K fits (no re-fit).
+  probmean   == arithmetic MEAN of the K proba vectors (control; ==
+                round55 probmean, the standard shipped seed-avg).
+  marginmean == arithmetic MEAN of the K raw margin (decision_function)
+                vectors, scored directly by AUC (no sigmoid — rank-based).
+  Single new mechanism vs probmean = MARGIN-space vs PROB-space aggregation.
+
+  gate C = (n_object_cols > 0): fires on 12/16 datasets. On non-gate-C
+  datasets the ship falls back to base-08, so both arms revert to base there.
+
+=== HEADLINE (a) UN-GATED (arm vs base == shipped 08, all 16) ===
+  probmean  : mean ΔPublic=+0.005547 (W/L/T 15/1/0)  mean ΔPrivate=+0.005323 (W/L/T 15/1/0)
+  marginmean: mean ΔPublic=+0.005585 (W/L/T 15/1/0)  mean ΔPrivate=+0.005380 (W/L/T 15/1/0)
+
+=== HEADLINE (b) GATE-C ONLY (n_object_cols>0, 12 datasets) ===
+  probmean  : mean ΔPublic=+0.005791 (W/L/T 12/0/0)  mean ΔPrivate=+0.005311 (W/L/T 12/0/0)
+  marginmean: mean ΔPublic=+0.005790 (W/L/T 12/0/0)  mean ΔPrivate=+0.005332 (W/L/T 12/0/0)
+
+=== HEADLINE (c) HEAD-TO-HEAD: marginmean vs probmean (per-dataset) ===
+dataset     gateC     mm_dpub     pm_dpub   mm-pm_pub     mm_dprv     pm_dprv   mm-pm_prv
+train_01     True   +0.003667   +0.003664   +0.000003   +0.003775   +0.003721   +0.000054
+train_02     True   +0.004418   +0.004422   -0.000004   +0.004063   +0.004082   -0.000018
+train_03     True   +0.007936   +0.007894   +0.000042   +0.007419   +0.007277   +0.000142
+train_04    False   +0.007369   +0.007293   +0.000076   +0.009513   +0.009558   -0.000044
+train_05     True   +0.008353   +0.008396   -0.000044   +0.008469   +0.008332   +0.000137
+train_06     True   +0.000507   +0.000509   -0.000002   +0.000519   +0.000499   +0.000020
+train_07     True   +0.006063   +0.005985   +0.000078   +0.002579   +0.002506   +0.000073
+train_08     True   +0.003664   +0.003650   +0.000014   +0.001752   +0.001720   +0.000032
+train_09     True   +0.011101   +0.011098   +0.000003   +0.009167   +0.009305   -0.000138
+train_10    False   +0.008386   +0.008376   +0.000010   +0.010232   +0.010273   -0.000041
+train_11    False   +0.004159   +0.004160   -0.000001   +0.005338   +0.005312   +0.000026
+train_12     True   +0.001623   +0.001583   +0.000039   +0.002324   +0.002337   -0.000013
+train_13     True   +0.007203   +0.007333   -0.000130   +0.006125   +0.006216   -0.000091
+train_14     True   +0.003536   +0.003512   +0.000025   +0.004060   +0.004048   +0.000012
+train_15     True   +0.011413   +0.011448   -0.000035   +0.013731   +0.013693   +0.000039
+train_16    False   -0.000040   -0.000572   +0.000533   -0.002993   -0.003712   +0.000719
+  Public : marginmean>probmean on 10, probmean>marginmean on 6
+  Private: marginmean>probmean on 10, probmean>marginmean on 6
+  datasets where marginmean and probmean differ by >1e-6:
+    train_01: margin-prob Public=+0.000003, Private=+0.000054
+    train_02: margin-prob Public=-0.000004, Private=-0.000018
+    train_03: margin-prob Public=+0.000042, Private=+0.000142
+    train_04: margin-prob Public=+0.000076, Private=-0.000044
+    train_05: margin-prob Public=-0.000044, Private=+0.000137
+    train_06: margin-prob Public=-0.000002, Private=+0.000020
+    train_07: margin-prob Public=+0.000078, Private=+0.000073
+    train_08: margin-prob Public=+0.000014, Private=+0.000032
+    train_09: margin-prob Public=+0.000003, Private=-0.000138
+    train_10: margin-prob Public=+0.000010, Private=-0.000041
+    train_11: margin-prob Public=-0.000001, Private=+0.000026
+    train_12: margin-prob Public=+0.000039, Private=-0.000013
+    train_13: margin-prob Public=-0.000130, Private=-0.000091
+    train_14: margin-prob Public=+0.000025, Private=+0.000012
+    train_15: margin-prob Public=-0.000035, Private=+0.000039
+    train_16: margin-prob Public=+0.000533, Private=+0.000719
+
+=== REPRODUCTION CHECK 1 (base on ALL 16 vs round55 base, tol=0) ===
+  train_01: Public 0.710287 vs r55 0.710287 (|d|=0.00e+00, YES); Private 0.704818 vs r55 0.704818 (|d|=0.00e+00, YES)
+  train_02: Public 0.964370 vs r55 0.964370 (|d|=0.00e+00, YES); Private 0.963480 vs r55 0.963480 (|d|=0.00e+00, YES)
+  train_03: Public 0.792579 vs r55 0.792579 (|d|=0.00e+00, YES); Private 0.809545 vs r55 0.809545 (|d|=0.00e+00, YES)
+  train_04: Public 0.823647 vs r55 0.823647 (|d|=0.00e+00, YES); Private 0.824960 vs r55 0.824960 (|d|=0.00e+00, YES)
+  train_05: Public 0.653135 vs r55 0.653135 (|d|=0.00e+00, YES); Private 0.656873 vs r55 0.656873 (|d|=0.00e+00, YES)
+  train_06: Public 0.799693 vs r55 0.799693 (|d|=0.00e+00, YES); Private 0.813708 vs r55 0.813708 (|d|=0.00e+00, YES)
+  train_07: Public 0.823648 vs r55 0.823648 (|d|=0.00e+00, YES); Private 0.826507 vs r55 0.826507 (|d|=0.00e+00, YES)
+  train_08: Public 0.846027 vs r55 0.846027 (|d|=0.00e+00, YES); Private 0.841110 vs r55 0.841110 (|d|=0.00e+00, YES)
+  train_09: Public 0.620424 vs r55 0.620424 (|d|=0.00e+00, YES); Private 0.633474 vs r55 0.633474 (|d|=0.00e+00, YES)
+  train_10: Public 0.836807 vs r55 0.836807 (|d|=0.00e+00, YES); Private 0.847743 vs r55 0.847743 (|d|=0.00e+00, YES)
+  train_11: Public 0.828129 vs r55 0.828129 (|d|=0.00e+00, YES); Private 0.816654 vs r55 0.816654 (|d|=0.00e+00, YES)
+  train_12: Public 0.794888 vs r55 0.794888 (|d|=0.00e+00, YES); Private 0.769505 vs r55 0.769505 (|d|=0.00e+00, YES)
+  train_13: Public 0.628380 vs r55 0.628380 (|d|=0.00e+00, YES); Private 0.644000 vs r55 0.644000 (|d|=0.00e+00, YES)
+  train_14: Public 0.797525 vs r55 0.797525 (|d|=0.00e+00, YES); Private 0.804425 vs r55 0.804425 (|d|=0.00e+00, YES)
+  train_15: Public 0.841097 vs r55 0.841097 (|d|=0.00e+00, YES); Private 0.843627 vs r55 0.843627 (|d|=0.00e+00, YES)
+  train_16: Public 0.892160 vs r55 0.892160 (|d|=0.00e+00, YES); Private 0.893255 vs r55 0.893255 (|d|=0.00e+00, YES)
+  max |dev| over all 16x2 = 0.00e+00
+  REPRODUCTION 1 (base): PASS
+
+=== REPRODUCTION CHECK 2 (probmean on ALL 16 vs round55 probmean, tol=0) ===
+  train_01: Public 0.713951 vs r55pm 0.713951 (|d|=0.00e+00, YES); Private 0.708539 vs r55pm 0.708539 (|d|=0.00e+00, YES)
+  train_02: Public 0.968792 vs r55pm 0.968792 (|d|=0.00e+00, YES); Private 0.967562 vs r55pm 0.967562 (|d|=0.00e+00, YES)
+  train_03: Public 0.800473 vs r55pm 0.800473 (|d|=0.00e+00, YES); Private 0.816822 vs r55pm 0.816822 (|d|=0.00e+00, YES)
+  train_04: Public 0.830940 vs r55pm 0.830940 (|d|=0.00e+00, YES); Private 0.834517 vs r55pm 0.834517 (|d|=0.00e+00, YES)
+  train_05: Public 0.661531 vs r55pm 0.661531 (|d|=0.00e+00, YES); Private 0.665205 vs r55pm 0.665205 (|d|=0.00e+00, YES)
+  train_06: Public 0.800202 vs r55pm 0.800202 (|d|=0.00e+00, YES); Private 0.814208 vs r55pm 0.814208 (|d|=0.00e+00, YES)
+  train_07: Public 0.829633 vs r55pm 0.829633 (|d|=0.00e+00, YES); Private 0.829013 vs r55pm 0.829013 (|d|=0.00e+00, YES)
+  train_08: Public 0.849677 vs r55pm 0.849677 (|d|=0.00e+00, YES); Private 0.842830 vs r55pm 0.842830 (|d|=0.00e+00, YES)
+  train_09: Public 0.631522 vs r55pm 0.631522 (|d|=0.00e+00, YES); Private 0.642779 vs r55pm 0.642779 (|d|=0.00e+00, YES)
+  train_10: Public 0.845183 vs r55pm 0.845183 (|d|=0.00e+00, YES); Private 0.858015 vs r55pm 0.858015 (|d|=0.00e+00, YES)
+  train_11: Public 0.832289 vs r55pm 0.832289 (|d|=0.00e+00, YES); Private 0.821966 vs r55pm 0.821966 (|d|=0.00e+00, YES)
+  train_12: Public 0.796471 vs r55pm 0.796471 (|d|=0.00e+00, YES); Private 0.771842 vs r55pm 0.771842 (|d|=0.00e+00, YES)
+  train_13: Public 0.635713 vs r55pm 0.635713 (|d|=0.00e+00, YES); Private 0.650216 vs r55pm 0.650216 (|d|=0.00e+00, YES)
+  train_14: Public 0.801037 vs r55pm 0.801037 (|d|=0.00e+00, YES); Private 0.808473 vs r55pm 0.808473 (|d|=0.00e+00, YES)
+  train_15: Public 0.852545 vs r55pm 0.852545 (|d|=0.00e+00, YES); Private 0.857319 vs r55pm 0.857319 (|d|=0.00e+00, YES)
+  train_16: Public 0.891588 vs r55pm 0.891588 (|d|=0.00e+00, YES); Private 0.889543 vs r55pm 0.889543 (|d|=0.00e+00, YES)
+  max |dev| over all 16x2 = 0.00e+00
+  REPRODUCTION 2 (probmean==round55 probmean): PASS
+
+=== PER-DATASET ΔAUC (Public) — base vs probmean ===
+dataset     gateC       base        arm       delta
+train_01     True   0.710287   0.713951   +0.003664
+train_02     True   0.964370   0.968792   +0.004422
+train_03     True   0.792579   0.800473   +0.007894
+train_04    False   0.823647   0.830940   +0.007293
+train_05     True   0.653135   0.661531   +0.008396
+train_06     True   0.799693   0.800202   +0.000509
+train_07     True   0.823648   0.829633   +0.005985
+train_08     True   0.846027   0.849677   +0.003650
+train_09     True   0.620424   0.631522   +0.011098
+train_10    False   0.836807   0.845183   +0.008376
+train_11    False   0.828129   0.832289   +0.004160
+train_12     True   0.794888   0.796471   +0.001583
+train_13     True   0.628380   0.635713   +0.007333
+train_14     True   0.797525   0.801037   +0.003512
+train_15     True   0.841097   0.852545   +0.011448
+train_16    False   0.892160   0.891588   -0.000572
+
+=== PER-DATASET ΔAUC (Private) — base vs probmean ===
+dataset     gateC       base        arm       delta
+train_01     True   0.704818   0.708539   +0.003721
+train_02     True   0.963480   0.967562   +0.004082
+train_03     True   0.809545   0.816822   +0.007277
+train_04    False   0.824960   0.834517   +0.009558
+train_05     True   0.656873   0.665205   +0.008332
+train_06     True   0.813708   0.814208   +0.000499
+train_07     True   0.826507   0.829013   +0.002506
+train_08     True   0.841110   0.842830   +0.001720
+train_09     True   0.633474   0.642779   +0.009305
+train_10    False   0.847743   0.858015   +0.010273
+train_11    False   0.816654   0.821966   +0.005312
+train_12     True   0.769505   0.771842   +0.002337
+train_13     True   0.644000   0.650216   +0.006216
+train_14     True   0.804425   0.808473   +0.004048
+train_15     True   0.843627   0.857319   +0.013693
+train_16    False   0.893255   0.889543   -0.003712
+
+=== PER-DATASET ΔAUC (Public) — base vs marginmean ===
+dataset     gateC       base        arm       delta
+train_01     True   0.710287   0.713954   +0.003667
+train_02     True   0.964370   0.968788   +0.004418
+train_03     True   0.792579   0.800515   +0.007936
+train_04    False   0.823647   0.831016   +0.007369
+train_05     True   0.653135   0.661488   +0.008353
+train_06     True   0.799693   0.800200   +0.000507
+train_07     True   0.823648   0.829711   +0.006063
+train_08     True   0.846027   0.849690   +0.003664
+train_09     True   0.620424   0.631525   +0.011101
+train_10    False   0.836807   0.845193   +0.008386
+train_11    False   0.828129   0.832288   +0.004159
+train_12     True   0.794888   0.796510   +0.001623
+train_13     True   0.628380   0.635584   +0.007203
+train_14     True   0.797525   0.801061   +0.003536
+train_15     True   0.841097   0.852510   +0.011413
+train_16    False   0.892160   0.892120   -0.000040
+
+=== PER-DATASET ΔAUC (Private) — base vs marginmean ===
+dataset     gateC       base        arm       delta
+train_01     True   0.704818   0.708593   +0.003775
+train_02     True   0.963480   0.967544   +0.004063
+train_03     True   0.809545   0.816964   +0.007419
+train_04    False   0.824960   0.834473   +0.009513
+train_05     True   0.656873   0.665342   +0.008469
+train_06     True   0.813708   0.814227   +0.000519
+train_07     True   0.826507   0.829086   +0.002579
+train_08     True   0.841110   0.842862   +0.001752
+train_09     True   0.633474   0.642641   +0.009167
+train_10    False   0.847743   0.857974   +0.010232
+train_11    False   0.816654   0.821992   +0.005338
+train_12     True   0.769505   0.771829   +0.002324
+train_13     True   0.644000   0.650125   +0.006125
+train_14     True   0.804425   0.808485   +0.004060
+train_15     True   0.843627   0.857358   +0.013731
+train_16    False   0.893255   0.890262   -0.002993
+
+=== REGRESSIONS (ΔAUC < -1e-6, GATE-C view = ship view) ===
+  probmean: NONE on either split.
+  marginmean: NONE on either split.
+
+=== IMPROVEMENTS (ΔAUC > +1e-6, GATE-C view = ship view) ===
+  probmean Public  train_01: +0.003664
+  probmean Public  train_02: +0.004422
+  probmean Public  train_03: +0.007894
+  probmean Public  train_05: +0.008396
+  probmean Public  train_06: +0.000509
+  probmean Public  train_07: +0.005985
+  probmean Public  train_08: +0.003650
+  probmean Public  train_09: +0.011098
+  probmean Public  train_12: +0.001583
+  probmean Public  train_13: +0.007333
+  probmean Public  train_14: +0.003512
+  probmean Public  train_15: +0.011448
+  probmean Private train_01: +0.003721
+  probmean Private train_02: +0.004082
+  probmean Private train_03: +0.007277
+  probmean Private train_05: +0.008332
+  probmean Private train_06: +0.000499
+  probmean Private train_07: +0.002506
+  probmean Private train_08: +0.001720
+  probmean Private train_09: +0.009305
+  probmean Private train_12: +0.002337
+  probmean Private train_13: +0.006216
+  probmean Private train_14: +0.004048
+  probmean Private train_15: +0.013693
+  marginmean Public  train_01: +0.003667
+  marginmean Public  train_02: +0.004418
+  marginmean Public  train_03: +0.007936
+  marginmean Public  train_05: +0.008353
+  marginmean Public  train_06: +0.000507
+  marginmean Public  train_07: +0.006063
+  marginmean Public  train_08: +0.003664
+  marginmean Public  train_09: +0.011101
+  marginmean Public  train_12: +0.001623
+  marginmean Public  train_13: +0.007203
+  marginmean Public  train_14: +0.003536
+  marginmean Public  train_15: +0.011413
+  marginmean Private train_01: +0.003775
+  marginmean Private train_02: +0.004063
+  marginmean Private train_03: +0.007419
+  marginmean Private train_05: +0.008469
+  marginmean Private train_06: +0.000519
+  marginmean Private train_07: +0.002579
+  marginmean Private train_08: +0.001752
+  marginmean Private train_09: +0.009167
+  marginmean Private train_12: +0.002324
+  marginmean Private train_13: +0.006125
+  marginmean Private train_14: +0.004060
+  marginmean Private train_15: +0.013731
+
+=== ADOPTION ANALYSIS (GATE-C view = ship view) ===
+Per arm: ADOPT iff mean ΔPublic > 0 AND mean ΔPrivate > 0 with ZERO
+  regression on EITHER split, over the gate-C-firing datasets. Any
+  regression, or net-negative/negligible mean on either split => REJECT.
+
+  [probmean] zero_regressions=YES (Public regs=0, Private regs=0)
+  [probmean] gate-C mean ΔPublic  = +0.005791  (clean gain: YES)
+  [probmean] gate-C mean ΔPrivate = +0.005311  (clean gain: YES)
+  [probmean] -> ADOPT
+
+  [marginmean] zero_regressions=YES (Public regs=0, Private regs=0)
+  [marginmean] gate-C mean ΔPublic  = +0.005790  (clean gain: YES)
+  [marginmean] gate-C mean ΔPrivate = +0.005332  (clean gain: YES)
+  [marginmean] -> ADOPT
+
+=== VERDICT ===
+  MARGINMEAN does NOT beat PROBMEAN on both gate-C mean splits (margin ΔPub +0.005790 vs prob +0.005791; margin ΔPrv +0.005332 vs prob +0.005311).
+  ADOPT: probmean, marginmean cleanly improve BOTH gate-C mean splits with zero regression.
+
+SHIP VERDICT: ADOPT
+
+CLEAN RUN: YES (0 exceptions)  [total_fits=176, datasets_scored=16/16, skipped=0, gate_c_datasets=12, reproduction=YES (base_maxdev=0.00e+00, probmean_maxdev=0.00e+00)]

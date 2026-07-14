@@ -1,0 +1,258 @@
+==============================================================================
+bench_03 round55 — RANK-SPACE avg (K=10) vs PROB-SPACE avg (K=10) vs base-08 (ALL 16)  [OFFLINE]
+==============================================================================
+
+SETUP:
+  base     == shipped 08: HGB, early_stopping, cat_mask=object cols,
+              seed-0, full train.
+  seed cache == fit K=10 base-08 HGB on FULL train, random_state 0..9,
+              collect the K proba vectors P(class==1) ONCE. Both arms
+              below are derived from the SAME cached vectors (no re-fit).
+  probmean == arithmetic MEAN of the K proba vectors (== round54 seedavg,
+              the standard shipped seed-avg).
+  rankmean == MEAN of the K rank-transformed vectors: each proba vector
+              rank-transformed over test rows via rankdata(method='average'),
+              then averaged elementwise (÷n_test for readability; AUC-invariant).
+  Single new mechanism vs probmean = RANK-space vs PROB-space aggregation.
+
+  gate C = (n_object_cols > 0): fires on 12/16 datasets. On non-gate-C
+  datasets the ship falls back to base-08, so both arms revert to base there.
+
+=== HEADLINE (a) UN-GATED (arm vs base == shipped 08, all 16) ===
+  probmean : mean ΔPublic=+0.005547 (W/L/T 15/1/0)  mean ΔPrivate=+0.005323 (W/L/T 15/1/0)
+  rankmean : mean ΔPublic=+0.005544 (W/L/T 15/1/0)  mean ΔPrivate=+0.005285 (W/L/T 15/1/0)
+
+=== HEADLINE (b) GATE-C ONLY (n_object_cols>0, 12 datasets) ===
+  probmean : mean ΔPublic=+0.005791 (W/L/T 12/0/0)  mean ΔPrivate=+0.005311 (W/L/T 12/0/0)
+  rankmean : mean ΔPublic=+0.005830 (W/L/T 12/0/0)  mean ΔPrivate=+0.005297 (W/L/T 12/0/0)
+
+=== HEADLINE (c) HEAD-TO-HEAD: rankmean vs probmean (per-dataset) ===
+dataset     gateC     rk_dpub     pm_dpub   rk-pm_pub     rk_dprv     pm_dprv   rk-pm_prv
+train_01     True   +0.003647   +0.003664   -0.000017   +0.003629   +0.003721   -0.000093
+train_02     True   +0.004373   +0.004422   -0.000049   +0.004045   +0.004082   -0.000037
+train_03     True   +0.008017   +0.007894   +0.000123   +0.007295   +0.007277   +0.000018
+train_04    False   +0.007289   +0.007293   -0.000004   +0.009484   +0.009558   -0.000074
+train_05     True   +0.008670   +0.008396   +0.000273   +0.008145   +0.008332   -0.000187
+train_06     True   +0.000539   +0.000509   +0.000030   +0.000386   +0.000499   -0.000113
+train_07     True   +0.005972   +0.005985   -0.000013   +0.002520   +0.002506   +0.000014
+train_08     True   +0.003605   +0.003650   -0.000045   +0.001741   +0.001720   +0.000021
+train_09     True   +0.011003   +0.011098   -0.000094   +0.009546   +0.009305   +0.000241
+train_10    False   +0.008392   +0.008376   +0.000016   +0.010331   +0.010273   +0.000059
+train_11    False   +0.004173   +0.004160   +0.000013   +0.005347   +0.005312   +0.000035
+train_12     True   +0.001585   +0.001583   +0.000002   +0.002403   +0.002337   +0.000066
+train_13     True   +0.007728   +0.007333   +0.000395   +0.006171   +0.006216   -0.000046
+train_14     True   +0.003492   +0.003512   -0.000020   +0.003940   +0.004048   -0.000109
+train_15     True   +0.011330   +0.011448   -0.000118   +0.013748   +0.013693   +0.000055
+train_16    False   -0.001106   -0.000572   -0.000534   -0.004177   -0.003712   -0.000465
+  Public : rankmean>probmean on 7, probmean>rankmean on 9
+  Private: rankmean>probmean on 8, probmean>rankmean on 8
+  datasets where rankmean and probmean differ by >1e-6:
+    train_01: rank-prob Public=-0.000017, Private=-0.000093
+    train_02: rank-prob Public=-0.000049, Private=-0.000037
+    train_03: rank-prob Public=+0.000123, Private=+0.000018
+    train_04: rank-prob Public=-0.000004, Private=-0.000074
+    train_05: rank-prob Public=+0.000273, Private=-0.000187
+    train_06: rank-prob Public=+0.000030, Private=-0.000113
+    train_07: rank-prob Public=-0.000013, Private=+0.000014
+    train_08: rank-prob Public=-0.000045, Private=+0.000021
+    train_09: rank-prob Public=-0.000094, Private=+0.000241
+    train_10: rank-prob Public=+0.000016, Private=+0.000059
+    train_11: rank-prob Public=+0.000013, Private=+0.000035
+    train_12: rank-prob Public=+0.000002, Private=+0.000066
+    train_13: rank-prob Public=+0.000395, Private=-0.000046
+    train_14: rank-prob Public=-0.000020, Private=-0.000109
+    train_15: rank-prob Public=-0.000118, Private=+0.000055
+    train_16: rank-prob Public=-0.000534, Private=-0.000465
+
+=== REPRODUCTION CHECK 1 (base on ALL 16 vs round54 base, tol<5e-6) ===
+  train_01: Public 0.710287 vs r54 0.710287 (|d|=0.00e+00, YES); Private 0.704818 vs r54 0.704818 (|d|=0.00e+00, YES)
+  train_02: Public 0.964370 vs r54 0.964370 (|d|=0.00e+00, YES); Private 0.963480 vs r54 0.963480 (|d|=0.00e+00, YES)
+  train_03: Public 0.792579 vs r54 0.792579 (|d|=0.00e+00, YES); Private 0.809545 vs r54 0.809545 (|d|=0.00e+00, YES)
+  train_04: Public 0.823647 vs r54 0.823647 (|d|=0.00e+00, YES); Private 0.824960 vs r54 0.824960 (|d|=0.00e+00, YES)
+  train_05: Public 0.653135 vs r54 0.653135 (|d|=0.00e+00, YES); Private 0.656873 vs r54 0.656873 (|d|=0.00e+00, YES)
+  train_06: Public 0.799693 vs r54 0.799693 (|d|=0.00e+00, YES); Private 0.813708 vs r54 0.813708 (|d|=0.00e+00, YES)
+  train_07: Public 0.823648 vs r54 0.823648 (|d|=0.00e+00, YES); Private 0.826507 vs r54 0.826507 (|d|=0.00e+00, YES)
+  train_08: Public 0.846027 vs r54 0.846027 (|d|=0.00e+00, YES); Private 0.841110 vs r54 0.841110 (|d|=0.00e+00, YES)
+  train_09: Public 0.620424 vs r54 0.620424 (|d|=0.00e+00, YES); Private 0.633474 vs r54 0.633474 (|d|=0.00e+00, YES)
+  train_10: Public 0.836807 vs r54 0.836807 (|d|=0.00e+00, YES); Private 0.847743 vs r54 0.847743 (|d|=0.00e+00, YES)
+  train_11: Public 0.828129 vs r54 0.828129 (|d|=0.00e+00, YES); Private 0.816654 vs r54 0.816654 (|d|=0.00e+00, YES)
+  train_12: Public 0.794888 vs r54 0.794888 (|d|=0.00e+00, YES); Private 0.769505 vs r54 0.769505 (|d|=0.00e+00, YES)
+  train_13: Public 0.628380 vs r54 0.628380 (|d|=0.00e+00, YES); Private 0.644000 vs r54 0.644000 (|d|=0.00e+00, YES)
+  train_14: Public 0.797525 vs r54 0.797525 (|d|=0.00e+00, YES); Private 0.804425 vs r54 0.804425 (|d|=0.00e+00, YES)
+  train_15: Public 0.841097 vs r54 0.841097 (|d|=0.00e+00, YES); Private 0.843627 vs r54 0.843627 (|d|=0.00e+00, YES)
+  train_16: Public 0.892160 vs r54 0.892160 (|d|=0.00e+00, YES); Private 0.893255 vs r54 0.893255 (|d|=0.00e+00, YES)
+  max |dev| over all 16x2 = 0.00e+00
+  REPRODUCTION 1 (base): PASS
+
+=== REPRODUCTION CHECK 2 (probmean on ALL 16 vs round54 seedavg, tol<5e-6) ===
+  train_01: Public 0.713951 vs r54sa 0.713951 (|d|=0.00e+00, YES); Private 0.708539 vs r54sa 0.708539 (|d|=0.00e+00, YES)
+  train_02: Public 0.968792 vs r54sa 0.968792 (|d|=0.00e+00, YES); Private 0.967562 vs r54sa 0.967562 (|d|=0.00e+00, YES)
+  train_03: Public 0.800473 vs r54sa 0.800473 (|d|=0.00e+00, YES); Private 0.816822 vs r54sa 0.816822 (|d|=0.00e+00, YES)
+  train_04: Public 0.830940 vs r54sa 0.830940 (|d|=0.00e+00, YES); Private 0.834517 vs r54sa 0.834517 (|d|=0.00e+00, YES)
+  train_05: Public 0.661531 vs r54sa 0.661531 (|d|=0.00e+00, YES); Private 0.665205 vs r54sa 0.665205 (|d|=0.00e+00, YES)
+  train_06: Public 0.800202 vs r54sa 0.800202 (|d|=0.00e+00, YES); Private 0.814208 vs r54sa 0.814208 (|d|=0.00e+00, YES)
+  train_07: Public 0.829633 vs r54sa 0.829633 (|d|=0.00e+00, YES); Private 0.829013 vs r54sa 0.829013 (|d|=0.00e+00, YES)
+  train_08: Public 0.849677 vs r54sa 0.849677 (|d|=0.00e+00, YES); Private 0.842830 vs r54sa 0.842830 (|d|=0.00e+00, YES)
+  train_09: Public 0.631522 vs r54sa 0.631522 (|d|=0.00e+00, YES); Private 0.642779 vs r54sa 0.642779 (|d|=0.00e+00, YES)
+  train_10: Public 0.845183 vs r54sa 0.845183 (|d|=0.00e+00, YES); Private 0.858015 vs r54sa 0.858015 (|d|=0.00e+00, YES)
+  train_11: Public 0.832289 vs r54sa 0.832289 (|d|=0.00e+00, YES); Private 0.821966 vs r54sa 0.821966 (|d|=0.00e+00, YES)
+  train_12: Public 0.796471 vs r54sa 0.796471 (|d|=0.00e+00, YES); Private 0.771842 vs r54sa 0.771842 (|d|=0.00e+00, YES)
+  train_13: Public 0.635713 vs r54sa 0.635713 (|d|=0.00e+00, YES); Private 0.650216 vs r54sa 0.650216 (|d|=0.00e+00, YES)
+  train_14: Public 0.801037 vs r54sa 0.801037 (|d|=0.00e+00, YES); Private 0.808473 vs r54sa 0.808473 (|d|=0.00e+00, YES)
+  train_15: Public 0.852545 vs r54sa 0.852545 (|d|=0.00e+00, YES); Private 0.857319 vs r54sa 0.857319 (|d|=0.00e+00, YES)
+  train_16: Public 0.891588 vs r54sa 0.891588 (|d|=0.00e+00, YES); Private 0.889543 vs r54sa 0.889543 (|d|=0.00e+00, YES)
+  max |dev| over all 16x2 = 0.00e+00
+  REPRODUCTION 2 (probmean==seedavg): PASS
+
+=== PER-DATASET ΔAUC (Public) — base vs probmean ===
+dataset     gateC       base        arm       delta
+train_01     True   0.710287   0.713951   +0.003664
+train_02     True   0.964370   0.968792   +0.004422
+train_03     True   0.792579   0.800473   +0.007894
+train_04    False   0.823647   0.830940   +0.007293
+train_05     True   0.653135   0.661531   +0.008396
+train_06     True   0.799693   0.800202   +0.000509
+train_07     True   0.823648   0.829633   +0.005985
+train_08     True   0.846027   0.849677   +0.003650
+train_09     True   0.620424   0.631522   +0.011098
+train_10    False   0.836807   0.845183   +0.008376
+train_11    False   0.828129   0.832289   +0.004160
+train_12     True   0.794888   0.796471   +0.001583
+train_13     True   0.628380   0.635713   +0.007333
+train_14     True   0.797525   0.801037   +0.003512
+train_15     True   0.841097   0.852545   +0.011448
+train_16    False   0.892160   0.891588   -0.000572
+
+=== PER-DATASET ΔAUC (Private) — base vs probmean ===
+dataset     gateC       base        arm       delta
+train_01     True   0.704818   0.708539   +0.003721
+train_02     True   0.963480   0.967562   +0.004082
+train_03     True   0.809545   0.816822   +0.007277
+train_04    False   0.824960   0.834517   +0.009558
+train_05     True   0.656873   0.665205   +0.008332
+train_06     True   0.813708   0.814208   +0.000499
+train_07     True   0.826507   0.829013   +0.002506
+train_08     True   0.841110   0.842830   +0.001720
+train_09     True   0.633474   0.642779   +0.009305
+train_10    False   0.847743   0.858015   +0.010273
+train_11    False   0.816654   0.821966   +0.005312
+train_12     True   0.769505   0.771842   +0.002337
+train_13     True   0.644000   0.650216   +0.006216
+train_14     True   0.804425   0.808473   +0.004048
+train_15     True   0.843627   0.857319   +0.013693
+train_16    False   0.893255   0.889543   -0.003712
+
+=== PER-DATASET ΔAUC (Public) — base vs rankmean ===
+dataset     gateC       base        arm       delta
+train_01     True   0.710287   0.713934   +0.003647
+train_02     True   0.964370   0.968743   +0.004373
+train_03     True   0.792579   0.800595   +0.008017
+train_04    False   0.823647   0.830936   +0.007289
+train_05     True   0.653135   0.661805   +0.008670
+train_06     True   0.799693   0.800232   +0.000539
+train_07     True   0.823648   0.829619   +0.005972
+train_08     True   0.846027   0.849632   +0.003605
+train_09     True   0.620424   0.631427   +0.011003
+train_10    False   0.836807   0.845199   +0.008392
+train_11    False   0.828129   0.832302   +0.004173
+train_12     True   0.794888   0.796473   +0.001585
+train_13     True   0.628380   0.636109   +0.007728
+train_14     True   0.797525   0.801017   +0.003492
+train_15     True   0.841097   0.852427   +0.011330
+train_16    False   0.892160   0.891054   -0.001106
+
+=== PER-DATASET ΔAUC (Private) — base vs rankmean ===
+dataset     gateC       base        arm       delta
+train_01     True   0.704818   0.708446   +0.003629
+train_02     True   0.963480   0.967525   +0.004045
+train_03     True   0.809545   0.816840   +0.007295
+train_04    False   0.824960   0.834443   +0.009484
+train_05     True   0.656873   0.665018   +0.008145
+train_06     True   0.813708   0.814095   +0.000386
+train_07     True   0.826507   0.829027   +0.002520
+train_08     True   0.841110   0.842851   +0.001741
+train_09     True   0.633474   0.643020   +0.009546
+train_10    False   0.847743   0.858074   +0.010331
+train_11    False   0.816654   0.822001   +0.005347
+train_12     True   0.769505   0.771908   +0.002403
+train_13     True   0.644000   0.650171   +0.006171
+train_14     True   0.804425   0.808365   +0.003940
+train_15     True   0.843627   0.857375   +0.013748
+train_16    False   0.893255   0.889078   -0.004177
+
+=== REGRESSIONS (ΔAUC < -1e-6, GATE-C view = ship view) ===
+  probmean: NONE on either split.
+  rankmean: NONE on either split.
+
+=== IMPROVEMENTS (ΔAUC > +1e-6, GATE-C view = ship view) ===
+  probmean Public  train_01: +0.003664
+  probmean Public  train_02: +0.004422
+  probmean Public  train_03: +0.007894
+  probmean Public  train_05: +0.008396
+  probmean Public  train_06: +0.000509
+  probmean Public  train_07: +0.005985
+  probmean Public  train_08: +0.003650
+  probmean Public  train_09: +0.011098
+  probmean Public  train_12: +0.001583
+  probmean Public  train_13: +0.007333
+  probmean Public  train_14: +0.003512
+  probmean Public  train_15: +0.011448
+  probmean Private train_01: +0.003721
+  probmean Private train_02: +0.004082
+  probmean Private train_03: +0.007277
+  probmean Private train_05: +0.008332
+  probmean Private train_06: +0.000499
+  probmean Private train_07: +0.002506
+  probmean Private train_08: +0.001720
+  probmean Private train_09: +0.009305
+  probmean Private train_12: +0.002337
+  probmean Private train_13: +0.006216
+  probmean Private train_14: +0.004048
+  probmean Private train_15: +0.013693
+  rankmean Public  train_01: +0.003647
+  rankmean Public  train_02: +0.004373
+  rankmean Public  train_03: +0.008017
+  rankmean Public  train_05: +0.008670
+  rankmean Public  train_06: +0.000539
+  rankmean Public  train_07: +0.005972
+  rankmean Public  train_08: +0.003605
+  rankmean Public  train_09: +0.011003
+  rankmean Public  train_12: +0.001585
+  rankmean Public  train_13: +0.007728
+  rankmean Public  train_14: +0.003492
+  rankmean Public  train_15: +0.011330
+  rankmean Private train_01: +0.003629
+  rankmean Private train_02: +0.004045
+  rankmean Private train_03: +0.007295
+  rankmean Private train_05: +0.008145
+  rankmean Private train_06: +0.000386
+  rankmean Private train_07: +0.002520
+  rankmean Private train_08: +0.001741
+  rankmean Private train_09: +0.009546
+  rankmean Private train_12: +0.002403
+  rankmean Private train_13: +0.006171
+  rankmean Private train_14: +0.003940
+  rankmean Private train_15: +0.013748
+
+=== ADOPTION ANALYSIS (GATE-C view = ship view) ===
+Per arm: ADOPT iff mean ΔPublic > 0 AND mean ΔPrivate > 0 with ZERO
+  regression on EITHER split, over the gate-C-firing datasets. Any
+  regression, or net-negative/negligible mean on either split => REJECT.
+
+  [probmean] zero_regressions=YES (Public regs=0, Private regs=0)
+  [probmean] gate-C mean ΔPublic  = +0.005791  (clean gain: YES)
+  [probmean] gate-C mean ΔPrivate = +0.005311  (clean gain: YES)
+  [probmean] -> ADOPT
+
+  [rankmean] zero_regressions=YES (Public regs=0, Private regs=0)
+  [rankmean] gate-C mean ΔPublic  = +0.005830  (clean gain: YES)
+  [rankmean] gate-C mean ΔPrivate = +0.005297  (clean gain: YES)
+  [rankmean] -> ADOPT
+
+=== VERDICT ===
+  RANKMEAN does NOT beat PROBMEAN on both gate-C mean splits (rank ΔPub +0.005830 vs prob +0.005791; rank ΔPrv +0.005297 vs prob +0.005311).
+  ADOPT: probmean, rankmean cleanly improve BOTH gate-C mean splits with zero regression.
+
+SHIP VERDICT: ADOPT
+
+CLEAN RUN: YES (0 exceptions)  [total_fits=176, datasets_scored=16/16, skipped=0, gate_c_datasets=12, reproduction=YES (base_maxdev=0.00e+00, probmean_maxdev=0.00e+00)]

@@ -1,0 +1,186 @@
+[OK] train_01 n_tr=14957 obj=5 C=1 D=1 G[5,8,10]=111 fits=20 base pub=0.710287 prv=0.704818 lift5=+0.00451
+[OK] train_02 n_tr=14929 obj=2 C=1 D=1 G[5,8,10]=111 fits=20 base pub=0.964370 prv=0.963480 lift5=+0.00144
+[OK] train_03 n_tr=3501 obj=7 C=1 D=1 G[5,8,10]=111 fits=20 base pub=0.792579 prv=0.809545 lift5=+0.01222
+[OK] train_04 n_tr=8775 obj=0 C=0 D=1 G[5,8,10]=111 fits=20 base pub=0.823647 prv=0.824960 lift5=+0.00383
+[OK] train_05 n_tr=1060 obj=5 C=1 D=1 G[5,8,10]=111 fits=20 base pub=0.653135 prv=0.656873 lift5=+0.00632
+[OK] train_06 n_tr=10803 obj=9 C=1 D=1 G[5,8,10]=011 fits=20 base pub=0.799693 prv=0.813708 lift5=-0.00040
+[OK] train_07 n_tr=10417 obj=6 C=1 D=1 G[5,8,10]=111 fits=20 base pub=0.823648 prv=0.826507 lift5=+0.01041
+[OK] train_08 n_tr=8173 obj=12 C=1 D=1 G[5,8,10]=111 fits=20 base pub=0.846027 prv=0.841110 lift5=+0.00309
+[OK] train_09 n_tr=1109 obj=4 C=1 D=1 G[5,8,10]=111 fits=20 base pub=0.620424 prv=0.633474 lift5=+0.04746
+[OK] train_10 n_tr=11800 obj=0 C=0 D=1 G[5,8,10]=111 fits=20 base pub=0.836807 prv=0.847743 lift5=+0.01069
+[OK] train_11 n_tr=28879 obj=0 C=0 D=1 G[5,8,10]=111 fits=20 base pub=0.828129 prv=0.816654 lift5=+0.00564
+[OK] train_12 n_tr=49432 obj=3 C=1 D=1 G[5,8,10]=111 fits=20 base pub=0.794888 prv=0.769505 lift5=+0.00073
+[OK] train_13 n_tr=500 obj=4 C=1 D=1 G[5,8,10]=000 fits=20 base pub=0.628380 prv=0.644000 lift5=-0.01818
+[OK] train_14 n_tr=11108 obj=15 C=1 D=1 G[5,8,10]=111 fits=20 base pub=0.797525 prv=0.804425 lift5=+0.00593
+[OK] train_15 n_tr=500 obj=24 C=1 D=1 G[5,8,10]=110 fits=20 base pub=0.841097 prv=0.843627 lift5=+0.00077
+[OK] train_16 n_tr=1809 obj=0 C=0 D=0 G[5,8,10]=000 fits=20 base pub=0.892160 prv=0.893255 lift5=-0.00179
+
+==============================================================================
+bench_03 round42 — GATE C vs D vs G, K SWEEP {5,8,10}   [OFFLINE]
+==============================================================================
+
+SETUP:
+  base == shipped 08 (git HEAD:submissions/08...): HGB, early_stopping,
+    validation_fraction UNSET -> sklearn default 0.10. base column =
+    seed-0, vf UNSET, for all 16 datasets.
+  Seed-avg computed for ALL 16 datasets (incl. pure-numeric); a dataset
+    USES its K-average only where a gate fires, else exact seed-0 base.
+  gate C: fire iff n_object_cols>0            (12 categorical; K-indep)
+  gate D: fire iff NOT(obj==0 AND n_train<4000)  (15, all but train_16)
+  gate G: fire iff internal-holdout lift(K)>0    (K-DEPENDENT; round36)
+  Sweep: K seeds averaged in [5, 8, 10]; every seed vf UNSET (base-08).
+
+=== SWEEP TABLE (each gate x K vs base == shipped 08) ===
+gate    K nFire   meanDPub   meanDPrv    Pub W/L/T    Prv W/L/T
+C       5    12   +0.00363   +0.00316       12/0/4       12/0/4  <- repro anchor
+C       8    12   +0.00408   +0.00371       12/0/4       12/0/4
+C      10    12   +0.00434   +0.00398       12/0/4       12/0/4
+
+D       5    15   +0.00473   +0.00453       15/0/1       15/0/1  <- repro anchor
+D       8    15   +0.00526   +0.00523       15/0/1       15/0/1
+D      10    15   +0.00558   +0.00555       15/0/1       15/0/1
+
+G       5    13   +0.00426   +0.00419       13/0/3       13/0/3  <- repro anchor
+G       8    14   +0.00489   +0.00492       14/0/2       14/0/2
+G      10    13   +0.00441   +0.00431       13/0/3       13/0/3
+
+=== REPRODUCTION CHECK (recomputed K5 here vs prior rounds, tol<5e-6) ===
+  gate C K5 vs round40: Public +0.003630 vs +0.003630 (|d|=0.00e+00, YES); Private +0.003156 vs +0.003156 (|d|=0.00e+00, YES)
+  gate D K5 vs round35: Public +0.004726 vs +0.004726 (|d|=0.00e+00, YES); Private +0.004532 vs +0.004532 (|d|=0.00e+00, YES)
+  gate G K5 vs round36: Public +0.004259 vs +0.004259 (|d|=0.00e+00, YES); Private +0.004189 vs +0.004189 (|d|=0.00e+00, YES)
+  coarse context (printed, not asserted): C ~ +0.00363/+0.00316, D ~ +0.00473/+0.00453, G ~ +0.00426/+0.00419
+  REPRODUCTION: PASS
+
+=== FIRING SETS ===
+  gate C (12): train_01, train_02, train_03, train_05, train_06, train_07, train_08, train_09, train_12, train_13, train_14, train_15
+    expected 12 categorical matched: YES
+  gate D (15): train_01, train_02, train_03, train_04, train_05, train_06, train_07, train_08, train_09, train_10, train_11, train_12, train_13, train_14, train_15
+    expected 15 (all but train_16) matched: YES
+  gate G (K-dependent):
+    K5 (13): excludes train_06, train_13, train_16
+    K8 (14): excludes train_13, train_16
+    K10 (13): excludes train_13, train_15, train_16
+    gate G K5 == round36 (excl train_06/13/16): YES
+    gate G firing set SHIFTS with K: YES
+      K5 vs K5: +[-] -[-]
+      K8 vs K5: +[train_06] -[-]
+      K10 vs K5: +[train_06] -[train_15]
+
+=== INVARIANT (non-firing datasets identical to base, delta 0) ===
+  OK: for every gate x K, each non-firing dataset contributes
+  applied delta exactly 0 on BOTH splits (uses seed-0 base). PASS.
+  base column == seed-0 on all 16 datasets: YES
+
+=== INTERACTION FOCUS: pure-numeric train_04/10/11/16 across K ===
+  (raw seed-avg delta vs base; gate C NEVER fires on these. gate D
+   fires on 04/10/11, excludes 16. gate G fires iff lift(K)>0.)
+dataset       nTr  base_pub  base_prv    dPub_K5    dPrv_K5  G_K5    dPub_K8    dPrv_K8  G_K8   dPub_K10   dPrv_K10 G_K10
+train_04     8775    0.8236    0.8250   +0.00631   +0.00802  fire   +0.00725   +0.00951  fire   +0.00729   +0.00956  fire
+train_10    11800    0.8368    0.8477   +0.00781   +0.00929  fire   +0.00798   +0.00975  fire   +0.00838   +0.01027  fire
+train_11    28879    0.8281    0.8167   +0.00342   +0.00472  fire   +0.00365   +0.00503  fire   +0.00416   +0.00531  fire
+train_16     1809    0.8922    0.8933   -0.00238   -0.00458   --    -0.00115   -0.00396   --    -0.00057   -0.00371   -- 
+
+  Do train_04/10/11 keep improving CLEANLY as K rises? (raw seed-avg
+  delta on each; a regression on either split at any K breaks 'clean')
+    train_04   K5:+0.00631/+0.00802[GAIN]  K8:+0.00725/+0.00951[GAIN]  K10:+0.00729/+0.00956[GAIN]   -> CLEAN across K
+    train_10   K5:+0.00781/+0.00929[GAIN]  K8:+0.00798/+0.00975[GAIN]  K10:+0.00838/+0.01027[GAIN]   -> CLEAN across K
+    train_11   K5:+0.00342/+0.00472[GAIN]  K8:+0.00365/+0.00503[GAIN]  K10:+0.00416/+0.00531[GAIN]   -> CLEAN across K
+    => train_04/10/11 all clean (no regression) at every K: YES
+    train_16 (excluded by D & G) if admitted: K5:-0.00238/-0.00458[REG]  K8:-0.00115/-0.00396[REG]  K10:-0.00057/-0.00371[REG]
+
+  Per-K cleanliness of gate D and gate G firing sets (zero regression):
+    gate D K5: CLEAN (zero regression)
+    gate D K8: CLEAN (zero regression)
+    gate D K10: CLEAN (zero regression)
+    gate G K5: CLEAN (zero regression)
+    gate G K8: CLEAN (zero regression)
+    gate G K10: CLEAN (zero regression)
+
+=== PER-DATASET applied ΔAUC (Public) — gate x K (0 where the gate does not fire) ===
+dataset     obj     base       CK5       CK8      CK10       DK5       DK8      DK10       GK5       GK8      GK10
+train_01      5   0.7103  +0.00312  +0.00375  +0.00366  +0.00312  +0.00375  +0.00366  +0.00312  +0.00375  +0.00366
+train_02      2   0.9644  +0.00371  +0.00425  +0.00442  +0.00371  +0.00425  +0.00442  +0.00371  +0.00425  +0.00442
+train_03      7   0.7926  +0.00685  +0.00781  +0.00789  +0.00685  +0.00781  +0.00789  +0.00685  +0.00781  +0.00789
+train_04      0   0.8236  +0.00000  +0.00000  +0.00000  +0.00631  +0.00725  +0.00729  +0.00631  +0.00725  +0.00729
+train_05      5   0.6531  +0.00287  +0.00630  +0.00840  +0.00287  +0.00630  +0.00840  +0.00287  +0.00630  +0.00840
+train_06      9   0.7997  +0.00053  +0.00038  +0.00051  +0.00053  +0.00038  +0.00051  +0.00000  +0.00038  +0.00051
+train_07      6   0.8236  +0.00528  +0.00566  +0.00599  +0.00528  +0.00566  +0.00599  +0.00528  +0.00566  +0.00599
+train_08     12   0.8460  +0.00313  +0.00365  +0.00365  +0.00313  +0.00365  +0.00365  +0.00313  +0.00365  +0.00365
+train_09      4   0.6204  +0.00985  +0.01117  +0.01110  +0.00985  +0.01117  +0.01110  +0.00985  +0.01117  +0.01110
+train_10      0   0.8368  +0.00000  +0.00000  +0.00000  +0.00781  +0.00798  +0.00838  +0.00781  +0.00798  +0.00838
+train_11      0   0.8281  +0.00000  +0.00000  +0.00000  +0.00342  +0.00365  +0.00416  +0.00342  +0.00365  +0.00416
+train_12      3   0.7949  +0.00122  +0.00150  +0.00158  +0.00122  +0.00150  +0.00158  +0.00122  +0.00150  +0.00158
+train_13      4   0.6284  +0.00696  +0.00589  +0.00733  +0.00696  +0.00589  +0.00733  +0.00000  +0.00000  +0.00000
+train_14     15   0.7975  +0.00442  +0.00404  +0.00351  +0.00442  +0.00404  +0.00351  +0.00442  +0.00404  +0.00351
+train_15     24   0.8411  +0.01016  +0.01089  +0.01145  +0.01016  +0.01089  +0.01145  +0.01016  +0.01089  +0.00000
+train_16      0   0.8922  +0.00000  +0.00000  +0.00000  +0.00000  +0.00000  +0.00000  +0.00000  +0.00000  +0.00000
+
+=== PER-DATASET applied ΔAUC (Private) — gate x K (0 where the gate does not fire) ===
+dataset     obj     base       CK5       CK8      CK10       DK5       DK8      DK10       GK5       GK8      GK10
+train_01      5   0.7048  +0.00286  +0.00338  +0.00372  +0.00286  +0.00338  +0.00372  +0.00286  +0.00338  +0.00372
+train_02      2   0.9635  +0.00349  +0.00382  +0.00408  +0.00349  +0.00382  +0.00408  +0.00349  +0.00382  +0.00408
+train_03      7   0.8095  +0.00646  +0.00743  +0.00728  +0.00646  +0.00743  +0.00728  +0.00646  +0.00743  +0.00728
+train_04      0   0.8250  +0.00000  +0.00000  +0.00000  +0.00802  +0.00951  +0.00956  +0.00802  +0.00951  +0.00956
+train_05      5   0.6569  +0.00383  +0.00671  +0.00833  +0.00383  +0.00671  +0.00833  +0.00383  +0.00671  +0.00833
+train_06      9   0.8137  +0.00039  +0.00061  +0.00050  +0.00039  +0.00061  +0.00050  +0.00000  +0.00061  +0.00050
+train_07      6   0.8265  +0.00261  +0.00227  +0.00251  +0.00261  +0.00227  +0.00251  +0.00261  +0.00227  +0.00251
+train_08     12   0.8411  +0.00176  +0.00164  +0.00172  +0.00176  +0.00164  +0.00172  +0.00176  +0.00164  +0.00172
+train_09      4   0.6335  +0.00634  +0.00897  +0.00930  +0.00634  +0.00897  +0.00930  +0.00634  +0.00897  +0.00930
+train_10      0   0.8477  +0.00000  +0.00000  +0.00000  +0.00929  +0.00975  +0.01027  +0.00929  +0.00975  +0.01027
+train_11      0   0.8167  +0.00000  +0.00000  +0.00000  +0.00472  +0.00503  +0.00531  +0.00472  +0.00503  +0.00531
+train_12      3   0.7695  +0.00200  +0.00240  +0.00234  +0.00200  +0.00240  +0.00234  +0.00200  +0.00240  +0.00234
+train_13      4   0.6440  +0.00510  +0.00483  +0.00622  +0.00510  +0.00483  +0.00622  +0.00000  +0.00000  +0.00000
+train_14     15   0.8044  +0.00296  +0.00385  +0.00405  +0.00296  +0.00385  +0.00405  +0.00296  +0.00385  +0.00405
+train_15     24   0.8436  +0.01268  +0.01343  +0.01369  +0.01268  +0.01343  +0.01369  +0.01268  +0.01343  +0.00000
+train_16      0   0.8933  +0.00000  +0.00000  +0.00000  +0.00000  +0.00000  +0.00000  +0.00000  +0.00000  +0.00000
+
+=== ADOPTION ANALYSIS ===
+Criterion A (clean vs base-08): mean D > 0 AND zero regressions on BOTH
+  splits. Criterion B (beats gate C at same K): also strictly greater
+  mean than gate C on BOTH splits with zero regressions.
+
+  --- K5 (gate C ref: pub+0.00363 prv+0.00316) ---
+    gate C K5: pub+0.00363 prv+0.00316  clean-vs-08; == gate C baseline
+    gate D K5: pub+0.00473 prv+0.00453  clean-vs-08; beats-C(clean,both)
+    gate G K5: pub+0.00426 prv+0.00419  clean-vs-08; beats-C(clean,both)
+  --- K8 (gate C ref: pub+0.00408 prv+0.00371) ---
+    gate C K8: pub+0.00408 prv+0.00371  clean-vs-08; == gate C baseline
+    gate D K8: pub+0.00526 prv+0.00523  clean-vs-08; beats-C(clean,both)
+    gate G K8: pub+0.00489 prv+0.00492  clean-vs-08; beats-C(clean,both)
+  --- K10 (gate C ref: pub+0.00434 prv+0.00398) ---
+    gate C K10: pub+0.00434 prv+0.00398  clean-vs-08; == gate C baseline
+    gate D K10: pub+0.00558 prv+0.00555  clean-vs-08; beats-C(clean,both)
+    gate G K10: pub+0.00441 prv+0.00431  clean-vs-08; beats-C(clean,both)
+
+=== VERDICT (angle f) ===
+Q: Does raising K interact with gate D / gate G differently than with
+   gate C? Do the extra pure-numeric datasets keep improving cleanly?
+
+  gate C: meanPub over K[5, 8, 10] = +0.00363, +0.00408, +0.00434  (monotone up: YES)
+  gate C: meanPrv over K[5, 8, 10] = +0.00316, +0.00371, +0.00398  (monotone up: YES)
+  gate D: meanPub over K[5, 8, 10] = +0.00473, +0.00526, +0.00558  (monotone up: YES)
+  gate D: meanPrv over K[5, 8, 10] = +0.00453, +0.00523, +0.00555  (monotone up: YES)
+  gate G: meanPub over K[5, 8, 10] = +0.00426, +0.00489, +0.00441  (monotone up: NO)
+  gate G: meanPrv over K[5, 8, 10] = +0.00419, +0.00492, +0.00431  (monotone up: NO)
+
+  Pure-numeric train_04/10/11 clean (no regression) at every K: YES.
+  There IS a K where gate D or gate G CLEANLY beats gate C (zero regression, higher mean on both splits):
+    gate D K5: pub+0.00473(vs C +0.00363) prv+0.00453(vs C +0.00316)
+    gate D K8: pub+0.00526(vs C +0.00408) prv+0.00523(vs C +0.00371)
+    gate D K10: pub+0.00558(vs C +0.00434) prv+0.00555(vs C +0.00398)
+    gate G K5: pub+0.00426(vs C +0.00363) prv+0.00419(vs C +0.00316)
+    gate G K8: pub+0.00489(vs C +0.00408) prv+0.00492(vs C +0.00371)
+    gate G K10: pub+0.00441(vs C +0.00434) prv+0.00431(vs C +0.00398)
+
+  INTERACTION: gate C fires only on the 12 categorical datasets, so its
+  mean is a pure categorical-region effect. gate D adds pure-numeric
+  large-n (train_04/10/11); gate G adds/removes datasets by internal-
+  holdout lift(K). The rows above show, per K, whether admitting the
+  pure-numeric region accelerates the gain, stays flat, or regresses.
+  gate G's firing set shifts with K: YES (gate C and gate D masks are K-independent by construction).
+
+CLEAN RUN=YES (total_fits=320, datasets=16/16, exceptions=0, skipped=0, invariant_violations=0, fireC_match=YES, fireD_match=YES, fireG_K5_match=YES, reproduction=YES, base_eq_seed0=YES)
+
+[WROTE] /Users/kumacmini/kaggle-autonomous-agent-baseline-auto/experiments/bench_03/round42_gateDG_ksweep/results.csv
+[WROTE] /Users/kumacmini/kaggle-autonomous-agent-baseline-auto/experiments/bench_03/round42_gateDG_ksweep/summary.txt
+HARNESS_DONE

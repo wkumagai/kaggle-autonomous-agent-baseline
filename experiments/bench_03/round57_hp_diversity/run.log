@@ -1,0 +1,317 @@
+[OK] train_01 n_tr=14957 obj=5 feats=12 cat=5 l2=0.0 msl=20 hpdiv_validk=10 skips=0 fits=21 | base pub=0.710287 prv=0.704818  hpdiv pub=0.711584 prv=0.704849  seedavg pub=0.713951 prv=0.708539
+[OK] train_02 n_tr=14929 obj=2 feats=28 cat=2 l2=0.0 msl=20 hpdiv_validk=10 skips=0 fits=21 | base pub=0.964370 prv=0.963480  hpdiv pub=0.966196 prv=0.965609  seedavg pub=0.968792 prv=0.967562
+[OK] train_03 n_tr=3501 obj=7 feats=18 cat=7 l2=0.0 msl=20 hpdiv_validk=10 skips=0 fits=21 | base pub=0.792579 prv=0.809545  hpdiv pub=0.793835 prv=0.811766  seedavg pub=0.800473 prv=0.816822
+[OK] train_04 n_tr=8775 obj=0 feats=12 cat=0 l2=0.0 msl=20 hpdiv_validk=10 skips=0 fits=21 | base pub=0.823647 prv=0.824960  hpdiv pub=0.826411 prv=0.830431  seedavg pub=0.830940 prv=0.834517
+[OK] train_05 n_tr=1060 obj=5 feats=9 cat=5 l2=0.0 msl=20 hpdiv_validk=10 skips=0 fits=21 | base pub=0.653135 prv=0.656873  hpdiv pub=0.651289 prv=0.659064  seedavg pub=0.661531 prv=0.665205
+[OK] train_06 n_tr=10803 obj=9 feats=9 cat=9 l2=0.0 msl=20 hpdiv_validk=10 skips=0 fits=21 | base pub=0.799693 prv=0.813708  hpdiv pub=0.798732 prv=0.814675  seedavg pub=0.800202 prv=0.814208
+[OK] train_07 n_tr=10417 obj=6 feats=17 cat=6 l2=0.0 msl=20 hpdiv_validk=10 skips=0 fits=21 | base pub=0.823648 prv=0.826507  hpdiv pub=0.827966 prv=0.828898  seedavg pub=0.829633 prv=0.829013
+[OK] train_08 n_tr=8173 obj=12 feats=12 cat=12 l2=0.0 msl=20 hpdiv_validk=10 skips=0 fits=21 | base pub=0.846027 prv=0.841110  hpdiv pub=0.847235 prv=0.841690  seedavg pub=0.849677 prv=0.842830
+[OK] train_09 n_tr=1109 obj=4 feats=18 cat=4 l2=1.0 msl=50 hpdiv_validk=10 skips=0 fits=21 | base pub=0.620424 prv=0.633474  hpdiv pub=0.624099 prv=0.632922  seedavg pub=0.631522 prv=0.642779
+[OK] train_10 n_tr=11800 obj=0 feats=27 cat=0 l2=0.0 msl=20 hpdiv_validk=10 skips=0 fits=21 | base pub=0.836807 prv=0.847743  hpdiv pub=0.845044 prv=0.855528  seedavg pub=0.845183 prv=0.858015
+[OK] train_11 n_tr=28879 obj=0 feats=20 cat=0 l2=0.0 msl=20 hpdiv_validk=10 skips=0 fits=21 | base pub=0.828129 prv=0.816654  hpdiv pub=0.829502 prv=0.820423  seedavg pub=0.832289 prv=0.821966
+[OK] train_12 n_tr=49432 obj=3 feats=8 cat=3 l2=0.0 msl=20 hpdiv_validk=10 skips=0 fits=21 | base pub=0.794888 prv=0.769505  hpdiv pub=0.795640 prv=0.771036  seedavg pub=0.796471 prv=0.771842
+[OK] train_13 n_tr=500 obj=4 feats=9 cat=4 l2=1.0 msl=50 hpdiv_validk=10 skips=0 fits=21 | base pub=0.628380 prv=0.644000  hpdiv pub=0.621290 prv=0.635589  seedavg pub=0.635713 prv=0.650216
+[OK] train_14 n_tr=11108 obj=15 feats=23 cat=15 l2=0.0 msl=20 hpdiv_validk=10 skips=0 fits=21 | base pub=0.797525 prv=0.804425  hpdiv pub=0.798852 prv=0.806328  seedavg pub=0.801037 prv=0.808473
+[OK] train_15 n_tr=500 obj=24 feats=30 cat=24 l2=1.0 msl=70 hpdiv_validk=10 skips=0 fits=21 | base pub=0.841097 prv=0.843627  hpdiv pub=0.840018 prv=0.844864  seedavg pub=0.852545 prv=0.857319
+[OK] train_16 n_tr=1809 obj=0 feats=21 cat=0 l2=1.0 msl=20 hpdiv_validk=10 skips=0 fits=21 | base pub=0.892160 prv=0.893255  hpdiv pub=0.892311 prv=0.892875  seedavg pub=0.891588 prv=0.889543
+
+==============================================================================
+bench_03 round57 — HYPERPARAMETER-DIVERSITY (learning_rate grid, K=10) vs SEED-AVG (K=10) vs base-08 (ALL 16)  [OFFLINE]
+==============================================================================
+
+SETUP:
+  base    == shipped 08: HGB, early_stopping, cat_mask=object cols,
+             seed-0, full train, FULL columns, default learning_rate.
+  hpdiv   == learning_rate-diversity K=10. Per k in 0..9: random_state
+             FIXED at 0, learning_rate = BASE_LR*factors[k] with
+             factors = exp(linspace(log(0.5), log(2.0), 10)) (log-
+             symmetric around the base rate, 0.5x..2.0x). ALL other
+             params = base-08 (full train, FULL columns, l2/msl gate).
+             Aggregate = MEAN of the valid-k proba vectors.
+             GUARD: single-class member -> that k skipped.
+  seedavg == plain seed-avg K=10: fit K base-08 HGB on the FULL train,
+             FULL columns, default lr, random_state 0..9, MEAN of proba.
+  Single new mechanism vs seedavg = LEARNING_RATE diversity (seed fixed).
+
+  learning_rate grid (BASE_LR=0.100):
+    factors = [0.5000, 0.5833, 0.6804, 0.7937, 0.9259, 1.0801, 1.2599, 1.4697, 1.7145, 2.0000]
+    rates   = [0.0500, 0.0583, 0.0680, 0.0794, 0.0926, 0.1080, 0.1260, 0.1470, 0.1714, 0.2000]
+
+=== HPDIV MEMBER DETAIL (K=10) & GUARD ===
+dataset     n_feat  valid_k    skipped_k
+train_01        12       10            -
+train_02        28       10            -
+train_03        18       10            -
+train_04        12       10            -
+train_05         9       10            -
+train_06         9       10            -
+train_07        17       10            -
+train_08        12       10            -
+train_09        18       10            -
+train_10        27       10            -
+train_11        20       10            -
+train_12         8       10            -
+train_13         9       10            -
+train_14        23       10            -
+train_15        30       10            -
+train_16        21       10            -
+  datasets with any skip: 0, total k skipped: 0
+
+=== HEADLINE (arm vs base == shipped 08, all 16) ===
+  hpdiv   : mean ΔPublic=+0.001075 (W/L/T 12/4/0)  mean ΔPrivate=+0.001429 (W/L/T 13/3/0)
+  seedavg : mean ΔPublic=+0.005547 (W/L/T 15/1/0)  mean ΔPrivate=+0.005323 (W/L/T 15/1/0)
+
+=== GATE-C VIEW (n_object_cols>0 subset, SECONDARY) ===
+  gate-C datasets: 12
+  hpdiv   : mean ΔPublic=+0.000390 (W/L/T 8/4/0)  mean ΔPrivate=+0.000518 (W/L/T 10/2/0)
+  seedavg : mean ΔPublic=+0.005791 (W/L/T 12/0/0)  mean ΔPrivate=+0.005311 (W/L/T 12/0/0)
+
+=== HEAD-TO-HEAD: hpdiv vs seedavg (per-dataset, both vs base) ===
+dataset        hp_dpub     sa_dpub     hp_dprv     sa_dprv
+train_01     +0.001297   +0.003664   +0.000031   +0.003721
+train_02     +0.001826   +0.004422   +0.002128   +0.004082
+train_03     +0.001256   +0.007894   +0.002221   +0.007277
+train_04     +0.002764   +0.007293   +0.005471   +0.009558
+train_05     -0.001846   +0.008396   +0.002191   +0.008332
+train_06     -0.000961   +0.000509   +0.000966   +0.000499
+train_07     +0.004318   +0.005985   +0.002390   +0.002506
+train_08     +0.001208   +0.003650   +0.000580   +0.001720
+train_09     +0.003675   +0.011098   -0.000553   +0.009305
+train_10     +0.008236   +0.008376   +0.007786   +0.010273
+train_11     +0.001373   +0.004160   +0.003768   +0.005312
+train_12     +0.000752   +0.001583   +0.001531   +0.002337
+train_13     -0.007090   +0.007333   -0.008411   +0.006216
+train_14     +0.001328   +0.003512   +0.001903   +0.004048
+train_15     -0.001079   +0.011448   +0.001237   +0.013693
+train_16     +0.000150   -0.000572   -0.000379   -0.003712
+  Public : hpdiv>seedavg on 1, seedavg>hpdiv on 15
+  Private: hpdiv>seedavg on 2, seedavg>hpdiv on 14
+
+=== NOISY SMALL-N FOCUS (train_05, train_09, train_13) ===
+  train_05 (n=1060): hpdiv ΔPub=-0.001846 ΔPrv=+0.002191 | seedavg ΔPub=+0.008396 ΔPrv=+0.008332
+  train_09 (n=1109): hpdiv ΔPub=+0.003675 ΔPrv=-0.000553 | seedavg ΔPub=+0.011098 ΔPrv=+0.009305
+  train_13 (n=500): hpdiv ΔPub=-0.007090 ΔPrv=-0.008411 | seedavg ΔPub=+0.007333 ΔPrv=+0.006216
+
+=== REPRODUCTION CHECK (base & seedavg on ALL 16 vs round56, byte-exact) ===
+  -- base anchor --
+    train_01: Public 0.710287 vs r56 0.710287 (|d|=0.00e+00, YES); Private 0.704818 vs r56 0.704818 (|d|=0.00e+00, YES)
+    train_02: Public 0.964370 vs r56 0.964370 (|d|=0.00e+00, YES); Private 0.963480 vs r56 0.963480 (|d|=0.00e+00, YES)
+    train_03: Public 0.792579 vs r56 0.792579 (|d|=0.00e+00, YES); Private 0.809545 vs r56 0.809545 (|d|=0.00e+00, YES)
+    train_04: Public 0.823647 vs r56 0.823647 (|d|=0.00e+00, YES); Private 0.824960 vs r56 0.824960 (|d|=0.00e+00, YES)
+    train_05: Public 0.653135 vs r56 0.653135 (|d|=0.00e+00, YES); Private 0.656873 vs r56 0.656873 (|d|=0.00e+00, YES)
+    train_06: Public 0.799693 vs r56 0.799693 (|d|=0.00e+00, YES); Private 0.813708 vs r56 0.813708 (|d|=0.00e+00, YES)
+    train_07: Public 0.823648 vs r56 0.823648 (|d|=0.00e+00, YES); Private 0.826507 vs r56 0.826507 (|d|=0.00e+00, YES)
+    train_08: Public 0.846027 vs r56 0.846027 (|d|=0.00e+00, YES); Private 0.841110 vs r56 0.841110 (|d|=0.00e+00, YES)
+    train_09: Public 0.620424 vs r56 0.620424 (|d|=0.00e+00, YES); Private 0.633474 vs r56 0.633474 (|d|=0.00e+00, YES)
+    train_10: Public 0.836807 vs r56 0.836807 (|d|=0.00e+00, YES); Private 0.847743 vs r56 0.847743 (|d|=0.00e+00, YES)
+    train_11: Public 0.828129 vs r56 0.828129 (|d|=0.00e+00, YES); Private 0.816654 vs r56 0.816654 (|d|=0.00e+00, YES)
+    train_12: Public 0.794888 vs r56 0.794888 (|d|=0.00e+00, YES); Private 0.769505 vs r56 0.769505 (|d|=0.00e+00, YES)
+    train_13: Public 0.628380 vs r56 0.628380 (|d|=0.00e+00, YES); Private 0.644000 vs r56 0.644000 (|d|=0.00e+00, YES)
+    train_14: Public 0.797525 vs r56 0.797525 (|d|=0.00e+00, YES); Private 0.804425 vs r56 0.804425 (|d|=0.00e+00, YES)
+    train_15: Public 0.841097 vs r56 0.841097 (|d|=0.00e+00, YES); Private 0.843627 vs r56 0.843627 (|d|=0.00e+00, YES)
+    train_16: Public 0.892160 vs r56 0.892160 (|d|=0.00e+00, YES); Private 0.893255 vs r56 0.893255 (|d|=0.00e+00, YES)
+    max |dev| (base) over 16x2 = 0.00e+00  -> PASS
+  -- seedavg anchor --
+    train_01: Public 0.713951 vs r56 0.713951 (|d|=0.00e+00, YES); Private 0.708539 vs r56 0.708539 (|d|=0.00e+00, YES)
+    train_02: Public 0.968792 vs r56 0.968792 (|d|=0.00e+00, YES); Private 0.967562 vs r56 0.967562 (|d|=0.00e+00, YES)
+    train_03: Public 0.800473 vs r56 0.800473 (|d|=0.00e+00, YES); Private 0.816822 vs r56 0.816822 (|d|=0.00e+00, YES)
+    train_04: Public 0.830940 vs r56 0.830940 (|d|=0.00e+00, YES); Private 0.834517 vs r56 0.834517 (|d|=0.00e+00, YES)
+    train_05: Public 0.661531 vs r56 0.661531 (|d|=0.00e+00, YES); Private 0.665205 vs r56 0.665205 (|d|=0.00e+00, YES)
+    train_06: Public 0.800202 vs r56 0.800202 (|d|=0.00e+00, YES); Private 0.814208 vs r56 0.814208 (|d|=0.00e+00, YES)
+    train_07: Public 0.829633 vs r56 0.829633 (|d|=0.00e+00, YES); Private 0.829013 vs r56 0.829013 (|d|=0.00e+00, YES)
+    train_08: Public 0.849677 vs r56 0.849677 (|d|=0.00e+00, YES); Private 0.842830 vs r56 0.842830 (|d|=0.00e+00, YES)
+    train_09: Public 0.631522 vs r56 0.631522 (|d|=0.00e+00, YES); Private 0.642779 vs r56 0.642779 (|d|=0.00e+00, YES)
+    train_10: Public 0.845183 vs r56 0.845183 (|d|=0.00e+00, YES); Private 0.858015 vs r56 0.858015 (|d|=0.00e+00, YES)
+    train_11: Public 0.832289 vs r56 0.832289 (|d|=0.00e+00, YES); Private 0.821966 vs r56 0.821966 (|d|=0.00e+00, YES)
+    train_12: Public 0.796471 vs r56 0.796471 (|d|=0.00e+00, YES); Private 0.771842 vs r56 0.771842 (|d|=0.00e+00, YES)
+    train_13: Public 0.635713 vs r56 0.635713 (|d|=0.00e+00, YES); Private 0.650216 vs r56 0.650216 (|d|=0.00e+00, YES)
+    train_14: Public 0.801037 vs r56 0.801037 (|d|=0.00e+00, YES); Private 0.808473 vs r56 0.808473 (|d|=0.00e+00, YES)
+    train_15: Public 0.852545 vs r56 0.852545 (|d|=0.00e+00, YES); Private 0.857319 vs r56 0.857319 (|d|=0.00e+00, YES)
+    train_16: Public 0.891588 vs r56 0.891588 (|d|=0.00e+00, YES); Private 0.889543 vs r56 0.889543 (|d|=0.00e+00, YES)
+    max |dev| (seedavg) over 16x2 = 0.00e+00  -> PASS
+  REPRODUCTION (both anchors): PASS
+
+=== PER-DATASET ΔAUC (Public) — base vs hpdiv ===
+dataset          base        arm       delta
+train_01     0.710287   0.711584   +0.001297
+train_02     0.964370   0.966196   +0.001826
+train_03     0.792579   0.793835   +0.001256
+train_04     0.823647   0.826411   +0.002764
+train_05     0.653135   0.651289   -0.001846
+train_06     0.799693   0.798732   -0.000961
+train_07     0.823648   0.827966   +0.004318
+train_08     0.846027   0.847235   +0.001208
+train_09     0.620424   0.624099   +0.003675
+train_10     0.836807   0.845044   +0.008236
+train_11     0.828129   0.829502   +0.001373
+train_12     0.794888   0.795640   +0.000752
+train_13     0.628380   0.621290   -0.007090
+train_14     0.797525   0.798852   +0.001328
+train_15     0.841097   0.840018   -0.001079
+train_16     0.892160   0.892311   +0.000150
+
+=== PER-DATASET ΔAUC (Private) — base vs hpdiv ===
+dataset          base        arm       delta
+train_01     0.704818   0.704849   +0.000031
+train_02     0.963480   0.965609   +0.002128
+train_03     0.809545   0.811766   +0.002221
+train_04     0.824960   0.830431   +0.005471
+train_05     0.656873   0.659064   +0.002191
+train_06     0.813708   0.814675   +0.000966
+train_07     0.826507   0.828898   +0.002390
+train_08     0.841110   0.841690   +0.000580
+train_09     0.633474   0.632922   -0.000553
+train_10     0.847743   0.855528   +0.007786
+train_11     0.816654   0.820423   +0.003768
+train_12     0.769505   0.771036   +0.001531
+train_13     0.644000   0.635589   -0.008411
+train_14     0.804425   0.806328   +0.001903
+train_15     0.843627   0.844864   +0.001237
+train_16     0.893255   0.892875   -0.000379
+
+=== PER-DATASET ΔAUC (Public) — base vs seedavg ===
+dataset          base        arm       delta
+train_01     0.710287   0.713951   +0.003664
+train_02     0.964370   0.968792   +0.004422
+train_03     0.792579   0.800473   +0.007894
+train_04     0.823647   0.830940   +0.007293
+train_05     0.653135   0.661531   +0.008396
+train_06     0.799693   0.800202   +0.000509
+train_07     0.823648   0.829633   +0.005985
+train_08     0.846027   0.849677   +0.003650
+train_09     0.620424   0.631522   +0.011098
+train_10     0.836807   0.845183   +0.008376
+train_11     0.828129   0.832289   +0.004160
+train_12     0.794888   0.796471   +0.001583
+train_13     0.628380   0.635713   +0.007333
+train_14     0.797525   0.801037   +0.003512
+train_15     0.841097   0.852545   +0.011448
+train_16     0.892160   0.891588   -0.000572
+
+=== PER-DATASET ΔAUC (Private) — base vs seedavg ===
+dataset          base        arm       delta
+train_01     0.704818   0.708539   +0.003721
+train_02     0.963480   0.967562   +0.004082
+train_03     0.809545   0.816822   +0.007277
+train_04     0.824960   0.834517   +0.009558
+train_05     0.656873   0.665205   +0.008332
+train_06     0.813708   0.814208   +0.000499
+train_07     0.826507   0.829013   +0.002506
+train_08     0.841110   0.842830   +0.001720
+train_09     0.633474   0.642779   +0.009305
+train_10     0.847743   0.858015   +0.010273
+train_11     0.816654   0.821966   +0.005312
+train_12     0.769505   0.771842   +0.002337
+train_13     0.644000   0.650216   +0.006216
+train_14     0.804425   0.808473   +0.004048
+train_15     0.843627   0.857319   +0.013693
+train_16     0.893255   0.889543   -0.003712
+
+=== REGRESSIONS (ΔAUC < -1e-6) ===
+  hpdiv Public  train_05: -0.001846
+  hpdiv Public  train_06: -0.000961
+  hpdiv Public  train_13: -0.007090
+  hpdiv Public  train_15: -0.001079
+  hpdiv Private train_09: -0.000553
+  hpdiv Private train_13: -0.008411
+  hpdiv Private train_16: -0.000379
+  seedavg Public  train_16: -0.000572
+  seedavg Private train_16: -0.003712
+
+=== IMPROVEMENTS (ΔAUC > +1e-6) ===
+  hpdiv Public  train_01: +0.001297
+  hpdiv Public  train_02: +0.001826
+  hpdiv Public  train_03: +0.001256
+  hpdiv Public  train_04: +0.002764
+  hpdiv Public  train_07: +0.004318
+  hpdiv Public  train_08: +0.001208
+  hpdiv Public  train_09: +0.003675
+  hpdiv Public  train_10: +0.008236
+  hpdiv Public  train_11: +0.001373
+  hpdiv Public  train_12: +0.000752
+  hpdiv Public  train_14: +0.001328
+  hpdiv Public  train_16: +0.000150
+  hpdiv Private train_01: +0.000031
+  hpdiv Private train_02: +0.002128
+  hpdiv Private train_03: +0.002221
+  hpdiv Private train_04: +0.005471
+  hpdiv Private train_05: +0.002191
+  hpdiv Private train_06: +0.000966
+  hpdiv Private train_07: +0.002390
+  hpdiv Private train_08: +0.000580
+  hpdiv Private train_10: +0.007786
+  hpdiv Private train_11: +0.003768
+  hpdiv Private train_12: +0.001531
+  hpdiv Private train_14: +0.001903
+  hpdiv Private train_15: +0.001237
+  seedavg Public  train_01: +0.003664
+  seedavg Public  train_02: +0.004422
+  seedavg Public  train_03: +0.007894
+  seedavg Public  train_04: +0.007293
+  seedavg Public  train_05: +0.008396
+  seedavg Public  train_06: +0.000509
+  seedavg Public  train_07: +0.005985
+  seedavg Public  train_08: +0.003650
+  seedavg Public  train_09: +0.011098
+  seedavg Public  train_10: +0.008376
+  seedavg Public  train_11: +0.004160
+  seedavg Public  train_12: +0.001583
+  seedavg Public  train_13: +0.007333
+  seedavg Public  train_14: +0.003512
+  seedavg Public  train_15: +0.011448
+  seedavg Private train_01: +0.003721
+  seedavg Private train_02: +0.004082
+  seedavg Private train_03: +0.007277
+  seedavg Private train_04: +0.009558
+  seedavg Private train_05: +0.008332
+  seedavg Private train_06: +0.000499
+  seedavg Private train_07: +0.002506
+  seedavg Private train_08: +0.001720
+  seedavg Private train_09: +0.009305
+  seedavg Private train_10: +0.010273
+  seedavg Private train_11: +0.005312
+  seedavg Private train_12: +0.002337
+  seedavg Private train_13: +0.006216
+  seedavg Private train_14: +0.004048
+  seedavg Private train_15: +0.013693
+
+=== LARGEST SINGLE MOVES ===
+  -- hpdiv --
+    Public max regression : train_13 -0.007090
+    Public max improvement: train_10 +0.008236
+    Private max regression : train_13 -0.008411
+    Private max improvement: train_10 +0.007786
+  -- seedavg --
+    Public max regression : train_16 -0.000572
+    Public max improvement: train_15 +0.011448
+    Private max regression : train_16 -0.003712
+    Private max improvement: train_15 +0.013693
+
+=== ADOPTION ANALYSIS ===
+Per arm: ADOPT iff mean ΔPublic > 0 AND mean ΔPrivate > 0 with ZERO
+  regression on EITHER split. Any regression, or net-negative/
+  negligible mean on either split => REJECT.
+
+  [hpdiv] zero_regressions=NO (Public regs=4, Private regs=3)
+  [hpdiv] mean ΔPublic  = +0.001075  (clean gain: YES)
+  [hpdiv] mean ΔPrivate = +0.001429  (clean gain: YES)
+  [hpdiv] -> REJECT
+
+  [seedavg] zero_regressions=NO (Public regs=1, Private regs=1)
+  [seedavg] mean ΔPublic  = +0.005547  (clean gain: YES)
+  [seedavg] mean ΔPrivate = +0.005323  (clean gain: YES)
+  [seedavg] -> REJECT
+
+=== VERDICT ===
+  Learning-rate diversity does NOT beat plain seed-avg on both mean splits (hpdiv ΔPub +0.001075 vs seedavg +0.005547; hpdiv ΔPrv +0.001429 vs seedavg +0.005323).
+  Learning-rate diversity beats base on both mean splits but HAS regressions (ΔPub +0.001075, ΔPrv +0.001429).
+  REJECT (clean-win test): no arm improves BOTH splits with zero regressions across all 16.
+
+SHIP VERDICT: REJECT
+
+CLEAN RUN: YES (0 exceptions)  [total_fits=336, datasets_scored=16/16, skipped=0, reproduction=YES, base_repro_maxdev=0.00e+00, seedavg_repro_maxdev=0.00e+00, hpdiv_single_class_skips=0]
+
+[WROTE] /Users/kumacmini/kaggle-autonomous-agent-baseline-auto/experiments/bench_03/round57_hp_diversity/results.csv
+[WROTE] /Users/kumacmini/kaggle-autonomous-agent-baseline-auto/experiments/bench_03/round57_hp_diversity/summary.txt
+FINAL_MARKER CLEAN_RUN=YES SCORED=16/16 EXC=0 BASE_REPRO_MAXDEV=0.00e+00 SEEDAVG_REPRO_MAXDEV=0.00e+00 HPDIV_SKIPS=0
+HARNESS_DONE

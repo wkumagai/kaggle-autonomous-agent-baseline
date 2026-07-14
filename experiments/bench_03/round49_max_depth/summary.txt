@@ -1,0 +1,232 @@
+==============================================================================
+bench_03 round49 — TREE-DEPTH CAP max_depth in {3,5,8} single-knob sweep (ALL 16)  [OFFLINE]
+==============================================================================
+
+SETUP:
+  base == shipped 08 (git HEAD:submissions/08...): HGB, early_stopping,
+    max_depth UNSET -> sklearn default None (no explicit depth cap;
+    tree size bounded only by max_leaf_nodes default 31).
+    base column = seed-0 for all 16 datasets.
+  cand_md{k} == base + the SINGLE kwarg max_depth=k in the HGB
+    constructor, one arm per k in {3,5,8}, applied to ALL 16 datasets
+    (no subgroup gating). Everything else byte-identical
+    (random_state=0, max_iter=300, early_stopping=True, l2 gate,
+    tiered msl gate, categorical mask).
+
+=== HEADLINE (each cand max_depth=k vs base == shipped 08, all 16) ===
+  max_depth=3: mean ΔPublic=-0.004498 (W/L/T 7/9/0)  mean ΔPrivate=-0.004110 (W/L/T 8/8/0)
+  max_depth=5: mean ΔPublic=-0.001483 (W/L/T 6/8/2)  mean ΔPrivate=-0.001120 (W/L/T 7/7/2)
+  max_depth=8: mean ΔPublic=-0.000738 (W/L/T 5/9/2)  mean ΔPrivate=-0.000549 (W/L/T 6/8/2)
+
+=== REPRODUCTION CHECK (base on ALL 16 vs round48, tol<5e-6) ===
+  train_01: Public 0.710287 vs r48 0.710287 (|d|=0.00e+00, YES); Private 0.704818 vs r48 0.704818 (|d|=0.00e+00, YES)
+  train_02: Public 0.964370 vs r48 0.964370 (|d|=0.00e+00, YES); Private 0.963480 vs r48 0.963480 (|d|=0.00e+00, YES)
+  train_03: Public 0.792579 vs r48 0.792579 (|d|=0.00e+00, YES); Private 0.809545 vs r48 0.809545 (|d|=0.00e+00, YES)
+  train_04: Public 0.823647 vs r48 0.823647 (|d|=0.00e+00, YES); Private 0.824960 vs r48 0.824960 (|d|=0.00e+00, YES)
+  train_05: Public 0.653135 vs r48 0.653135 (|d|=0.00e+00, YES); Private 0.656873 vs r48 0.656873 (|d|=0.00e+00, YES)
+  train_06: Public 0.799693 vs r48 0.799693 (|d|=0.00e+00, YES); Private 0.813708 vs r48 0.813708 (|d|=0.00e+00, YES)
+  train_07: Public 0.823648 vs r48 0.823648 (|d|=0.00e+00, YES); Private 0.826507 vs r48 0.826507 (|d|=0.00e+00, YES)
+  train_08: Public 0.846027 vs r48 0.846027 (|d|=0.00e+00, YES); Private 0.841110 vs r48 0.841110 (|d|=0.00e+00, YES)
+  train_09: Public 0.620424 vs r48 0.620424 (|d|=0.00e+00, YES); Private 0.633474 vs r48 0.633474 (|d|=0.00e+00, YES)
+  train_10: Public 0.836807 vs r48 0.836807 (|d|=0.00e+00, YES); Private 0.847743 vs r48 0.847743 (|d|=0.00e+00, YES)
+  train_11: Public 0.828129 vs r48 0.828129 (|d|=0.00e+00, YES); Private 0.816654 vs r48 0.816654 (|d|=0.00e+00, YES)
+  train_12: Public 0.794888 vs r48 0.794888 (|d|=0.00e+00, YES); Private 0.769505 vs r48 0.769505 (|d|=0.00e+00, YES)
+  train_13: Public 0.628380 vs r48 0.628380 (|d|=0.00e+00, YES); Private 0.644000 vs r48 0.644000 (|d|=0.00e+00, YES)
+  train_14: Public 0.797525 vs r48 0.797525 (|d|=0.00e+00, YES); Private 0.804425 vs r48 0.804425 (|d|=0.00e+00, YES)
+  train_15: Public 0.841097 vs r48 0.841097 (|d|=0.00e+00, YES); Private 0.843627 vs r48 0.843627 (|d|=0.00e+00, YES)
+  train_16: Public 0.892160 vs r48 0.892160 (|d|=0.00e+00, YES); Private 0.893255 vs r48 0.893255 (|d|=0.00e+00, YES)
+  max |dev| over all 16x2 = 0.00e+00
+  REPRODUCTION: PASS
+
+=== PER-DATASET ΔAUC (Public) — base vs max_depth=3 ===
+dataset          base       cand       delta
+train_01     0.710287   0.714552   +0.004265
+train_02     0.964370   0.937077   -0.027293
+train_03     0.792579   0.798940   +0.006362
+train_04     0.823647   0.827214   +0.003567
+train_05     0.653135   0.668469   +0.015334
+train_06     0.799693   0.801254   +0.001561
+train_07     0.823648   0.822500   -0.001147
+train_08     0.846027   0.852240   +0.006213
+train_09     0.620424   0.628359   +0.007935
+train_10     0.836807   0.825867   -0.010940
+train_11     0.828129   0.805843   -0.022286
+train_12     0.794888   0.791769   -0.003119
+train_13     0.628380   0.621701   -0.006679
+train_14     0.797525   0.786712   -0.010813
+train_15     0.841097   0.839711   -0.001386
+train_16     0.892160   0.858622   -0.033538
+
+=== PER-DATASET ΔAUC (Private) — base vs max_depth=3 ===
+dataset          base       cand       delta
+train_01     0.704818   0.707637   +0.002820
+train_02     0.963480   0.936597   -0.026883
+train_03     0.809545   0.817008   +0.007464
+train_04     0.824960   0.827055   +0.002095
+train_05     0.656873   0.676507   +0.019634
+train_06     0.813708   0.813881   +0.000173
+train_07     0.826507   0.823888   -0.002619
+train_08     0.841110   0.847722   +0.006612
+train_09     0.633474   0.641928   +0.008454
+train_10     0.847743   0.833783   -0.013960
+train_11     0.816654   0.791967   -0.024688
+train_12     0.769505   0.767781   -0.001724
+train_13     0.644000   0.636892   -0.007108
+train_14     0.804425   0.801344   -0.003081
+train_15     0.843627   0.843863   +0.000236
+train_16     0.893255   0.860065   -0.033190
+
+=== PER-DATASET ΔAUC (Public) — base vs max_depth=5 ===
+dataset          base       cand       delta
+train_01     0.710287   0.712201   +0.001914
+train_02     0.964370   0.962086   -0.002284
+train_03     0.792579   0.792268   -0.000311
+train_04     0.823647   0.825964   +0.002317
+train_05     0.653135   0.655890   +0.002755
+train_06     0.799693   0.799487   -0.000207
+train_07     0.823648   0.825458   +0.001810
+train_08     0.846027   0.848839   +0.002813
+train_09     0.620424   0.620413   -0.000011
+train_10     0.836807   0.835117   -0.001690
+train_11     0.828129   0.818872   -0.009257
+train_12     0.794888   0.795119   +0.000231
+train_13     0.628380   0.628380   +0.000000
+train_14     0.797525   0.795318   -0.002207
+train_15     0.841097   0.841097   +0.000000
+train_16     0.892160   0.872555   -0.019605
+
+=== PER-DATASET ΔAUC (Private) — base vs max_depth=5 ===
+dataset          base       cand       delta
+train_01     0.704818   0.705283   +0.000465
+train_02     0.963480   0.961391   -0.002089
+train_03     0.809545   0.812376   +0.002831
+train_04     0.824960   0.826234   +0.001274
+train_05     0.656873   0.663975   +0.007102
+train_06     0.813708   0.813714   +0.000006
+train_07     0.826507   0.825043   -0.001464
+train_08     0.841110   0.844040   +0.002931
+train_09     0.633474   0.631000   -0.002474
+train_10     0.847743   0.846166   -0.001577
+train_11     0.816654   0.810625   -0.006030
+train_12     0.769505   0.767799   -0.001706
+train_13     0.644000   0.644000   +0.000000
+train_14     0.804425   0.805998   +0.001573
+train_15     0.843627   0.843627   +0.000000
+train_16     0.893255   0.874498   -0.018756
+
+=== PER-DATASET ΔAUC (Public) — base vs max_depth=8 ===
+dataset          base       cand       delta
+train_01     0.710287   0.711520   +0.001233
+train_02     0.964370   0.965225   +0.000855
+train_03     0.792579   0.790519   -0.002060
+train_04     0.823647   0.823336   -0.000311
+train_05     0.653135   0.651528   -0.001607
+train_06     0.799693   0.796895   -0.002799
+train_07     0.823648   0.826056   +0.002408
+train_08     0.846027   0.846500   +0.000474
+train_09     0.620424   0.619593   -0.000831
+train_10     0.836807   0.840371   +0.003564
+train_11     0.828129   0.826193   -0.001936
+train_12     0.794888   0.794527   -0.000360
+train_13     0.628380   0.628380   +0.000000
+train_14     0.797525   0.797358   -0.000166
+train_15     0.841097   0.841097   +0.000000
+train_16     0.892160   0.881887   -0.010273
+
+=== PER-DATASET ΔAUC (Private) — base vs max_depth=8 ===
+dataset          base       cand       delta
+train_01     0.704818   0.703676   -0.001142
+train_02     0.963480   0.963332   -0.000148
+train_03     0.809545   0.810081   +0.000536
+train_04     0.824960   0.825191   +0.000232
+train_05     0.656873   0.655871   -0.001002
+train_06     0.813708   0.813153   -0.000555
+train_07     0.826507   0.828612   +0.002104
+train_08     0.841110   0.840876   -0.000234
+train_09     0.633474   0.627715   -0.005760
+train_10     0.847743   0.851107   +0.003364
+train_11     0.816654   0.819212   +0.002557
+train_12     0.769505   0.770519   +0.001014
+train_13     0.644000   0.644000   +0.000000
+train_14     0.804425   0.803938   -0.000487
+train_15     0.843627   0.843627   +0.000000
+train_16     0.893255   0.883992   -0.009262
+
+=== REGRESSIONS (ΔAUC < -1e-6) ===
+  max_depth=3 Public  train_02: -0.027293
+  max_depth=3 Public  train_07: -0.001147
+  max_depth=3 Public  train_10: -0.010940
+  max_depth=3 Public  train_11: -0.022286
+  max_depth=3 Public  train_12: -0.003119
+  max_depth=3 Public  train_13: -0.006679
+  max_depth=3 Public  train_14: -0.010813
+  max_depth=3 Public  train_15: -0.001386
+  max_depth=3 Public  train_16: -0.033538
+  max_depth=3 Private train_02: -0.026883
+  max_depth=3 Private train_07: -0.002619
+  max_depth=3 Private train_10: -0.013960
+  max_depth=3 Private train_11: -0.024688
+  max_depth=3 Private train_12: -0.001724
+  max_depth=3 Private train_13: -0.007108
+  max_depth=3 Private train_14: -0.003081
+  max_depth=3 Private train_16: -0.033190
+  max_depth=5 Public  train_02: -0.002284
+  max_depth=5 Public  train_03: -0.000311
+  max_depth=5 Public  train_06: -0.000207
+  max_depth=5 Public  train_09: -0.000011
+  max_depth=5 Public  train_10: -0.001690
+  max_depth=5 Public  train_11: -0.009257
+  max_depth=5 Public  train_14: -0.002207
+  max_depth=5 Public  train_16: -0.019605
+  max_depth=5 Private train_02: -0.002089
+  max_depth=5 Private train_07: -0.001464
+  max_depth=5 Private train_09: -0.002474
+  max_depth=5 Private train_10: -0.001577
+  max_depth=5 Private train_11: -0.006030
+  max_depth=5 Private train_12: -0.001706
+  max_depth=5 Private train_16: -0.018756
+  max_depth=8 Public  train_03: -0.002060
+  max_depth=8 Public  train_04: -0.000311
+  max_depth=8 Public  train_05: -0.001607
+  max_depth=8 Public  train_06: -0.002799
+  max_depth=8 Public  train_09: -0.000831
+  max_depth=8 Public  train_11: -0.001936
+  max_depth=8 Public  train_12: -0.000360
+  max_depth=8 Public  train_14: -0.000166
+  max_depth=8 Public  train_16: -0.010273
+  max_depth=8 Private train_01: -0.001142
+  max_depth=8 Private train_02: -0.000148
+  max_depth=8 Private train_05: -0.001002
+  max_depth=8 Private train_06: -0.000555
+  max_depth=8 Private train_08: -0.000234
+  max_depth=8 Private train_09: -0.005760
+  max_depth=8 Private train_14: -0.000487
+  max_depth=8 Private train_16: -0.009262
+
+=== ADOPTION ANALYSIS ===
+ADOPT iff SOME arm has mean ΔPublic > 0 AND mean ΔPrivate > 0 with
+  ZERO regression on EITHER split (no dataset ΔAUC < 0 on Public or
+  Private). Any regression, or net-negative/negligible mean on either
+  split => REJECT that arm.
+
+  [max_depth=3] zero_regressions=NO (Public regs=9, Private regs=8)
+  [max_depth=3] mean ΔPublic  = -0.004498  (clean gain: NO)
+  [max_depth=3] mean ΔPrivate = -0.004110  (clean gain: NO)
+  [max_depth=3] -> REJECT
+
+  [max_depth=5] zero_regressions=NO (Public regs=8, Private regs=7)
+  [max_depth=5] mean ΔPublic  = -0.001483  (clean gain: NO)
+  [max_depth=5] mean ΔPrivate = -0.001120  (clean gain: NO)
+  [max_depth=5] -> REJECT
+
+  [max_depth=8] zero_regressions=NO (Public regs=9, Private regs=8)
+  [max_depth=8] mean ΔPublic  = -0.000738  (clean gain: NO)
+  [max_depth=8] mean ΔPrivate = -0.000549  (clean gain: NO)
+  [max_depth=8] -> REJECT
+
+=== VERDICT ===
+  REJECT: no max_depth in {3,5,8} beats base-08 (max_depth=None) on BOTH splits with zero regressions. Depth-capping is extra regularization on an already-tuned model -> base-08 stays at least as good overall.
+
+SHIP VERDICT: REJECT
+
+CLEAN RUN: YES (0 exceptions)  [total_fits=64, datasets_scored=16/16, skipped=0, reproduction=YES]

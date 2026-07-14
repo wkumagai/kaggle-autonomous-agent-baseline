@@ -1,0 +1,114 @@
+==============================================================================
+bench_03 round43 — GATE-C K HIGH SWEEP (holdout fixed at base-08 default 0.10)  [OFFLINE]
+==============================================================================
+
+SETUP:
+  base == shipped 08 (git HEAD:submissions/08...): HGB, early_stopping,
+    validation_fraction UNSET -> sklearn default 0.10. base column =
+    seed-0, vf UNSET, for all 16 datasets.
+  Gate C: fires iff n_object_cols>0 (12 categorical datasets); pure-
+    numeric (obj=0) datasets stay single seed-0 == base (delta 0).
+  Sweep: K seeds averaged in {10,12,15,20}; holdout FIXED (no hf change).
+    Every seed fit with validation_fraction UNSET (the true base-08
+    default) — so K10 == round40 K10 (argmax of the {5..10} sweep).
+
+=== SWEEP TABLE (each K vs base == shipped 08) ===
+setting      meanDPub   meanDPrv    Pub W/L/T    Prv W/L/T
+K10          +0.00434   +0.00398       12/0/4       12/0/4  <- round40 argmax (repro anchor)
+K12          +0.00434   +0.00397       12/0/4       12/0/4
+K15          +0.00441   +0.00392       12/0/4       12/0/4
+K20          +0.00451   +0.00419       12/0/4       12/0/4
+
+=== REPRODUCTION CHECK (recomputed K10 here vs round40, tol<5e-6) ===
+  K10: Public +0.004343 vs round40 +0.004343 (|d|=0.00e+00, YES); Private +0.003984 vs round40 +0.003984 (|d|=0.00e+00, YES)
+  round40 coarse context: K10 ~ +0.00434/+0.00398 (printed, not asserted)
+  REPRODUCTION: PASS
+
+=== GATE-C FIRING SET (fires iff n_object_cols>0) ===
+  fires on (12): train_01, train_02, train_03, train_05, train_06, train_07, train_08, train_09, train_12, train_13, train_14, train_15
+  expected 12 categorical matched: YES
+  obj=0 datasets ['train_04', 'train_10', 'train_11', 'train_16'] excluded: YES
+  base column == seed-0 on all 12 fired datasets: YES
+
+=== INVARIANT (obj=0 datasets identical to base for every K) ===
+  OK: each of the 4 obj=0 datasets ['train_04', 'train_10', 'train_11', 'train_16'] is byte-identical to base (delta 0) across all 4 K. PASS.
+
+=== PER-DATASET ΔAUC across K (Public) — base + K{10,12,15,20} ===
+dataset     obj     base      K10         d      K12         d      K15         d      K20         d
+train_01      5   0.7103   0.7140  +0.00366   0.7138  +0.00346   0.7139  +0.00360   0.7144  +0.00407
+train_02      2   0.9644   0.9688  +0.00442   0.9690  +0.00468   0.9693  +0.00493   0.9695  +0.00513
+train_03      7   0.7926   0.8005  +0.00789   0.8004  +0.00786   0.8007  +0.00811   0.8007  +0.00814
+train_04      0   0.8236   0.8236  +0.00000   0.8236  +0.00000   0.8236  +0.00000   0.8236  +0.00000
+train_05      5   0.6531   0.6615  +0.00840   0.6611  +0.00801   0.6616  +0.00844   0.6619  +0.00875
+train_06      9   0.7997   0.8002  +0.00051   0.8003  +0.00065   0.8005  +0.00078   0.8006  +0.00092
+train_07      6   0.8236   0.8296  +0.00599   0.8293  +0.00563   0.8294  +0.00575   0.8295  +0.00589
+train_08     12   0.8460   0.8497  +0.00365   0.8497  +0.00369   0.8494  +0.00342   0.8496  +0.00353
+train_09      4   0.6204   0.6315  +0.01110   0.6312  +0.01076   0.6319  +0.01147   0.6319  +0.01143
+train_10      0   0.8368   0.8368  +0.00000   0.8368  +0.00000   0.8368  +0.00000   0.8368  +0.00000
+train_11      0   0.8281   0.8281  +0.00000   0.8281  +0.00000   0.8281  +0.00000   0.8281  +0.00000
+train_12      3   0.7949   0.7965  +0.00158   0.7964  +0.00155   0.7964  +0.00152   0.7962  +0.00131
+train_13      4   0.6284   0.6357  +0.00733   0.6355  +0.00710   0.6349  +0.00651   0.6346  +0.00627
+train_14     15   0.7975   0.8010  +0.00351   0.8011  +0.00361   0.8013  +0.00376   0.8020  +0.00443
+train_15     24   0.8411   0.8525  +0.01145   0.8536  +0.01249   0.8534  +0.01227   0.8534  +0.01231
+train_16      0   0.8922   0.8922  +0.00000   0.8922  +0.00000   0.8922  +0.00000   0.8922  +0.00000
+
+=== PER-DATASET ΔAUC across K (Private) — base + K{10,12,15,20} ===
+dataset     obj     base      K10         d      K12         d      K15         d      K20         d
+train_01      5   0.7048   0.7085  +0.00372   0.7084  +0.00360   0.7086  +0.00375   0.7087  +0.00391
+train_02      2   0.9635   0.9676  +0.00408   0.9677  +0.00423   0.9678  +0.00427   0.9679  +0.00446
+train_03      7   0.8095   0.8168  +0.00728   0.8164  +0.00689   0.8166  +0.00707   0.8170  +0.00745
+train_04      0   0.8250   0.8250  +0.00000   0.8250  +0.00000   0.8250  +0.00000   0.8250  +0.00000
+train_05      5   0.6569   0.6652  +0.00833   0.6649  +0.00808   0.6645  +0.00764   0.6653  +0.00844
+train_06      9   0.8137   0.8142  +0.00050   0.8142  +0.00047   0.8143  +0.00056   0.8144  +0.00069
+train_07      6   0.8265   0.8290  +0.00251   0.8291  +0.00263   0.8293  +0.00278   0.8298  +0.00333
+train_08     12   0.8411   0.8428  +0.00172   0.8429  +0.00177   0.8426  +0.00150   0.8428  +0.00172
+train_09      4   0.6335   0.6428  +0.00930   0.6426  +0.00908   0.6433  +0.00987   0.6448  +0.01134
+train_10      0   0.8477   0.8477  +0.00000   0.8477  +0.00000   0.8477  +0.00000   0.8477  +0.00000
+train_11      0   0.8167   0.8167  +0.00000   0.8167  +0.00000   0.8167  +0.00000   0.8167  +0.00000
+train_12      3   0.7695   0.7718  +0.00234   0.7718  +0.00233   0.7718  +0.00234   0.7719  +0.00244
+train_13      4   0.6440   0.6502  +0.00622   0.6501  +0.00614   0.6492  +0.00516   0.6488  +0.00479
+train_14     15   0.8044   0.8085  +0.00405   0.8083  +0.00392   0.8079  +0.00351   0.8084  +0.00401
+train_15     24   0.8436   0.8573  +0.01369   0.8580  +0.01441   0.8579  +0.01431   0.8581  +0.01445
+train_16      0   0.8933   0.8933  +0.00000   0.8933  +0.00000   0.8933  +0.00000   0.8933  +0.00000
+
+=== MONOTONICITY & PLATEAU ANALYSIS (mean ΔAUC vs K) ===
+     K   meanDPub   meanDPrv    stepPub    stepPrv  +seeds  perSeedPub  perSeedPrv
+   K10   +0.00434   +0.00398         --         --      --          --          --
+   K12   +0.00434   +0.00397   -0.00000   -0.00001       2   -0.000000   -0.000006
+   K15   +0.00441   +0.00392   +0.00007   -0.00005       3   +0.000022   -0.000016
+   K20   +0.00451   +0.00419   +0.00010   +0.00027       5   +0.000020   +0.000053
+  monotone non-decreasing in K: Public NO, Private NO
+  argmax mean(Pub+Prv): K20 (Pub+0.00451 Prv+0.00419)
+
+=== ADOPTION ANALYSIS ===
+Criterion A (clean vs base-08): mean D > 0 AND zero regressions on BOTH
+  splits. Criterion B (beats round40 pick K10): also strictly greater
+  mean than K10 on BOTH splits with zero regressions.
+
+  K10: pub+0.00434 prv+0.00398  clean-vs-08; == round40 pick K10
+  K12: pub+0.00434 prv+0.00397  clean-vs-08; does-not-beat-K10
+  K15: pub+0.00441 prv+0.00392  clean-vs-08; does-not-beat-K10
+  K20: pub+0.00451 prv+0.00419  clean-vs-08; beats-K10(both)
+
+=== VERDICT ===
+KEY QUESTION: does the K curve keep rising above K=10 (round40's argmax) toward K=20, or has it PLATEAUED — and where?
+
+  K10->K20 gain: Public +0.00017, Private +0.00021 (K10 pub+0.00434/prv+0.00398 -> K20 pub+0.00451/prv+0.00419).
+  That is +10 seeds; per-added-seed over K10->K20: Public +0.000017, Private +0.000021.
+  Monotone non-decreasing in K: Public NO, Private NO.
+  Incremental gain per swept step (avg of Pub+Prv step, and per-seed):
+    K10->K12 (+2 seeds): step -0.00001, per-seed -0.000003
+    K12->K15 (+3 seeds): step +0.00001, per-seed +0.000003
+    K15->K20 (+5 seeds): step +0.00018, per-seed +0.000037
+  argmax mean(Pub+Prv) over swept K: K20.
+
+  PLATEAU: per-seed gain has NOT dropped below 20% of the K10->K12 per-seed step by K20 -> curve is STILL RISING at K20 (no clear plateau within the swept range).
+  first per-seed step (K10->K12) = -0.000003; last per-seed step (K15->K20) = +0.000037 (-1194% of first).
+  No swept K regresses on ANY dataset on either split (all 12 fired datasets win-or-tie; 4 obj=0 tie exactly).
+
+  ANSWER: Above K10, the curve is not fully monotone; K cleanly beating round40's K10 on both splits: K20.
+  Best mean = argmax = K20 (pub+0.00451/prv+0.00419).
+  For the gate-C seed-avg family, the curve has NOT plateaued by K20: K20 is the argmax and still the top pick within the swept range, at K = models trained per fired dataset.
+  (Effort note: K = number of HGB models trained per fired dataset. K20 doubles K10's training cost; pick the knee/plateau, not the max.)
+
+CLEAN RUN=YES (total_fits=244, exceptions=0, skipped=0, invariant_violations=0, firing_set_match=YES, obj0_excluded=YES, reproduction=YES, base_eq_seed0=YES)

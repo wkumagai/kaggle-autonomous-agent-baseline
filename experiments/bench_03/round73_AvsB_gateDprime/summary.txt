@@ -1,0 +1,36 @@
+round73 -- A vs B single-lever duel on gate-D' firing set
+================================================================
+A = pure seed-avg HGB (K10)   [dA_* columns]
+B = gate-D' RF blend          [dB_* columns]
+firing set (n=5): train_03, train_05, train_09, train_13, train_15
+READ-ONLY desk calc; deltas taken verbatim from round68 results.csv (NO refit).
+
+Per-dataset duel (delta vs base; winner = larger delta):
+  dataset        dA_pub     dB_pub  win_pub     dA_prv     dB_prv  win_prv
+  train_03   +0.007894 +0.004752        A +0.007277 +0.003858        A
+  train_05   +0.008396 +0.008955        B +0.008332 +0.015770        B
+  train_09   +0.011098 +0.009482        A +0.009305 +0.011925        B
+  train_13   +0.007333 +0.000395        A +0.006216 +0.002296        A
+  train_15   +0.011448 +0.012094        B +0.013693 +0.013760        B
+
+Aggregate over firing set:
+  Public : mean dA=+0.009234  mean dB=+0.007136  (A-B=+0.002098)
+  Private: mean dA=+0.008965  mean dB=+0.009522  (A-B=-0.000557)
+  Public  win counts : A=3  B=2  tie=0
+  Private win counts : A=2  B=3  tie=0
+
+Regression check (any dataset with negative delta?):
+  A all-positive Public =True  Private=True
+  B all-positive Public =True  Private=True
+
+Anchor check vs round68 summary (|Δ|<1e-6 == PASS):
+  dA_public    computed=+0.009234 anchor=+0.009234 |Δ|=9.46e-08 -> PASS
+  dA_private   computed=+0.008965 anchor=+0.008965 |Δ|=4.38e-07 -> PASS
+  dB_public    computed=+0.007136 anchor=+0.007136 |Δ|=4.85e-07 -> PASS
+  dB_private   computed=+0.009522 anchor=+0.009522 |Δ|=2.55e-07 -> PASS
+  ANCHOR MATCH: PASS
+  CLEAN RUN = YES
+
+Conclusion:
+  LB / Public single-lever winner : A  (mean dA +0.009234 vs dB +0.007136)
+  Private single-lever winner     : B  (mean dA +0.008965 vs dB +0.009522)

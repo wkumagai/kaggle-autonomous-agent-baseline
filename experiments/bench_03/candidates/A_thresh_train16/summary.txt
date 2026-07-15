@@ -1,0 +1,72 @@
+candidate A_orgate -- seed-avg K10, OR-gate -- ACTUAL FIT bench
+==================================================================
+env: pandas 3.0.3 (StringDtype hazard env if 3.x)
+recipe: base-08 HGB; OR-gate=(n_object_cols>0 OR n_train>=1000); seed-avg K=10 prob-mean on firing datasets, seed-0 otherwise
+datasets scored: 16/16  exceptions: 0
+CLEAN RUN = YES
+
+Per-dataset (delta = cand_private - base_private):
+  dataset      n_tr  obj  gate fits  base_prv  cand_prv    d_prv  ==base
+  train_01    14957    5  True   10    0.7048    0.7085  +0.0037   False
+  train_02    14929    2  True   10    0.9635    0.9676  +0.0041   False
+  train_03     3501    7  True   10    0.8095    0.8168  +0.0073   False
+  train_04     8775    0  True   10    0.8250    0.8345  +0.0096   False
+  train_05     1060    5  True   10    0.6569    0.6652  +0.0083   False
+  train_06    10803    9  True   10    0.8137    0.8142  +0.0005   False
+  train_07    10417    6  True   10    0.8265    0.8290  +0.0025   False
+  train_08     8173   12  True   10    0.8411    0.8428  +0.0017   False
+  train_09     1109    4  True   10    0.6335    0.6428  +0.0093   False
+  train_10    11800    0  True   10    0.8477    0.8580  +0.0103   False
+  train_11    28879    0  True   10    0.8167    0.8220  +0.0053   False
+  train_12    49432    3  True   10    0.7695    0.7718  +0.0023   False
+  train_13      500    4  True   10    0.6440    0.6502  +0.0062   False
+  train_14    11108   15  True   10    0.8044    0.8085  +0.0040   False
+  train_15      500   24  True   10    0.8436    0.8573  +0.0137   False
+  train_16     1809    0  True   10    0.8933    0.8895  -0.0037   False
+
+OR-gate FIRING datasets — per-dataset delta_private:
+  train_01   obj= 5 n= 14957 d_prv=+0.0037 d_pub=+0.0037
+  train_02   obj= 2 n= 14929 d_prv=+0.0041 d_pub=+0.0044
+  train_03   obj= 7 n=  3501 d_prv=+0.0073 d_pub=+0.0079
+  train_04   obj= 0 n=  8775 d_prv=+0.0096 d_pub=+0.0073
+  train_05   obj= 5 n=  1060 d_prv=+0.0083 d_pub=+0.0084
+  train_06   obj= 9 n= 10803 d_prv=+0.0005 d_pub=+0.0005
+  train_07   obj= 6 n= 10417 d_prv=+0.0025 d_pub=+0.0060
+  train_08   obj=12 n=  8173 d_prv=+0.0017 d_pub=+0.0037
+  train_09   obj= 4 n=  1109 d_prv=+0.0093 d_pub=+0.0111
+  train_10   obj= 0 n= 11800 d_prv=+0.0103 d_pub=+0.0084
+  train_11   obj= 0 n= 28879 d_prv=+0.0053 d_pub=+0.0042
+  train_12   obj= 3 n= 49432 d_prv=+0.0023 d_pub=+0.0016
+  train_13   obj= 4 n=   500 d_prv=+0.0062 d_pub=+0.0073
+  train_14   obj=15 n= 11108 d_prv=+0.0040 d_pub=+0.0035
+  train_15   obj=24 n=   500 d_prv=+0.0137 d_pub=+0.0114
+  train_16   obj= 0 n=  1809 d_prv=-0.0037 d_pub=-0.0006
+
+Non-firing datasets (must equal base, delta==0):
+  ANCHOR non-firing==base: PASS
+
+base-08 anchor vs dataset_stats.baseline_hgb_auc_private (|Δ|<0.0005):
+  train_01   base_prv=0.7048 stats=0.7048 |Δ|=0.00002 OK
+  train_02   base_prv=0.9635 stats=0.9564 |Δ|=0.00708 DRIFT
+  train_03   base_prv=0.8095 stats=0.8042 |Δ|=0.00534 DRIFT
+  train_04   base_prv=0.8250 stats=0.8305 |Δ|=0.00554 DRIFT
+  train_05   base_prv=0.6569 stats=0.6461 |Δ|=0.01077 DRIFT
+  train_06   base_prv=0.8137 stats=0.8137 |Δ|=0.00001 OK
+  train_07   base_prv=0.8265 stats=0.8265 |Δ|=0.00001 OK
+  train_08   base_prv=0.8411 stats=0.8365 |Δ|=0.00461 DRIFT
+  train_09   base_prv=0.6335 stats=0.6241 |Δ|=0.00937 DRIFT
+  train_10   base_prv=0.8477 stats=0.8471 |Δ|=0.00064 DRIFT
+  train_11   base_prv=0.8167 stats=0.8137 |Δ|=0.00295 DRIFT
+  train_12   base_prv=0.7695 stats=0.7695 |Δ|=0.00001 OK
+  train_13   base_prv=0.6440 stats=0.6175 |Δ|=0.02650 DRIFT
+  train_14   base_prv=0.8044 stats=0.8044 |Δ|=0.00003 OK
+  train_15   base_prv=0.8436 stats=0.8359 |Δ|=0.00773 DRIFT
+  train_16   base_prv=0.8933 stats=0.8929 |Δ|=0.00035 OK
+  BASE ANCHOR: DRIFT (see rows)
+
+Aggregate over 16 datasets:
+  mean base_private  = 0.7934
+  mean cand_private  = 0.7987
+  MEAN DELTA         = +0.0053
+  worst regression   = -0.0037  (train_16)
+  firing datasets    = 16/16

@@ -1,0 +1,35 @@
+round75_B_privLOO -- Candidate B Private-AUC advantage robustness (LOO)
+Input: experiments/bench_03/round73_AvsB_gateDprime/results.csv
+winner = A if mean(dA) > mean(dB) else B ; B_minus_A = mean(dB) - mean(dA)
+
+=== PUBLIC ===
+  FULL {03,05,09,13,15}        meanA=+0.009234  meanB=+0.007136  B_minus_A=-0.002098  winner=A
+  LOO drop train_03            meanA=+0.009569  meanB=+0.007731  B_minus_A=-0.001837  winner=A
+  LOO drop train_05            meanA=+0.009443  meanB=+0.006681  B_minus_A=-0.002763  winner=A
+  LOO drop train_09            meanA=+0.008768  meanB=+0.006549  B_minus_A=-0.002219  winner=A
+  LOO drop train_13            meanA=+0.009709  meanB=+0.008821  B_minus_A=-0.000888  winner=A
+  LOO drop train_15            meanA=+0.008680  meanB=+0.005896  B_minus_A=-0.002784  winner=A
+  LEAVE-BOTH drop {05,09}      meanA=+0.008892  meanB=+0.005747  B_minus_A=-0.003145  winner=A
+
+=== PRIVATE ===
+  FULL {03,05,09,13,15}        meanA=+0.008965  meanB=+0.009522  B_minus_A=+0.000557  winner=B
+  LOO drop train_03            meanA=+0.009386  meanB=+0.010938  B_minus_A=+0.001551  winner=B
+  LOO drop train_05            meanA=+0.009123  meanB=+0.007960  B_minus_A=-0.001163  winner=A
+  LOO drop train_09            meanA=+0.008879  meanB=+0.008921  B_minus_A=+0.000042  winner=B
+  LOO drop train_13            meanA=+0.009652  meanB=+0.011328  B_minus_A=+0.001677  winner=B
+  LOO drop train_15            meanA=+0.007783  meanB=+0.008462  B_minus_A=+0.000680  winner=B
+  LEAVE-BOTH drop {05,09}      meanA=+0.009062  meanB=+0.006638  B_minus_A=-0.002424  winner=A
+
+=== DIRECT ANSWERS (Private-AUC) ===
+Full-set Private winner = B (meanA=+0.008965, meanB=+0.009522, B_minus_A=+0.000557)
+(a) Drop train_05 alone: winner=A (B_minus_A=-0.001163). Flip Private winner B->A? YES
+(b) Drop train_09 alone: winner=B (B_minus_A=+0.000042). Flip Private winner B->A? NO
+(c) Drop both {05,09}: winner=A, B_minus_A=-0.002424 (A wins by 0.002424 if winner=A; B wins by 0.002424 if winner=B)
+(d) train_05 per-dataset (dB_private - dA_private) = +0.007438; full-set mean B_minus_A_private * 5 (= sum of advantages) = +0.002786. train_05 advantage > 5*mean? YES -> B's Private advantage is CONCENTRATED in train_05 (others net-negative)
+
+=== SANITY ANCHOR (tol=1e-6) ===
+  dA_private_mean    expected=+0.008965 got=+0.008964562 diff=-4.38e-07 PASS
+  dB_private_mean    expected=+0.009522 got=+0.009521745 diff=-2.55e-07 PASS
+  dA_public_mean     expected=+0.009234 got=+0.009233905 diff=-9.46e-08 PASS
+  dB_public_mean     expected=+0.007136 got=+0.007135515 diff=-4.85e-07 PASS
+SANITY ANCHOR: PASS

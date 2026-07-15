@@ -1,0 +1,111 @@
+==============================================================================
+bench_03 round69 — CANDIDATE-A SEED-AVG K-SENSITIVITY / GAIN STABILITY (ALL 16)  [OFFLINE]
+==============================================================================
+
+SETUP:
+  base = single HGB seed-0 (== shipped 08 / round61 base).
+  A_K  = prob-mean of base-08 HGB over seeds 0..K-1, K in {5,10,20}.
+  gate-C = (n_object_cols > 0); Candidate A fires there.
+  seed cache K_MAX=20 (seeds 0..19); 20 HGB fits/dataset.
+  gate-C fired on 12 datasets: ['train_01', 'train_02', 'train_03', 'train_05', 'train_06', 'train_07', 'train_08', 'train_09', 'train_12', 'train_13', 'train_14', 'train_15']
+
+==============================================================================
+K-SWEEP: mean Δ vs base (A_K − base), over-16 and gate-C fired-subset
+==============================================================================
+   K scope          mean dPublic    W/L/T pub  mean dPrivate    W/L/T prv
+   5 over-16           +0.004577       15/1/0      +0.004246       15/1/0
+     fired(gateC)      +0.004840       12/0/0      +0.004208       12/0/0
+  10 over-16           +0.005547       15/1/0      +0.005323       15/1/0
+     fired(gateC)      +0.005791       12/0/0      +0.005311       12/0/0
+  20 over-16           +0.005975       16/0/0      +0.005705       15/1/0
+     fired(gateC)      +0.006016       12/0/0      +0.005586       12/0/0
+
+==============================================================================
+WINDOW-SPREAD: how much a GIVEN K's fired-subset mean Δ wobbles with
+seed choice (disjoint seed-windows, each with exactly K seeds).
+==============================================================================
+  Each row = one disjoint seed-window's gate-C fired-subset mean Δ.
+  A_K{K} equals the FIRST window [0..K-1] by construction.
+
+--- K=5  (4 disjoint windows) ---
+      window    fired dPublic   fired dPrivate
+      [0..4]        +0.004840        +0.004208
+      [5..9]        +0.005548        +0.005197
+    [10..14]        +0.004940        +0.003860
+    [15..19]        +0.005322        +0.005477
+  Public  : mean=+0.005162 min=+0.004840 max=+0.005548 range=0.000708 std=0.000286
+  Private : mean=+0.004685 min=+0.003860 max=+0.005477 range=0.001617 std=0.000670
+
+--- K=10  (2 disjoint windows) ---
+      window    fired dPublic   fired dPrivate
+      [0..9]        +0.005791        +0.005311
+    [10..19]        +0.005690        +0.005283
+  Public  : mean=+0.005741 min=+0.005690 max=+0.005791 range=0.000101 std=0.000050
+  Private : mean=+0.005297 min=+0.005283 max=+0.005311 range=0.000029 std=0.000014
+
+=== READING THE SPREAD ===
+  Compare each K's window std against that K's mean Δ. If std is a
+  large fraction of |mean|, the gain a single K delivers is largely
+  a lottery on which seeds were drawn; a small std => the gain is
+  robust. K=10 should show a smaller range than K=5 if averaging
+  more seeds stabilises the gain.
+
+=== PER-DATASET dAUC (Public) — all 16 (A_K vs base) ===
+dataset     gateC       base      dA_K5     dA_K10     dA_K20
+train_01     True   0.710287  +0.003117  +0.003664  +0.004068
+train_02     True   0.964370  +0.003709  +0.004422  +0.005135
+train_03     True   0.792579  +0.006846  +0.007894  +0.008141
+train_04    False   0.823647  +0.006306  +0.007293  +0.007797
+train_05     True   0.653135  +0.002869  +0.008396  +0.008752
+train_06     True   0.799693  +0.000528  +0.000509  +0.000920
+train_07     True   0.823648  +0.005280  +0.005985  +0.005888
+train_08     True   0.846027  +0.003129  +0.003650  +0.003526
+train_09     True   0.620424  +0.009848  +0.011098  +0.011432
+train_10    False   0.836807  +0.007813  +0.008376  +0.009713
+train_11    False   0.828129  +0.003423  +0.004160  +0.004487
+train_12     True   0.794888  +0.001215  +0.001583  +0.001315
+train_13     True   0.628380  +0.006959  +0.007333  +0.006266
+train_14     True   0.797525  +0.004418  +0.003512  +0.004429
+train_15     True   0.841097  +0.010164  +0.011448  +0.012315
+train_16    False   0.892160  -0.002384  -0.000572  +0.001411
+
+=== PER-DATASET dAUC (Private) — all 16 (A_K vs base) ===
+dataset     gateC       base      dA_K5     dA_K10     dA_K20
+train_01     True   0.704818  +0.002863  +0.003721  +0.003912
+train_02     True   0.963480  +0.003485  +0.004082  +0.004461
+train_03     True   0.809545  +0.006455  +0.007277  +0.007447
+train_04    False   0.824960  +0.008019  +0.009558  +0.009331
+train_05     True   0.656873  +0.003833  +0.008332  +0.008439
+train_06     True   0.813708  +0.000393  +0.000499  +0.000687
+train_07     True   0.826507  +0.002612  +0.002506  +0.003329
+train_08     True   0.841110  +0.001760  +0.001720  +0.001723
+train_09     True   0.633474  +0.006343  +0.009305  +0.011341
+train_10    False   0.847743  +0.009289  +0.010273  +0.011522
+train_11    False   0.816654  +0.004720  +0.005312  +0.005507
+train_12     True   0.769505  +0.002003  +0.002337  +0.002440
+train_13     True   0.644000  +0.005099  +0.006216  +0.004791
+train_14     True   0.804425  +0.002959  +0.004048  +0.004009
+train_15     True   0.843627  +0.012682  +0.013693  +0.014455
+train_16    False   0.893255  -0.004582  -0.003712  -0.002117
+
+=== REPRODUCTION CHECK (base on ALL 16 vs round61 base, tol=0) ===
+  train_01: Public 0.710287 vs r61 0.710287 (|d|=0.00e+00, YES); Private 0.704818 vs r61 0.704818 (|d|=0.00e+00, YES)
+  train_02: Public 0.964370 vs r61 0.964370 (|d|=0.00e+00, YES); Private 0.963480 vs r61 0.963480 (|d|=0.00e+00, YES)
+  train_03: Public 0.792579 vs r61 0.792579 (|d|=0.00e+00, YES); Private 0.809545 vs r61 0.809545 (|d|=0.00e+00, YES)
+  train_04: Public 0.823647 vs r61 0.823647 (|d|=0.00e+00, YES); Private 0.824960 vs r61 0.824960 (|d|=0.00e+00, YES)
+  train_05: Public 0.653135 vs r61 0.653135 (|d|=0.00e+00, YES); Private 0.656873 vs r61 0.656873 (|d|=0.00e+00, YES)
+  train_06: Public 0.799693 vs r61 0.799693 (|d|=0.00e+00, YES); Private 0.813708 vs r61 0.813708 (|d|=0.00e+00, YES)
+  train_07: Public 0.823648 vs r61 0.823648 (|d|=0.00e+00, YES); Private 0.826507 vs r61 0.826507 (|d|=0.00e+00, YES)
+  train_08: Public 0.846027 vs r61 0.846027 (|d|=0.00e+00, YES); Private 0.841110 vs r61 0.841110 (|d|=0.00e+00, YES)
+  train_09: Public 0.620424 vs r61 0.620424 (|d|=0.00e+00, YES); Private 0.633474 vs r61 0.633474 (|d|=0.00e+00, YES)
+  train_10: Public 0.836807 vs r61 0.836807 (|d|=0.00e+00, YES); Private 0.847743 vs r61 0.847743 (|d|=0.00e+00, YES)
+  train_11: Public 0.828129 vs r61 0.828129 (|d|=0.00e+00, YES); Private 0.816654 vs r61 0.816654 (|d|=0.00e+00, YES)
+  train_12: Public 0.794888 vs r61 0.794888 (|d|=0.00e+00, YES); Private 0.769505 vs r61 0.769505 (|d|=0.00e+00, YES)
+  train_13: Public 0.628380 vs r61 0.628380 (|d|=0.00e+00, YES); Private 0.644000 vs r61 0.644000 (|d|=0.00e+00, YES)
+  train_14: Public 0.797525 vs r61 0.797525 (|d|=0.00e+00, YES); Private 0.804425 vs r61 0.804425 (|d|=0.00e+00, YES)
+  train_15: Public 0.841097 vs r61 0.841097 (|d|=0.00e+00, YES); Private 0.843627 vs r61 0.843627 (|d|=0.00e+00, YES)
+  train_16: Public 0.892160 vs r61 0.892160 (|d|=0.00e+00, YES); Private 0.893255 vs r61 0.893255 (|d|=0.00e+00, YES)
+  max |dev| over all 16x2 = 0.00e+00
+  REPRODUCTION (base==round61 base): PASS
+
+CLEAN RUN: YES (0 exceptions)  [total_fits=320, datasets_scored=16/16, skipped=0, single_class_skips=0, gate_c_datasets=12, reproduction=YES (base_maxdev=0.00e+00)]

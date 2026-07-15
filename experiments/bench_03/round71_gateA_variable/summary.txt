@@ -1,0 +1,99 @@
+==============================================================================
+round71 -- gate-VARIABLE robustness study for candidate A (seed averaging K=10)
+==============================================================================
+Pure desk calculation. Reuses round69 per-dataset dA_K10 deltas (AUC of the
+K=10 seed-averaged base-08 HGB minus the single-seed base), evaluated over 16
+offline datasets. NO refit, NO submission. tol = 1e-9 for win/tie/regress.
+'base AUC' = dataset_stats.baseline_hgb_auc_private.  base_auc cut = 0.88.
+
+[sanity] max n_train mismatch (r69 vs stats)       = 0
+[sanity] max n_object_cols mismatch (r69 vs stats) = 0
+
+------------------------------------------------------------------------------
+(a) UN-GATED REGRESSORS (dA_K10 < 0), by split
+------------------------------------------------------------------------------
+Public-split regressors : ['train_16']
+Private-split regressors: ['train_16']
+
+Detail of every dataset that regresses on either split:
+  dataset     n_train  n_obj  n_feat  base_auc      dA_pub     dA_priv
+  train_16       1809      0      21    0.8929   -0.000572   -0.003712
+
+------------------------------------------------------------------------------
+(b) DATASETS WITH n_object_cols == 0 (excluded by gate-C)
+------------------------------------------------------------------------------
+  dataset     n_train  base_auc      dA_pub     dA_priv  verdict
+  train_16       1809    0.8929   -0.000572   -0.003712  pub=REG priv=REG
+  train_04       8775    0.8305    0.007293    0.009558  pub=WIN priv=WIN
+  train_10      11800    0.8471    0.008376    0.010273  pub=WIN priv=WIN
+  train_11      28879    0.8137    0.004160    0.005312  pub=WIN priv=WIN
+
+Positive on BOTH splits (gains gate-C forfeits): ['train_04', 'train_10', 'train_11']
+  forfeited summed dA  pub=0.019830  priv=0.025142
+Negative on either split (correctly excluded by gate-C): ['train_16']
+
+------------------------------------------------------------------------------
+(c) MARGIN ANALYSIS -- OR-gate  n_object_cols>0 OR n_train>=T
+------------------------------------------------------------------------------
+No-object-col datasets, sorted by n_train (T only affects these):
+    n_train=  1809  train_16    dA_priv=  -0.003712  [REGRESSOR]
+    n_train=  8775  train_04    dA_priv=   0.009558  [gainer]
+    n_train= 11800  train_10    dA_priv=   0.010273  [gainer]
+    n_train= 28879  train_11    dA_priv=   0.005312  [gainer]
+
+Highest n_train among no-obj REGRESSORS  = 1809  (gate must EXCLUDE this -> need T > 1809)
+Lowest  n_train among no-obj GAINERS      = 8775  (gate must INCLUDE this -> need T <= 8775)
+
+=> CLEAN + MAXIMAL plateau for T:   (1809, 8775]   i.e.  1809 < T <= 8775
+   Lowest failing T from below : T = 1809   (<= 1809 re-admits the regressor)
+   Highest failing T from above: T = 8776 and up (> 8775 drops the smallest gainer -> clean but not maximal)
+   Plateau WIDTH in n_train    : 6966   -> WIDE PLATEAU (robust)
+
+------------------------------------------------------------------------------
+(d) VERDICT -- does any gate STRICTLY DOMINATE gate-C?
+------------------------------------------------------------------------------
+gate-C reference: fires 12 datasets, regressions pub/priv = 0/0 (clean), sum_dA pub=0.069495 priv=0.063736
+
+YES -- at least 7 gate(s) strictly dominate gate-C.
+Best dominator (max sum_dA_priv): n_object_cols>0 OR (n_train>=2000 AND base_auc<0.88)
+  fires 15 datasets (gate-C fires 12); adds ['train_04', 'train_10', 'train_11']
+  regressions pub/priv = 0/0 (still clean)
+  sum_dA pub  0.069495 -> 0.089324  (+0.019830)
+  sum_dA priv 0.063736 -> 0.088878  (+0.025142)
+
+  Overfitting check: the improvement relies on the n_train threshold T
+  separating the single no-obj regressor (train n_train=1809) from the
+  no-obj gainers (min n_train=8775). The clean+maximal window is
+  1809 < T <= 8775, a WIDTH of 6966 rows in n_train.
+  This is a WIDE plateau, not a knife-edge: any T in [~2000..8775]
+  yields the identical clean, maximal fired set. Robust, low overfit risk.
+
+------------------------------------------------------------------------------
+RANKED TABLE -- CLEAN gates (0 regressions on BOTH splits), by sum_dA_priv desc
+------------------------------------------------------------------------------
+  gate_name                                            nfire    sum_pub   sum_priv win_p win_q
+  n_object_cols>0 OR (n_train>=5000 AND base_auc<0.88)    15   0.089324   0.088878    15    15
+  n_object_cols>0 OR (n_train>=2000 AND base_auc<0.88)    15   0.089324   0.088878    15    15
+  n_object_cols>0 OR n_train>=8775                        15   0.089324   0.088878    15    15
+  n_object_cols>0 OR n_train>=8000                        15   0.089324   0.088878    15    15
+  n_object_cols>0 OR n_train>=5000                        15   0.089324   0.088878    15    15
+  n_object_cols>0 OR n_train>=2000                        15   0.089324   0.088878    15    15
+  n_object_cols>0 OR n_train>=10000                       14   0.082031   0.079320    14    14
+  n_object_cols>=1                                        12   0.069495   0.063736    12    12
+  gateC:n_object_cols>0                                   12   0.069495   0.063736    12    12
+  n_object_cols>=2                                        12   0.069495   0.063736    12    12
+  n_object_cols>=3                                        11   0.065073   0.059654    11    11
+  n_train>=2000                                           11   0.051049   0.051332    11    11
+  n_train>=5000                                           10   0.043155   0.044055    10    10
+  n_object_cols>=5                                         8   0.045059   0.041797     8     8
+  n_train>=10000                                           8   0.032212   0.032777     8     8
+  n_object_cols>=8                                         4   0.019119   0.019960     4     4
+  n_train<1000                                             2   0.018781   0.019909     2     2
+  n_train>=50000                                           0   0.000000   0.000000     0     0
+
+(For context, ungated leaves nothing on the table but ships the train_16
+ regressor; every 'clean' gate above has 0 regressions on both splits.)
+
+==============================================================================
+END round71 summary
+==============================================================================

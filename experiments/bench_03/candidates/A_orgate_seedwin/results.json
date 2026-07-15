@@ -1,0 +1,28 @@
+{
+ "variant": "seed_window_10_19",
+ "base_seed": 0,
+ "cand_seed_window": [
+  10,
+  11,
+  12,
+  13,
+  14,
+  15,
+  16,
+  17,
+  18,
+  19
+ ],
+ "env_pandas": "3.0.3",
+ "clean_run": true,
+ "n_scored": 16,
+ "n_exceptions": 0,
+ "mean_base_private": 0.7933552278937872,
+ "mean_cand_private": 0.798864478100918,
+ "mean_delta": 0.005509250207130778,
+ "worst_regression": 0.0,
+ "worst_dataset": "train_16",
+ "n_firing": 15,
+ "nonfire_equals_base": true,
+ "base_anchor_ok": false
+}

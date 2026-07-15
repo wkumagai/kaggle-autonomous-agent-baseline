@@ -1,0 +1,81 @@
+==============================================================================
+bench_03 round66 — GATE-THRESHOLD ROBUSTNESS SWEEP  [OFFLINE / READ-ONLY]
+==============================================================================
+
+SETUP:
+  Ship candidate B (gate-D'): apply RF x HGB rank-avg blend ONLY where
+      gate fires  <=>  n_object_cols > 0  AND  n_train < T
+  Fired  -> realized score = blend_*   (delta vs base = blend-base)
+  !Fired -> realized score = base_*    (delta vs base = 0, exactly)
+  base_* == shipped 08 HGB;  blend_* == anchor RF blend (w=0.5, n=300).
+  Portfolio size = 16; mean_dP* are averaged over ALL 16 datasets.
+  Input: ../round61_rf_blend/results.csv  (16 rows, 12 obj>0)
+
+INPUT BIT-REPRODUCTION (recomputed blend-base vs CSV delta columns):
+  max|dev| public  = 1.527e-16
+  max|dev| private = 1.691e-16
+  max|dev| overall = 1.691e-16   (< 1e-12 required: PASS)
+
+REPRODUCTION ANCHOR (T=+inf == gate-C, all obj>0 fire):
+  n_fired            = 12   (round61 gate-C n = 12)
+  fired-subset mean dPublic  = +0.001293   (round61 gate-C = +0.001293, dev=2.13e-07)
+  fired-subset mean dPrivate = +0.001990   (round61 gate-C = +0.001990, dev=3.02e-07)
+  ANCHOR CHECK: PASS (matches round61 gate-C to 6dp)
+
+==============================================================================
+PER-THRESHOLD SWEEP  (mean_dP* averaged over all 16 datasets)
+==============================================================================
+     T nFire   mean_dPub  mean_dPriv pReg vReg  clean  fired_dPub fired_dPriv
+-----------------------------------------------------------------------------
+   750     2   +0.000781   +0.001003    0    0    YES   +0.006244   +0.008028
+  1060     2   +0.000781   +0.001003    0    0    YES   +0.006244   +0.008028
+  1109     3   +0.001340   +0.001989    0    0    YES   +0.007148   +0.010609
+  1500     4   +0.001933   +0.002734    0    0    YES   +0.007731   +0.010938
+  2000     4   +0.001933   +0.002734    0    0    YES   +0.007731   +0.010938
+  3000     4   +0.001933   +0.002734    0    0    YES   +0.007731   +0.010938
+  3501     4   +0.001933   +0.002734    0    0    YES   +0.007731   +0.010938
+  5000     5   +0.002230   +0.002976    0    0    YES   +0.007136   +0.009522
+  7000     5   +0.002230   +0.002976    0    0    YES   +0.007136   +0.009522
+  8173     5   +0.002230   +0.002976    0    0    YES   +0.007136   +0.009522
+  8500     6   +0.002197   +0.002936    1    1     no   +0.005858   +0.007829
+ 10000     6   +0.002197   +0.002936    1    1     no   +0.005858   +0.007829
+ 15000    11   +0.001282   +0.001669    4    6     no   +0.001864   +0.002428
+ 50000    12   +0.000970   +0.001493    5    7     no   +0.001293   +0.001990
+  +inf    12   +0.000970   +0.001493    5    7     no   +0.001293   +0.001990
+
+FIRED-SET DETAIL (dataset : n_train, dPublic, dPrivate, both-positive?):
+  train_13  n_train=   500  dPub=+0.000395  dPriv=+0.002296  CLEAN
+  train_15  n_train=   500  dPub=+0.012094  dPriv=+0.013760  CLEAN
+  train_05  n_train=  1060  dPub=+0.008955  dPriv=+0.015770  CLEAN
+  train_09  n_train=  1109  dPub=+0.009482  dPriv=+0.011925  CLEAN
+  train_03  n_train=  3501  dPub=+0.004752  dPriv=+0.003858  CLEAN
+  train_08  n_train=  8173  dPub=-0.000529  dPriv=-0.000637  REGRESSION
+  train_07  n_train= 10417  dPub=+0.001328  dPriv=-0.000835  REGRESSION
+  train_06  n_train= 10803  dPub=-0.005480  dPriv=-0.007091  REGRESSION
+  train_14  n_train= 11108  dPub=-0.007286  dPriv=-0.007645  REGRESSION
+  train_02  n_train= 14929  dPub=-0.005165  dPriv=-0.004109  REGRESSION
+  train_01  n_train= 14957  dPub=+0.001958  dPriv=-0.000581  REGRESSION
+  train_12  n_train= 49432  dPub=-0.004991  dPriv=-0.002828  REGRESSION
+
+==============================================================================
+VERDICT
+==============================================================================
+1) CLEAN-WIN CONTIGUOUS RANGE (on threshold T / n_train):  (500, 8173]
+     - lower bound 500 EXCLUSIVE: need T > 500 so the smallest obj>0 clean datasets (n_train=500) fire;
+       at T <= 500 nothing fires -> mean_dP*=0 -> not a clean win.
+     - upper bound 8173 INCLUSIVE: gate is STRICT (n_train < T), so T = 8173 still excludes
+       the first regressing dataset (train_08, n_train=8173, both deltas < 0); T > 8173 admits it and breaks clean-win.
+     - interval derivation exact (no clean dataset at/above n_train=8173): True
+     - grid Ts with clean_win = ['750', '1060', '1109', '1500', '2000', '3000', '3501', '5000', '7000', '8173']
+
+2) MAX-GAIN CLEAN-WIN THRESHOLD:  T = 5000  (tie across T=[5000, 7000, 8173]; all fire the same set)
+     mean_dPublic = +0.002230, mean_dPrivate = +0.002976 (over all 16); fires 5 datasets incl. train_03 (n_train=3501).
+
+3) SHIPPED GATE-D' THRESHOLD T=5000: INTERIOR of the clean-win plateau
+     clean_win at T=5000: True
+     margin DOWN to nearest breaking threshold: 5000 - 500 = 4500 (n_train)  [below this, 0 fired -> not clean]
+     margin UP   to nearest breaking threshold: 8173 - 5000 = 3173 (n_train)  [train_08 @ n_train=8173 enters -> breaks]
+     => T=5000 sits comfortably inside plateau (500, 8173]; NOT a knife-edge.
+
+CLEAN RUN: YES
+==============================================================================

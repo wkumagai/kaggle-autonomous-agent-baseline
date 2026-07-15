@@ -1,0 +1,160 @@
+==============================================================================
+bench_03 round63 — CROSS-FAMILY BAGGING BLEND: base-08 HGB vs base-08 HGB rank-avg ExtraTrees (ALL 16)  [OFFLINE]
+==============================================================================
+
+SETUP:
+  base  == shipped 08: HGB, early_stopping, cat_mask=object cols,
+           seed-0, single fit on the FULL train frame.
+  blend == rank-average(base HGB proba, ExtraTrees proba),
+           seed-0. ET view = numeric[median-impute, no scaling] +
+           object[constant-impute + one-hot(ignore-unknown)] in a
+           Pipeline -> ExtraTreesClassifier(n_estimators=300).
+  ONLY lever vs round61 = RandomForest -> ExtraTrees (prep identical).
+
+=== HEADLINE (blend vs base == shipped 08, ALL 16, un-gated) ===
+  mean dPublic =-0.004475  (W/L/T 5/11/0)
+  mean dPrivate=-0.003781  (W/L/T 5/11/0)
+
+  un-gated regressions (dAUC < -1e-6):
+    Public : train_01(-0.006506), train_02(-0.003947), train_06(-0.011997), train_07(-0.011106), train_08(-0.003636), train_10(-0.012072), train_11(-0.000166), train_12(-0.010183), train_13(-0.006374), train_14(-0.022034), train_16(-0.004827)
+    Private: train_01(-0.005988), train_02(-0.002980), train_03(-0.001534), train_06(-0.013149), train_07(-0.012398), train_08(-0.002691), train_10(-0.011630), train_12(-0.005832), train_13(-0.001141), train_14(-0.022146), train_16(-0.007777)
+  UN-GATED CLEAN-WIN (zero reg both splits, net+ both): NO
+
+=== GATE-D' VIEW (n_train<5000 AND n_object_cols>0) ===
+  fired=5 [train_03,train_05,train_09,train_13,train_15]
+  over-16 mean dPublic =+0.000744   mean dPrivate=+0.001070
+  fired-subset mean dPublic =+0.002381   dPrivate=+0.003423
+  regressions among fired:
+    Public : train_13(-0.006374)
+    Private: train_03(-0.001534), train_13(-0.001141)
+  GATE-D' CLEAN-WIN (zero reg both splits, net+ both): NO
+
+=== PER-DATASET TABLE (blend - base) ===
+dataset     n_train  n_obj     dPublic    dPrivate  gateD  W/L
+train_01      14957      5   -0.006506   -0.005988  False    L
+train_02      14929      2   -0.003947   -0.002980  False    L
+train_03       3501      7   +0.000646   -0.001534   True    L
+train_04       8775      0   +0.002961   +0.005115  False    W
+train_05       1060      5   +0.003322   +0.009412   True    W
+train_06      10803      9   -0.011997   -0.013149  False    L
+train_07      10417      6   -0.011106   -0.012398  False    L
+train_08       8173     12   -0.003636   -0.002691  False    L
+train_09       1109      4   +0.005528   +0.001467   True    W
+train_10      11800      0   -0.012072   -0.011630  False    L
+train_11      28879      0   -0.000166   +0.001863  False    L
+train_12      49432      3   -0.010183   -0.005832  False    L
+train_13        500      4   -0.006374   -0.001141   True    L
+train_14      11108     15   -0.022034   -0.022146  False    L
+train_15        500     24   +0.008784   +0.008912   True    W
+train_16       1809      0   -0.004827   -0.007777  False    L
+
+=== PER-DATASET dAUC (Public) — base vs blend ===
+dataset     gateC       base      blend       delta
+train_01     True   0.710287   0.703781   -0.006506
+train_02     True   0.964370   0.960423   -0.003947
+train_03     True   0.792579   0.793224   +0.000646
+train_04    False   0.823647   0.826608   +0.002961
+train_05     True   0.653135   0.656457   +0.003322
+train_06     True   0.799693   0.787697   -0.011997
+train_07     True   0.823648   0.812542   -0.011106
+train_08     True   0.846027   0.842391   -0.003636
+train_09     True   0.620424   0.625952   +0.005528
+train_10    False   0.836807   0.824735   -0.012072
+train_11    False   0.828129   0.827963   -0.000166
+train_12     True   0.794888   0.784704   -0.010183
+train_13     True   0.628380   0.622006   -0.006374
+train_14     True   0.797525   0.775491   -0.022034
+train_15     True   0.841097   0.849881   +0.008784
+train_16    False   0.892160   0.887333   -0.004827
+
+=== PER-DATASET dAUC (Private) — base vs blend ===
+dataset     gateC       base      blend       delta
+train_01     True   0.704818   0.698830   -0.005988
+train_02     True   0.963480   0.960501   -0.002980
+train_03     True   0.809545   0.808010   -0.001534
+train_04    False   0.824960   0.830074   +0.005115
+train_05     True   0.656873   0.666285   +0.009412
+train_06     True   0.813708   0.800559   -0.013149
+train_07     True   0.826507   0.814109   -0.012398
+train_08     True   0.841110   0.838419   -0.002691
+train_09     True   0.633474   0.634941   +0.001467
+train_10    False   0.847743   0.836113   -0.011630
+train_11    False   0.816654   0.818518   +0.001863
+train_12     True   0.769505   0.763673   -0.005832
+train_13     True   0.644000   0.642859   -0.001141
+train_14     True   0.804425   0.782279   -0.022146
+train_15     True   0.843627   0.852538   +0.008912
+train_16    False   0.893255   0.885477   -0.007777
+
+=== REGRESSIONS (dAUC < -1e-6) ===
+  Public  train_01: -0.006506
+  Public  train_02: -0.003947
+  Public  train_06: -0.011997
+  Public  train_07: -0.011106
+  Public  train_08: -0.003636
+  Public  train_10: -0.012072
+  Public  train_11: -0.000166
+  Public  train_12: -0.010183
+  Public  train_13: -0.006374
+  Public  train_14: -0.022034
+  Public  train_16: -0.004827
+  Private train_01: -0.005988
+  Private train_02: -0.002980
+  Private train_03: -0.001534
+  Private train_06: -0.013149
+  Private train_07: -0.012398
+  Private train_08: -0.002691
+  Private train_10: -0.011630
+  Private train_12: -0.005832
+  Private train_13: -0.001141
+  Private train_14: -0.022146
+  Private train_16: -0.007777
+
+=== IMPROVEMENTS (dAUC > +1e-6) ===
+  Public  train_03: +0.000646
+  Public  train_04: +0.002961
+  Public  train_05: +0.003322
+  Public  train_09: +0.005528
+  Public  train_15: +0.008784
+  Private train_04: +0.005115
+  Private train_05: +0.009412
+  Private train_09: +0.001467
+  Private train_11: +0.001863
+  Private train_15: +0.008912
+
+=== REPRODUCTION CHECK (base on ALL 16 vs round61 base, tol=0) ===
+  train_01: Public 0.710287 vs r61 0.710287 (|d|=0.00e+00, YES); Private 0.704818 vs r61 0.704818 (|d|=0.00e+00, YES)
+  train_02: Public 0.964370 vs r61 0.964370 (|d|=0.00e+00, YES); Private 0.963480 vs r61 0.963480 (|d|=0.00e+00, YES)
+  train_03: Public 0.792579 vs r61 0.792579 (|d|=0.00e+00, YES); Private 0.809545 vs r61 0.809545 (|d|=0.00e+00, YES)
+  train_04: Public 0.823647 vs r61 0.823647 (|d|=0.00e+00, YES); Private 0.824960 vs r61 0.824960 (|d|=0.00e+00, YES)
+  train_05: Public 0.653135 vs r61 0.653135 (|d|=0.00e+00, YES); Private 0.656873 vs r61 0.656873 (|d|=0.00e+00, YES)
+  train_06: Public 0.799693 vs r61 0.799693 (|d|=0.00e+00, YES); Private 0.813708 vs r61 0.813708 (|d|=0.00e+00, YES)
+  train_07: Public 0.823648 vs r61 0.823648 (|d|=0.00e+00, YES); Private 0.826507 vs r61 0.826507 (|d|=0.00e+00, YES)
+  train_08: Public 0.846027 vs r61 0.846027 (|d|=0.00e+00, YES); Private 0.841110 vs r61 0.841110 (|d|=0.00e+00, YES)
+  train_09: Public 0.620424 vs r61 0.620424 (|d|=0.00e+00, YES); Private 0.633474 vs r61 0.633474 (|d|=0.00e+00, YES)
+  train_10: Public 0.836807 vs r61 0.836807 (|d|=0.00e+00, YES); Private 0.847743 vs r61 0.847743 (|d|=0.00e+00, YES)
+  train_11: Public 0.828129 vs r61 0.828129 (|d|=0.00e+00, YES); Private 0.816654 vs r61 0.816654 (|d|=0.00e+00, YES)
+  train_12: Public 0.794888 vs r61 0.794888 (|d|=0.00e+00, YES); Private 0.769505 vs r61 0.769505 (|d|=0.00e+00, YES)
+  train_13: Public 0.628380 vs r61 0.628380 (|d|=0.00e+00, YES); Private 0.644000 vs r61 0.644000 (|d|=0.00e+00, YES)
+  train_14: Public 0.797525 vs r61 0.797525 (|d|=0.00e+00, YES); Private 0.804425 vs r61 0.804425 (|d|=0.00e+00, YES)
+  train_15: Public 0.841097 vs r61 0.841097 (|d|=0.00e+00, YES); Private 0.843627 vs r61 0.843627 (|d|=0.00e+00, YES)
+  train_16: Public 0.892160 vs r61 0.892160 (|d|=0.00e+00, YES); Private 0.893255 vs r61 0.893255 (|d|=0.00e+00, YES)
+  max |dev| over all 16x2 = 0.00e+00
+  REPRODUCTION (base==round61 base): PASS
+
+=== ADOPTION ANALYSIS (un-gated) ===
+ADOPT iff mean dPublic > 0 AND mean dPrivate > 0 with ZERO regression
+  on EITHER split (over all 16). Any regression, or net-negative /
+  negligible mean on either split => REJECT.
+
+  zero_regressions=NO (Public regs=11, Private regs=11)
+  mean dPublic  = -0.004475  (clean gain: NO)
+  mean dPrivate = -0.003781  (clean gain: NO)
+
+=== VERDICT ===
+  REJECT (un-gated clean-win test): ET blend does not improve BOTH mean splits with zero regressions.
+  GATE-D' CLEAN-WIN: NO  (the operational verdict — RF was YES in round62)
+
+SHIP VERDICT (un-gated): REJECT
+
+CLEAN RUN: YES (0 exceptions)  [total_fits=32, datasets_scored=16/16, skipped=0, single_class_skips=0, gate_c_datasets=12, reproduction=YES (base_maxdev=0.00e+00)]

@@ -1,0 +1,163 @@
+==============================================================================
+bench_03 round64 — RF HYPERPARAMETER SWEEP for gate-D' RF-blend clean-win (ALL 16)  [OFFLINE]
+==============================================================================
+
+SETUP:
+  base  == shipped 08: HGB, early_stopping, cat_mask=object cols,
+           seed-0, single fit on the FULL train frame (config-independent).
+  blend == rank-average(base HGB proba, RandomForest proba), seed-0.
+           RF view = numeric[median-impute, no scaling] +
+           object[constant-impute + one-hot(ignore-unknown)] in a
+           Pipeline -> RandomForestClassifier(random_state=0, n_jobs=4).
+  SWEEP  = n_estimators in {100,300,500} x max_features in {'sqrt',0.5} = 6 configs.
+           (300,'sqrt') reproduces round61 (the ANCHOR).
+  gate-D' = (n_train<5000 AND n_object_cols>0). fired=5 [train_03,train_05,train_09,train_13,train_15]
+
+=== ANCHOR CHECK ((300,'sqrt') per-dataset deltas vs round61 results.csv, tol=1e-09) ===
+  train_01: dPub +0.001958 vs r61 +0.001958 (|d|=0.00e+00,Y); dPrv -0.000581 vs r61 -0.000581 (|d|=0.00e+00,Y)
+  train_02: dPub -0.005165 vs r61 -0.005165 (|d|=0.00e+00,Y); dPrv -0.004109 vs r61 -0.004109 (|d|=0.00e+00,Y)
+ *train_03: dPub +0.004752 vs r61 +0.004752 (|d|=0.00e+00,Y); dPrv +0.003858 vs r61 +0.003858 (|d|=0.00e+00,Y)
+  train_04: dPub +0.002275 vs r61 +0.002275 (|d|=0.00e+00,Y); dPrv +0.004849 vs r61 +0.004849 (|d|=0.00e+00,Y)
+ *train_05: dPub +0.008955 vs r61 +0.008955 (|d|=0.00e+00,Y); dPrv +0.015770 vs r61 +0.015770 (|d|=0.00e+00,Y)
+  train_06: dPub -0.005480 vs r61 -0.005480 (|d|=8.00e-08,N); dPrv -0.007090 vs r61 -0.007091 (|d|=8.00e-08,N)
+  train_07: dPub +0.001328 vs r61 +0.001328 (|d|=0.00e+00,Y); dPrv -0.000835 vs r61 -0.000835 (|d|=0.00e+00,Y)
+  train_08: dPub -0.000529 vs r61 -0.000529 (|d|=0.00e+00,Y); dPrv -0.000637 vs r61 -0.000637 (|d|=0.00e+00,Y)
+ *train_09: dPub +0.009482 vs r61 +0.009482 (|d|=0.00e+00,Y); dPrv +0.011925 vs r61 +0.011925 (|d|=0.00e+00,Y)
+  train_10: dPub -0.007470 vs r61 -0.007470 (|d|=0.00e+00,Y); dPrv -0.003460 vs r61 -0.003460 (|d|=0.00e+00,Y)
+  train_11: dPub +0.003108 vs r61 +0.003108 (|d|=0.00e+00,Y); dPrv +0.000227 vs r61 +0.000227 (|d|=0.00e+00,Y)
+  train_12: dPub -0.004991 vs r61 -0.004991 (|d|=0.00e+00,Y); dPrv -0.002828 vs r61 -0.002828 (|d|=0.00e+00,Y)
+ *train_13: dPub +0.000395 vs r61 +0.000395 (|d|=0.00e+00,Y); dPrv +0.002296 vs r61 +0.002296 (|d|=0.00e+00,Y)
+  train_14: dPub -0.007286 vs r61 -0.007286 (|d|=0.00e+00,Y); dPrv -0.007645 vs r61 -0.007645 (|d|=0.00e+00,Y)
+ *train_15: dPub +0.012094 vs r61 +0.012094 (|d|=0.00e+00,Y); dPrv +0.013760 vs r61 +0.013760 (|d|=0.00e+00,Y)
+  train_16: dPub -0.005057 vs r61 -0.005057 (|d|=0.00e+00,Y); dPrv -0.008102 vs r61 -0.008102 (|d|=0.00e+00,Y)
+  max |dev| over all 16x2 = 8.00e-08
+  ANCHOR REPRODUCES ROUND61: FAIL (gate-D' subset included above, marked '*')
+
+------------------------------------------------------------------------------
+CONFIG ne100_mfsqrt  (n_estimators=100, max_features=sqrt)
+------------------------------------------------------------------------------
+  gate-D' fired = 5 [train_03,train_05,train_09,train_13,train_15]
+  over-16   mean dPublic =-0.000609   mean dPrivate=-0.000310
+  fired-sub mean dPublic =+0.005943   mean dPrivate=+0.007629
+  dataset     n_train  n_obj     dPublic    dPrivate
+  train_03       3501      7   +0.003225   +0.002496
+  train_05       1060      5   +0.007175   +0.013939
+  train_09       1109      4   +0.009063   +0.010050
+  train_13        500      4   +0.001520   +0.001682
+  train_15        500     24   +0.008734   +0.009978
+  regressions among fired (dAUC < -1e-6):
+    Public : NONE
+    Private: NONE
+  GATE-D' CLEAN-WIN (zero reg BOTH splits, net+ BOTH): YES
+
+------------------------------------------------------------------------------
+CONFIG ne300_mfsqrt  (n_estimators=300, max_features=sqrt)   [ANCHOR == round61]
+------------------------------------------------------------------------------
+  gate-D' fired = 5 [train_03,train_05,train_09,train_13,train_15]
+  over-16   mean dPublic =+0.000523   mean dPrivate=+0.001087
+  fired-sub mean dPublic =+0.007136   mean dPrivate=+0.009522
+  dataset     n_train  n_obj     dPublic    dPrivate
+  train_03       3501      7   +0.004752   +0.003858
+  train_05       1060      5   +0.008955   +0.015770
+  train_09       1109      4   +0.009482   +0.011925
+  train_13        500      4   +0.000395   +0.002296
+  train_15        500     24   +0.012094   +0.013760
+  regressions among fired (dAUC < -1e-6):
+    Public : NONE
+    Private: NONE
+  GATE-D' CLEAN-WIN (zero reg BOTH splits, net+ BOTH): YES
+
+------------------------------------------------------------------------------
+CONFIG ne500_mfsqrt  (n_estimators=500, max_features=sqrt)
+------------------------------------------------------------------------------
+  gate-D' fired = 5 [train_03,train_05,train_09,train_13,train_15]
+  over-16   mean dPublic =+0.000683   mean dPrivate=+0.001399
+  fired-sub mean dPublic =+0.007590   mean dPrivate=+0.009943
+  dataset     n_train  n_obj     dPublic    dPrivate
+  train_03       3501      7   +0.004943   +0.004370
+  train_05       1060      5   +0.009324   +0.016184
+  train_09       1109      4   +0.009850   +0.012925
+  train_13        500      4   +0.001088   +0.001896
+  train_15        500     24   +0.012747   +0.014339
+  regressions among fired (dAUC < -1e-6):
+    Public : NONE
+    Private: NONE
+  GATE-D' CLEAN-WIN (zero reg BOTH splits, net+ BOTH): YES
+
+------------------------------------------------------------------------------
+CONFIG ne100_mf0.5  (n_estimators=100, max_features=0.5)
+------------------------------------------------------------------------------
+  gate-D' fired = 5 [train_03,train_05,train_09,train_13,train_15]
+  over-16   mean dPublic =-0.000466   mean dPrivate=-0.000319
+  fired-sub mean dPublic =+0.003690   mean dPrivate=+0.004576
+  dataset     n_train  n_obj     dPublic    dPrivate
+  train_03       3501      7   +0.001305   +0.001724
+  train_05       1060      5   +0.006062   +0.011049
+  train_09       1109      4   +0.005581   +0.005869
+  train_13        500      4   -0.000260   -0.001084
+  train_15        500     24   +0.005760   +0.005323
+  regressions among fired (dAUC < -1e-6):
+    Public : train_13(-0.000260)
+    Private: train_13(-0.001084)
+  GATE-D' CLEAN-WIN (zero reg BOTH splits, net+ BOTH): NO
+
+------------------------------------------------------------------------------
+CONFIG ne300_mf0.5  (n_estimators=300, max_features=0.5)
+------------------------------------------------------------------------------
+  gate-D' fired = 5 [train_03,train_05,train_09,train_13,train_15]
+  over-16   mean dPublic =+0.000413   mean dPrivate=+0.000894
+  fired-sub mean dPublic =+0.004207   mean dPrivate=+0.006077
+  dataset     n_train  n_obj     dPublic    dPrivate
+  train_03       3501      7   +0.001822   +0.002689
+  train_05       1060      5   +0.007267   +0.011674
+  train_09       1109      4   +0.004495   +0.008659
+  train_13        500      4   +0.000581   +0.000290
+  train_15        500     24   +0.006869   +0.007075
+  regressions among fired (dAUC < -1e-6):
+    Public : NONE
+    Private: NONE
+  GATE-D' CLEAN-WIN (zero reg BOTH splits, net+ BOTH): YES
+
+------------------------------------------------------------------------------
+CONFIG ne500_mf0.5  (n_estimators=500, max_features=0.5)
+------------------------------------------------------------------------------
+  gate-D' fired = 5 [train_03,train_05,train_09,train_13,train_15]
+  over-16   mean dPublic =+0.000627   mean dPrivate=+0.001063
+  fired-sub mean dPublic =+0.004547   mean dPrivate=+0.006256
+  dataset     n_train  n_obj     dPublic    dPrivate
+  train_03       3501      7   +0.001978   +0.002751
+  train_05       1060      5   +0.008088   +0.011773
+  train_09       1109      4   +0.005005   +0.009159
+  train_13        500      4   +0.001022   +0.000559
+  train_15        500     24   +0.006642   +0.007037
+  regressions among fired (dAUC < -1e-6):
+    Public : NONE
+    Private: NONE
+  GATE-D' CLEAN-WIN (zero reg BOTH splits, net+ BOTH): YES
+
+==============================================================================
+=== FINAL COMPARISON TABLE (one row per RF config) ===
+==============================================================================
+ n_est  max_feat  over16_dPub  over16_dPrv  firedReg  cleanWin
+   100      sqrt    -0.000609    -0.000310         0         Y
+   300      sqrt    +0.000523    +0.001087         0         Y *
+   500      sqrt    +0.000683    +0.001399         0         Y
+   100       0.5    -0.000466    -0.000319         2         N
+   300       0.5    +0.000413    +0.000894         0         Y
+   500       0.5    +0.000627    +0.001063         0         Y
+  (* = (300,'sqrt') anchor == round61; firedReg = # regressions among fired datasets across BOTH splits)
+
+=== FIRED-SUBSET MEANS (gate-D' datasets only) ===
+ n_est  max_feat   fired_dPub   fired_dPrv  cleanWin
+   100      sqrt    +0.005943    +0.007629         Y
+   300      sqrt    +0.007136    +0.009522         Y
+   500      sqrt    +0.007590    +0.009943         Y
+   100       0.5    +0.003690    +0.004576         N
+   300       0.5    +0.004207    +0.006077         Y
+   500       0.5    +0.004547    +0.006256         Y
+
+=== ROBUSTNESS VERDICT ===
+  gate-D' CLEAN-WIN holds in 5/6 RF configs.
+  PARTIAL: the gate-D' clean-win BREAKS for some configs: (100,0.5).
+
+CLEAN RUN: NO (0 exceptions)  [total_fits=112, datasets_scored=16/16, skipped=0, single_class_skips=0, gate_c_datasets=12, gate_d_datasets=5, anchor=NO (anchor_maxdev=8.00e-08)]

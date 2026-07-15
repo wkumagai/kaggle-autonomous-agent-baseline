@@ -1,0 +1,14 @@
+{
+ "env_pandas": "3.0.3",
+ "clean_run": true,
+ "n_scored": 16,
+ "n_exceptions": 0,
+ "mean_base_private": 0.7933552278937872,
+ "mean_cand_private": 0.7989101002780132,
+ "mean_delta": 0.005554872384226028,
+ "worst_regression": 0.0,
+ "worst_dataset": "train_16",
+ "n_firing": 15,
+ "nonfire_equals_base": true,
+ "base_anchor_ok": false
+}

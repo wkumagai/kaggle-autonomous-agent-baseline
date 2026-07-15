@@ -1,0 +1,161 @@
+==============================================================================
+round72 -- OR-gate leave-one-dataset-out (LOO) robustness for candidate A (K=10)
+==============================================================================
+Pure desk calculation. Reuses round69 per-dataset dA_K10 deltas (AUC of the
+K=10 seed-averaged base-08 HGB minus single-seed base), over 16 offline datasets.
+NO refit, NO submission. tol = 1e-9 for win/tie/regress.
+Two FIXED gates compared:
+   gate-C  = n_object_cols > 0                 (current shipping gate)
+   OR-gate = n_object_cols > 0 OR n_train >= 5000   (round71 dominator)
+STRICT DOMINANCE (per pool) := OR fired-set superset gate-C fired-set
+   AND OR 0/0 regressions AND gate-C 0/0 AND OR sum_dA_priv > gate-C sum_dA_priv.
+
+[sanity] max n_train mismatch (r69 vs stats)       = 0
+[sanity] max n_object_cols mismatch (r69 vs stats) = 0
+
+------------------------------------------------------------------------------
+(a) ALL-16 ANCHOR (no LOO) vs round71
+------------------------------------------------------------------------------
+  gate-C : fires 12  reg pub/priv=0/0  sum_priv=0.063736   (round71: 12 fire, 0/0, 0.063736)
+  OR-gate: fires 15  reg pub/priv=0/0  sum_priv=0.088878   (round71: 15 fire, 0/0, 0.088878)
+  OR-gate adds over gate-C: train_04;train_10;train_11
+  ANCHOR MATCHES round71 = YES
+
+------------------------------------------------------------------------------
+(context) NO-OBJECT-COL DATASETS (n_object_cols==0) -- the only rows T affects
+------------------------------------------------------------------------------
+  dataset     n_train      dA_priv       dA_pub  verdict
+  train_16       1809    -0.003712    -0.000572  REGRESSOR
+  train_04       8775     0.009558     0.007293  gainer
+  train_10      11800     0.010273     0.008376  gainer
+  train_11      28879     0.005312     0.004160  gainer
+  => sole no-obj REGRESSOR = train_16 (n_train=1809).
+     no-obj GAINERS = train_04(8775), train_10(11800), train_11(28879).
+     Full-pool clean+maximal plateau for T: (1809, 8775], width 6966; T=5000 sits inside.
+
+------------------------------------------------------------------------------
+(b) LOO SUMMARY -- 1 anchor + 16 single-removal rows
+------------------------------------------------------------------------------
+  left_out   gC_fire    gC_sumP OR_fire    OR_sumP     OR-gC  dom          plateau      w
+  NONE            12   0.063736      15   0.088878  0.025142  YES      (1809,8775]   6966
+  train_01        11   0.060015      14   0.085156  0.025142  YES      (1809,8775]   6966
+  train_02        11   0.059654      14   0.084796  0.025142  YES      (1809,8775]   6966
+  train_03        11   0.056459      14   0.081601  0.025142  YES      (1809,8775]   6966
+  train_04        12   0.063736      14   0.079320  0.015584  YES     (1809,11800]   9991
+  train_05        11   0.055404      14   0.080546  0.025142  YES      (1809,8775]   6966
+  train_06        11   0.063237      14   0.088379  0.025142  YES      (1809,8775]   6966
+  train_07        11   0.061230      14   0.086372  0.025142  YES      (1809,8775]   6966
+  train_08        11   0.062016      14   0.087158  0.025142  YES      (1809,8775]   6966
+  train_09        11   0.054431      14   0.079573  0.025142  YES      (1809,8775]   6966
+  train_10        12   0.063736      14   0.078605  0.014869  YES      (1809,8775]   6966
+  train_11        12   0.063736      14   0.083566  0.019830  YES      (1809,8775]   6966
+  train_12        11   0.061399      14   0.086541  0.025142  YES      (1809,8775]   6966
+  train_13        11   0.057520      14   0.082662  0.025142  YES      (1809,8775]   6966
+  train_14        11   0.059688      14   0.084830  0.025142  YES      (1809,8775]   6966
+  train_15        11   0.050044      14   0.075185  0.025142  YES      (1809,8775]   6966
+  train_16        12   0.063736      15   0.088878  0.025142  YES          (,8775]       
+
+------------------------------------------------------------------------------
+(c) DOES DOMINANCE EVER BREAK UNDER SINGLE REMOVAL?
+------------------------------------------------------------------------------
+NO. All 16 single-dataset removals keep OR-gate STRICTLY DOMINATING gate-C:
+in every LOO pool the OR fired-set is a superset of gate-C's, both gates stay
+0/0 on regressions, and OR-gate's sum_dA_priv is strictly larger. The conclusion
+'OR-gate strictly dominates gate-C' does NOT depend on any single dataset.
+
+Why it is structurally guaranteed: the ONLY no-obj regressor is train_16
+(n_train=1809 < T=5000), so neither gate ever fires it -> both stay 0/0 under
+any single removal. OR-gate's advantage is the 3 no-obj gainers it pulls in
+(train_04, train_10, train_11, all n_train>=5000, all dA_priv>0). Removing one
+dataset can delete at most ONE of those gainers, leaving >=2 strictly-positive
+private gains -> OR sum_dA_priv stays strictly above gate-C's.
+
+------------------------------------------------------------------------------
+(d) CRITICAL REMOVALS -- the sole regressor and the three recovered gainers
+------------------------------------------------------------------------------
+  remove train_16  [sole no-obj REGRESSOR (n_train=1809)]
+    gate-C fire=12 sum_priv=0.063736 reg=0/0 ; OR fire=15 sum_priv=0.088878 reg=0/0
+    OR adds over gate-C: train_04;train_10;train_11
+    OR - gate-C sum_priv = 0.025142   DOMINATES = YES
+    plateau after removal: (,8775] width=   [UNBOUNDED_BELOW(no_noobj_regressor)]
+    NOTE: with train_16 gone there is NO no-obj regressor left, so even the
+    un-gated model would be clean; the plateau becomes unbounded below
+    (-inf, 8775]. OR-gate STILL strictly dominates gate-C (it keeps the 3
+    no-obj gainers), so dominance is not an artifact of train_16's presence.
+
+  remove train_04  [recovered no-obj gainer, SMALLEST n_train=8775 (sets plateau_hi)]
+    gate-C fire=12 sum_priv=0.063736 reg=0/0 ; OR fire=14 sum_priv=0.079320 reg=0/0
+    OR adds over gate-C: train_10;train_11
+    OR - gate-C sum_priv = 0.015584   DOMINATES = YES
+    plateau after removal: (1809,11800] width=9991   [OK]
+
+  remove train_10  [recovered no-obj gainer (n_train=11800)]
+    gate-C fire=12 sum_priv=0.063736 reg=0/0 ; OR fire=14 sum_priv=0.078605 reg=0/0
+    OR adds over gate-C: train_04;train_11
+    OR - gate-C sum_priv = 0.014869   DOMINATES = YES
+    plateau after removal: (1809,8775] width=6966   [OK]
+
+  remove train_11  [recovered no-obj gainer, LARGEST n_train=28879]
+    gate-C fire=12 sum_priv=0.063736 reg=0/0 ; OR fire=14 sum_priv=0.083566 reg=0/0
+    OR adds over gate-C: train_04;train_10
+    OR - gate-C sum_priv = 0.019830   DOMINATES = YES
+    plateau after removal: (1809,8775] width=6966   [OK]
+
+------------------------------------------------------------------------------
+(e) PLATEAU WIDTH ACROSS LOO
+------------------------------------------------------------------------------
+Finite plateau widths by removal (empty = unbounded/degenerate):
+    remove train_01   width=6966
+    remove train_02   width=6966
+    remove train_03   width=6966
+    remove train_04   width=9991
+    remove train_05   width=6966
+    remove train_06   width=6966
+    remove train_07   width=6966
+    remove train_08   width=6966
+    remove train_09   width=6966
+    remove train_10   width=6966
+    remove train_11   width=6966
+    remove train_12   width=6966
+    remove train_13   width=6966
+    remove train_14   width=6966
+    remove train_15   width=6966
+    remove train_16   width=inf/NA
+
+Narrowest finite plateau: remove train_01 -> width 6966.
+Widest finite plateau   : remove train_04 -> width 9991.
+(Full-pool width is 6966; removing train_04 widens plateau_hi to the next
+ gainer 11800 -> width 9991. Removing train_16 makes it unbounded below.)
+Even the NARROWEST finite window (6966 rows of n_train) is far from a
+knife-edge; T=5000 stays comfortably inside every LOO plateau.
+
+------------------------------------------------------------------------------
+(f) OVERALL ROBUSTNESS CONCLUSION (train_16 dependence)
+------------------------------------------------------------------------------
+The strict dominance of OR-gate over gate-C is INDEPENDENT of any single dataset:
+all 16 leave-one-out pools preserve it. It does NOT hinge on train_16 -- removing
+train_16 (the only reason a gate is needed at all on the no-obj branch) leaves
+OR-gate still strictly dominating, and merely relaxes the plateau to unbounded
+below. train_16 only matters for the LOWER edge of the clean-T plateau, never for
+the dominance verdict. Ship OR-gate (T in the wide [1809,8775] plateau, e.g. 5000)
+with confidence that the result is not an artifact of a single benchmark dataset.
+
+------------------------------------------------------------------------------
+(g) CLEAN RUN / GIT SELF-CHECK
+------------------------------------------------------------------------------
+  sanity mismatches zero      : True
+  anchor matches round71      : True
+  dominance holds all 16 LOO  : True
+  CLEAN RUN = YES
+  (git status self-check appended at runtime below.)
+
+==============================================================================
+END round72 summary
+==============================================================================
+
+-- git self-check (appended post-run) --------------------------------------
+git status --porcelain (new/modified only, pre-existing ' D ' deletions omitted):
+  ?? experiments/bench_03/round72_orgate_loo/
+All diffs are confined to experiments/bench_03/round72_orgate_loo/ (deskeval.py,
+results.csv, summary.txt, run.log). submissions/ untouched; no input CSV modified.
+CLEAN RUN = YES

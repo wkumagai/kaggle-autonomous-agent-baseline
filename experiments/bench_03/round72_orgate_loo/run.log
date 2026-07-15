@@ -1,0 +1,9 @@
+[sanity] max n_train mismatch (r69 vs stats)       = 0
+[sanity] max n_object_cols mismatch (r69 vs stats) = 0
+[write] /Users/kumacmini/kaggle-autonomous-agent-baseline-auto/experiments/bench_03/round72_orgate_loo/results.csv  (17 rows: 1 anchor + 16 LOO)
+[anchor] gate-C  fire=12 sum_priv=0.063736033255 reg=0/0
+[anchor] OR-gate fire=15 sum_priv=0.088877958148 reg=0/0
+[anchor] matches round71 = YES
+[write] /Users/kumacmini/kaggle-autonomous-agent-baseline-auto/experiments/bench_03/round72_orgate_loo/summary.txt
+CLEAN RUN: YES
+=== DONE round72 ===

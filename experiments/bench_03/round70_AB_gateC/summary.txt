@@ -1,0 +1,195 @@
+==============================================================================
+bench_03 round70 — AB SYNTHESIS ON THE FULL GATE-C FIRING SET (ALL 16)  [OFFLINE]
+==============================================================================
+
+SETUP (4 arms; only the HGB arm differs between B and AB):
+  base = single HGB seed-0 (== shipped 08 / round61 base).
+  A    = prob-mean of base-08 HGB over seeds 0..9 (seed-avg).
+  B    = rank-avg(base HGB seed-0, RF seed-0) (== round61 blend).
+  AB   = rank-avg(A seed-avg HGB, RF seed-0) (AB synthesis).
+  The SAME RF seed-0 fit is reused for B and AB.
+
+  Candidate A gate-C      = (n_object_cols > 0)  [broad].
+  Candidate B gate-D'     = (n_train < 5000 AND n_object_cols > 0).
+  gate-C-only             = gate-C AND NOT gate-D' (n_train >= 5000 AND n_object_cols > 0).
+
+==============================================================================
+GATE-C FIRING SET PARTITION
+==============================================================================
+  gate-C fired on 12 datasets: ['train_01', 'train_02', 'train_03', 'train_05', 'train_06', 'train_07', 'train_08', 'train_09', 'train_12', 'train_13', 'train_14', 'train_15']
+    expected ['train_01', 'train_02', 'train_03', 'train_05', 'train_06', 'train_07', 'train_08', 'train_09', 'train_12', 'train_13', 'train_14', 'train_15'] -> MATCH
+  gate-D' overlap (n_train<5000), 5 datasets: ['train_03', 'train_05', 'train_09', 'train_13', 'train_15']
+    expected ['train_03', 'train_05', 'train_09', 'train_13', 'train_15'] -> MATCH
+  gate-C-only (n_train>=5000), 7 datasets: ['train_01', 'train_02', 'train_06', 'train_07', 'train_08', 'train_12', 'train_14']
+    expected ['train_01', 'train_02', 'train_06', 'train_07', 'train_08', 'train_12', 'train_14'] -> MATCH
+
+==============================================================================
+PER-DATASET dA / dB / dAB on the GATE-C set (Public)
+==============================================================================
+dataset     n_train     subset       base          dA          dB         dAB  dAB-flag
+train_03       3501     gateD'   0.792579   +0.007894   +0.004752   +0.007385        OK
+train_05       1060     gateD'   0.653135   +0.008396   +0.008955   +0.011569        OK
+train_09       1109     gateD'   0.620424   +0.011098   +0.009482   +0.013153        OK
+train_13        500     gateD'   0.628380   +0.007333   +0.000395   +0.003979        OK
+train_15        500     gateD'   0.841097   +0.011448   +0.012094   +0.015694        OK
+train_01      14957 gateC-only   0.710287   +0.003664   +0.001958   +0.002693        OK
+train_02      14929 gateC-only   0.964370   +0.004422   -0.005165   -0.003726   REGRESS
+train_06      10803 gateC-only   0.799693   +0.000509   -0.005480   -0.005397   REGRESS
+train_07      10417 gateC-only   0.823648   +0.005985   +0.001328   +0.003640        OK
+train_08       8173 gateC-only   0.846027   +0.003650   -0.000529   +0.000763        OK
+train_12      49432 gateC-only   0.794888   +0.001583   -0.004991   -0.004291   REGRESS
+train_14      11108 gateC-only   0.797525   +0.003512   -0.007286   -0.006324   REGRESS
+
+==============================================================================
+PER-DATASET dA / dB / dAB on the GATE-C set (Private)
+==============================================================================
+dataset     n_train     subset       base          dA          dB         dAB  dAB-flag
+train_03       3501     gateD'   0.809545   +0.007277   +0.003858   +0.006097        OK
+train_05       1060     gateD'   0.656873   +0.008332   +0.015770   +0.018048        OK
+train_09       1109     gateD'   0.633474   +0.009305   +0.011925   +0.014566        OK
+train_13        500     gateD'   0.644000   +0.006216   +0.002296   +0.004706        OK
+train_15        500     gateD'   0.843627   +0.013693   +0.013760   +0.018544        OK
+train_01      14957 gateC-only   0.704818   +0.003721   -0.000581   +0.000252        OK
+train_02      14929 gateC-only   0.963480   +0.004082   -0.004109   -0.002835   REGRESS
+train_06      10803 gateC-only   0.813708   +0.000499   -0.007091   -0.007087   REGRESS
+train_07      10417 gateC-only   0.826507   +0.002506   -0.000835   -0.000318   REGRESS
+train_08       8173 gateC-only   0.841110   +0.001720   -0.000637   -0.000387   REGRESS
+train_12      49432 gateC-only   0.769505   +0.002337   -0.002828   -0.001803   REGRESS
+train_14      11108 gateC-only   0.804425   +0.004048   -0.007645   -0.006423   REGRESS
+
+==============================================================================
+CLEAN-WIN VERDICT for AB (dAB >= 0 == no regression vs base)
+==============================================================================
+
+[Public]
+  FULL gate-C      AB: REGRESSES on 4/12: train_02(-0.003726), train_06(-0.005397), train_12(-0.004291), train_14(-0.006324)
+  FULL gate-C          AB W/L/T = 8/4/0  (dA W/L/T 12/0/0, dB W/L/T 7/5/0)
+  gate-D' overlap  AB: CLEAN (no regression on 5 datasets)
+  gate-D' overlap      AB W/L/T = 5/0/0  (dA W/L/T 5/0/0, dB W/L/T 5/0/0)
+  gate-C-only      AB: REGRESSES on 4/7: train_02(-0.003726), train_06(-0.005397), train_12(-0.004291), train_14(-0.006324)
+  gate-C-only          AB W/L/T = 3/4/0  (dA W/L/T 7/0/0, dB W/L/T 2/5/0)
+
+[Private]
+  FULL gate-C      AB: REGRESSES on 6/12: train_02(-0.002835), train_06(-0.007087), train_07(-0.000318), train_08(-0.000387), train_12(-0.001803), train_14(-0.006423)
+  FULL gate-C          AB W/L/T = 6/6/0  (dA W/L/T 12/0/0, dB W/L/T 5/7/0)
+  gate-D' overlap  AB: CLEAN (no regression on 5 datasets)
+  gate-D' overlap      AB W/L/T = 5/0/0  (dA W/L/T 5/0/0, dB W/L/T 5/0/0)
+  gate-C-only      AB: REGRESSES on 6/7: train_02(-0.002835), train_06(-0.007087), train_07(-0.000318), train_08(-0.000387), train_12(-0.001803), train_14(-0.006423)
+  gate-C-only          AB W/L/T = 1/6/0  (dA W/L/T 7/0/0, dB W/L/T 0/7/0)
+
+==============================================================================
+MEAN Δ vs base — full gate-C set and gate-C-only subset
+==============================================================================
+
+[Public]
+  FULL gate-C (12 datasets):
+    mean dA   = +0.005791
+    mean dB   = +0.001293
+    mean dAB  = +0.003261
+  gate-C-only (7 datasets):
+    mean dA   = +0.003332
+    mean dB   = -0.002881
+    mean dAB  = -0.001806
+  gate-D' overlap (5 datasets):
+    mean dA   = +0.009234
+    mean dB   = +0.007136
+    mean dAB  = +0.010356
+
+[Private]
+  FULL gate-C (12 datasets):
+    mean dA   = +0.005311
+    mean dB   = +0.001990
+    mean dAB  = +0.003613
+  gate-C-only (7 datasets):
+    mean dA   = +0.002702
+    mean dB   = -0.003389
+    mean dAB  = -0.002657
+  gate-D' overlap (5 datasets):
+    mean dA   = +0.008965
+    mean dB   = +0.009522
+    mean dAB  = +0.012392
+
+=== PER-DATASET dAUC (Public) — all 16 (context) ===
+dataset     gateC  gateD  Conly       base          dA          dB         dAB
+train_01     True  False   True   0.710287   +0.003664   +0.001958   +0.002693
+train_02     True  False   True   0.964370   +0.004422   -0.005165   -0.003726
+train_03     True   True  False   0.792579   +0.007894   +0.004752   +0.007385
+train_04    False  False  False   0.823647   +0.007293   +0.002275   +0.003989
+train_05     True   True  False   0.653135   +0.008396   +0.008955   +0.011569
+train_06     True  False   True   0.799693   +0.000509   -0.005480   -0.005397
+train_07     True  False   True   0.823648   +0.005985   +0.001328   +0.003640
+train_08     True  False   True   0.846027   +0.003650   -0.000529   +0.000763
+train_09     True   True  False   0.620424   +0.011098   +0.009482   +0.013153
+train_10    False  False  False   0.836807   +0.008376   -0.007470   -0.005427
+train_11    False  False  False   0.828129   +0.004160   +0.003108   +0.003088
+train_12     True  False   True   0.794888   +0.001583   -0.004991   -0.004291
+train_13     True   True  False   0.628380   +0.007333   +0.000395   +0.003979
+train_14     True  False   True   0.797525   +0.003512   -0.007286   -0.006324
+train_15     True   True  False   0.841097   +0.011448   +0.012094   +0.015694
+train_16    False  False  False   0.892160   -0.000572   -0.005057   -0.007699
+
+=== PER-DATASET dAUC (Private) — all 16 (context) ===
+dataset     gateC  gateD  Conly       base          dA          dB         dAB
+train_01     True  False   True   0.704818   +0.003721   -0.000581   +0.000252
+train_02     True  False   True   0.963480   +0.004082   -0.004109   -0.002835
+train_03     True   True  False   0.809545   +0.007277   +0.003858   +0.006097
+train_04    False  False  False   0.824960   +0.009558   +0.004849   +0.007843
+train_05     True   True  False   0.656873   +0.008332   +0.015770   +0.018048
+train_06     True  False   True   0.813708   +0.000499   -0.007091   -0.007087
+train_07     True  False   True   0.826507   +0.002506   -0.000835   -0.000318
+train_08     True  False   True   0.841110   +0.001720   -0.000637   -0.000387
+train_09     True   True  False   0.633474   +0.009305   +0.011925   +0.014566
+train_10    False  False  False   0.847743   +0.010273   -0.003460   -0.000492
+train_11    False  False  False   0.816654   +0.005312   +0.000227   +0.000970
+train_12     True  False   True   0.769505   +0.002337   -0.002828   -0.001803
+train_13     True   True  False   0.644000   +0.006216   +0.002296   +0.004706
+train_14     True  False   True   0.804425   +0.004048   -0.007645   -0.006423
+train_15     True   True  False   0.843627   +0.013693   +0.013760   +0.018544
+train_16    False  False  False   0.893255   -0.003712   -0.008102   -0.012227
+
+=== REPRODUCTION CHECK 1 (base on ALL 16 vs round61 base, tol=0) ===
+  train_01: Public 0.710287 vs r61 0.710287 (|d|=0.00e+00, YES); Private 0.704818 vs r61 0.704818 (|d|=0.00e+00, YES)
+  train_02: Public 0.964370 vs r61 0.964370 (|d|=0.00e+00, YES); Private 0.963480 vs r61 0.963480 (|d|=0.00e+00, YES)
+  train_03: Public 0.792579 vs r61 0.792579 (|d|=0.00e+00, YES); Private 0.809545 vs r61 0.809545 (|d|=0.00e+00, YES)
+  train_04: Public 0.823647 vs r61 0.823647 (|d|=0.00e+00, YES); Private 0.824960 vs r61 0.824960 (|d|=0.00e+00, YES)
+  train_05: Public 0.653135 vs r61 0.653135 (|d|=0.00e+00, YES); Private 0.656873 vs r61 0.656873 (|d|=0.00e+00, YES)
+  train_06: Public 0.799693 vs r61 0.799693 (|d|=0.00e+00, YES); Private 0.813708 vs r61 0.813708 (|d|=0.00e+00, YES)
+  train_07: Public 0.823648 vs r61 0.823648 (|d|=0.00e+00, YES); Private 0.826507 vs r61 0.826507 (|d|=0.00e+00, YES)
+  train_08: Public 0.846027 vs r61 0.846027 (|d|=0.00e+00, YES); Private 0.841110 vs r61 0.841110 (|d|=0.00e+00, YES)
+  train_09: Public 0.620424 vs r61 0.620424 (|d|=0.00e+00, YES); Private 0.633474 vs r61 0.633474 (|d|=0.00e+00, YES)
+  train_10: Public 0.836807 vs r61 0.836807 (|d|=0.00e+00, YES); Private 0.847743 vs r61 0.847743 (|d|=0.00e+00, YES)
+  train_11: Public 0.828129 vs r61 0.828129 (|d|=0.00e+00, YES); Private 0.816654 vs r61 0.816654 (|d|=0.00e+00, YES)
+  train_12: Public 0.794888 vs r61 0.794888 (|d|=0.00e+00, YES); Private 0.769505 vs r61 0.769505 (|d|=0.00e+00, YES)
+  train_13: Public 0.628380 vs r61 0.628380 (|d|=0.00e+00, YES); Private 0.644000 vs r61 0.644000 (|d|=0.00e+00, YES)
+  train_14: Public 0.797525 vs r61 0.797525 (|d|=0.00e+00, YES); Private 0.804425 vs r61 0.804425 (|d|=0.00e+00, YES)
+  train_15: Public 0.841097 vs r61 0.841097 (|d|=0.00e+00, YES); Private 0.843627 vs r61 0.843627 (|d|=0.00e+00, YES)
+  train_16: Public 0.892160 vs r61 0.892160 (|d|=0.00e+00, YES); Private 0.893255 vs r61 0.893255 (|d|=0.00e+00, YES)
+  max |dev| over all 16x2 = 0.00e+00
+  REPRODUCTION 1 (base==round61 base): PASS
+
+=== REPRODUCTION CHECK 2 (B on ALL 16 vs round61 blend, tol=1e-6) ===
+  train_01: Public 0.712246 vs r61bl 0.712246 (|d|=0.00e+00, YES); Private 0.704236 vs r61bl 0.704236 (|d|=0.00e+00, YES)
+  train_02: Public 0.959205 vs r61bl 0.959205 (|d|=0.00e+00, YES); Private 0.959371 vs r61bl 0.959371 (|d|=0.00e+00, YES)
+  train_03: Public 0.797331 vs r61bl 0.797331 (|d|=0.00e+00, YES); Private 0.813403 vs r61bl 0.813403 (|d|=0.00e+00, YES)
+  train_04: Public 0.825922 vs r61bl 0.825922 (|d|=0.00e+00, YES); Private 0.829809 vs r61bl 0.829809 (|d|=0.00e+00, YES)
+  train_05: Public 0.662090 vs r61bl 0.662090 (|d|=0.00e+00, YES); Private 0.672643 vs r61bl 0.672643 (|d|=0.00e+00, YES)
+  train_06: Public 0.794213 vs r61bl 0.794213 (|d|=0.00e+00, YES); Private 0.806618 vs r61bl 0.806618 (|d|=0.00e+00, YES)
+  train_07: Public 0.824976 vs r61bl 0.824976 (|d|=0.00e+00, YES); Private 0.825673 vs r61bl 0.825673 (|d|=0.00e+00, YES)
+  train_08: Public 0.845498 vs r61bl 0.845498 (|d|=0.00e+00, YES); Private 0.840473 vs r61bl 0.840473 (|d|=0.00e+00, YES)
+  train_09: Public 0.629906 vs r61bl 0.629906 (|d|=0.00e+00, YES); Private 0.645399 vs r61bl 0.645399 (|d|=0.00e+00, YES)
+  train_10: Public 0.829337 vs r61bl 0.829337 (|d|=0.00e+00, YES); Private 0.844283 vs r61bl 0.844283 (|d|=0.00e+00, YES)
+  train_11: Public 0.831237 vs r61bl 0.831237 (|d|=0.00e+00, YES); Private 0.816881 vs r61bl 0.816881 (|d|=0.00e+00, YES)
+  train_12: Public 0.789897 vs r61bl 0.789897 (|d|=0.00e+00, YES); Private 0.766677 vs r61bl 0.766677 (|d|=0.00e+00, YES)
+  train_13: Public 0.628775 vs r61bl 0.628775 (|d|=0.00e+00, YES); Private 0.646296 vs r61bl 0.646296 (|d|=0.00e+00, YES)
+  train_14: Public 0.790239 vs r61bl 0.790239 (|d|=0.00e+00, YES); Private 0.796780 vs r61bl 0.796780 (|d|=0.00e+00, YES)
+  train_15: Public 0.853191 vs r61bl 0.853191 (|d|=0.00e+00, YES); Private 0.857386 vs r61bl 0.857386 (|d|=0.00e+00, YES)
+  train_16: Public 0.887103 vs r61bl 0.887103 (|d|=0.00e+00, YES); Private 0.885153 vs r61bl 0.885153 (|d|=0.00e+00, YES)
+  max |dev| over all 16x2 = 0.00e+00
+  REPRODUCTION 2 (B==round61 blend): PASS
+
+==============================================================================
+CONCLUSION
+==============================================================================
+  Gating AB on the BROAD gate-C REGRESSES: AB drops below base on gate-C-only dataset(s) ['train_02', 'train_06', 'train_07', 'train_08', 'train_12', 'train_14'] — an AB ship MUST keep the narrow gate-D' restriction (n_train < 5000).
+
+CLEAN RUN = YES  [reproduction base_maxdev=0.00e+00, B_maxdev=0.00e+00; datasets_fit=16/16, gate_c=12 (overlap=5, C-only=7); exceptions=0, skipped=0, single_class_skips=0, total_fits=176]

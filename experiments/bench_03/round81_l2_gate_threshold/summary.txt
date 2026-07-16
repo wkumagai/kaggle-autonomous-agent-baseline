@@ -1,0 +1,127 @@
+=== PER-DATASET (Public) ===
+dataset         n    ratio  l2@08  msl      base      T008      dT008      T005      dT005      T002      dT002
+train_01    14957  0.00080  False   20    0.7103    0.7103   +0.00000    0.7103   +0.00000    0.7103   +0.00000
+train_02    14929  0.00188  False   20    0.9644    0.9644   +0.00000    0.9644   +0.00000    0.9644   +0.00000
+train_03     3501  0.00514  False   20    0.7926    0.7926   +0.00000    0.7887   -0.00386    0.7887   -0.00386
+train_04     8775  0.00137  False   20    0.8236    0.8236   +0.00000    0.8236   +0.00000    0.8236   +0.00000
+train_05     1060  0.00849  False   20    0.6531    0.6455   -0.00765    0.6455   -0.00765    0.6455   -0.00765
+train_06    10803  0.00083  False   20    0.7997    0.7997   +0.00000    0.7997   +0.00000    0.7997   +0.00000
+train_07    10417  0.00163  False   20    0.8236    0.8236   +0.00000    0.8236   +0.00000    0.8236   +0.00000
+train_08     8173  0.00147  False   20    0.8460    0.8460   +0.00000    0.8460   +0.00000    0.8460   +0.00000
+train_09     1109  0.01623   True   50    0.6204    0.6204   +0.00000    0.6204   +0.00000    0.6204   +0.00000
+train_10    11800  0.00229  False   20    0.8368    0.8368   +0.00000    0.8368   +0.00000    0.8382   +0.00138
+train_11    28879  0.00069  False   20    0.8281    0.8281   +0.00000    0.8281   +0.00000    0.8281   +0.00000
+train_12    49432  0.00016  False   20    0.7949    0.7949   +0.00000    0.7949   +0.00000    0.7949   +0.00000
+train_13      500  0.01800   True   50    0.6284    0.6284   +0.00000    0.6284   +0.00000    0.6284   +0.00000
+train_14    11108  0.00207  False   20    0.7975    0.7975   +0.00000    0.7975   +0.00000    0.7962   -0.00133
+train_15      500  0.06000   True   70    0.8411    0.8411   +0.00000    0.8411   +0.00000    0.8411   +0.00000
+train_16     1809  0.01161   True   20    0.8922    0.8922   +0.00000    0.8922   +0.00000    0.8922   +0.00000
+
+=== PER-DATASET (Private) ===
+dataset         n    ratio  l2@08  msl      base      T008      dT008      T005      dT005      T002      dT002
+train_01    14957  0.00080  False   20    0.7048    0.7048   +0.00000    0.7048   +0.00000    0.7048   +0.00000
+train_02    14929  0.00188  False   20    0.9635    0.9635   +0.00000    0.9635   +0.00000    0.9635   +0.00000
+train_03     3501  0.00514  False   20    0.8095    0.8095   +0.00000    0.8062   -0.00331    0.8062   -0.00331
+train_04     8775  0.00137  False   20    0.8250    0.8250   +0.00000    0.8250   +0.00000    0.8250   +0.00000
+train_05     1060  0.00849  False   20    0.6569    0.6549   -0.00196    0.6549   -0.00196    0.6549   -0.00196
+train_06    10803  0.00083  False   20    0.8137    0.8137   +0.00000    0.8137   +0.00000    0.8137   +0.00000
+train_07    10417  0.00163  False   20    0.8265    0.8265   +0.00000    0.8265   +0.00000    0.8265   +0.00000
+train_08     8173  0.00147  False   20    0.8411    0.8411   +0.00000    0.8411   +0.00000    0.8411   +0.00000
+train_09     1109  0.01623   True   50    0.6335    0.6335   +0.00000    0.6335   +0.00000    0.6335   +0.00000
+train_10    11800  0.00229  False   20    0.8477    0.8477   +0.00000    0.8477   +0.00000    0.8468   -0.00091
+train_11    28879  0.00069  False   20    0.8167    0.8167   +0.00000    0.8167   +0.00000    0.8167   +0.00000
+train_12    49432  0.00016  False   20    0.7695    0.7695   +0.00000    0.7695   +0.00000    0.7695   +0.00000
+train_13      500  0.01800   True   50    0.6440    0.6440   +0.00000    0.6440   +0.00000    0.6440   +0.00000
+train_14    11108  0.00207  False   20    0.8044    0.8044   +0.00000    0.8044   +0.00000    0.8046   +0.00021
+train_15      500  0.06000   True   70    0.8436    0.8436   +0.00000    0.8436   +0.00000    0.8436   +0.00000
+train_16     1809  0.01161   True   20    0.8933    0.8933   +0.00000    0.8933   +0.00000    0.8933   +0.00000
+
+=== GATE FIRINGS ===
+L2 GATE @ base T=0.01 (shipped 08) fires on (4): train_09, train_13, train_15, train_16
+L2 GATE @ T=0.008 (T008) fires on (5): train_05, train_09, train_13, train_15, train_16   |  NEWLY firing vs 08 (1): train_05
+L2 GATE @ T=0.005 (T005) fires on (6): train_03, train_05, train_09, train_13, train_15, train_16   |  NEWLY firing vs 08 (2): train_03, train_05
+L2 GATE @ T=0.002 (T002) fires on (8): train_03, train_05, train_09, train_10, train_13, train_14, train_15, train_16   |  NEWLY firing vs 08 (4): train_03, train_05, train_10, train_14
+Datasets touched by the lever under ANY candidate (4): train_03, train_05, train_10, train_14
+(all configs share the l2 MAGNITUDE (1.0), the msl tiers (70/50/20), max_iter=300, early_stopping=True, the categorical mask and random_state=0; they differ ONLY in the l2 gate THRESHOLD -> only newly-firing datasets can move. The 4 already-firing datasets and every dataset still below T are identical -> delta 0)
+
+=== INVARIANT CHECK (every dataset that does NOT newly fire must be byte-identical to base: delta EXACTLY 0.00000 on both splits) ===
+T008 (T=0.008): differs from base on: train_05  (expected subset of newly-firing: train_05)  |  identical (delta exactly 0 on both splits): 15/16 (expected 15/16)  -> OK
+T005 (T=0.005): differs from base on: train_03, train_05  (expected subset of newly-firing: train_03, train_05)  |  identical (delta exactly 0 on both splits): 14/16 (expected 14/16)  -> OK
+T002 (T=0.002): differs from base on: train_03, train_05, train_10, train_14  (expected subset of newly-firing: train_03, train_05, train_10, train_14)  |  identical (delta exactly 0 on both splits): 12/16 (expected 12/16)  -> OK
+max |delta| over all NON-newly-firing (dataset x candidate x split) cells = 0 (must be exactly 0)
+INVARIANT=HOLDS (only datasets whose ratio lands in [T, 0.01) are affected by the lever, as designed)
+
+=== NEWLY-GATED DATASET SWEEP (the datasets the lever touches) ===
+--- train_03 (n=3501, ratio=0.00514, msl=20) ---
+    config       T    l2    Public       dPub   Private       dPrv
+      base    0.01   0.0   0.79258   +0.00000   0.80954   +0.00000  <- base (shipped 08)
+      T008   0.008   0.0   0.79258   +0.00000   0.80954   +0.00000
+      T005   0.005   1.0   0.78872   -0.00386   0.80624   -0.00331
+      T002   0.002   1.0   0.78872   -0.00386   0.80624   -0.00331
+  Public curve: base:0.79258 -> T008:0.79258 -> T005:0.78872 -> T002:0.78872   BEST=base (0.79258)
+  Private curve: base:0.80954 -> T008:0.80954 -> T005:0.80624 -> T002:0.80624   BEST=base (0.80954)
+  Public adjacent-T spread (|T008-T005|, |T005-T002|): 0.00386, 0.00000   max=0.00386  [yardstick: a 'gain' smaller than this is fit-jitter, not signal]
+  Private adjacent-T spread (|T008-T005|, |T005-T002|): 0.00331, 0.00000   max=0.00331  [yardstick: a 'gain' smaller than this is fit-jitter, not signal]
+--- train_05 (n=1060, ratio=0.00849, msl=20) ---
+    config       T    l2    Public       dPub   Private       dPrv
+      base    0.01   0.0   0.65313   +0.00000   0.65687   +0.00000  <- base (shipped 08)
+      T008   0.008   1.0   0.64548   -0.00765   0.65491   -0.00196
+      T005   0.005   1.0   0.64548   -0.00765   0.65491   -0.00196
+      T002   0.002   1.0   0.64548   -0.00765   0.65491   -0.00196
+  Public curve: base:0.65313 -> T008:0.64548 -> T005:0.64548 -> T002:0.64548   BEST=base (0.65313)
+  Private curve: base:0.65687 -> T008:0.65491 -> T005:0.65491 -> T002:0.65491   BEST=base (0.65687)
+  Public adjacent-T spread (|T008-T005|, |T005-T002|): 0.00000, 0.00000   max=0.00000  [yardstick: a 'gain' smaller than this is fit-jitter, not signal]
+  Private adjacent-T spread (|T008-T005|, |T005-T002|): 0.00000, 0.00000   max=0.00000  [yardstick: a 'gain' smaller than this is fit-jitter, not signal]
+--- train_10 (n=11800, ratio=0.00229, msl=20) ---
+    config       T    l2    Public       dPub   Private       dPrv
+      base    0.01   0.0   0.83681   +0.00000   0.84774   +0.00000  <- base (shipped 08)
+      T008   0.008   0.0   0.83681   +0.00000   0.84774   +0.00000
+      T005   0.005   0.0   0.83681   +0.00000   0.84774   +0.00000
+      T002   0.002   1.0   0.83819   +0.00138   0.84683   -0.00091
+  Public curve: base:0.83681 -> T008:0.83681 -> T005:0.83681 -> T002:0.83819   BEST=T002 (0.83819)
+  Private curve: base:0.84774 -> T008:0.84774 -> T005:0.84774 -> T002:0.84683   BEST=base (0.84774)
+  Public adjacent-T spread (|T008-T005|, |T005-T002|): 0.00000, 0.00138   max=0.00138  [yardstick: a 'gain' smaller than this is fit-jitter, not signal]
+  Private adjacent-T spread (|T008-T005|, |T005-T002|): 0.00000, 0.00091   max=0.00091  [yardstick: a 'gain' smaller than this is fit-jitter, not signal]
+--- train_14 (n=11108, ratio=0.00207, msl=20) ---
+    config       T    l2    Public       dPub   Private       dPrv
+      base    0.01   0.0   0.79752   +0.00000   0.80443   +0.00000  <- base (shipped 08)
+      T008   0.008   0.0   0.79752   +0.00000   0.80443   +0.00000
+      T005   0.005   0.0   0.79752   +0.00000   0.80443   +0.00000
+      T002   0.002   1.0   0.79619   -0.00133   0.80464   +0.00021
+  Public curve: base:0.79752 -> T008:0.79752 -> T005:0.79752 -> T002:0.79619   BEST=base (0.79752)
+  Private curve: base:0.80443 -> T008:0.80443 -> T005:0.80443 -> T002:0.80464   BEST=T002 (0.80464)
+  Public adjacent-T spread (|T008-T005|, |T005-T002|): 0.00000, 0.00133   max=0.00133  [yardstick: a 'gain' smaller than this is fit-jitter, not signal]
+  Private adjacent-T spread (|T008-T005|, |T005-T002|): 0.00000, 0.00021   max=0.00021  [yardstick: a 'gain' smaller than this is fit-jitter, not signal]
+
+=== SUMMARY (candidates vs base == shipped 08, mean over all 16 datasets) ===
+T008 (l2 gate T=0.008): mean Public d=-0.00048  mean Private d=-0.00012  Public W/L/T=0/1/15  Private W/L/T=0/1/15
+T005 (l2 gate T=0.005): mean Public d=-0.00072  mean Private d=-0.00033  Public W/L/T=0/2/14  Private W/L/T=0/2/14
+T002 (l2 gate T=0.002): mean Public d=-0.00072  mean Private d=-0.00037  Public W/L/T=1/3/12  Private W/L/T=1/3/12
+
+=== PER-CANDIDATE DETAIL (datasets differing from base; all other deltas are exactly 0) ===
+--- T008 (T=0.008) vs base (T=0.01) ---
+  train_05   (n=1060, ratio=0.00849, l2 0.0->1.0)  pub 0.6531->0.6455 (-0.00765)   prv 0.6569->0.6549 (-0.00196)
+  Public regressions:  train_05(-0.00765)
+  Private regressions: train_05(-0.00196)
+--- T005 (T=0.005) vs base (T=0.01) ---
+  train_03   (n=3501, ratio=0.00514, l2 0.0->1.0)  pub 0.7926->0.7887 (-0.00386)   prv 0.8095->0.8062 (-0.00331)
+  train_05   (n=1060, ratio=0.00849, l2 0.0->1.0)  pub 0.6531->0.6455 (-0.00765)   prv 0.6569->0.6549 (-0.00196)
+  Public regressions:  train_03(-0.00386), train_05(-0.00765)
+  Private regressions: train_03(-0.00331), train_05(-0.00196)
+--- T002 (T=0.002) vs base (T=0.01) ---
+  train_03   (n=3501, ratio=0.00514, l2 0.0->1.0)  pub 0.7926->0.7887 (-0.00386)   prv 0.8095->0.8062 (-0.00331)
+  train_05   (n=1060, ratio=0.00849, l2 0.0->1.0)  pub 0.6531->0.6455 (-0.00765)   prv 0.6569->0.6549 (-0.00196)
+  train_10   (n=11800, ratio=0.00229, l2 0.0->1.0)  pub 0.8368->0.8382 (+0.00138)   prv 0.8477->0.8468 (-0.00091)
+  train_14   (n=11108, ratio=0.00207, l2 0.0->1.0)  pub 0.7975->0.7962 (-0.00133)   prv 0.8044->0.8046 (+0.00021)
+  Public regressions:  train_03(-0.00386), train_05(-0.00765), train_14(-0.00133)
+  Private regressions: train_03(-0.00331), train_05(-0.00196), train_10(-0.00091)
+
+=== VERDICT (adoption vs base == shipped 08) ===
+Criterion: CLEAN IMPROVEMENT over 08 iff mean delta positive AND zero regressions on BOTH splits.
+T008 (l2 gate T=0.008): NOT-CLEAN (non-positive mean Public (-0.00048); non-positive mean Private (-0.00012); Public regs [train_05(-0.00765)]; Private regs [train_05(-0.00196)])
+T005 (l2 gate T=0.005): NOT-CLEAN (non-positive mean Public (-0.00072); non-positive mean Private (-0.00033); Public regs [train_03(-0.00386), train_05(-0.00765)]; Private regs [train_03(-0.00331), train_05(-0.00196)])
+T002 (l2 gate T=0.002): NOT-CLEAN (non-positive mean Public (-0.00072); non-positive mean Private (-0.00037); Public regs [train_03(-0.00386), train_05(-0.00765), train_14(-0.00133)]; Private regs [train_03(-0.00331), train_05(-0.00196), train_10(-0.00091)])
+
+OVERALL: NO clean improvement over 08; base (shipped 08, l2 gate T=0.01) remains best. Lowering the l2 gate threshold so that below-cut datasets also receive l2=1.0 did not cleanly help.
+
+CLEAN RUN=YES (fits ok=64/64 [16 datasets x 4 configs], exceptions=0, skipped=0)

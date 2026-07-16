@@ -1,0 +1,213 @@
+[OK] train_01 base (n=14957, l2=0.0, msl=20, tiny_fired=False, es=True, max_iter=300): pub=0.710287 prv=0.704818
+[OK] train_01 F50 (n=14957, l2=0.0, msl=20, tiny_fired=False, es=True, max_iter=300): pub=0.710287 prv=0.704818
+[OK] train_01 F100 (n=14957, l2=0.0, msl=20, tiny_fired=False, es=True, max_iter=300): pub=0.710287 prv=0.704818
+[OK] train_01 F200 (n=14957, l2=0.0, msl=20, tiny_fired=False, es=True, max_iter=300): pub=0.710287 prv=0.704818
+[OK] train_02 base (n=14929, l2=0.0, msl=20, tiny_fired=False, es=True, max_iter=300): pub=0.964370 prv=0.963480
+[OK] train_02 F50 (n=14929, l2=0.0, msl=20, tiny_fired=False, es=True, max_iter=300): pub=0.964370 prv=0.963480
+[OK] train_02 F100 (n=14929, l2=0.0, msl=20, tiny_fired=False, es=True, max_iter=300): pub=0.964370 prv=0.963480
+[OK] train_02 F200 (n=14929, l2=0.0, msl=20, tiny_fired=False, es=True, max_iter=300): pub=0.964370 prv=0.963480
+[OK] train_03 base (n=3501, l2=0.0, msl=20, tiny_fired=False, es=True, max_iter=300): pub=0.792579 prv=0.809545
+[OK] train_03 F50 (n=3501, l2=0.0, msl=20, tiny_fired=False, es=True, max_iter=300): pub=0.792579 prv=0.809545
+[OK] train_03 F100 (n=3501, l2=0.0, msl=20, tiny_fired=False, es=True, max_iter=300): pub=0.792579 prv=0.809545
+[OK] train_03 F200 (n=3501, l2=0.0, msl=20, tiny_fired=False, es=True, max_iter=300): pub=0.792579 prv=0.809545
+[OK] train_04 base (n=8775, l2=0.0, msl=20, tiny_fired=False, es=True, max_iter=300): pub=0.823647 prv=0.824960
+[OK] train_04 F50 (n=8775, l2=0.0, msl=20, tiny_fired=False, es=True, max_iter=300): pub=0.823647 prv=0.824960
+[OK] train_04 F100 (n=8775, l2=0.0, msl=20, tiny_fired=False, es=True, max_iter=300): pub=0.823647 prv=0.824960
+[OK] train_04 F200 (n=8775, l2=0.0, msl=20, tiny_fired=False, es=True, max_iter=300): pub=0.823647 prv=0.824960
+[OK] train_05 base (n=1060, l2=0.0, msl=20, tiny_fired=False, es=True, max_iter=300): pub=0.653135 prv=0.656873
+[OK] train_05 F50 (n=1060, l2=0.0, msl=20, tiny_fired=True, es=False, max_iter=50): pub=0.648658 prv=0.652767
+[OK] train_05 F100 (n=1060, l2=0.0, msl=20, tiny_fired=True, es=False, max_iter=100): pub=0.635509 prv=0.646102
+[OK] train_05 F200 (n=1060, l2=0.0, msl=20, tiny_fired=True, es=False, max_iter=200): pub=0.633468 prv=0.643677
+[OK] train_06 base (n=10803, l2=0.0, msl=20, tiny_fired=False, es=True, max_iter=300): pub=0.799693 prv=0.813708
+[OK] train_06 F50 (n=10803, l2=0.0, msl=20, tiny_fired=False, es=True, max_iter=300): pub=0.799693 prv=0.813708
+[OK] train_06 F100 (n=10803, l2=0.0, msl=20, tiny_fired=False, es=True, max_iter=300): pub=0.799693 prv=0.813708
+[OK] train_06 F200 (n=10803, l2=0.0, msl=20, tiny_fired=False, es=True, max_iter=300): pub=0.799693 prv=0.813708
+[OK] train_07 base (n=10417, l2=0.0, msl=20, tiny_fired=False, es=True, max_iter=300): pub=0.823648 prv=0.826507
+[OK] train_07 F50 (n=10417, l2=0.0, msl=20, tiny_fired=False, es=True, max_iter=300): pub=0.823648 prv=0.826507
+[OK] train_07 F100 (n=10417, l2=0.0, msl=20, tiny_fired=False, es=True, max_iter=300): pub=0.823648 prv=0.826507
+[OK] train_07 F200 (n=10417, l2=0.0, msl=20, tiny_fired=False, es=True, max_iter=300): pub=0.823648 prv=0.826507
+[OK] train_08 base (n=8173, l2=0.0, msl=20, tiny_fired=False, es=True, max_iter=300): pub=0.846027 prv=0.841110
+[OK] train_08 F50 (n=8173, l2=0.0, msl=20, tiny_fired=False, es=True, max_iter=300): pub=0.846027 prv=0.841110
+[OK] train_08 F100 (n=8173, l2=0.0, msl=20, tiny_fired=False, es=True, max_iter=300): pub=0.846027 prv=0.841110
+[OK] train_08 F200 (n=8173, l2=0.0, msl=20, tiny_fired=False, es=True, max_iter=300): pub=0.846027 prv=0.841110
+[OK] train_09 base (n=1109, l2=1.0, msl=50, tiny_fired=False, es=True, max_iter=300): pub=0.620424 prv=0.633474
+[OK] train_09 F50 (n=1109, l2=1.0, msl=50, tiny_fired=True, es=False, max_iter=50): pub=0.619119 prv=0.627105
+[OK] train_09 F100 (n=1109, l2=1.0, msl=50, tiny_fired=True, es=False, max_iter=100): pub=0.610557 prv=0.623574
+[OK] train_09 F200 (n=1109, l2=1.0, msl=50, tiny_fired=True, es=False, max_iter=200): pub=0.607375 prv=0.617735
+[OK] train_10 base (n=11800, l2=0.0, msl=20, tiny_fired=False, es=True, max_iter=300): pub=0.836807 prv=0.847743
+[OK] train_10 F50 (n=11800, l2=0.0, msl=20, tiny_fired=False, es=True, max_iter=300): pub=0.836807 prv=0.847743
+[OK] train_10 F100 (n=11800, l2=0.0, msl=20, tiny_fired=False, es=True, max_iter=300): pub=0.836807 prv=0.847743
+[OK] train_10 F200 (n=11800, l2=0.0, msl=20, tiny_fired=False, es=True, max_iter=300): pub=0.836807 prv=0.847743
+[OK] train_11 base (n=28879, l2=0.0, msl=20, tiny_fired=False, es=True, max_iter=300): pub=0.828129 prv=0.816654
+[OK] train_11 F50 (n=28879, l2=0.0, msl=20, tiny_fired=False, es=True, max_iter=300): pub=0.828129 prv=0.816654
+[OK] train_11 F100 (n=28879, l2=0.0, msl=20, tiny_fired=False, es=True, max_iter=300): pub=0.828129 prv=0.816654
+[OK] train_11 F200 (n=28879, l2=0.0, msl=20, tiny_fired=False, es=True, max_iter=300): pub=0.828129 prv=0.816654
+[OK] train_12 base (n=49432, l2=0.0, msl=20, tiny_fired=False, es=True, max_iter=300): pub=0.794888 prv=0.769505
+[OK] train_12 F50 (n=49432, l2=0.0, msl=20, tiny_fired=False, es=True, max_iter=300): pub=0.794888 prv=0.769505
+[OK] train_12 F100 (n=49432, l2=0.0, msl=20, tiny_fired=False, es=True, max_iter=300): pub=0.794888 prv=0.769505
+[OK] train_12 F200 (n=49432, l2=0.0, msl=20, tiny_fired=False, es=True, max_iter=300): pub=0.794888 prv=0.769505
+[OK] train_13 base (n=500, l2=1.0, msl=50, tiny_fired=False, es=True, max_iter=300): pub=0.628380 prv=0.644000
+[OK] train_13 F50 (n=500, l2=1.0, msl=50, tiny_fired=True, es=False, max_iter=50): pub=0.627788 prv=0.640205
+[OK] train_13 F100 (n=500, l2=1.0, msl=50, tiny_fired=True, es=False, max_iter=100): pub=0.617648 prv=0.635289
+[OK] train_13 F200 (n=500, l2=1.0, msl=50, tiny_fired=True, es=False, max_iter=200): pub=0.609038 prv=0.626785
+[OK] train_14 base (n=11108, l2=0.0, msl=20, tiny_fired=False, es=True, max_iter=300): pub=0.797525 prv=0.804425
+[OK] train_14 F50 (n=11108, l2=0.0, msl=20, tiny_fired=False, es=True, max_iter=300): pub=0.797525 prv=0.804425
+[OK] train_14 F100 (n=11108, l2=0.0, msl=20, tiny_fired=False, es=True, max_iter=300): pub=0.797525 prv=0.804425
+[OK] train_14 F200 (n=11108, l2=0.0, msl=20, tiny_fired=False, es=True, max_iter=300): pub=0.797525 prv=0.804425
+[OK] train_15 base (n=500, l2=1.0, msl=70, tiny_fired=False, es=True, max_iter=300): pub=0.841097 prv=0.843627
+[OK] train_15 F50 (n=500, l2=1.0, msl=70, tiny_fired=True, es=False, max_iter=50): pub=0.843993 prv=0.847346
+[OK] train_15 F100 (n=500, l2=1.0, msl=70, tiny_fired=True, es=False, max_iter=100): pub=0.846968 prv=0.851176
+[OK] train_15 F200 (n=500, l2=1.0, msl=70, tiny_fired=True, es=False, max_iter=200): pub=0.842170 prv=0.847549
+[OK] train_16 base (n=1809, l2=1.0, msl=20, tiny_fired=False, es=True, max_iter=300): pub=0.892160 prv=0.893255
+[OK] train_16 F50 (n=1809, l2=1.0, msl=20, tiny_fired=True, es=False, max_iter=50): pub=0.886272 prv=0.886537
+[OK] train_16 F100 (n=1809, l2=1.0, msl=20, tiny_fired=True, es=False, max_iter=100): pub=0.892342 prv=0.890917
+[OK] train_16 F200 (n=1809, l2=1.0, msl=20, tiny_fired=True, es=False, max_iter=200): pub=0.895514 prv=0.893627
+
+=== PER-DATASET (Public) ===
+dataset         n  tiny   l2G  msl      base       F50       dF50      F100      dF100      F200      dF200
+train_01    14957 False False   20    0.7103    0.7103   +0.00000    0.7103   +0.00000    0.7103   +0.00000
+train_02    14929 False False   20    0.9644    0.9644   +0.00000    0.9644   +0.00000    0.9644   +0.00000
+train_03     3501 False False   20    0.7926    0.7926   +0.00000    0.7926   +0.00000    0.7926   +0.00000
+train_04     8775 False False   20    0.8236    0.8236   +0.00000    0.8236   +0.00000    0.8236   +0.00000
+train_05     1060  True False   20    0.6531    0.6487   -0.00448    0.6355   -0.01763    0.6335   -0.01967
+train_06    10803 False False   20    0.7997    0.7997   +0.00000    0.7997   +0.00000    0.7997   +0.00000
+train_07    10417 False False   20    0.8236    0.8236   +0.00000    0.8236   +0.00000    0.8236   +0.00000
+train_08     8173 False False   20    0.8460    0.8460   +0.00000    0.8460   +0.00000    0.8460   +0.00000
+train_09     1109  True  True   50    0.6204    0.6191   -0.00131    0.6106   -0.00987    0.6074   -0.01305
+train_10    11800 False False   20    0.8368    0.8368   +0.00000    0.8368   +0.00000    0.8368   +0.00000
+train_11    28879 False False   20    0.8281    0.8281   +0.00000    0.8281   +0.00000    0.8281   +0.00000
+train_12    49432 False False   20    0.7949    0.7949   +0.00000    0.7949   +0.00000    0.7949   +0.00000
+train_13      500  True  True   50    0.6284    0.6278   -0.00059    0.6176   -0.01073    0.6090   -0.01934
+train_14    11108 False False   20    0.7975    0.7975   +0.00000    0.7975   +0.00000    0.7975   +0.00000
+train_15      500  True  True   70    0.8411    0.8440   +0.00290    0.8470   +0.00587    0.8422   +0.00107
+train_16     1809  True  True   20    0.8922    0.8863   -0.00589    0.8923   +0.00018    0.8955   +0.00335
+
+=== PER-DATASET (Private) ===
+dataset         n  tiny   l2G  msl      base       F50       dF50      F100      dF100      F200      dF200
+train_01    14957 False False   20    0.7048    0.7048   +0.00000    0.7048   +0.00000    0.7048   +0.00000
+train_02    14929 False False   20    0.9635    0.9635   +0.00000    0.9635   +0.00000    0.9635   +0.00000
+train_03     3501 False False   20    0.8095    0.8095   +0.00000    0.8095   +0.00000    0.8095   +0.00000
+train_04     8775 False False   20    0.8250    0.8250   +0.00000    0.8250   +0.00000    0.8250   +0.00000
+train_05     1060  True False   20    0.6569    0.6528   -0.00411    0.6461   -0.01077    0.6437   -0.01320
+train_06    10803 False False   20    0.8137    0.8137   +0.00000    0.8137   +0.00000    0.8137   +0.00000
+train_07    10417 False False   20    0.8265    0.8265   +0.00000    0.8265   +0.00000    0.8265   +0.00000
+train_08     8173 False False   20    0.8411    0.8411   +0.00000    0.8411   +0.00000    0.8411   +0.00000
+train_09     1109  True  True   50    0.6335    0.6271   -0.00637    0.6236   -0.00990    0.6177   -0.01574
+train_10    11800 False False   20    0.8477    0.8477   +0.00000    0.8477   +0.00000    0.8477   +0.00000
+train_11    28879 False False   20    0.8167    0.8167   +0.00000    0.8167   +0.00000    0.8167   +0.00000
+train_12    49432 False False   20    0.7695    0.7695   +0.00000    0.7695   +0.00000    0.7695   +0.00000
+train_13      500  True  True   50    0.6440    0.6402   -0.00379    0.6353   -0.00871    0.6268   -0.01721
+train_14    11108 False False   20    0.8044    0.8044   +0.00000    0.8044   +0.00000    0.8044   +0.00000
+train_15      500  True  True   70    0.8436    0.8473   +0.00372    0.8512   +0.00755    0.8475   +0.00392
+train_16     1809  True  True   20    0.8933    0.8865   -0.00672    0.8909   -0.00234    0.8936   +0.00037
+
+=== GATE FIRINGS ===
+TINY GATE (n_train < 2000 — THE LEVER) fires on (5): train_05, train_09, train_13, train_15, train_16
+n >= 2000 (08 behavior kept: early_stopping=True, max_iter=300) (11): train_01, train_02, train_03, train_04, train_06, train_07, train_08, train_10, train_11, train_12, train_14
+L2 GATE (ratio>=0.010, l2=1.0) fired on (4): train_09, train_13, train_15, train_16   [FIXED — identical in all configs]
+(all configs share the l2 gate, the msl tiers (70/50/20), the categorical mask and random_state=0; they differ ONLY in whether n<2000 datasets use early_stopping=False + fixed max_iter -> the 5 tiny datasets only. All other datasets identical -> delta 0)
+
+=== INVARIANT CHECK (the 11 datasets with n>=2000 must be byte-identical to base: delta EXACTLY 0.00000 on both splits) ===
+F50: differs from base on: train_05, train_09, train_13, train_15, train_16  (expected subset of: train_05, train_09, train_13, train_15, train_16)  |  identical (delta exactly 0 on both splits): 11/16  -> OK
+F100: differs from base on: train_05, train_09, train_13, train_15, train_16  (expected subset of: train_05, train_09, train_13, train_15, train_16)  |  identical (delta exactly 0 on both splits): 11/16  -> OK
+F200: differs from base on: train_05, train_09, train_13, train_15, train_16  (expected subset of: train_05, train_09, train_13, train_15, train_16)  |  identical (delta exactly 0 on both splits): 11/16  -> OK
+max |delta| over the 11 n>=2000 datasets x 3 candidates x 2 splits = 0 (must be exactly 0)
+INVARIANT=HOLDS (the 11 n>=2000 datasets are unaffected by the lever, as designed)
+
+=== TINY-DATASET SWEEP (the datasets the lever touches) ===
+--- train_05 (n=1060, l2_fired=False, msl=20) ---
+    config     es  iters    Public       dPub   Private       dPrv
+      base   True    300   0.65313   +0.00000   0.65687   +0.00000  <- base (shipped 08)
+       F50  False     50   0.64866   -0.00448   0.65277   -0.00411
+      F100  False    100   0.63551   -0.01763   0.64610   -0.01077
+      F200  False    200   0.63347   -0.01967   0.64368   -0.01320
+  Public curve: base:0.65313 -> F50:0.64866 -> F100:0.63551 -> F200:0.63347   BEST=base (0.65313)
+  Private curve: base:0.65687 -> F50:0.65277 -> F100:0.64610 -> F200:0.64368   BEST=base (0.65687)
+  Public adjacent-F spread (|F50-F100|, |F100-F200|): 0.01315, 0.00204   max=0.01315  [yardstick: a 'gain' smaller than this is fit-jitter, not signal]
+  Private adjacent-F spread (|F50-F100|, |F100-F200|): 0.00666, 0.00242   max=0.00666  [yardstick: a 'gain' smaller than this is fit-jitter, not signal]
+--- train_09 (n=1109, l2_fired=True, msl=50) ---
+    config     es  iters    Public       dPub   Private       dPrv
+      base   True    300   0.62042   +0.00000   0.63347   +0.00000  <- base (shipped 08)
+       F50  False     50   0.61912   -0.00131   0.62710   -0.00637
+      F100  False    100   0.61056   -0.00987   0.62357   -0.00990
+      F200  False    200   0.60737   -0.01305   0.61773   -0.01574
+  Public curve: base:0.62042 -> F50:0.61912 -> F100:0.61056 -> F200:0.60737   BEST=base (0.62042)
+  Private curve: base:0.63347 -> F50:0.62710 -> F100:0.62357 -> F200:0.61773   BEST=base (0.63347)
+  Public adjacent-F spread (|F50-F100|, |F100-F200|): 0.00856, 0.00318   max=0.00856  [yardstick: a 'gain' smaller than this is fit-jitter, not signal]
+  Private adjacent-F spread (|F50-F100|, |F100-F200|): 0.00353, 0.00584   max=0.00584  [yardstick: a 'gain' smaller than this is fit-jitter, not signal]
+--- train_13 (n=500, l2_fired=True, msl=50) ---
+    config     es  iters    Public       dPub   Private       dPrv
+      base   True    300   0.62838   +0.00000   0.64400   +0.00000  <- base (shipped 08)
+       F50  False     50   0.62779   -0.00059   0.64021   -0.00379
+      F100  False    100   0.61765   -0.01073   0.63529   -0.00871
+      F200  False    200   0.60904   -0.01934   0.62679   -0.01721
+  Public curve: base:0.62838 -> F50:0.62779 -> F100:0.61765 -> F200:0.60904   BEST=base (0.62838)
+  Private curve: base:0.64400 -> F50:0.64021 -> F100:0.63529 -> F200:0.62679   BEST=base (0.64400)
+  Public adjacent-F spread (|F50-F100|, |F100-F200|): 0.01014, 0.00861   max=0.01014  [yardstick: a 'gain' smaller than this is fit-jitter, not signal]
+  Private adjacent-F spread (|F50-F100|, |F100-F200|): 0.00492, 0.00850   max=0.00850  [yardstick: a 'gain' smaller than this is fit-jitter, not signal]
+--- train_15 (n=500, l2_fired=True, msl=70) ---
+    config     es  iters    Public       dPub   Private       dPrv
+      base   True    300   0.84110   +0.00000   0.84363   +0.00000  <- base (shipped 08)
+       F50  False     50   0.84399   +0.00290   0.84735   +0.00372
+      F100  False    100   0.84697   +0.00587   0.85118   +0.00755
+      F200  False    200   0.84217   +0.00107   0.84755   +0.00392
+  Public curve: base:0.84110 -> F50:0.84399 -> F100:0.84697 -> F200:0.84217   BEST=F100 (0.84697)
+  Private curve: base:0.84363 -> F50:0.84735 -> F100:0.85118 -> F200:0.84755   BEST=F100 (0.85118)
+  Public adjacent-F spread (|F50-F100|, |F100-F200|): 0.00298, 0.00480   max=0.00480  [yardstick: a 'gain' smaller than this is fit-jitter, not signal]
+  Private adjacent-F spread (|F50-F100|, |F100-F200|): 0.00383, 0.00363   max=0.00383  [yardstick: a 'gain' smaller than this is fit-jitter, not signal]
+--- train_16 (n=1809, l2_fired=True, msl=20) ---
+    config     es  iters    Public       dPub   Private       dPrv
+      base   True    300   0.89216   +0.00000   0.89325   +0.00000  <- base (shipped 08)
+       F50  False     50   0.88627   -0.00589   0.88654   -0.00672
+      F100  False    100   0.89234   +0.00018   0.89092   -0.00234
+      F200  False    200   0.89551   +0.00335   0.89363   +0.00037
+  Public curve: base:0.89216 -> F50:0.88627 -> F100:0.89234 -> F200:0.89551   BEST=F200 (0.89551)
+  Private curve: base:0.89325 -> F50:0.88654 -> F100:0.89092 -> F200:0.89363   BEST=F200 (0.89363)
+  Public adjacent-F spread (|F50-F100|, |F100-F200|): 0.00607, 0.00317   max=0.00607  [yardstick: a 'gain' smaller than this is fit-jitter, not signal]
+  Private adjacent-F spread (|F50-F100|, |F100-F200|): 0.00438, 0.00271   max=0.00438  [yardstick: a 'gain' smaller than this is fit-jitter, not signal]
+
+=== SUMMARY (candidates vs base == shipped 08, mean over all 16 datasets) ===
+F50 (n<2000: es=False, max_iter=50): mean Public d=-0.00059  mean Private d=-0.00108  Public W/L/T=1/4/11  Private W/L/T=1/4/11
+F100 (n<2000: es=False, max_iter=100): mean Public d=-0.00201  mean Private d=-0.00151  Public W/L/T=2/3/11  Private W/L/T=1/4/11
+F200 (n<2000: es=False, max_iter=200): mean Public d=-0.00298  mean Private d=-0.00262  Public W/L/T=2/3/11  Private W/L/T=2/3/11
+
+=== PER-CANDIDATE DETAIL (datasets differing from base; all other deltas are exactly 0) ===
+--- F50 vs base ---
+  train_05   (n=1060, es True->False, iters 300->50)  pub 0.6531->0.6487 (-0.00448)   prv 0.6569->0.6528 (-0.00411)
+  train_09   (n=1109, es True->False, iters 300->50)  pub 0.6204->0.6191 (-0.00131)   prv 0.6335->0.6271 (-0.00637)
+  train_13   (n=500, es True->False, iters 300->50)  pub 0.6284->0.6278 (-0.00059)   prv 0.6440->0.6402 (-0.00379)
+  train_15   (n=500, es True->False, iters 300->50)  pub 0.8411->0.8440 (+0.00290)   prv 0.8436->0.8473 (+0.00372)
+  train_16   (n=1809, es True->False, iters 300->50)  pub 0.8922->0.8863 (-0.00589)   prv 0.8933->0.8865 (-0.00672)
+  Public regressions:  train_05(-0.00448), train_09(-0.00131), train_13(-0.00059), train_16(-0.00589)
+  Private regressions: train_05(-0.00411), train_09(-0.00637), train_13(-0.00379), train_16(-0.00672)
+--- F100 vs base ---
+  train_05   (n=1060, es True->False, iters 300->100)  pub 0.6531->0.6355 (-0.01763)   prv 0.6569->0.6461 (-0.01077)
+  train_09   (n=1109, es True->False, iters 300->100)  pub 0.6204->0.6106 (-0.00987)   prv 0.6335->0.6236 (-0.00990)
+  train_13   (n=500, es True->False, iters 300->100)  pub 0.6284->0.6176 (-0.01073)   prv 0.6440->0.6353 (-0.00871)
+  train_15   (n=500, es True->False, iters 300->100)  pub 0.8411->0.8470 (+0.00587)   prv 0.8436->0.8512 (+0.00755)
+  train_16   (n=1809, es True->False, iters 300->100)  pub 0.8922->0.8923 (+0.00018)   prv 0.8933->0.8909 (-0.00234)
+  Public regressions:  train_05(-0.01763), train_09(-0.00987), train_13(-0.01073)
+  Private regressions: train_05(-0.01077), train_09(-0.00990), train_13(-0.00871), train_16(-0.00234)
+--- F200 vs base ---
+  train_05   (n=1060, es True->False, iters 300->200)  pub 0.6531->0.6335 (-0.01967)   prv 0.6569->0.6437 (-0.01320)
+  train_09   (n=1109, es True->False, iters 300->200)  pub 0.6204->0.6074 (-0.01305)   prv 0.6335->0.6177 (-0.01574)
+  train_13   (n=500, es True->False, iters 300->200)  pub 0.6284->0.6090 (-0.01934)   prv 0.6440->0.6268 (-0.01721)
+  train_15   (n=500, es True->False, iters 300->200)  pub 0.8411->0.8422 (+0.00107)   prv 0.8436->0.8475 (+0.00392)
+  train_16   (n=1809, es True->False, iters 300->200)  pub 0.8922->0.8955 (+0.00335)   prv 0.8933->0.8936 (+0.00037)
+  Public regressions:  train_05(-0.01967), train_09(-0.01305), train_13(-0.01934)
+  Private regressions: train_05(-0.01320), train_09(-0.01574), train_13(-0.01721)
+
+=== VERDICT (adoption vs base == shipped 08) ===
+Criterion: CLEAN IMPROVEMENT over 08 iff mean delta positive AND zero regressions on BOTH splits.
+F50 (n<2000: es=False, max_iter=50): NOT-CLEAN (non-positive mean Public (-0.00059); non-positive mean Private (-0.00108); Public regs [train_05(-0.00448), train_09(-0.00131), train_13(-0.00059), train_16(-0.00589)]; Private regs [train_05(-0.00411), train_09(-0.00637), train_13(-0.00379), train_16(-0.00672)])
+F100 (n<2000: es=False, max_iter=100): NOT-CLEAN (non-positive mean Public (-0.00201); non-positive mean Private (-0.00151); Public regs [train_05(-0.01763), train_09(-0.00987), train_13(-0.01073)]; Private regs [train_05(-0.01077), train_09(-0.00990), train_13(-0.00871), train_16(-0.00234)])
+F200 (n<2000: es=False, max_iter=200): NOT-CLEAN (non-positive mean Public (-0.00298); non-positive mean Private (-0.00262); Public regs [train_05(-0.01967), train_09(-0.01305), train_13(-0.01934)]; Private regs [train_05(-0.01320), train_09(-0.01574), train_13(-0.01721)])
+
+OVERALL: NO clean improvement over 08; base (shipped 08, early_stopping=True everywhere) remains best. Removing early stopping on tiny datasets in favor of a fixed iteration count did not cleanly help.
+
+CLEAN RUN=YES (fits ok=64/64 [16 datasets x 4 configs], exceptions=0, skipped=0)
+
+[WROTE] /Users/kumacmini/kaggle-autonomous-agent-baseline-auto/experiments/bench_03/round80_tiny_no_es/results.csv
+[WROTE] /Users/kumacmini/kaggle-autonomous-agent-baseline-auto/experiments/bench_03/round80_tiny_no_es/results.json
+[WROTE] /Users/kumacmini/kaggle-autonomous-agent-baseline-auto/experiments/bench_03/round80_tiny_no_es/summary.txt
+HARNESS_DONE

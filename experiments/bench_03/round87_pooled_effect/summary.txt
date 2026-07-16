@@ -1,0 +1,81 @@
+round87 -- pooled effect-size stability of candidate A across 3 seed configs
+============================================================================
+PURE RE-ANALYSIS of existing CSVs. No model fitting. No submission. Stdlib only.
+configs pooled: A_orgate (K10 seeds0-9) | A_orgate_seedwin (K10 seeds10-19) | A_orgate_K20 (K20 seeds0-19)
+ruler: round83 per-dataset seed-jitter sample stdev (ddof=1); mean-delta floor 1sigma=0.00130 Pub / 0.00126 Prv
+
+[1] Per-config means (private):
+  config              all16_prv   fired_prv   all16_pub   fired_pub   n_fired  headline
+  A_orgate            +0.005555  +0.005925  +0.005583  +0.005955    15     +0.0056
+  A_orgate_seedwin    +0.005509  +0.005877  +0.005617  +0.005991    15     +0.0055
+  A_orgate_K20        +0.005837  +0.006226  +0.005886  +0.006279    15     +0.0058
+
+[2] Per-dataset pooled spread across the 3 configs (private):
+  dataset    fired  min_prv   max_prv   spread    stdev     mean     
+  train_01   True   +0.003679 +0.003912 0.000234  0.000124  +0.003771
+  train_02   True   +0.004082 +0.004461 0.000380  0.000203  +0.004313
+  train_03   True   +0.006680 +0.007447 0.000767  0.000403  +0.007134
+  train_04   True   +0.008349 +0.009558 0.001208  0.000642  +0.009080
+  train_05   True   +0.007658 +0.008439 0.000781  0.000424  +0.008143
+  train_06   True   +0.000499 +0.000779 0.000279  0.000142  +0.000655
+  train_07   True   +0.002506 +0.003484 0.000978  0.000526  +0.003106
+  train_08   True   +0.001455 +0.001723 0.000269  0.000154  +0.001633
+  train_09   True   +0.009305 +0.012185 0.002880  0.001481  +0.010944
+  train_10   True   +0.010273 +0.011522 0.001249  0.000696  +0.011075
+  train_11   True   +0.004976 +0.005507 0.000531  0.000269  +0.005265
+  train_12   True   +0.002337 +0.002440 0.000104  0.000059  +0.002404
+  train_13   True   +0.003093 +0.006216 0.003123  0.001564  +0.004700
+  train_14   True   +0.003222 +0.004048 0.000826  0.000466  +0.003760
+  train_15   True   +0.013693 +0.014455 0.000762  0.000408  +0.014158
+  train_16   False  +0.000000 +0.000000 0.000000  0.000000  +0.000000
+  max per-dataset PRIVATE spread = 0.003123  (train_13)
+  max per-dataset PUBLIC  spread = 0.002396  (train_13)
+
+[3] Ruler read -- per-dataset mean-across-configs delta vs that dataset's OWN round83 sigma:
+  dataset    fired  prv_mean    prv_sigma   prv_xSig  prv_flag  | pub_mean    pub_sigma   pub_xSig  pub_flag 
+  train_01   True   +0.003771  0.001037      3.64  strong>2sigma        +0.003900  0.001789      2.18  strong>2sigma
+  train_02   True   +0.004313  0.000791      5.46  strong>2sigma        +0.004997  0.001396      3.58  strong>2sigma
+  train_03   True   +0.007134  0.001229      5.80  strong>2sigma        +0.007912  0.003127      2.53  strong>2sigma
+  train_04   True   +0.009080  0.002104      4.32  strong>2sigma        +0.007520  0.001829      4.11  strong>2sigma
+  train_05   True   +0.008143  0.006406      1.27  real>1sigma          +0.008479  0.006719      1.26  real>1sigma
+  train_06   True   +0.000655  0.000960      0.68  within_jitter<=1sigma +0.000835  0.001372      0.61  within_jitter<=1sigma
+  train_07   True   +0.003106  0.002453      1.27  real>1sigma          +0.005603  0.001109      5.05  strong>2sigma
+  train_08   True   +0.001633  0.001133      1.44  real>1sigma          +0.003443  0.000916      3.76  strong>2sigma
+  train_09   True   +0.010944  0.004513      2.42  strong>2sigma        +0.011060  0.005408      2.05  strong>2sigma
+  train_10   True   +0.011075  0.002247      4.93  strong>2sigma        +0.009389  0.001939      4.84  strong>2sigma
+  train_11   True   +0.005265  0.001201      4.38  strong>2sigma        +0.004228  0.001606      2.63  strong>2sigma
+  train_12   True   +0.002404  0.000834      2.88  strong>2sigma        +0.001283  0.000536      2.39  strong>2sigma
+  train_13   True   +0.004700  0.005390      0.87  within_jitter<=1sigma +0.006179  0.005515      1.12  real>1sigma
+  train_14   True   +0.003760  0.002218      1.70  real>1sigma          +0.004229  0.002143      1.97  real>1sigma
+  train_15   True   +0.014158  0.004551      3.11  strong>2sigma        +0.012068  0.004319      2.79  strong>2sigma
+  train_16   False  +0.000000  0.007972      0.00  within_jitter<=1sigma +0.000000  0.007801      0.00  within_jitter<=1sigma
+
+  Per-dataset PRIVATE flag tally:
+    all 16 datasets : strong(>2s)=9  real(>1s)=4  within(<=1s)=3
+    fired 15 only   : strong(>2s)=9  real(>1s)=4  within(<=1s)=2
+  Per-dataset PUBLIC flag tally:
+    all 16 datasets : strong(>2s)=11  real(>1s)=3  within(<=1s)=2
+    fired 15 only   : strong(>2s)=11  real(>1s)=3  within(<=1s)=1
+
+[4] Aggregate ruler read -- pooled 16-dataset mean delta vs mean-delta noise floor:
+  pooled mean PRIVATE delta (all16) = +0.005634  =>  4.47 sigma  (floor 1s=0.00126, 2s=0.00252)
+  pooled mean PUBLIC  delta (all16) = +0.005695  =>  4.38 sigma  (floor 1s=0.00130, 2s=0.00260)
+  pooled mean PRIVATE delta (fired15) = +0.006009
+  pooled mean PUBLIC  delta (fired15) = +0.006075
+
+[5] Self-checks (MUST PASS):
+  (a) recomputed all-16 mean private delta == config summary.txt MEAN DELTA headline (round 4dp, tol 1e-6):
+  A_orgate           recomputed_mean_prv=+0.005555  round4=+0.0056  headline=+0.0056  |diff|=0.0e+00  PASS
+  A_orgate_seedwin   recomputed_mean_prv=+0.005509  round4=+0.0055  headline=+0.0055  |diff|=0.0e+00  PASS
+  A_orgate_K20       recomputed_mean_prv=+0.005837  round4=+0.0058  headline=+0.0058  |diff|=0.0e+00  PASS
+      => check (a): PASS
+  (b) non-fired datasets have delta==0 exactly (cand==base) in ALL three configs:
+  train_16   A_orgate           d_pub=+0.000000 d_prv=+0.000000 cand==base=True  PASS
+  train_16   A_orgate_seedwin   d_pub=+0.000000 d_prv=+0.000000 cand==base=True  PASS
+  train_16   A_orgate_K20       d_pub=+0.000000 d_prv=+0.000000 cand==base=True  PASS
+      => check (b): PASS
+
+CONCLUSION (3 lines):
+  1. Candidate A's private effect is stable across 3 disjoint/overlapping seed windows: the largest per-dataset drift across configs is 0.0031 (train_13), well inside seed jitter.
+  2. Pooled over 16 datasets the mean private lift is +0.00563 = 4.5 sigma above the mean-delta noise floor -- a real, reproducible aggregate signal.
+  3. Per dataset the picture is mixed: 13/16 private effects clear >1 sigma of their own seed jitter (9 strong >2 sigma), while 3/16 stay within jitter -- the lift is broad and small, not driven by a single dataset.

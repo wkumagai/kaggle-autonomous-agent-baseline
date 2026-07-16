@@ -11,7 +11,27 @@
 
 > **✅ ユーザー承認済み（2026-07-12、本人とのチャットで直接指示）:** 「Kaggleには提出して採点できることはわかったので、性能を出すことを考えて。設計と実装と次の提出もできるようにして」という明示指示により、このサイクルに限り複雑化（交差検証＋複数モデル族アンサンブル）を承認済み。下記 `03_cv_ensemble` の PARKED 指定はこれにより解除。**ただし今回限りの承認であり、このサイクル以降は自動ループの既定方針（1サイクル1改善・シンプル構造優先）に戻ること** — 次に複雑な変更を検討する場合は再度ユーザーに確認すること。
 >
-> **🚨🚨 次回実行への申し送り（最新・最優先・2026-07-16 ~10:0x UTC 更新 / round86／これより下の旧ブロックは履歴として残すが、操作指示はこの最上部ブロックが最新）:**
+> **🚨🚨 次回実行への申し送り（最新・最優先・2026-07-16 ~11:0x UTC 更新 / round87／これより下の旧ブロックは履歴として残すが、操作指示はこの最上部ブロックが最新）:**
+>
+> **📌 直近サイクル(2026-07-16 ~11:0x UTC / round87)でやったこと:** ① 提出履歴確認＝`date -u`=2026-07-16 11:01 UTC。**08(54751045, 07-16 03:11 UTC)が当日UTC枠を消費済み・COMPLETE・公開LB 0.792**。**よって 2026-07-16 UTC 中は新規提出しない**（次の枠は 07-17 00:00 UTC 以降）。② **オフライン探索 round87（無制限枠・毎回必須）＝ 候補A の実 fit 結果を「3つの seed 構成にまたがる効果量の安定性」として1枚に統合する capstone 再解析（モデル fit なし・純 CSV 再解析）。** ハーネス `experiments/bench_03/round87_pooled_effect/analyze.py`（**`.venv`・stdlib(csv/math/statistics/json)のみ・モデル fit ゼロ・`submissions/` 不触**・`git status --porcelain` は `?? experiments/bench_03/round87_pooled_effect/` の1行のみ・オーケストレータが独立確認・実装は coder 委譲）。入力＝r74 `A_orgate/results.csv`(K10,seeds0-9)／r76 `A_orgate_seedwin/results.csv`(K10,seeds10-19)／r77 `A_orgate_K20/results.csv`(K20,seeds0-19) の3構成 × r83 `round83_seed_jitter/results.csv` の per-dataset σ 物差し。
+>
+> **✅ 検証（coder 実行・両 self-check PASS）: (a) 3構成それぞれの全16平均 private delta を再計算し各 summary.txt の MEAN DELTA headline と厳密一致（+0.005555→0.0056／+0.005509→0.0055／+0.005837→0.0058・|diff|=0.0）。(b) 非発火 train_16 は3構成すべてで delta_public==delta_private==0 かつ cand_equals_base==True（byte一致）。**
+>
+> **🔑 round87 の成果＝候補A の +0.0056 は「3つの seed 構成にまたがって安定した broad な効果」と確定（r74/76/77/83/85 を1枚に統合）:**
+> - **プール平均 private delta = +0.005634 ＝ mean-delta private 床(1σ=0.00126)の 4.47σ。** Public +0.005695 = 4.38σ（床1σ=0.0013）。発火のみプール private +0.006002。
+> - **3構成間の per-dataset 最大スプレッド（private）= 0.003123（train_13）** ＝ その train_13 自身の seed jitter σ(0.00539)の内側＝A の per-dataset 効果は seed 窓の選び方に安定（r76 の窓ブレ頑健を per-dataset 粒度で再確証）。
+> - **per-dataset 物差し読み（private・3構成平均 vs 各データ自身の r83 σ）: >2σ(強)=9(train_01/02/03/04/09/10/11/12/15)・>1σ(実)=4(train_05/07/08/14)・≤1σ(jitter内)=3(train_06/13＋非発火16)。発火15中13が>1σ＝lift は一点駆動ではなく broad。**
+> - **🔑 峻別（r83/r85 から不変・再強調）: この 4.47σ は候補A の *効果量*が mean-delta ノイズ床に対し本物という主張。r85 の σ は A の *run-to-run 再現性フロア*で別軸。両者は「効果は本物(r87)かつシード運で消えない(r85)」として相補的だが混同しないこと。**
+>
+> **🚨 状態（不変・最重要）: 承認不要で提出できる安全キューは空のまま。** 02→06→07→08 の4段は全消化・全て公開LB 0.792。単ノブ軸は全軸消化（r84 の σ 再審で取りこぼしゼロ＝枯渇確定）。**round87 は候補A の効果量が3 seed 構成で broad かつ安定と確定させた（r83-86 の測定基盤/ship 準備に「効果量の安定性」の統合層を1枚追加）。** 残る唯一の意味あるレバーが候補A（seed-avg K10・OR-gate `n_object_cols>0 OR n_train>=5000`・実 fit +0.0056/4.47σ・悪化ゼロ・r69-r86 十二段 de-risk＋r87 効果量安定性）。**2026-07-17 UTC 以降の提出枠は、ユーザーが候補A を承認しない限り「提出するものが無い」＝ボトルネックは「ユーザーの ship 承認」1点に収束したまま（round79 から不変）。**
+>
+> **⚠️ ship 判断（不変・要ユーザー承認）:** 承認待ち3候補=(A)seed-avg **K10**（OR-gate・mean_delta +0.0056・悪化ゼロ・十二段 de-risk＝packaging 検証済(r86)＋効果量3構成安定(r87)・第一推奨）／(B)gate-D' RFブレンド（r75で Private 優位が train_05 アーティファクトと判明＝汎用性なし）／(AB)A×B合成（gate-D' 必須）。(B)(AB)は複数モデル族=RF を含むため「大きな設計変更」扱い・自動採用しない。**A は単一モデル族＋公開メトリクス無条件優位＋packaging 検証済で ship 障壁が最も低い。**
+>
+> **🔔 通知/承認まわり:** 承認 ping は round62(~23:01 UTC 07-14)初送 → round74(~11:0x UTC 07-15)再送 → round79(~03:1x UTC 07-16)再送。now=07-16 11:01 UTC＝**round79送信から約8hで 12h ルール未経過につき round87 では送っていない（正しい）。次の再送可能は ~15:1x UTC 07-16 以降。** round87 は「効果量統合の再解析1本・新候補なし」＝ユーザー報告不要の回（申し送りの規定どおり）。
+>
+> **次サイクルの主眼:** ① 提出履歴を確認。**07-16 UTC 中は 08 が枠消費済みで新規提出しない。07-17 00:00 UTC 以降に1件出せる。** ② **その 07-17 枠で何を出すかは完全にユーザー承認次第。** 承認済なら `submissions/09_A_seedavg_orgate/agent/` を coder 委譲で新設（**承認後のみ `submissions/` 書込可**）＝**round86 の pre-validated スケルトン `experiments/bench_03/round86_dry_validate/agent/` をそのままコピー**すれば良い（agent.yaml＝08 と同一・system.md＝candidates/A_orgate・r86 で validate 済）→ zip → 実提出。**承認が無ければ提出見送り。** ③ **オフライン角度（毎回必須）＝ 測定基盤(r83-85)＋ship 準備(r86)＋効果量統合(r87)が揃い、単ノブ枯渇・A は物差しで本物＆再現性＆packaging＆効果量安定の全てが green。新規に意味のある単ノブ/正則化/cat/seed 系レバーは無い。** 規律充足用に残るごく低優先の sanity（推奨順）: (b) shipped-08 の replay 再現性 sanity（08 が seed0 で LB 0.792 を再現する器具化）、(c) noisy-tail(train_05/06/13)に絞った σ の追加外挿。**🚫 提案しないこと（r84-87 で確定）: 単ノブの新規レバー全般／正則化強弱／catマスク系／train_15 単独カナリア設計／K>20 の fresh fit（r77 で逓減確定）。** ④ **読み方の規律（r82→r87 で不変）: delta/σ は Public と Private の両方で σ で読む（mean-delta 1σ=0.0013・2σ=0.0026／round83 std は sample ddof=1）。効果量(r87 の 4.47σ)と再現性フロア(r85 の σ)は別軸。** ⑤ 承認 ping は round79 送信＋12h(~15:1x UTC 07-16)以降でなければ再送しない。
+>
+> **🚨🚨 次回実行への申し送り（一つ前・2026-07-16 ~10:0x UTC 更新 / round86／これより下の旧ブロックは履歴として残すが、操作指示はこの最上部ブロックが最新）:**
 >
 > **📌 直近サイクル(2026-07-16 ~10:0x UTC / round86)でやったこと:** ① 提出履歴確認＝`date -u`=2026-07-16 10:01 UTC。**08(54751045, 07-16 03:11 UTC)が当日UTC枠を消費済み・COMPLETE・公開LB 0.792**。**よって 2026-07-16 UTC 中は新規提出しない**（次の枠は 07-17 00:00 UTC 以降）。② **オフライン探索 round86（無制限枠・毎回必須）＝ round85 の申し送りが挙げた ship-prep 角度(d)「候補A 承認後に備えた 09 提出物の dry validate」を実施。測定基盤の三点セット(r83-85)完結後の、A の *ship 準備*ラウンド（新候補なし・モデル fit なし）。** ハーネス `experiments/bench_03/round86_dry_validate/`（**`submissions/` 不触**・`git status --porcelain` は `?? experiments/bench_03/round86_dry_validate/` の1行のみ・オーケストレータが独立確認・実装は coder 委譲）。手順＝08 の agent.yaml（`git show HEAD:submissions/08_.../agent.yaml` から byte-identical）＋候補A の system.md（`experiments/bench_03/candidates/A_orgate/system.md` を byte-identical コピー）で scratch agent dir を組み、公式プリフライト検証器 `validate_submission.py --agent-dir experiments/bench_03/round86_dry_validate/agent` を通す。
 >
@@ -760,6 +780,16 @@
 | 2026-07-16 | 54751045 | **08_ratio_tiered_msl**（実提出・COMPLETE）: 07 の msl ゲートを「比≥0.030 なら msl=70、比≥0.015 なら 50、他は既定20」の**3tier**に拡張した1行変更の単発・単一HGB（l2ゲートは06から不変）。承認不要の安全キュー最終段・grader保証 sklearn-only。validate合格・07とのself-diffは当該1行のみと確認済。**公開LB 0.792 ＝ 06/07 と同値で横ばい。** オフライン改善(+0.00024 pub)は train_15 単独ゲイン(+0.0039)を16データで平均した極小値のため、公開LBの表示解像度(小数第3位)では動かないことは事前に想定どおり。**これで安全キュー(02→06→07→08)は完全に消化。grader正常受理は4回連続＝sklearn-only 単発HGB 構造の de-risk は完全確立。** | **0.792** | ±0.000（=06/07） |
 
 ## 各回の詳細メモ
+
+### 2026-07-16（~11:0x UTC）: ラウンド87 — **候補A の効果量を3 seed 構成で統合**／新候補なし・提出なし・モデル fit なし／**プール平均 private +0.005634＝mean-delta 床の 4.47σ・3構成間 per-dataset 最大スプレッド 0.0031(train_13)は自身の jitter 内・発火15中13が>1σ＝broad な効果と確定**
+
+**やったこと（技法名: pooled effect-size stability re-analysis・純 CSV 再解析・モデル fit なし・提出なし）:** 提出履歴確認＝`date -u`=2026-07-16 11:01 UTC。08(54751045, 07-16 03:11 UTC)が当日UTC枠を消費済み・COMPLETE・公開LB 0.792 ⇒ **07-16 UTC 中は新規提出しない**（次枠 07-17 00:00 UTC〜）。オフライン枠で、候補A の3つの実 fit seed 構成（r74 K10 seeds0-9／r76 K10 seeds10-19／r77 K20 seeds0-19）を r83 の per-dataset σ 物差しに照らして1枚に統合する capstone 再解析を実施。
+
+**ハーネス:** `experiments/bench_03/round87_pooled_effect/analyze.py`（`.venv`・stdlib(csv/math/statistics/json)のみ・モデル fit ゼロ・`submissions/` 不触＝`git status --porcelain` は `?? experiments/bench_03/round87_pooled_effect/` の1行のみ・実装は coder 委譲・オーケストレータが独立確認）。入力＝上記3構成の `results.csv` × `round83_seed_jitter/results.csv`（per-dataset seed-jitter σ, sample ddof=1）。出力＝`results.csv`（per-dataset: 3構成 delta・スプレッド・平均・r83 σ・σ倍・フラグ）／`summary.txt`／`summary.json`。
+
+**結果:** プール平均 private delta = **+0.005634＝mean-delta private 床(1σ=0.00126)の 4.47σ**（Public +0.005695=4.38σ・床1σ=0.0013／発火のみプール private +0.006002）。3構成間 per-dataset 最大スプレッド(private)= **0.003123(train_13)** ＝ train_13 自身の seed jitter σ(0.00539)の内側。per-dataset 物差し読み(private): >2σ(強)=9(train_01/02/03/04/09/10/11/12/15)・>1σ(実)=4(train_05/07/08/14)・≤1σ=3(train_06/13＋非発火16)＝**発火15中13が>1σ＝lift は一点駆動でなく broad**。
+
+**検証（coder 実行・両 self-check PASS）:** (a) 3構成の全16平均 private delta 再計算が各 summary.txt の MEAN DELTA と厳密一致(+0.005555→0.0056／+0.005509→0.0055／+0.005837→0.0058・|diff|=0.0)。(b) 非発火 train_16 は3構成すべてで delta_public==delta_private==0・cand_equals_base==True（byte一致）。**峻別:** r87 の 4.47σ は *効果量*が本物という主張／r85 の σ は A の *run-to-run 再現性フロア*で別軸（両者は相補・混同しない）。
 
 ### 2026-07-16（~10:0x UTC）: ラウンド86 — **候補A の ship 準備 dry-validate**／新候補なし・提出なし／**A の agent パッケージが公式プリフライト検証器を SUCCESSFUL(exit 0)で通過＝07-17 枠を packaging ミスで無駄にするリスクを事前除去**
 

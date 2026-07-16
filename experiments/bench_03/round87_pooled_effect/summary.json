@@ -1,0 +1,83 @@
+{
+  "note": "round87 pooled-effect re-analysis; NO fitting, NO submission; stdlib only",
+  "n_datasets": 16,
+  "configs": [
+    "A_orgate",
+    "A_orgate_seedwin",
+    "A_orgate_K20"
+  ],
+  "mean_delta_sigma_floor": {
+    "public_1sigma": 0.0013,
+    "private_1sigma": 0.00126,
+    "public_2sigma": 0.0026,
+    "private_2sigma": 0.00252
+  },
+  "per_config_means": {
+    "A_orgate": {
+      "mean_delta_public_all16": 0.005582779119570218,
+      "mean_delta_private_all16": 0.005554872384226077,
+      "mean_delta_public_fired": 0.005954964394208232,
+      "mean_delta_private_fired": 0.005925197209841149,
+      "n_fired": 15,
+      "headline_mean_delta": 0.0056
+    },
+    "A_orgate_seedwin": {
+      "mean_delta_public_all16": 0.0056166985652786675,
+      "mean_delta_private_all16": 0.005509250207130792,
+      "mean_delta_public_fired": 0.005991145136297245,
+      "mean_delta_private_fired": 0.005876533554272844,
+      "n_fired": 15,
+      "headline_mean_delta": 0.0055
+    },
+    "A_orgate_K20": {
+      "mean_delta_public_all16": 0.005886480729973977,
+      "mean_delta_private_all16": 0.005837040939921795,
+      "mean_delta_public_fired": 0.006278912778638909,
+      "mean_delta_private_fired": 0.006226177002583248,
+      "n_fired": 15,
+      "headline_mean_delta": 0.0058
+    }
+  },
+  "pooled": {
+    "mean_delta_private_all16": 0.005633721177092888,
+    "mean_delta_public_all16": 0.005695319471607621,
+    "mean_delta_private_fired": 0.00600930258889908,
+    "mean_delta_public_fired": 0.0060750074363814625,
+    "private_sigma_multiple_vs_meandelta_floor": 4.471207283407053,
+    "public_sigma_multiple_vs_meandelta_floor": 4.381014978159708
+  },
+  "per_dataset_spread": {
+    "max_prv_spread": 0.003123132492529934,
+    "max_prv_spread_dataset": "train_13",
+    "max_pub_spread": 0.0023964895859583946,
+    "max_pub_spread_dataset": "train_13"
+  },
+  "ruler_tally_private": {
+    "all16": {
+      "strong_gt2sigma": 9,
+      "real_gt1sigma": 4,
+      "within_le1sigma": 3
+    },
+    "fired15": {
+      "strong_gt2sigma": 9,
+      "real_gt1sigma": 4,
+      "within_le1sigma": 2
+    }
+  },
+  "ruler_tally_public": {
+    "all16": {
+      "strong_gt2sigma": 11,
+      "real_gt1sigma": 3,
+      "within_le1sigma": 2
+    },
+    "fired15": {
+      "strong_gt2sigma": 11,
+      "real_gt1sigma": 3,
+      "within_le1sigma": 1
+    }
+  },
+  "self_checks": {
+    "check_a_config_headline_match": true,
+    "check_b_nonfired_zero_delta": true
+  }
+}

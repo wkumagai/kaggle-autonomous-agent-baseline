@@ -1,0 +1,70 @@
+==============================================================================
+round84 re-audit  --  past rounds vs round83 noise-floor ruler
+==============================================================================
+aggregate mean-delta ruler:  1 sigma = 0.00130 pub / 0.00126 prv
+                             2 sigma = 0.00260 pub / 0.00252 prv
+round83 per-dataset std loaded for 16 datasets
+
+------------------------------------------------------------------------------
+round80  (past verdict: REJECT)  [16 datasets]
+  arm F50      mean_delta_pub=-0.000585 (z=-0.45)  mean_delta_prv=-0.001079 (z=-0.86)  => NOISE      signal_datasets=0/16
+  arm F100     mean_delta_pub=-0.002011 (z=-1.55)  mean_delta_prv=-0.001511 (z=-1.20)  => SUGGESTIVE signal_datasets=4/16
+      * train_05: dpub=-0.01763 (>0.00672)  dprv=-0.01077 (>0.00641)
+      * train_09: dpub=-0.00987 (>0.00541)  dprv=-0.00990 (>0.00451)
+      * train_13: dpub=-0.01073 (>0.00551)  dprv=-0.00871 (>0.00539)
+      * train_15: dpub=+0.00587 (>0.00432)  dprv=+0.00755 (>0.00455)
+  arm F200     mean_delta_pub=-0.002977 (z=-2.29)  mean_delta_prv=-0.002616 (z=-2.08)  => REAL       signal_datasets=3/16
+      * train_05: dpub=-0.01967 (>0.00672)  dprv=-0.01320 (>0.00641)
+      * train_09: dpub=-0.01305 (>0.00541)  dprv=-0.01574 (>0.00451)
+      * train_13: dpub=-0.01934 (>0.00551)  dprv=-0.01721 (>0.00539)
+  --> best arm: F200 (REAL)
+
+------------------------------------------------------------------------------
+round81  (past verdict: REJECT)  [16 datasets]
+  arm T008     mean_delta_pub=-0.000478 (z=-0.37)  mean_delta_prv=-0.000123 (z=-0.10)  => NOISE      signal_datasets=0/16
+  arm T005     mean_delta_pub=-0.000720 (z=-0.55)  mean_delta_prv=-0.000329 (z=-0.26)  => NOISE      signal_datasets=1/16
+      * train_03: dpub=-0.00386 (>0.00313)  dprv=-0.00331 (>0.00123)
+  arm T002     mean_delta_pub=-0.000716 (z=-0.55)  mean_delta_prv=-0.000373 (z=-0.30)  => NOISE      signal_datasets=1/16
+      * train_03: dpub=-0.00386 (>0.00313)  dprv=-0.00331 (>0.00123)
+  --> best arm: T002 (NOISE)
+
+------------------------------------------------------------------------------
+round82  (past verdict: REJECT)  [16 datasets]
+  arm ORDCAT   mean_delta_pub=+0.000000 (z=+0.00)  mean_delta_prv=+0.000000 (z=+0.00)  => NOISE      signal_datasets=0/16
+  arm ORD      mean_delta_pub=-0.000703 (z=-0.54)  mean_delta_prv=-0.001989 (z=-1.58)  => SUGGESTIVE signal_datasets=3/16
+      * train_03: dpub=-0.00716 (>0.00313)  dprv=-0.01265 (>0.00123)
+      * train_05: dpub=-0.00688 (>0.00672)  dprv=-0.01070 (>0.00641)
+      * train_15: dpub=-0.00622 (>0.00432)  dprv=-0.00964 (>0.00455)
+  --> best arm: ORD (SUGGESTIVE)
+
+------------------------------------------------------------------------------
+SELF-CHECK: round82 ORDCAT is the mathematical-identity control (expect ~0 / NOISE)
+  ORDCAT mean_delta_pub=+0.000000000  mean_delta_prv=+0.000000000  label=NOISE
+  self-check PASS: identity control is ~0 and NOISE
+
+==============================================================================
+08 ACCEPT RE-AUDIT (07 -> 08: msl=70 tier for ratio>=0.030, fires ONLY on train_15)
+==============================================================================
+  recorded accept delta on train_15: +0.0039 Public / +0.0040 Private
+  train_15 OWN seed-noise sigma (round83): pub_std=0.004319  prv_std=0.004551
+    Public : 0.0039 <= 0.004319  => BELOW its own 1-sigma noise floor
+    Private: 0.0040 <= 0.004551  => BELOW its own 1-sigma noise floor
+  per-dataset signal (above own std on BOTH, same dir): False
+  16-dataset MEAN delta: pub=+0.000244 (z=+0.19)  prv=+0.000250 (z=+0.20)  => NOISE
+  CONCLUSION: train_15's +0.0039/+0.0040 gain is BELOW train_15's own seed-noise sigma on at least one split; aggregate mean is NOISE.
+
+==============================================================================
+FINAL VERDICT TABLE
+==============================================================================
+round        best arm        mean_dpub (z)        mean_dprv (z)        label       #signal 
+-------------------------------------------------------------------------------------------
+round80      F200            -0.00298 (-2.29)     -0.00262 (-2.08)     REAL        3/16    
+round81      T002            -0.00072 (-0.55)     -0.00037 (-0.30)     NOISE       1/16    
+round82      ORD             -0.00070 (-0.54)     -0.00199 (-1.58)     SUGGESTIVE  3/16    
+08(accept)   msl70/train_15  +0.00024 (+0.19)     +0.00025 (+0.20)     NOISE       0/16    
+
+NOTE:
+  - round80 F200 is REAL but NEGATIVE (a real regression) -> REJECT was correct.
+  - round81 (T002) is NOISE, round82 (ORD) is SUGGESTIVE-negative -> REJECTs consistent with ruler.
+  - 08's accept (train_15) is BELOW that dataset's own seed-noise sigma and aggregate NOISE;
+    i.e. the +0.0039/+0.0040 'gain' is not distinguishable from seed jitter.

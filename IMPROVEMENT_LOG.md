@@ -11,7 +11,26 @@
 
 > **✅ ユーザー承認済み（2026-07-12、本人とのチャットで直接指示）:** 「Kaggleには提出して採点できることはわかったので、性能を出すことを考えて。設計と実装と次の提出もできるようにして」という明示指示により、このサイクルに限り複雑化（交差検証＋複数モデル族アンサンブル）を承認済み。下記 `03_cv_ensemble` の PARKED 指定はこれにより解除。**ただし今回限りの承認であり、このサイクル以降は自動ループの既定方針（1サイクル1改善・シンプル構造優先）に戻ること** — 次に複雑な変更を検討する場合は再度ユーザーに確認すること。
 >
-> **🚨🚨 次回実行への申し送り（最新・最優先・2026-07-16 ~09:0x UTC 更新 / round85／これより下の旧ブロックは履歴として残すが、操作指示はこの最上部ブロックが最新）:**
+> **🚨🚨 次回実行への申し送り（最新・最優先・2026-07-16 ~10:0x UTC 更新 / round86／これより下の旧ブロックは履歴として残すが、操作指示はこの最上部ブロックが最新）:**
+>
+> **📌 直近サイクル(2026-07-16 ~10:0x UTC / round86)でやったこと:** ① 提出履歴確認＝`date -u`=2026-07-16 10:01 UTC。**08(54751045, 07-16 03:11 UTC)が当日UTC枠を消費済み・COMPLETE・公開LB 0.792**。**よって 2026-07-16 UTC 中は新規提出しない**（次の枠は 07-17 00:00 UTC 以降）。② **オフライン探索 round86（無制限枠・毎回必須）＝ round85 の申し送りが挙げた ship-prep 角度(d)「候補A 承認後に備えた 09 提出物の dry validate」を実施。測定基盤の三点セット(r83-85)完結後の、A の *ship 準備*ラウンド（新候補なし・モデル fit なし）。** ハーネス `experiments/bench_03/round86_dry_validate/`（**`submissions/` 不触**・`git status --porcelain` は `?? experiments/bench_03/round86_dry_validate/` の1行のみ・オーケストレータが独立確認・実装は coder 委譲）。手順＝08 の agent.yaml（`git show HEAD:submissions/08_.../agent.yaml` から byte-identical）＋候補A の system.md（`experiments/bench_03/candidates/A_orgate/system.md` を byte-identical コピー）で scratch agent dir を組み、公式プリフライト検証器 `validate_submission.py --agent-dir experiments/bench_03/round86_dry_validate/agent` を通す。
+>
+> **✅ 検証（オーケストレータが独立再確認・全PASS）: 二つの diff（agent.yaml vs HEAD 08 ／ system.md vs candidates/A_orgate）とも IDENTICAL・`git status --porcelain` は round86 の untracked 1行のみ（submissions/ 不触・tracked 変更ゼロ）。** 対照として live 08 でも検証器を空回しし SUCCESSFUL を確認済（検証器自体が健全）。
+>
+> **🔑 round86 の成果＝候補A は packaging/compile の観点で ship-ready と確定:**
+> - **検証器 5 チェック全通過・`>>> VALIDATION SUCCESSFUL <<<`・exit 0。** agent `ngated_2gate_agent` が 4 tools で ADK dry-run コンパイル成功。`[Error]` 行ゼロ。
+> - **含意: A を ship する際の残作業は「08 の agent.yaml 構造に A の system.md を差すだけ」で、その組み合わせが公式検証器を通ることを事前確認した。** ⇒ **07-17 の提出枠が、承認後に packaging/YAML/`!include`/model 未許可/コンパイル不能 といった凡ミスで無駄になるリスクを事前に消した。** さらに `experiments/bench_03/round86_dry_validate/agent/` は**そのまま `submissions/09_*/agent/` にコピーできる pre-validated スケルトン**（承認後の 09 新設を機械的作業に落とせる）。
+> - **🔑 峻別（不変・再強調）: round86 が保証したのは *packaging の健全性*であって *性能*ではない。** A が LB を上げる根拠は実 fit ベンチ mean_delta +0.0056（4.3σ・round83 の 2σ 床超え）＋round85 の再現性確定。round86 はその直交する第12段目の de-risk（「出せる形になっているか」）。
+>
+> **🚨 状態（不変・最重要）: 承認不要で提出できる安全キューは空のまま。** 02→06→07→08 の4段は全消化・全て公開LB 0.792。単ノブ軸は全軸消化・round84 の σ 再審で取りこぼしゼロと裏付け済＝枯渇確定。残る唯一の意味あるレバーが候補A（seed-avg K10・OR-gate `n_object_cols>0 OR n_train>=5000`・実 fit ベンチ +0.0056・悪化ゼロ・round83-85 で物差し裏取り＆再現性確定・**round86 で packaging も green**＝十二段 de-risk 完了）。**2026-07-17 UTC 以降の提出枠は、ユーザーが候補A を承認しない限り「提出するものが無い」＝ボトルネックは「ユーザーの ship 承認」1点に収束したまま（round79 から不変）。**
+>
+> **⚠️ ship 判断（不変・要ユーザー承認）:** 承認待ち3候補=(A)seed-avg **K10**（OR-gate・mean_delta +0.0056・悪化ゼロ・十二段 de-risk＝packaging も検証済・第一推奨）／(B)gate-D' RFブレンド（r75で Private 優位が train_05 アーティファクトと判明＝汎用性なし）／(AB)A×B合成（gate-D' 必須）。(B)(AB)は複数モデル族=RF を含むため「大きな設計変更」扱い・自動採用しない。**A は単一モデル族＋公開メトリクス無条件優位＋packaging 検証済で ship 障壁が最も低い。**
+>
+> **🔔 通知/承認まわり:** 承認 ping は round62(~23:01 UTC 07-14)初送 → round74(~11:0x UTC 07-15)再送 → round79(~03:1x UTC 07-16)再送。now=07-16 10:01 UTC＝**round79送信から約7hで 12h ルール未経過につき round86 では送っていない（正しい）。次の再送可能は ~15:1x UTC 07-16 以降。** round86 は「ship 準備の検証1本・新候補なし」＝ユーザー報告不要の回（申し送りの規定どおり）。
+>
+> **次サイクルの主眼:** ① 提出履歴を確認。**07-16 UTC 中は 08 が枠消費済みで新規提出しない。07-17 00:00 UTC 以降に1件出せる。** ② **その 07-17 枠で何を出すかは完全にユーザー承認次第。** 承認済なら `submissions/09_A_seedavg_orgate/agent/` を coder 委譲で新設（**承認後のみ `submissions/` 書込可**）＝**round86 の pre-validated スケルトン `experiments/bench_03/round86_dry_validate/agent/` をそのままコピー**すれば良い（agent.yaml＝08 と同一・system.md＝candidates/A_orgate・**round86 で validate 済**）→ zip → 実提出。**承認が無ければ提出見送り。** ③ **オフライン角度（毎回必須）＝ 測定基盤三点(r83-85)＋ship 準備(r86)が揃った。単ノブ枯渇・A は物差しで本物＆再現性＆packaging 全て green。残る探索候補（承認が来ない場合の規律充足用・推奨順）: (b) shipped-08 の replay 再現性 sanity（08 が seed0 で LB 0.792 を再現するかの器具化）、(c) round85 の noisy-tail（train_05/16/13）に *A の K=20* で σ がどこまで下がるか（※10シードしか無いので K>10 は理論外挿でなく fresh 20-seed fit が要る＝やや高コスト・やる価値があるのは A 承認が長引く場合のみ）。**🚫 提案しないこと（r84-86 で確定）: 単ノブの新規レバー全般／正則化強弱／catマスク系／train_15 単独カナリア設計。** ④ **読み方の規律（r82→r86 で不変）: delta/σ は Public と Private の両方で σ で読む（mean-delta 1σ=0.0013・2σ=0.0026／round83 std は sample ddof=1）。** ⑤ 承認 ping は round79 送信＋12h(~15:1x UTC 07-16)以降でなければ再送しない。
+>
+> **🚨🚨 次回実行への申し送り（一つ前・2026-07-16 ~09:0x UTC 更新 / round85／これより下の旧ブロックは履歴として残すが、操作指示はこの最上部ブロックが最新）:**
 >
 > **📌 直近サイクル(2026-07-16 ~09:0x UTC / round85)でやったこと:** ① 提出履歴確認＝`date -u`=2026-07-16 09:01 UTC。**08(54751045, 07-16 03:11 UTC)が当日UTC枠を消費済み・COMPLETE・公開LB 0.792**。**よって 2026-07-16 UTC 中は新規提出しない**（次の枠は 07-17 00:00 UTC 以降）。② **オフライン探索 round85（無制限枠・毎回必須）＝ round84 の申し送りが最有望と指定した角度(a)「候補A の seed-avg が per-dataset σ をどれだけ縮めるかを物差しで直接裏取り」を実施。round84 に続く2本目の *純再解析*（モデル fit なし）。** ハーネス `experiments/bench_03/round85_seedavg_ruler/analyze.py`（**モデル fit なし・round83 results.csv の10シード生値を itertools.combinations でサブサンプルするだけ**・`.venv`・stdlib（csv/math/statistics/json/itertools）のみ・**`submissions/` 不触**（`git status --porcelain` は `?? experiments/bench_03/round85_seedavg_ruler/` の1行のみ・オーケストレータが独立確認）・実装は coder 委譲）。手法＝各データの10シードから C(10,K) 個の K-部分集合を全列挙→各部分集合の平均AUC（＝K本 seed-avg した候補A の模擬）→その部分集合平均の stdev＝`sigma_K`。K∈{1..5}は実測、K=10は1組しか無いので σ₁/√10 で外挿。
 >
@@ -741,6 +760,18 @@
 | 2026-07-16 | 54751045 | **08_ratio_tiered_msl**（実提出・COMPLETE）: 07 の msl ゲートを「比≥0.030 なら msl=70、比≥0.015 なら 50、他は既定20」の**3tier**に拡張した1行変更の単発・単一HGB（l2ゲートは06から不変）。承認不要の安全キュー最終段・grader保証 sklearn-only。validate合格・07とのself-diffは当該1行のみと確認済。**公開LB 0.792 ＝ 06/07 と同値で横ばい。** オフライン改善(+0.00024 pub)は train_15 単独ゲイン(+0.0039)を16データで平均した極小値のため、公開LBの表示解像度(小数第3位)では動かないことは事前に想定どおり。**これで安全キュー(02→06→07→08)は完全に消化。grader正常受理は4回連続＝sklearn-only 単発HGB 構造の de-risk は完全確立。** | **0.792** | ±0.000（=06/07） |
 
 ## 各回の詳細メモ
+
+### 2026-07-16（~10:0x UTC）: ラウンド86 — **候補A の ship 準備 dry-validate**／新候補なし・提出なし／**A の agent パッケージが公式プリフライト検証器を SUCCESSFUL(exit 0)で通過＝07-17 枠を packaging ミスで無駄にするリスクを事前除去**
+
+**やったこと（技法名: submission dry-validation / packaging pre-flight・モデル fit なし・提出なし）:** 提出履歴確認＝`date -u`=2026-07-16 10:01 UTC。08(54751045, 07-16 03:11 UTC)が当日UTC枠を消費済み・COMPLETE・公開LB 0.792 ⇒ **07-16 UTC 中は新規提出しない**（次枠 07-17 00:00 UTC〜）。測定基盤三点(r83-85)完結後、オフライン枠で round85 の申し送りが挙げた ship-prep 角度(d)「候補A 承認後に備えた 09 提出物の dry validate」を実施。
+
+**ハーネス:** `experiments/bench_03/round86_dry_validate/`（`submissions/` 不触＝`git status --porcelain` は `?? experiments/bench_03/round86_dry_validate/` の1行のみ・実装は coder 委譲・オーケストレータが独立に diff/porcelain 再確認）。手順＝08 の agent.yaml（`git show HEAD:submissions/08_ratio_tiered_msl/agent/agent.yaml` から byte-identical）＋候補A の system.md（`experiments/bench_03/candidates/A_orgate/system.md` を byte-identical コピー）で scratch agent dir を組み、公式プリフライト検証器 `validate_submission.py --agent-dir experiments/bench_03/round86_dry_validate/agent` を通す。対照として live 08 でも検証器を空回しし SUCCESSFUL を確認（検証器自体の健全性）。
+
+**検証（オーケストレータ独立確認・全PASS）:** agent.yaml と system.md の2 diff とも IDENTICAL・porcelain は round86 の untracked 1行のみ（submissions/ 不触・tracked 変更ゼロ）。検証器5チェック全通過・`>>> VALIDATION SUCCESSFUL <<<`・**exit 0**・agent `ngated_2gate_agent` が 4 tools で ADK dry-run コンパイル成功・`[Error]` 行ゼロ。
+
+**成果:** ① **候補A は packaging/YAML/`!include`/model 許可/コンパイルの観点で ship-ready と確定**（第12段目の de-risk・性能とは直交）。② `experiments/bench_03/round86_dry_validate/agent/` は**そのまま `submissions/09_*/agent/` にコピーできる pre-validated スケルトン**＝承認後の 09 新設を機械的作業に落とせる。③ ⇒ **07-17 枠が承認後に packaging 凡ミスで無駄になるリスクを事前除去。** 🔑 **峻別: round86 が保証したのは packaging の健全性であって性能ではない**（A の LB 改善根拠は実 fit ベンチ mean_delta +0.0056=4.3σ ＋round85 の再現性確定）。
+
+**判断:** 不採用/採用の対象ではない（新候補なし・A の ship 準備のみ）。状態は round85 から不変＝安全キュー空・単ノブ枯渇・A は物差しで本物＆再現性＆packaging すべて green で承認待ち。ボトルネックは「ユーザーの ship 承認」1点。承認 ping は round79 送信＋12h 未経過(now 10:01 UTC＜~15:1x UTC)につき round86 では送らず（正しい）。
 
 ### 2026-07-16（~09:0x UTC）: ラウンド85 — **round83 の物差しで候補A の分散低減を直接裏取り**／新候補なし・提出なし／**seed-avg の 1/√K 則が厳密成立・K=10 で median σ は 1σ床の3〜4倍下と確定**／**ただし noisy-tail は K=10 でも 2σ床ぎりぎり（新 nuance）**
 

@@ -1,0 +1,263 @@
+[OK] train_01 base (n=14957, ratio=0.00080, n_obj=5, encoded=0, marked_cat=5, l2=0.0, msl=20): pub=0.710287 prv=0.704818
+[OK] train_01 ORDCAT (n=14957, ratio=0.00080, n_obj=5, encoded=5, marked_cat=5, l2=0.0, msl=20): pub=0.710287 prv=0.704818
+[OK] train_01 ORD (n=14957, ratio=0.00080, n_obj=5, encoded=5, marked_cat=0, l2=0.0, msl=20): pub=0.711069 prv=0.703325
+[OK] train_02 base (n=14929, ratio=0.00188, n_obj=2, encoded=0, marked_cat=2, l2=0.0, msl=20): pub=0.964370 prv=0.963480
+[OK] train_02 ORDCAT (n=14929, ratio=0.00188, n_obj=2, encoded=2, marked_cat=2, l2=0.0, msl=20): pub=0.964370 prv=0.963480
+[OK] train_02 ORD (n=14929, ratio=0.00188, n_obj=2, encoded=2, marked_cat=0, l2=0.0, msl=20): pub=0.964880 prv=0.963404
+[OK] train_03 base (n=3501, ratio=0.00514, n_obj=7, encoded=0, marked_cat=7, l2=0.0, msl=20): pub=0.792579 prv=0.809545
+[OK] train_03 ORDCAT (n=3501, ratio=0.00514, n_obj=7, encoded=7, marked_cat=7, l2=0.0, msl=20): pub=0.792579 prv=0.809545
+[OK] train_03 ORD (n=3501, ratio=0.00514, n_obj=7, encoded=7, marked_cat=0, l2=0.0, msl=20): pub=0.785421 prv=0.796896
+[OK] train_04 base (n=8775, ratio=0.00137, n_obj=0, encoded=0, marked_cat=0, l2=0.0, msl=20): pub=0.823647 prv=0.824960
+[OK] train_04 ORDCAT (n=8775, ratio=0.00137, n_obj=0, encoded=0, marked_cat=0, l2=0.0, msl=20): pub=0.823647 prv=0.824960
+[OK] train_04 ORD (n=8775, ratio=0.00137, n_obj=0, encoded=0, marked_cat=0, l2=0.0, msl=20): pub=0.823647 prv=0.824960
+[OK] train_05 base (n=1060, ratio=0.00849, n_obj=5, encoded=0, marked_cat=5, l2=0.0, msl=20): pub=0.653135 prv=0.656873
+[OK] train_05 ORDCAT (n=1060, ratio=0.00849, n_obj=5, encoded=5, marked_cat=5, l2=0.0, msl=20): pub=0.653135 prv=0.656873
+[OK] train_05 ORD (n=1060, ratio=0.00849, n_obj=5, encoded=5, marked_cat=0, l2=0.0, msl=20): pub=0.646251 prv=0.646176
+[OK] train_06 base (n=10803, ratio=0.00083, n_obj=9, encoded=0, marked_cat=9, l2=0.0, msl=20): pub=0.799693 prv=0.813708
+[OK] train_06 ORDCAT (n=10803, ratio=0.00083, n_obj=9, encoded=9, marked_cat=9, l2=0.0, msl=20): pub=0.799693 prv=0.813708
+[OK] train_06 ORD (n=10803, ratio=0.00083, n_obj=9, encoded=9, marked_cat=0, l2=0.0, msl=20): pub=0.800458 prv=0.814399
+[OK] train_07 base (n=10417, ratio=0.00163, n_obj=6, encoded=0, marked_cat=6, l2=0.0, msl=20): pub=0.823648 prv=0.826507
+[OK] train_07 ORDCAT (n=10417, ratio=0.00163, n_obj=6, encoded=6, marked_cat=6, l2=0.0, msl=20): pub=0.823648 prv=0.826507
+[OK] train_07 ORD (n=10417, ratio=0.00163, n_obj=6, encoded=6, marked_cat=0, l2=0.0, msl=20): pub=0.828825 prv=0.826327
+[OK] train_08 base (n=8173, ratio=0.00147, n_obj=12, encoded=0, marked_cat=12, l2=0.0, msl=20): pub=0.846027 prv=0.841110
+[OK] train_08 ORDCAT (n=8173, ratio=0.00147, n_obj=12, encoded=12, marked_cat=12, l2=0.0, msl=20): pub=0.846027 prv=0.841110
+[OK] train_08 ORD (n=8173, ratio=0.00147, n_obj=12, encoded=12, marked_cat=0, l2=0.0, msl=20): pub=0.846000 prv=0.843668
+[OK] train_09 base (n=1109, ratio=0.01623, n_obj=4, encoded=0, marked_cat=4, l2=1.0, msl=50): pub=0.620424 prv=0.633474
+[OK] train_09 ORDCAT (n=1109, ratio=0.01623, n_obj=4, encoded=4, marked_cat=4, l2=1.0, msl=50): pub=0.620424 prv=0.633474
+[OK] train_09 ORD (n=1109, ratio=0.01623, n_obj=4, encoded=4, marked_cat=0, l2=1.0, msl=50): pub=0.622116 prv=0.631312
+[OK] train_10 base (n=11800, ratio=0.00229, n_obj=0, encoded=0, marked_cat=0, l2=0.0, msl=20): pub=0.836807 prv=0.847743
+[OK] train_10 ORDCAT (n=11800, ratio=0.00229, n_obj=0, encoded=0, marked_cat=0, l2=0.0, msl=20): pub=0.836807 prv=0.847743
+[OK] train_10 ORD (n=11800, ratio=0.00229, n_obj=0, encoded=0, marked_cat=0, l2=0.0, msl=20): pub=0.836807 prv=0.847743
+[OK] train_11 base (n=28879, ratio=0.00069, n_obj=0, encoded=0, marked_cat=0, l2=0.0, msl=20): pub=0.828129 prv=0.816654
+[OK] train_11 ORDCAT (n=28879, ratio=0.00069, n_obj=0, encoded=0, marked_cat=0, l2=0.0, msl=20): pub=0.828129 prv=0.816654
+[OK] train_11 ORD (n=28879, ratio=0.00069, n_obj=0, encoded=0, marked_cat=0, l2=0.0, msl=20): pub=0.828129 prv=0.816654
+[OK] train_12 base (n=49432, ratio=0.00016, n_obj=3, encoded=0, marked_cat=3, l2=0.0, msl=20): pub=0.794888 prv=0.769505
+[OK] train_12 ORDCAT (n=49432, ratio=0.00016, n_obj=3, encoded=3, marked_cat=3, l2=0.0, msl=20): pub=0.794888 prv=0.769505
+[OK] train_12 ORD (n=49432, ratio=0.00016, n_obj=3, encoded=3, marked_cat=0, l2=0.0, msl=20): pub=0.795453 prv=0.770336
+[OK] train_13 base (n=500, ratio=0.01800, n_obj=4, encoded=0, marked_cat=4, l2=1.0, msl=50): pub=0.628380 prv=0.644000
+[OK] train_13 ORDCAT (n=500, ratio=0.01800, n_obj=4, encoded=4, marked_cat=4, l2=1.0, msl=50): pub=0.628380 prv=0.644000
+[OK] train_13 ORD (n=500, ratio=0.01800, n_obj=4, encoded=4, marked_cat=0, l2=1.0, msl=50): pub=0.629310 prv=0.642920
+[OK] train_14 base (n=11108, ratio=0.00207, n_obj=15, encoded=0, marked_cat=15, l2=0.0, msl=20): pub=0.797525 prv=0.804425
+[OK] train_14 ORDCAT (n=11108, ratio=0.00207, n_obj=15, encoded=15, marked_cat=15, l2=0.0, msl=20): pub=0.797525 prv=0.804425
+[OK] train_14 ORD (n=11108, ratio=0.00207, n_obj=15, encoded=15, marked_cat=0, l2=0.0, msl=20): pub=0.796143 prv=0.806501
+[OK] train_15 base (n=500, ratio=0.06000, n_obj=24, encoded=0, marked_cat=24, l2=1.0, msl=70): pub=0.841097 prv=0.843627
+[OK] train_15 ORDCAT (n=500, ratio=0.06000, n_obj=24, encoded=24, marked_cat=24, l2=1.0, msl=70): pub=0.841097 prv=0.843627
+[OK] train_15 ORD (n=500, ratio=0.06000, n_obj=24, encoded=24, marked_cat=0, l2=1.0, msl=70): pub=0.834876 prv=0.833991
+[OK] train_16 base (n=1809, ratio=0.01161, n_obj=0, encoded=0, marked_cat=0, l2=1.0, msl=20): pub=0.892160 prv=0.893255
+[OK] train_16 ORDCAT (n=1809, ratio=0.01161, n_obj=0, encoded=0, marked_cat=0, l2=1.0, msl=20): pub=0.892160 prv=0.893255
+[OK] train_16 ORD (n=1809, ratio=0.01161, n_obj=0, encoded=0, marked_cat=0, l2=1.0, msl=20): pub=0.892160 prv=0.893255
+
+=== PER-DATASET (Public) ===
+dataset         n    ratio n_obj   l2  msl      base    ORDCAT    dORDCAT       ORD       dORD
+train_01    14957  0.00080     5  0.0   20    0.7103    0.7103   +0.00000    0.7111   +0.00078
+train_02    14929  0.00188     2  0.0   20    0.9644    0.9644   +0.00000    0.9649   +0.00051
+train_03     3501  0.00514     7  0.0   20    0.7926    0.7926   +0.00000    0.7854   -0.00716
+train_04     8775  0.00137     0  0.0   20    0.8236    0.8236   +0.00000    0.8236   +0.00000
+train_05     1060  0.00849     5  0.0   20    0.6531    0.6531   +0.00000    0.6463   -0.00688
+train_06    10803  0.00083     9  0.0   20    0.7997    0.7997   +0.00000    0.8005   +0.00076
+train_07    10417  0.00163     6  0.0   20    0.8236    0.8236   +0.00000    0.8288   +0.00518
+train_08     8173  0.00147    12  0.0   20    0.8460    0.8460   +0.00000    0.8460   -0.00003
+train_09     1109  0.01623     4  1.0   50    0.6204    0.6204   +0.00000    0.6221   +0.00169
+train_10    11800  0.00229     0  0.0   20    0.8368    0.8368   +0.00000    0.8368   +0.00000
+train_11    28879  0.00069     0  0.0   20    0.8281    0.8281   +0.00000    0.8281   +0.00000
+train_12    49432  0.00016     3  0.0   20    0.7949    0.7949   +0.00000    0.7955   +0.00056
+train_13      500  0.01800     4  1.0   50    0.6284    0.6284   +0.00000    0.6293   +0.00093
+train_14    11108  0.00207    15  0.0   20    0.7975    0.7975   +0.00000    0.7961   -0.00138
+train_15      500  0.06000    24  1.0   70    0.8411    0.8411   +0.00000    0.8349   -0.00622
+train_16     1809  0.01161     0  1.0   20    0.8922    0.8922   +0.00000    0.8922   +0.00000
+
+=== PER-DATASET (Private) ===
+dataset         n    ratio n_obj   l2  msl      base    ORDCAT    dORDCAT       ORD       dORD
+train_01    14957  0.00080     5  0.0   20    0.7048    0.7048   +0.00000    0.7033   -0.00149
+train_02    14929  0.00188     2  0.0   20    0.9635    0.9635   +0.00000    0.9634   -0.00008
+train_03     3501  0.00514     7  0.0   20    0.8095    0.8095   +0.00000    0.7969   -0.01265
+train_04     8775  0.00137     0  0.0   20    0.8250    0.8250   +0.00000    0.8250   +0.00000
+train_05     1060  0.00849     5  0.0   20    0.6569    0.6569   +0.00000    0.6462   -0.01070
+train_06    10803  0.00083     9  0.0   20    0.8137    0.8137   +0.00000    0.8144   +0.00069
+train_07    10417  0.00163     6  0.0   20    0.8265    0.8265   +0.00000    0.8263   -0.00018
+train_08     8173  0.00147    12  0.0   20    0.8411    0.8411   +0.00000    0.8437   +0.00256
+train_09     1109  0.01623     4  1.0   50    0.6335    0.6335   +0.00000    0.6313   -0.00216
+train_10    11800  0.00229     0  0.0   20    0.8477    0.8477   +0.00000    0.8477   +0.00000
+train_11    28879  0.00069     0  0.0   20    0.8167    0.8167   +0.00000    0.8167   +0.00000
+train_12    49432  0.00016     3  0.0   20    0.7695    0.7695   +0.00000    0.7703   +0.00083
+train_13      500  0.01800     4  1.0   50    0.6440    0.6440   +0.00000    0.6429   -0.00108
+train_14    11108  0.00207    15  0.0   20    0.8044    0.8044   +0.00000    0.8065   +0.00208
+train_15      500  0.06000    24  1.0   70    0.8436    0.8436   +0.00000    0.8340   -0.00964
+train_16     1809  0.01161     0  1.0   20    0.8933    0.8933   +0.00000    0.8933   +0.00000
+
+=== OBJECT-COLUMN CENSUS (recomputed from the data) ===
+Datasets WITH object columns (12) — the lever can touch these: train_01, train_02, train_03, train_05, train_06, train_07, train_08, train_09, train_12, train_13, train_14, train_15
+Datasets with ZERO object columns (4) — the INVARIANT set, must be identical to base: train_04, train_10, train_11, train_16
+Expected zero-object set (per dataset_stats.csv): train_04, train_10, train_11, train_16  -> recomputed set MATCHES
+(all arms share the l2 gate (l2=1.0 @ ratio>=0.01), the msl tiers (70/50/20), max_iter=300, early_stopping=True and random_state=0; they differ ONLY in whether the object columns are ordinal-encoded and whether the mask marks them categorical -> only datasets WITH object columns can move. The 4 zero-object datasets are identical -> delta 0)
+
+=== INVARIANT CHECK (every dataset with ZERO object columns must be byte-identical to base: delta EXACTLY 0.00000 on both splits, in BOTH candidate arms) ===
+Rationale: with no object columns, no column is re-encoded (ORDCAT/ORD encode nothing) AND the shipped cat_mask is already all-False (so ORD's all-False mask is the mask base already passes). Both arms therefore reduce to base exactly.
+ORDCAT: differs from base on (0): (none)  (must be a subset of the object-column datasets; zero-object datasets must NOT appear)  |  identical (delta exactly 0 on both splits): 16/16 (at least 4/16 required)  -> OK
+ORD: differs from base on (12): train_01, train_02, train_03, train_05, train_06, train_07, train_08, train_09, train_12, train_13, train_14, train_15  (must be a subset of the object-column datasets; zero-object datasets must NOT appear)  |  identical (delta exactly 0 on both splits): 4/16 (at least 4/16 required)  -> OK
+  ORDCAT: max |delta| over the 4 zero-object datasets (train_04, train_10, train_11, train_16) x both splits = 0
+  ORD: max |delta| over the 4 zero-object datasets (train_04, train_10, train_11, train_16) x both splits = 0
+max |delta| over all ZERO-OBJECT (dataset x candidate x split) cells = 0 (must be exactly 0)
+INVARIANT=HOLDS (only datasets that actually have object columns are affected by the lever, as designed)
+
+=== CONTROL CHECK (ORDCAT vs base — isolates the ENCODING from the TREATMENT) ===
+ORDCAT applies the SAME ordinal encoding as ORD but STILL marks the same columns categorical. HGB re-derives its categories from the integer codes, so ORDCAT should be ~a no-op vs base. If ORDCAT moves a lot, the ENCODING is itself a confound and ORD's delta CANNOT be attributed to the mask alone.
+ORDCAT: mean Public d=+0.00000  mean Private d=+0.00000  max |delta| over ALL datasets x both splits = 0.00000
+ORDCAT differs from base on (0/16): (none)
+CONTROL=ORDCAT IS ~NO-OP (|mean d| <= 0.001 on both splits) -> the encoding is not a meaningful confound; ORD's delta vs base is attributable to THE MASK.
+  NOTE — the control is EXACTLY 0.00000 on every dataset, which looks like a no-op bug but is not. When a column is marked categorical, sklearn ordinal-encodes it internally using the SAME lexicographic category order this harness uses (verified: our sorted() codes == OrdinalEncoder().categories_ codes), so ORDCAT feeds HGB bit-identical binned data to base -> identical trees -> identical AUC. ORDCAT == base is therefore a mathematical IDENTITY, i.e. the strongest possible control result, not a skipped encoding. Two independent proofs the encoding really ran: (1) n_encoded is nonzero on all 12 object-column datasets (see results.csv); (2) ORD passes the SAME encoded frames with an all-False mask and does NOT raise the pre-check's `ValueError: could not convert string to float` — which is only possible if the object columns were in fact converted to numbers.
+Encoding-isolated view of THE LEVER (ORD vs ORDCAT, same encoding, mask is the ONLY difference):
+  Public: mean(ORD - ORDCAT) = -0.00070  (better on 7, worse on 5, tied on 4)
+  Private: mean(ORD - ORDCAT) = -0.00199  (better on 4, worse on 8, tied on 4)
+
+=== OBJECT-COLUMN DATASET SWEEP (the datasets the lever touches) ===
+--- train_01 (n=14957, ratio=0.00080, n_obj=5 object cols, l2=0.0, msl=20) ---
+    config   enc  mask    Public       dPub   Private       dPrv
+      base False   cat   0.71029   +0.00000   0.70482   +0.00000  <- base (shipped 08)
+    ORDCAT  True   cat   0.71029   +0.00000   0.70482   +0.00000  <- control
+       ORD  True  none   0.71107   +0.00078   0.70332   -0.00149  <- THE LEVER
+  Public curve: base:0.71029 -> ORDCAT:0.71029 -> ORD:0.71107   BEST=ORD (0.71107)
+  Private curve: base:0.70482 -> ORDCAT:0.70482 -> ORD:0.70332   BEST=base (0.70482)
+  Public encoding-noise yardstick: |dORDCAT|=0.00000 vs |dORD|=0.00078  [an ORD move smaller than the control's move on this dataset is encoding jitter, not the mask]
+  Private encoding-noise yardstick: |dORDCAT|=0.00000 vs |dORD|=0.00149  [an ORD move smaller than the control's move on this dataset is encoding jitter, not the mask]
+--- train_02 (n=14929, ratio=0.00188, n_obj=2 object cols, l2=0.0, msl=20) ---
+    config   enc  mask    Public       dPub   Private       dPrv
+      base False   cat   0.96437   +0.00000   0.96348   +0.00000  <- base (shipped 08)
+    ORDCAT  True   cat   0.96437   +0.00000   0.96348   +0.00000  <- control
+       ORD  True  none   0.96488   +0.00051   0.96340   -0.00008  <- THE LEVER
+  Public curve: base:0.96437 -> ORDCAT:0.96437 -> ORD:0.96488   BEST=ORD (0.96488)
+  Private curve: base:0.96348 -> ORDCAT:0.96348 -> ORD:0.96340   BEST=base (0.96348)
+  Public encoding-noise yardstick: |dORDCAT|=0.00000 vs |dORD|=0.00051  [an ORD move smaller than the control's move on this dataset is encoding jitter, not the mask]
+  Private encoding-noise yardstick: |dORDCAT|=0.00000 vs |dORD|=0.00008  [an ORD move smaller than the control's move on this dataset is encoding jitter, not the mask]
+--- train_03 (n=3501, ratio=0.00514, n_obj=7 object cols, l2=0.0, msl=20) ---
+    config   enc  mask    Public       dPub   Private       dPrv
+      base False   cat   0.79258   +0.00000   0.80954   +0.00000  <- base (shipped 08)
+    ORDCAT  True   cat   0.79258   +0.00000   0.80954   +0.00000  <- control
+       ORD  True  none   0.78542   -0.00716   0.79690   -0.01265  <- THE LEVER
+  Public curve: base:0.79258 -> ORDCAT:0.79258 -> ORD:0.78542   BEST=base (0.79258)
+  Private curve: base:0.80954 -> ORDCAT:0.80954 -> ORD:0.79690   BEST=base (0.80954)
+  Public encoding-noise yardstick: |dORDCAT|=0.00000 vs |dORD|=0.00716  [an ORD move smaller than the control's move on this dataset is encoding jitter, not the mask]
+  Private encoding-noise yardstick: |dORDCAT|=0.00000 vs |dORD|=0.01265  [an ORD move smaller than the control's move on this dataset is encoding jitter, not the mask]
+--- train_05 (n=1060, ratio=0.00849, n_obj=5 object cols, l2=0.0, msl=20) ---
+    config   enc  mask    Public       dPub   Private       dPrv
+      base False   cat   0.65313   +0.00000   0.65687   +0.00000  <- base (shipped 08)
+    ORDCAT  True   cat   0.65313   +0.00000   0.65687   +0.00000  <- control
+       ORD  True  none   0.64625   -0.00688   0.64618   -0.01070  <- THE LEVER
+  Public curve: base:0.65313 -> ORDCAT:0.65313 -> ORD:0.64625   BEST=base (0.65313)
+  Private curve: base:0.65687 -> ORDCAT:0.65687 -> ORD:0.64618   BEST=base (0.65687)
+  Public encoding-noise yardstick: |dORDCAT|=0.00000 vs |dORD|=0.00688  [an ORD move smaller than the control's move on this dataset is encoding jitter, not the mask]
+  Private encoding-noise yardstick: |dORDCAT|=0.00000 vs |dORD|=0.01070  [an ORD move smaller than the control's move on this dataset is encoding jitter, not the mask]
+--- train_06 (n=10803, ratio=0.00083, n_obj=9 object cols, l2=0.0, msl=20) ---
+    config   enc  mask    Public       dPub   Private       dPrv
+      base False   cat   0.79969   +0.00000   0.81371   +0.00000  <- base (shipped 08)
+    ORDCAT  True   cat   0.79969   +0.00000   0.81371   +0.00000  <- control
+       ORD  True  none   0.80046   +0.00076   0.81440   +0.00069  <- THE LEVER
+  Public curve: base:0.79969 -> ORDCAT:0.79969 -> ORD:0.80046   BEST=ORD (0.80046)
+  Private curve: base:0.81371 -> ORDCAT:0.81371 -> ORD:0.81440   BEST=ORD (0.81440)
+  Public encoding-noise yardstick: |dORDCAT|=0.00000 vs |dORD|=0.00076  [an ORD move smaller than the control's move on this dataset is encoding jitter, not the mask]
+  Private encoding-noise yardstick: |dORDCAT|=0.00000 vs |dORD|=0.00069  [an ORD move smaller than the control's move on this dataset is encoding jitter, not the mask]
+--- train_07 (n=10417, ratio=0.00163, n_obj=6 object cols, l2=0.0, msl=20) ---
+    config   enc  mask    Public       dPub   Private       dPrv
+      base False   cat   0.82365   +0.00000   0.82651   +0.00000  <- base (shipped 08)
+    ORDCAT  True   cat   0.82365   +0.00000   0.82651   +0.00000  <- control
+       ORD  True  none   0.82882   +0.00518   0.82633   -0.00018  <- THE LEVER
+  Public curve: base:0.82365 -> ORDCAT:0.82365 -> ORD:0.82882   BEST=ORD (0.82882)
+  Private curve: base:0.82651 -> ORDCAT:0.82651 -> ORD:0.82633   BEST=base (0.82651)
+  Public encoding-noise yardstick: |dORDCAT|=0.00000 vs |dORD|=0.00518  [an ORD move smaller than the control's move on this dataset is encoding jitter, not the mask]
+  Private encoding-noise yardstick: |dORDCAT|=0.00000 vs |dORD|=0.00018  [an ORD move smaller than the control's move on this dataset is encoding jitter, not the mask]
+--- train_08 (n=8173, ratio=0.00147, n_obj=12 object cols, l2=0.0, msl=20) ---
+    config   enc  mask    Public       dPub   Private       dPrv
+      base False   cat   0.84603   +0.00000   0.84111   +0.00000  <- base (shipped 08)
+    ORDCAT  True   cat   0.84603   +0.00000   0.84111   +0.00000  <- control
+       ORD  True  none   0.84600   -0.00003   0.84367   +0.00256  <- THE LEVER
+  Public curve: base:0.84603 -> ORDCAT:0.84603 -> ORD:0.84600   BEST=base (0.84603)
+  Private curve: base:0.84111 -> ORDCAT:0.84111 -> ORD:0.84367   BEST=ORD (0.84367)
+  Public encoding-noise yardstick: |dORDCAT|=0.00000 vs |dORD|=0.00003  [an ORD move smaller than the control's move on this dataset is encoding jitter, not the mask]
+  Private encoding-noise yardstick: |dORDCAT|=0.00000 vs |dORD|=0.00256  [an ORD move smaller than the control's move on this dataset is encoding jitter, not the mask]
+--- train_09 (n=1109, ratio=0.01623, n_obj=4 object cols, l2=1.0, msl=50) ---
+    config   enc  mask    Public       dPub   Private       dPrv
+      base False   cat   0.62042   +0.00000   0.63347   +0.00000  <- base (shipped 08)
+    ORDCAT  True   cat   0.62042   +0.00000   0.63347   +0.00000  <- control
+       ORD  True  none   0.62212   +0.00169   0.63131   -0.00216  <- THE LEVER
+  Public curve: base:0.62042 -> ORDCAT:0.62042 -> ORD:0.62212   BEST=ORD (0.62212)
+  Private curve: base:0.63347 -> ORDCAT:0.63347 -> ORD:0.63131   BEST=base (0.63347)
+  Public encoding-noise yardstick: |dORDCAT|=0.00000 vs |dORD|=0.00169  [an ORD move smaller than the control's move on this dataset is encoding jitter, not the mask]
+  Private encoding-noise yardstick: |dORDCAT|=0.00000 vs |dORD|=0.00216  [an ORD move smaller than the control's move on this dataset is encoding jitter, not the mask]
+--- train_12 (n=49432, ratio=0.00016, n_obj=3 object cols, l2=0.0, msl=20) ---
+    config   enc  mask    Public       dPub   Private       dPrv
+      base False   cat   0.79489   +0.00000   0.76951   +0.00000  <- base (shipped 08)
+    ORDCAT  True   cat   0.79489   +0.00000   0.76951   +0.00000  <- control
+       ORD  True  none   0.79545   +0.00056   0.77034   +0.00083  <- THE LEVER
+  Public curve: base:0.79489 -> ORDCAT:0.79489 -> ORD:0.79545   BEST=ORD (0.79545)
+  Private curve: base:0.76951 -> ORDCAT:0.76951 -> ORD:0.77034   BEST=ORD (0.77034)
+  Public encoding-noise yardstick: |dORDCAT|=0.00000 vs |dORD|=0.00056  [an ORD move smaller than the control's move on this dataset is encoding jitter, not the mask]
+  Private encoding-noise yardstick: |dORDCAT|=0.00000 vs |dORD|=0.00083  [an ORD move smaller than the control's move on this dataset is encoding jitter, not the mask]
+--- train_13 (n=500, ratio=0.01800, n_obj=4 object cols, l2=1.0, msl=50) ---
+    config   enc  mask    Public       dPub   Private       dPrv
+      base False   cat   0.62838   +0.00000   0.64400   +0.00000  <- base (shipped 08)
+    ORDCAT  True   cat   0.62838   +0.00000   0.64400   +0.00000  <- control
+       ORD  True  none   0.62931   +0.00093   0.64292   -0.00108  <- THE LEVER
+  Public curve: base:0.62838 -> ORDCAT:0.62838 -> ORD:0.62931   BEST=ORD (0.62931)
+  Private curve: base:0.64400 -> ORDCAT:0.64400 -> ORD:0.64292   BEST=base (0.64400)
+  Public encoding-noise yardstick: |dORDCAT|=0.00000 vs |dORD|=0.00093  [an ORD move smaller than the control's move on this dataset is encoding jitter, not the mask]
+  Private encoding-noise yardstick: |dORDCAT|=0.00000 vs |dORD|=0.00108  [an ORD move smaller than the control's move on this dataset is encoding jitter, not the mask]
+--- train_14 (n=11108, ratio=0.00207, n_obj=15 object cols, l2=0.0, msl=20) ---
+    config   enc  mask    Public       dPub   Private       dPrv
+      base False   cat   0.79752   +0.00000   0.80443   +0.00000  <- base (shipped 08)
+    ORDCAT  True   cat   0.79752   +0.00000   0.80443   +0.00000  <- control
+       ORD  True  none   0.79614   -0.00138   0.80650   +0.00208  <- THE LEVER
+  Public curve: base:0.79752 -> ORDCAT:0.79752 -> ORD:0.79614   BEST=base (0.79752)
+  Private curve: base:0.80443 -> ORDCAT:0.80443 -> ORD:0.80650   BEST=ORD (0.80650)
+  Public encoding-noise yardstick: |dORDCAT|=0.00000 vs |dORD|=0.00138  [an ORD move smaller than the control's move on this dataset is encoding jitter, not the mask]
+  Private encoding-noise yardstick: |dORDCAT|=0.00000 vs |dORD|=0.00208  [an ORD move smaller than the control's move on this dataset is encoding jitter, not the mask]
+--- train_15 (n=500, ratio=0.06000, n_obj=24 object cols, l2=1.0, msl=70) ---
+    config   enc  mask    Public       dPub   Private       dPrv
+      base False   cat   0.84110   +0.00000   0.84363   +0.00000  <- base (shipped 08)
+    ORDCAT  True   cat   0.84110   +0.00000   0.84363   +0.00000  <- control
+       ORD  True  none   0.83488   -0.00622   0.83399   -0.00964  <- THE LEVER
+  Public curve: base:0.84110 -> ORDCAT:0.84110 -> ORD:0.83488   BEST=base (0.84110)
+  Private curve: base:0.84363 -> ORDCAT:0.84363 -> ORD:0.83399   BEST=base (0.84363)
+  Public encoding-noise yardstick: |dORDCAT|=0.00000 vs |dORD|=0.00622  [an ORD move smaller than the control's move on this dataset is encoding jitter, not the mask]
+  Private encoding-noise yardstick: |dORDCAT|=0.00000 vs |dORD|=0.00964  [an ORD move smaller than the control's move on this dataset is encoding jitter, not the mask]
+
+=== SUMMARY (candidates vs base == shipped 08, mean over all 16 datasets) ===
+ORDCAT (encode=True, mask=cat): mean Public d=+0.00000  mean Private d=+0.00000  Public W/L/T=0/0/16  Private W/L/T=0/0/16
+ORD (encode=True, mask=none): mean Public d=-0.00070  mean Private d=-0.00199  Public W/L/T=7/5/4  Private W/L/T=4/8/4
+
+=== PER-CANDIDATE DETAIL (datasets differing from base; all other deltas are exactly 0) ===
+--- ORDCAT (encode=True, mask=cat) vs base (encode=False, mask=cat) ---
+  (no datasets differ)
+  Public regressions:  (none)
+  Private regressions: (none)
+--- ORD (encode=True, mask=none) vs base (encode=False, mask=cat) ---
+  train_01   (n=14957, ratio=0.00080, n_obj=5, marked_cat 5->0)  pub 0.7103->0.7111 (+0.00078)   prv 0.7048->0.7033 (-0.00149)
+  train_02   (n=14929, ratio=0.00188, n_obj=2, marked_cat 2->0)  pub 0.9644->0.9649 (+0.00051)   prv 0.9635->0.9634 (-0.00008)
+  train_03   (n=3501, ratio=0.00514, n_obj=7, marked_cat 7->0)  pub 0.7926->0.7854 (-0.00716)   prv 0.8095->0.7969 (-0.01265)
+  train_05   (n=1060, ratio=0.00849, n_obj=5, marked_cat 5->0)  pub 0.6531->0.6463 (-0.00688)   prv 0.6569->0.6462 (-0.01070)
+  train_06   (n=10803, ratio=0.00083, n_obj=9, marked_cat 9->0)  pub 0.7997->0.8005 (+0.00076)   prv 0.8137->0.8144 (+0.00069)
+  train_07   (n=10417, ratio=0.00163, n_obj=6, marked_cat 6->0)  pub 0.8236->0.8288 (+0.00518)   prv 0.8265->0.8263 (-0.00018)
+  train_08   (n=8173, ratio=0.00147, n_obj=12, marked_cat 12->0)  pub 0.8460->0.8460 (-0.00003)   prv 0.8411->0.8437 (+0.00256)
+  train_09   (n=1109, ratio=0.01623, n_obj=4, marked_cat 4->0)  pub 0.6204->0.6221 (+0.00169)   prv 0.6335->0.6313 (-0.00216)
+  train_12   (n=49432, ratio=0.00016, n_obj=3, marked_cat 3->0)  pub 0.7949->0.7955 (+0.00056)   prv 0.7695->0.7703 (+0.00083)
+  train_13   (n=500, ratio=0.01800, n_obj=4, marked_cat 4->0)  pub 0.6284->0.6293 (+0.00093)   prv 0.6440->0.6429 (-0.00108)
+  train_14   (n=11108, ratio=0.00207, n_obj=15, marked_cat 15->0)  pub 0.7975->0.7961 (-0.00138)   prv 0.8044->0.8065 (+0.00208)
+  train_15   (n=500, ratio=0.06000, n_obj=24, marked_cat 24->0)  pub 0.8411->0.8349 (-0.00622)   prv 0.8436->0.8340 (-0.00964)
+  Public regressions:  train_03(-0.00716), train_05(-0.00688), train_08(-0.00003), train_14(-0.00138), train_15(-0.00622)
+  Private regressions: train_01(-0.00149), train_02(-0.00008), train_03(-0.01265), train_05(-0.01070), train_07(-0.00018), train_09(-0.00216), train_13(-0.00108), train_15(-0.00964)
+
+=== VERDICT (adoption vs base == shipped 08) ===
+Criterion: CLEAN IMPROVEMENT over 08 iff mean delta positive AND zero regressions on BOTH splits.
+ORDCAT: NOT-CLEAN (non-positive mean Public (+0.00000); non-positive mean Private (+0.00000))
+ORD: NOT-CLEAN (non-positive mean Public (-0.00070); non-positive mean Private (-0.00199); Public regs (5) [train_03(-0.00716), train_05(-0.00688), train_08(-0.00003), train_14(-0.00138), train_15(-0.00622)]; Private regs (8) [train_01(-0.00149), train_02(-0.00008), train_03(-0.01265), train_05(-0.01070), train_07(-0.00018), train_09(-0.00216), train_13(-0.00108), train_15(-0.00964)])
+
+OVERALL: NO clean improvement over 08; base (shipped 08, native categorical splits via cat_mask) remains best. Ordinal-encoding the object columns and marking NOTHING categorical did not cleanly help.
+
+=== ANSWER TO THE QUESTION (are HGB's native categorical splits earning their keep?) ===
+YES — removing the categorical mask costs AUC on BOTH splits (mean pub=-0.00070, prv=-0.00199). The native categorical splits are earning their keep; a plain ordinal encoding is WORSE. Keep cat_mask in the shipped recipe.
+
+CLEAN RUN=YES (fits ok=48/48 [16 datasets x 3 arms], exceptions=0, skipped=0)
+
+[WROTE] /Users/kumacmini/kaggle-autonomous-agent-baseline-auto/experiments/bench_03/round82_no_cat_mask/results.csv
+[WROTE] /Users/kumacmini/kaggle-autonomous-agent-baseline-auto/experiments/bench_03/round82_no_cat_mask/results.json
+[WROTE] /Users/kumacmini/kaggle-autonomous-agent-baseline-auto/experiments/bench_03/round82_no_cat_mask/summary.txt
+HARNESS_DONE
